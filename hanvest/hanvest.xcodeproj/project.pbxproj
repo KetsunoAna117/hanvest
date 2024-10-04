@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		A7BB25F22CAA4E13001124B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7BB25D92CAA4E11001124B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7BB25E02CAA4E11001124B7;
+			remoteInfo = hanvest;
+		};
+		A7BB25FC2CAA4E13001124B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7BB25D92CAA4E11001124B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7BB25E02CAA4E11001124B7;
+			remoteInfo = hanvest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A7BB25E12CAA4E11001124B7 /* hanvest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hanvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7BB25F12CAA4E13001124B7 /* hanvestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hanvestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7BB25FB2CAA4E13001124B7 /* hanvestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hanvestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		A7BB25E32CAA4E11001124B7 /* hanvest */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = hanvest;
+			sourceTree = "<group>";
+		};
+		A7BB25F42CAA4E13001124B7 /* hanvestTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = hanvestTests;
+			sourceTree = "<group>";
+		};
+		A7BB25FE2CAA4E13001124B7 /* hanvestUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = hanvestUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A7BB25DE2CAA4E11001124B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7BB25EE2CAA4E13001124B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7BB25F82CAA4E13001124B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A7BB25D82CAA4E11001124B7 = {
+			isa = PBXGroup;
+			children = (
+				A7BB25E32CAA4E11001124B7 /* hanvest */,
+				A7BB25F42CAA4E13001124B7 /* hanvestTests */,
+				A7BB25FE2CAA4E13001124B7 /* hanvestUITests */,
+				A7BB25E22CAA4E11001124B7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A7BB25E22CAA4E11001124B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A7BB25E12CAA4E11001124B7 /* hanvest.app */,
+				A7BB25F12CAA4E13001124B7 /* hanvestTests.xctest */,
+				A7BB25FB2CAA4E13001124B7 /* hanvestUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A7BB25E02CAA4E11001124B7 /* hanvest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7BB26052CAA4E13001124B7 /* Build configuration list for PBXNativeTarget "hanvest" */;
+			buildPhases = (
+				A7BB25DD2CAA4E11001124B7 /* Sources */,
+				A7BB25DE2CAA4E11001124B7 /* Frameworks */,
+				A7BB25DF2CAA4E11001124B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A7BB25E32CAA4E11001124B7 /* hanvest */,
+			);
+			name = hanvest;
+			packageProductDependencies = (
+			);
+			productName = hanvest;
+			productReference = A7BB25E12CAA4E11001124B7 /* hanvest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A7BB25F02CAA4E13001124B7 /* hanvestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7BB26082CAA4E13001124B7 /* Build configuration list for PBXNativeTarget "hanvestTests" */;
+			buildPhases = (
+				A7BB25ED2CAA4E13001124B7 /* Sources */,
+				A7BB25EE2CAA4E13001124B7 /* Frameworks */,
+				A7BB25EF2CAA4E13001124B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A7BB25F32CAA4E13001124B7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A7BB25F42CAA4E13001124B7 /* hanvestTests */,
+			);
+			name = hanvestTests;
+			packageProductDependencies = (
+			);
+			productName = hanvestTests;
+			productReference = A7BB25F12CAA4E13001124B7 /* hanvestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A7BB25FA2CAA4E13001124B7 /* hanvestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7BB260B2CAA4E13001124B7 /* Build configuration list for PBXNativeTarget "hanvestUITests" */;
+			buildPhases = (
+				A7BB25F72CAA4E13001124B7 /* Sources */,
+				A7BB25F82CAA4E13001124B7 /* Frameworks */,
+				A7BB25F92CAA4E13001124B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A7BB25FD2CAA4E13001124B7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A7BB25FE2CAA4E13001124B7 /* hanvestUITests */,
+			);
+			name = hanvestUITests;
+			packageProductDependencies = (
+			);
+			productName = hanvestUITests;
+			productReference = A7BB25FB2CAA4E13001124B7 /* hanvestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A7BB25D92CAA4E11001124B7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A7BB25E02CAA4E11001124B7 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					A7BB25F02CAA4E13001124B7 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = A7BB25E02CAA4E11001124B7;
+					};
+					A7BB25FA2CAA4E13001124B7 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = A7BB25E02CAA4E11001124B7;
+					};
+				};
+			};
+			buildConfigurationList = A7BB25DC2CAA4E11001124B7 /* Build configuration list for PBXProject "hanvest" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A7BB25D82CAA4E11001124B7;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A7BB25E22CAA4E11001124B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A7BB25E02CAA4E11001124B7 /* hanvest */,
+				A7BB25F02CAA4E13001124B7 /* hanvestTests */,
+				A7BB25FA2CAA4E13001124B7 /* hanvestUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A7BB25DF2CAA4E11001124B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7BB25EF2CAA4E13001124B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7BB25F92CAA4E13001124B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A7BB25DD2CAA4E11001124B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7BB25ED2CAA4E13001124B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7BB25F72CAA4E13001124B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A7BB25F32CAA4E13001124B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7BB25E02CAA4E11001124B7 /* hanvest */;
+			targetProxy = A7BB25F22CAA4E13001124B7 /* PBXContainerItemProxy */;
+		};
+		A7BB25FD2CAA4E13001124B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7BB25E02CAA4E11001124B7 /* hanvest */;
+			targetProxy = A7BB25FC2CAA4E13001124B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A7BB26032CAA4E13001124B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A7BB26042CAA4E13001124B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A7BB26062CAA4E13001124B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"hanvest/Preview Content\"";
+				DEVELOPMENT_TEAM = 927LH8SZ68;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = appledev.timtegak.hanvest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A7BB26072CAA4E13001124B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"hanvest/Preview Content\"";
+				DEVELOPMENT_TEAM = 927LH8SZ68;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = appledev.timtegak.hanvest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A7BB26092CAA4E13001124B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 927LH8SZ68;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = appledev.timtegak.hanvestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hanvest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/hanvest";
+			};
+			name = Debug;
+		};
+		A7BB260A2CAA4E13001124B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 927LH8SZ68;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = appledev.timtegak.hanvestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hanvest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/hanvest";
+			};
+			name = Release;
+		};
+		A7BB260C2CAA4E13001124B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 927LH8SZ68;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = appledev.timtegak.hanvestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = hanvest;
+			};
+			name = Debug;
+		};
+		A7BB260D2CAA4E13001124B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 927LH8SZ68;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = appledev.timtegak.hanvestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = hanvest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A7BB25DC2CAA4E11001124B7 /* Build configuration list for PBXProject "hanvest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7BB26032CAA4E13001124B7 /* Debug */,
+				A7BB26042CAA4E13001124B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7BB26052CAA4E13001124B7 /* Build configuration list for PBXNativeTarget "hanvest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7BB26062CAA4E13001124B7 /* Debug */,
+				A7BB26072CAA4E13001124B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7BB26082CAA4E13001124B7 /* Build configuration list for PBXNativeTarget "hanvestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7BB26092CAA4E13001124B7 /* Debug */,
+				A7BB260A2CAA4E13001124B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7BB260B2CAA4E13001124B7 /* Build configuration list for PBXNativeTarget "hanvestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7BB260C2CAA4E13001124B7 /* Debug */,
+				A7BB260D2CAA4E13001124B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A7BB25D92CAA4E11001124B7 /* Project object */;
+}
