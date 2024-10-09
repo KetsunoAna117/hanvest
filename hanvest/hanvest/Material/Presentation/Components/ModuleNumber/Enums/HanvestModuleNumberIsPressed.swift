@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HanvestModuleNumberIsPressed {
-    case yes
-    case no
+enum HanvestModuleNumberDefaultState {
+    case pressed
+    case unpressed
 }

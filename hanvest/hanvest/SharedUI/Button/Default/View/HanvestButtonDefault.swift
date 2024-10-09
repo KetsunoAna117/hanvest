@@ -67,7 +67,7 @@ struct HanvestButtonDefault: View {
 #Preview {
     VStack {
         HanvestButtonDefault(
-            style: .bordered,
+            style: .filled,
             title: "Button", action: {
                 print("Hello World!")
             })
