@@ -18,7 +18,7 @@ struct HanvestNumberStepper: View {
             }label: {
                 Circle()
                     .frame(width: 28, height: 28)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.seagull100)
                     .overlay{
                         Image(systemName: "plus")
                             .frame(width: 17, height: 17)
@@ -37,7 +37,7 @@ struct HanvestNumberStepper: View {
             }label: {
                 Circle()
                     .frame(width: 28, height: 28)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.seagull100)
                     .overlay{
                         Image(systemName: "minus")
                             .frame(width: 17, height: 17)
