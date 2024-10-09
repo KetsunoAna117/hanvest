@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HanvestNumberStepper: View {
     @Binding var value: Int
-    @ObservedObject var viewModel = HanvestNumberStepperViewModel()
+    @StateObject var viewModel = HanvestNumberStepperViewModel()
     
     var body: some View {
         HStack(spacing: 56) {
@@ -48,5 +48,15 @@ struct HanvestNumberStepper: View {
         }
         .padding()
     }
+}
+
+#Preview {
+    @Previewable @State var value: Int = 0
+    
+    VStack {
+        HanvestNumberStepper(value: $value)
+    }
+    .background(.mineShaft50)
+    .frame(maxWidth: .infinity)
 }
 
