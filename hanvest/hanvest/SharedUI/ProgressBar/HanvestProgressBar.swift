@@ -9,14 +9,15 @@ import SwiftUI
 
 struct HanvestProgressBar: View {
     @Binding var value: Int
-    var maximum: Int
     var minimum: Int
+    var maximum: Int
     
     func calculateProgressPercentage() -> CGFloat {
-            guard maximum > minimum else { return 0 }  
+        guard maximum > minimum else { return 0 }
+        
         let percentage = CGFloat(value - minimum) / CGFloat(maximum - minimum)
-            return min(max(percentage, 0), 1)
-        }
+        return min(max(percentage, 0), 1)
+    }
     
     var body: some View {
         ZStack(alignment: .leading){
@@ -29,6 +30,18 @@ struct HanvestProgressBar: View {
                 .foregroundStyle(.seagull400)
                 .animation(.easeInOut, value: value)
         }
+        .onAppear(){
+            print("Process Percentage: \(calculateProgressPercentage())")
+        }
     }
+}
+
+#Preview {
+    @Previewable @State var value = 90
+    
+    VStack {
+        HanvestProgressBar(value: $value, minimum: 0, maximum: 100)
+    }
+    .padding(.horizontal, 16)
 }
 
