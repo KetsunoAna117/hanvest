@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HanvestButtonDefault: View {
+    // Constants
+    let SHADOW_OFFSET: CGFloat = 5
+    
     var size: HanvestButtonDefaultSize = .large
     var style: HanvestButtonDefaultStyle = .filled(isDisabled: false)
     var iconPosition: HanvestButtonDefaultIconPosition = .leading
@@ -24,7 +27,6 @@ struct HanvestButtonDefault: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 14)
                 .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
-                .scaleEffect(getPressedStatus() ? 0.98 : 1.0)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         }
         .frame(minWidth: size.rawValue)
@@ -33,7 +35,7 @@ struct HanvestButtonDefault: View {
                 .fill(style.backgroundColor)
                 .shadow(
                     color: getPressedStatus() ? .clear : style.shadowColor,
-                    radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : 4 // Shadow changes when pressed
+                    radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET // Shadow changes when pressed
                 )
             
         )
@@ -41,7 +43,7 @@ struct HanvestButtonDefault: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(style.borderColor, lineWidth: 0.5) // Default stroke
         )
-        .scaleEffect(getPressedStatus() ? 0.98 : 1.0) // Button scales down slightly when pressed
+        .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0) // Button moves down by 4 points when pressed
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
             if self.state != .disabled {
@@ -66,6 +68,9 @@ struct HanvestButtonDefault: View {
             if style.isDisabled {
                 self.state = .disabled
             }
+            else {
+                self.state = .unpressed
+            }
         }
         .disabled(getDisabledStatus())
     }
@@ -75,10 +80,6 @@ struct HanvestButtonDefault: View {
     }
     
     func getDisabledStatus() -> Bool {
-        // If the style is marked as disabled, return true
-        if case .filled(let isDisabled) = style, isDisabled {
-            state = .disabled
-        }
         return state == .disabled
     }
 
@@ -87,7 +88,7 @@ struct HanvestButtonDefault: View {
 #Preview {
     VStack {
         HanvestButtonDefault(
-            style: .filled(isDisabled: true),
+            style: .borderless(isDisabled: false),
             title: "Button", action: {
                 print("Hello World!")
             })

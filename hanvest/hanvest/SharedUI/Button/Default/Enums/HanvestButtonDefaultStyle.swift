@@ -39,19 +39,19 @@ enum HanvestButtonDefaultStyle {
             return isDisabled ? .labelTertiary : .mineShaft50
             
         case .bordered(let isDisabled):
-            return isDisabled ? .labelTertiary : .seagull400
+            return isDisabled ? .labelTertiary : .seagull500
             
         case .borderless(let isDisabled):
-            return isDisabled ? .labelTertiary : .seagull400
+            return isDisabled ? .labelTertiary : .seagull500
         }
     }
     
     var borderColor: Color {
         switch self {
-        case .filled(let isDisabled):
-            return isDisabled ? .clear : .seagull400
+        case .filled(_):
+            return .clear
         case .bordered(let isDisabled):
-            return isDisabled ? .labelTertiary : .seagull400
+            return isDisabled ? .labelTertiary : .seagull300
         case .borderless:
             return .clear
         }
@@ -59,9 +59,10 @@ enum HanvestButtonDefaultStyle {
     
     var shadowColor: Color {
         switch self {
-        case .filled(let isDisabled),
-                .bordered(let isDisabled):
+        case .filled(let isDisabled):
             return isDisabled ? .clear : .seagull500
+        case .bordered(let isDisabled):
+            return isDisabled ? .clear : .seagull300
         case .borderless:
             return .clear
         }
