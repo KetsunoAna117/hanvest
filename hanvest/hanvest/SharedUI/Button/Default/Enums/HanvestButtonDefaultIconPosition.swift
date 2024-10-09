@@ -8,4 +8,5 @@
 enum HanvestButtonDefaultIconPosition {
     case leading
     case trailing
+    case hidden
 }
