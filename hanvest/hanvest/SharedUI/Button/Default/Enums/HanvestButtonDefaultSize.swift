@@ -5,7 +5,9 @@
 //  Created by Hans Arthur Cupiterson on 09/10/24.
 //
 
-enum HanvestButtonDefaultSize {
-    case large
-    case medium
+import SwiftUI
+
+enum HanvestButtonDefaultSize: CGFloat {
+    case large = 353
+    case medium = 171
 }
