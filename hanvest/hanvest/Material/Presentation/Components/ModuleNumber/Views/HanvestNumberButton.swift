@@ -7,25 +7,9 @@
 
 import SwiftUI
 
-enum ButtonState {
-    case current
-    case done
-    case next
-}
-
-enum IsPressed {
-    case yes
-    case no
-}
-
 struct HanvestNumberButton: View {
     var body: some View {
-        Button {
-            
-        } label: {
-            <#code#>
-        }
-
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
