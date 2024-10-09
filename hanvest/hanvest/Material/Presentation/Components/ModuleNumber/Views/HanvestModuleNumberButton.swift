@@ -8,50 +8,36 @@
 import SwiftUI
 
 struct HanvestModuleNumberButton: View {
-    @State var state: HanvestModuleNumberDefaultState = .unpressed
+    // Constants
+    let SHADOW_OFFSET: CGFloat = 5
+    
+    @State var state: HanvestModuleNumberDefaultState = .pressed
+    
+    // Styling variable
     var style: HanvestModuleNumberDefaultStyle = .current
     
-    var number: Int
+    // Button content
+    var number: Int?
     var image: Image?
     var action: () -> Void
     
     var body: some View {
-//        GeometryReader { geometry in
-//            ZStack {
-//                Circle()
-//                    .foregroundStyle(.seagull400)
-//                    .frame(
-//                        width: min(geometry.size.width, geometry.size.height) * 0.8,
-//                        height: min(geometry.size.width, geometry.size.height) * 0.8
-//                    )
-//                Text("1")
-//                    .foregroundStyle(.mineShaft50)
-//                    .fontWeight(.bold)
-//                    .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.4))
-//            }
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
-//        }
-//        .aspectRatio(1, contentMode: .fit)
-        
-        
-        HStack {
-            Text("\(number)")
-                .padding(.horizontal, 20)
-                .padding(.vertical, 14)
-                .foregroundStyle(.mineShaft50)
-                .scaleEffect(getPressedStatus() ? 0.98 : 1.0)
-                .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
-        }
-        .frame(minWidth: 80)
-        .background(
+        ZStack {
             Circle()
                 .fill(style.backgroundColor)
                 .shadow(
                     color: getPressedStatus() ? .clear : style.shadowColor,
-                    radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : 4
+                    radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET
                 )
-        )
-        .scaleEffect(getPressedStatus() ? 0.98 : 1.0)
+                
+            moduleNumberButtonViewBuilder(number: number, image: image)
+                .fontWeight(.bold) // will need to be adjusted to new fonts
+                .font(.system(size: 34)) // will need to be adjusted to new fonts
+                .foregroundStyle(.mineShaft50)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
+        }
+        .frame(maxWidth: 80, maxHeight: 80)
+        .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
              action()
@@ -61,13 +47,20 @@ struct HanvestModuleNumberButton: View {
                  if isPressing {
                      self.state = .pressed
                  }
-                 else {
+                 else if self.style != .done {
                      self.state = .unpressed
                  }
              }
          }, perform: {
-             action()
+             if self.style != .done {
+                 action()
+             }
          })
+        .onAppear {
+            if self.style != .done {
+                self.state = .unpressed
+            }
+        }
     }
     
     func getPressedStatus() -> Bool {
@@ -77,9 +70,14 @@ struct HanvestModuleNumberButton: View {
 
 
 #Preview {
+    // To test for checkmark:
+    // change "number" param to "image" with the content is
+    // Image(systemName: "checkmark")
+    // and change style to .done
+    
     VStack {
         HanvestModuleNumberButton(
-            style: .current,
+            style: .next,
             number: 1, action: {
                 print("Hello World!")
             })
