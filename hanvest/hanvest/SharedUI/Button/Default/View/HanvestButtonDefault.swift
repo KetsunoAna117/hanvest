@@ -109,7 +109,8 @@ struct HanvestButtonDefault: View {
             image: Image(systemName: "person.fill"),
             action: {
                 print("Hello World!")
-            })
+            }
+        )
     }
     .padding(.horizontal, 16)
 }
