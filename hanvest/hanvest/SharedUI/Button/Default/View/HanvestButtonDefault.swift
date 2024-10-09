@@ -11,23 +11,37 @@ struct HanvestButtonDefault: View {
     // Constants
     let SHADOW_OFFSET: CGFloat = 5
     
+    // Styling Variable (Initialized Before)
     var size: HanvestButtonDefaultSize = .large
     var style: HanvestButtonDefaultStyle = .filled(isDisabled: false)
     var iconPosition: HanvestButtonDefaultIconPosition = .leading
     
     @State private var state: HanvestButtonDefaultState = .unpressed
     
+    // Button content
     var title: String
     var image: Image?
     var action: () -> Void
     
     var body: some View {
         HStack {
+            // If the icon position is leading, place the image first
+            if iconPosition == .leading, let image = image {
+                image
+                    .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
+            }
+            
             Text(title)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 14)
                 .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
+            
+            // If the icon position is trailing, place the image first
+            if iconPosition == .trailing, let image = image {
+                image
+                    .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
+            }
         }
         .frame(minWidth: size.rawValue)
         .background(
@@ -82,14 +96,18 @@ struct HanvestButtonDefault: View {
     func getDisabledStatus() -> Bool {
         return state == .disabled
     }
-
+    
 }
 
 #Preview {
     VStack {
         HanvestButtonDefault(
-            style: .borderless(isDisabled: false),
-            title: "Button", action: {
+            size: .large,
+            style: .filled(isDisabled: false),
+            iconPosition: .hidden,
+            title: "Button",
+            image: Image(systemName: "person.fill"),
+            action: {
                 print("Hello World!")
             })
     }
