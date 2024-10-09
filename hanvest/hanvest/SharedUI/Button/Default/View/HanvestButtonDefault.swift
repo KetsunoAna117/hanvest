@@ -24,6 +24,8 @@ struct HanvestButtonDefault: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 14)
                 .foregroundStyle(style.fontColor)
+                .scaleEffect(getPressedStatus() ? 0.98 : 1.0)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         }
         .frame(minWidth: size.rawValue)
         .background(
