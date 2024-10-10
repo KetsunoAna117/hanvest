@@ -8,6 +8,6 @@
 import SwiftUI
 
 enum HanvestButtonDefaultSize: CGFloat {
-    case large = 353
-    case medium = 171
+    case large = 351
+    case medium = 170
 }
