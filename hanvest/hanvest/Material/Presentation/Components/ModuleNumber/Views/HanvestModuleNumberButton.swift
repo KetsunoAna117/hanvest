@@ -21,6 +21,15 @@ struct HanvestModuleNumberButton: View {
     var image: Image?
     var action: () -> Void
     
+    @ViewBuilder
+    var imageOrNumberViewBuilder: some View {
+        if let image = image {
+            image
+        } else {
+            Text("\(number ?? 0)")
+        }
+    }
+    
     var body: some View {
         ZStack {
             Circle()
@@ -30,7 +39,7 @@ struct HanvestModuleNumberButton: View {
                     radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET
                 )
                 
-            moduleNumberButtonViewBuilder(number: number, image: image)
+            imageOrNumberViewBuilder
                 .fontWeight(.bold) // will need to be adjusted to new fonts
                 .font(.system(size: 34)) // will need to be adjusted to new fonts
                 .foregroundStyle(.mineShaft50)
@@ -77,7 +86,7 @@ struct HanvestModuleNumberButton: View {
     
     VStack {
         HanvestModuleNumberButton(
-            style: .next,
+            style: .current,
             number: 1, action: {
                 print("Hello World!")
             })
