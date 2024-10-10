@@ -25,8 +25,8 @@ struct HanvestModuleNumberButton: View {
     var imageOrNumberViewBuilder: some View {
         if let image = image {
             image
-        } else {
-            Text("\(number ?? 0)")
+        } else if let number = number {
+            Text("\(number)")
         }
     }
     
