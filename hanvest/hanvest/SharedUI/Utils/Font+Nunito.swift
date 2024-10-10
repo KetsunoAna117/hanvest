@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum NunitoFontWeight: String {
+enum NunitoFontWeight {
 //    case black
     case bold
 //    case heavy
@@ -20,15 +20,15 @@ enum NunitoFontWeight: String {
     
     var value: String {
         switch self {
-            case .regular:
-                "Nunito-Medium"
             case .bold:
                 "Nunito-Bold"
+            case .regular:
+                "Nunito-Medium"
         }
     }
 }
 
-enum NunitoFontSize: String {
+enum NunitoFontSize {
     case XLTitle
     case largeTitle
     case title1
