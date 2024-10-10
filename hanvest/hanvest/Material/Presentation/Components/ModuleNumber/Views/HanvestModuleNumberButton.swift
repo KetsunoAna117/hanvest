@@ -56,17 +56,17 @@ struct HanvestModuleNumberButton: View {
                  if isPressing {
                      self.state = .pressed
                  }
-                 else if self.style != .done {
+                 else if self.style == .current {
                      self.state = .unpressed
                  }
              }
          }, perform: {
-             if self.style != .done {
+             if self.style == .current {
                  action()
              }
          })
         .onAppear {
-            if self.style != .done {
+            if self.style == .current {
                 self.state = .unpressed
             }
         }
