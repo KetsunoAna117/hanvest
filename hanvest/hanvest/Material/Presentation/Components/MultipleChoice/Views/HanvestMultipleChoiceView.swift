@@ -16,6 +16,7 @@ struct HanvestMultipleChoiceView: View {
         VStack(spacing: 24) {
             Text("\(question)")
                 .font(.nunito(.title2))
+                .frame(maxWidth: .infinity)
             
             ForEach(answers, id: \.self) { answer in
                 HanvestButtonDefault(
@@ -26,6 +27,7 @@ struct HanvestMultipleChoiceView: View {
                     action: {}
                 )
                 .font(.nunito(.body))
+                .frame(maxWidth: .infinity)
             }
         }
         .padding(.horizontal, 20)

@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct RiskProfileQuestionView: View {
+struct HanvestRiskProfileQuestionView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
     }
 }
 
