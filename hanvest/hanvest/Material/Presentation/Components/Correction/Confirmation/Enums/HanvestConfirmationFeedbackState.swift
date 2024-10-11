@@ -38,7 +38,7 @@ enum HanvestConfirmationFeedbackState {
         }
     }
     
-    var buttonStyle: HanvestButtonDefaultStyle {
+    var buttonStyle: HanvestButtonStyle {
         switch self {
             case .correct:
                 return .filledCorrect(isDisabled: false)
