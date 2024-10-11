@@ -29,3 +29,4 @@ struct HanvestCardBackground<Content: View>: View {
             )
     }
 }
+
