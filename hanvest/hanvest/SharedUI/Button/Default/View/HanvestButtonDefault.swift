@@ -38,7 +38,8 @@ struct HanvestButtonDefault: View {
             Text(title)
                 .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
-                .frame(maxWidth: .infinity, alignment: .center) // Ensure the text is centered
+                .frame(maxWidth: .infinity, alignment: .center)
+                .font(.nunito(.body))
             
             // If the icon position is trailing, place the image first
             if iconPosition == .trailing, let image = image {
@@ -119,8 +120,9 @@ struct HanvestButtonDefault: View {
         HStack {
             VStack(alignment: .leading) {
                 Text("This is a button example!")
-                    .fontWeight(.bold)
+                    .font(.nunito(.title3, .bold))
                 Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget libero a urna porttitor rutrum.")
+                    .font(.nunito(.body))
             }
             Spacer()
         }
