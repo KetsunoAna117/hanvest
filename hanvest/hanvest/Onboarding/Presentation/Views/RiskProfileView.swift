@@ -21,23 +21,56 @@ struct RiskProfileView: View {
     
     var body: some View {
         ZStack {
-            Color
-                .background
+            Color.background
             
-            VStack(spacing: 0) {
-                TabView(selection: $currentTab){
-                    LandingPageView()
+            if pageState == .questionPage {
+                ZStack {
+                    HanvestProgressBar(
+                        value:
+                            $viewModel.progressBarValue,
+                        minimum:
+                            progressBarMinValue,
+                        maximum:
+                            progressBarMaxValue
+                    )
                 }
-                .tag(1)
-                .transition(.slide)
-                
-                HanvestButtonDefault(title: pageState.buttonStringValue) {
-                    goToNextPage()
+                .padding(.horizontal, 36)
+                .padding(.top, 74)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            }
+            
+            ZStack {
+                VStack(spacing: 230) {
+                    TabView(selection: $currentTab) {
+                        HanvestRiskProfileOpeningView()
+                            .tag(0)
+                            .transition(.slide)
+                        
+                        HanvestMultipleChoiceView(        question:
+                                "Are you new to stock market?",
+                            answers:
+                                [
+                                    "Yes, I'm completely new.",
+                                    "I've done some research.",
+                                    "I’ve invested a little, but I’m still learning.",
+                                    "I’ve Invested and understand how it work."
+                                ])
+                        .tag(1)
+                        .transition(.slide)
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    
+                    HanvestButtonDefault(title: pageState.buttonStringValue) {
+                        goToNextPage()
+                        changePageState()
+                    }
+                    .padding(.horizontal, 20)
                 }
             }
-
+            .padding(.top, 140)
+            .padding(.bottom, 54)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
     }
     
@@ -47,6 +80,14 @@ struct RiskProfileView: View {
         }
         if currentTab == totalPage + 1 {
 
+        }
+    }
+    
+    func changePageState() {
+        if currentTab < totalPage {
+            pageState = .questionPage
+        } else {
+            pageState = .resultPage
         }
     }
 }

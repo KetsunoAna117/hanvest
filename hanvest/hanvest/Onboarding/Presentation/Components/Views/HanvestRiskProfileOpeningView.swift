@@ -8,20 +8,15 @@
 import SwiftUI
 
 struct HanvestRiskProfileOpeningView: View {
-    // Constants
-    let image: Image
-    let headerText: String
-    let detailText: String
-    
     var body: some View {
         ZStack {
             VStack(spacing: 104) {
                 VStack(spacing: 8) {
-                    Text("\(headerText)")
+                    Text("Welcome to Hanvesting")
                         .font(.nunito(.title1, .bold))
                         .frame(maxWidth: .infinity)
                     
-                    Text("\(detailText)")
+                    Text("Ready to level up?\nFill in your risk profile\nto personalize your learning path")
                         .font(.subheadline)
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
@@ -40,12 +35,5 @@ struct HanvestRiskProfileOpeningView: View {
 }
 
 #Preview {
-    HanvestRiskProfileOpeningView(
-        image:
-            Image(systemName: "checkmark"),
-        headerText:
-            "Welcome to Hanvesting",
-        detailText:
-            "Ready to level up?\nFill in your risk profile\nto personalize your learning path"
-    )
+    HanvestRiskProfileOpeningView()
 }
