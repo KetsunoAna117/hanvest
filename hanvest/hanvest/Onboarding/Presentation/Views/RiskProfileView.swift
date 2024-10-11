@@ -14,9 +14,11 @@ struct RiskProfileView: View {
     let progressBarMaxValue: Int = 100
     
     @State private var pageState: RiskProfilePageState = .openingPage
-    @State private var resultState: RiskProfileResultState = .conservative
     @State private var currentTab: Int = 0
-    @State private var progressBarValue: Int = 10
+    @State private var progressBarCurrValue: Int = 10
+    
+    // View Model
+    @State private var viewModel = RiskProfileViewModel()
     
     var body: some View {
         ZStack {
@@ -27,7 +29,7 @@ struct RiskProfileView: View {
                     if pageState == .questionPage {
                         HanvestProgressBar(
                             value:
-                                $progressBarValue,
+                                $progressBarCurrValue,
                             minimum:
                                 progressBarMinValue,
                             maximum:
@@ -45,22 +47,21 @@ struct RiskProfileView: View {
                             
                             ForEach(Array(RiskProfileQuestionsAndOptions.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestMultipleChoiceView(        question:
+                                HanvestMultipleChoiceView(
+                                    question:
                                         page.questions,
                                     answers:
-                                        page.options
+                                        page.options,
+                                    onSelectAnswer: { answer in
+                                        viewModel.userSelectedAnswers[index] = answer
+                                    }
                                 )
                                 .tag(index+1)
                                 .transition(.slide)
                             }
                             
                             HanvestRiskProfileResultView(
-                                image:
-                                    resultState.riskImage,
-                                riskHeaderText:
-                                    resultState.riskHeaderText,
-                                riskDetailText:
-                                    resultState.riskDetailText
+                                resultState: viewModel.resultState
                             )
                             .tag(7)
                             .transition(.slide)
@@ -69,7 +70,10 @@ struct RiskProfileView: View {
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         
                         HanvestButtonDefault(
-                            title: pageState.buttonStringValue
+                            style:
+                                .filled(isDisabled: checkIsDisabled()),
+                            title:
+                                pageState.buttonStringValue
                         ) {
                             goToNextPage()
                             updateProgressBarValue()
@@ -80,7 +84,7 @@ struct RiskProfileView: View {
                     }
                 }
             }
-            .padding(.top, pageState == .questionPage ? 74 : 140)
+            .padding(.top, (pageState == .questionPage) ? 74 : 140)
             .padding(.bottom, 54)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -88,10 +92,9 @@ struct RiskProfileView: View {
     }
     
     func goToNextPage() {
-        if currentTab <= totalPage {
+        if currentTab < totalPage {
             currentTab += 1
-        }
-        if currentTab == totalPage + 1 {
+        } else {
             // TODO: direct to the corresponding page
         }
     }
@@ -106,8 +109,12 @@ struct RiskProfileView: View {
     
     func updateProgressBarValue() {
         if pageState == .questionPage {
-            progressBarValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
+            progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
         }
+    }
+    
+    func checkIsDisabled() -> Bool {
+        return pageState == .questionPage && viewModel.userSelectedAnswers[currentTab - 1].isEmpty
     }
 }
 

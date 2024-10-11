@@ -11,6 +11,7 @@ struct HanvestMultipleChoiceView: View {
     // Constants
     let question: String
     let answers: [String]
+    var onSelectAnswer: (String) -> Void
     
     @State private var selectedButtonID = ""
     
@@ -29,14 +30,14 @@ struct HanvestMultipleChoiceView: View {
                         selectedButtonID: $selectedButtonID,
                         title: answer,
                         action: {
-                            // TODO: Change this into doing something
-                            print("\(selectedButtonID)")
+                            onSelectAnswer(answer)
                         }
                     )
                     .font(.nunito(.body))
                     .frame(maxWidth: .infinity)
                 }
             }
+            .multilineTextAlignment(.center)
         }
         .padding(.horizontal, 20)
     }
@@ -52,6 +53,9 @@ struct HanvestMultipleChoiceView: View {
                 "I've done some research.",
                 "I’ve invested a little, but I’m still learning.",
                 "I’ve Invested and understand how it work."
-            ]
+            ],
+        onSelectAnswer: { answer in
+            print("Selected answer in preview: \(answer)")
+        }
     )
 }

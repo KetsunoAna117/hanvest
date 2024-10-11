@@ -19,7 +19,6 @@ struct HanvestRiskProfileOpeningView: View {
                     Text("Ready to level up?\nFill in your risk profile\nto personalize your learning path")
                         .font(.subheadline)
                         .frame(maxWidth: .infinity)
-                        .multilineTextAlignment(.center)
                 }
                 .frame(maxWidth: .infinity)
                 
@@ -29,6 +28,7 @@ struct HanvestRiskProfileOpeningView: View {
                     .cornerRadius(12)
             }
             .frame(maxWidth: .infinity)
+            .multilineTextAlignment(.center)
         }
         .padding(.horizontal, 37)
     }
