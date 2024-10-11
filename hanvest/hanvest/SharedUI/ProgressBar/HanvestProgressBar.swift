@@ -22,11 +22,11 @@ struct HanvestProgressBar: View {
     var body: some View {
         ZStack(alignment: .leading){
             RoundedRectangle(cornerRadius: 100)
-                .frame(width: 280, height: 4)
+                .frame(width: 321, height: 8)
                 .foregroundStyle(.fillSecondary)
             
             RoundedRectangle(cornerRadius: 100)
-                .frame(width: 280 * calculateProgressPercentage() , height: 4)
+                .frame(width: 321 * calculateProgressPercentage() , height: 8)
                 .foregroundStyle(.seagull400)
                 .animation(.easeInOut, value: value)
         }
