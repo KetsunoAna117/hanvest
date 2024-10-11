@@ -19,12 +19,13 @@ struct RiskProfileView: View {
         ZStack {
             Color
                 .background
-                .edgesIgnoringSafeArea(.all)
             
             VStack {
                 HanvestProgressBar(value: $viewModel.progressBarValue, minimum: progressBarMinValue, maximum: progressBarMaxValue)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .ignoresSafeArea()
     }
 }
 

@@ -9,6 +9,6 @@ import Foundation
 
 @Observable
 class RiskProfileViewModel {
-    var progressBarValue: Int = 0
+    var progressBarValue: Int = 2
     
 }

@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+@Observable
+class HanvestMultipleChoiceViewModel {
+    var selectedAnswer: String?
+    
+    func updateSelectedAnswer(_ answer: String) {
+        selectedAnswer = answer
+    }
+}

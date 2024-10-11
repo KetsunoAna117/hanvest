@@ -13,8 +13,6 @@ struct HanvestRiskProfileOpeningView: View {
     let headerText: String
     let detailText: String
     
-//    @State var state: RiskProfilePageState = .openingPage
-    
     var body: some View {
         ZStack {
             VStack(spacing: 104) {
@@ -30,14 +28,12 @@ struct HanvestRiskProfileOpeningView: View {
                 }
                 .frame(maxWidth: .infinity)
                 
-                VStack {
-                    // TODO: replace the rectangle with logo
-                    Rectangle()
-                        .frame(maxWidth: 180, maxHeight: 180)
-                        .cornerRadius(12)
-                }
-                .frame(maxWidth: .infinity)
+                // TODO: replace the rectangle with logo image
+                Rectangle()
+                    .frame(maxWidth: 180, maxHeight: 180)
+                    .cornerRadius(12)
             }
+            .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 37)
     }

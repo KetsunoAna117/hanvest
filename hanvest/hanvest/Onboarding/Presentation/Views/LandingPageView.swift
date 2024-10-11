@@ -13,19 +13,18 @@ struct LandingPageView: View {
             Color.background
             
             VStack(spacing: 24) {
-                VStack {
-                    // TODO: replace the rectangle with logo
-                    Rectangle()
-                        .frame(maxWidth: 180, maxHeight: 180)
-                        .cornerRadius(12)
-                }
-                .frame(maxWidth: .infinity)
+                // TODO: replace the rectangle with logo
+                Rectangle()
+                    .frame(maxWidth: 180, maxHeight: 180)
+                    .cornerRadius(12)
                 
                 VStack {
                     Text("Hanvesting")
+                        .font(.nunito(.title1))
                         .frame(maxWidth: .infinity)
                     
                     Text("\"Harvesting Knowledge, Growing Wealth: Invest in Your Future!\"")
+                        .font(.nunito(.caption1))
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
                 }

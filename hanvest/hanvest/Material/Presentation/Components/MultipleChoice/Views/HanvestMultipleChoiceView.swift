@@ -12,22 +12,29 @@ struct HanvestMultipleChoiceView: View {
     let question: String
     let answers: [String]
     
+    // View Model
+    @State private var viewModel = HanvestMultipleChoiceViewModel()
+    
     var body: some View {
-        VStack(spacing: 24) {
-            Text("\(question)")
-                .font(.nunito(.title2))
-                .frame(maxWidth: .infinity)
-            
-            ForEach(answers, id: \.self) { answer in
-                HanvestButtonDefault(
-                    style: .bordered(
-                        isDisabled: false
-                    ),
-                    title: answer,
-                    action: {}
-                )
-                .font(.nunito(.body))
-                .frame(maxWidth: .infinity)
+        ZStack {
+            VStack(spacing: 24) {
+                Text("\(question)")
+                    .font(.nunito(.title2))
+                    .frame(maxWidth: .infinity)
+                
+                ForEach(answers, id: \.self) { answer in
+                    HanvestButtonDefault(
+                        style: .bordered(
+                            isDisabled: false
+                        ),
+                        title: answer,
+                        action: {
+                            viewModel.updateSelectedAnswer(answer)
+                        }
+                    )
+                    .font(.nunito(.body))
+                    .frame(maxWidth: .infinity)
+                }
             }
         }
         .padding(.horizontal, 20)
