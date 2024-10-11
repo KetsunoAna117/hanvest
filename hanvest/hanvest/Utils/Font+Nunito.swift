@@ -73,21 +73,48 @@ enum NunitoFontSize {
 }
 
 extension Font {
-    // MARK: - Usage Example:
-    // .font(.nunito(.regular, .XLTitle))
-    static func nunito(
-        _ fontWeight: NunitoFontWeight,
-        _ fontSize: NunitoFontSize
-    ) -> Font {
-        return Font.custom(fontWeight.value, size: fontSize.size)
+    // Static nested struct to simulate a namespace
+    struct Nunito {
+        // Default is regular weight
+        static func largeTitle() -> Font {
+            return Font.custom(NunitoFontWeight.regular.value, size: NunitoFontSize.largeTitle.size)
+        }
+        
+        static func title1() -> Font {
+            return Font.custom(NunitoFontWeight.regular.value, size: NunitoFontSize.title1.size)
+        }
+        
+        static func title2() -> Font {
+            return Font.custom(NunitoFontWeight.regular.value, size: NunitoFontSize.title2.size)
+        }
+        
+        static func body() -> Font {
+            return Font.custom(NunitoFontWeight.regular.value, size: NunitoFontSize.body.size)
+        }
+        
+        static func regular(_ size: NunitoFontSize = .body) -> Font {
+            return Font.custom(NunitoFontWeight.regular.value, size: size.size)
+        }
+        
+        static func bold(_ size: NunitoFontSize = .body) -> Font {
+            return Font.custom(NunitoFontWeight.bold.value, size: size.size)
+        }
+        
+        // Convenience method for custom sizes
+        static func regular(size: CGFloat) -> Font {
+            return Font.custom(NunitoFontWeight.regular.value, size: size)
+        }
+
+        static func bold(size: CGFloat) -> Font {
+            return Font.custom(NunitoFontWeight.bold.value, size: size)
+        }
     }
-    
-    // MARK: - Usage Example:
-    // .font(.nunito(.regular, size: 46))
-    static func nunito(
-        _ fontWeight: NunitoFontWeight,
-        size: CGFloat
-    ) -> Font {
-        return Font.custom(fontWeight.value, size: size)
+}
+
+// Usage Examples:
+// .font(.nunito.largeTitle())
+extension Font {
+    static var nunito: Nunito.Type {
+        return Nunito.self
     }
 }
