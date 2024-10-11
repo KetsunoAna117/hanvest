@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum HanvestButtonDefaultIconPosition {
+enum HanvestButtonIconPosition {
     case leading
     case trailing
     case hidden

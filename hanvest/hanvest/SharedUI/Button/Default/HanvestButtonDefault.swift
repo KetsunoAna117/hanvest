@@ -7,25 +7,19 @@
 
 import SwiftUI
 
-/// A Hanvest Button that have multiple styles
-/// If you want to freeze a button to state, change the initialState
-
 struct HanvestButtonDefault: View {
     // Constants
     let SHADOW_OFFSET: CGFloat = 5
     
     // Styling Variable (Initialized Before)
-    var size: HanvestButtonDefaultSize = .large
-    var style: HanvestButtonDefaultStyle = .filled(isDisabled: false)
-    var iconPosition: HanvestButtonDefaultIconPosition = .leading
+    var size: HanvestButtonSize = .large
+    var style: HanvestButtonStyle = .filled(isDisabled: false)
+    var iconPosition: HanvestButtonIconPosition = .leading
+    var initialState: HanvestButtonState = .unpressed
     
-    @State private var state: HanvestButtonDefaultState = .unpressed
-    
-    // Bind to the parent selection
-    @Binding var selectedButtonID: String
+    @State private var state: HanvestButtonState = .unpressed
     
     // Button content
-    var id: String = UUID().uuidString
     var title: String
     var image: Image?
     var action: () -> Void
@@ -71,30 +65,29 @@ struct HanvestButtonDefault: View {
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
             if self.state != .disabled {
-                self.selectedButtonID = self.id
                 action()
             }
         }
-        .onLongPressGesture(minimumDuration: 0.1, perform: {
-            if self.state != .disabled {
-                self.selectedButtonID = self.id
-                action()
-            }
-        }, onPressingChanged: { isPressing in
+        .onLongPressGesture(minimumDuration: 0.1, pressing: { isPressing in
             withAnimation {
-                self.state = .pressed
+                if self.initialState == .unpressed {
+                    if isPressing {
+                        self.state = .pressed
+                    }
+                    else {
+                        self.state = .unpressed
+                    }
+                }
+
+            }
+        }, perform: {
+            if self.state != .disabled {
+                action()
             }
         })
         .onAppear {
             setupState()
         }
-        .onChange(of: selectedButtonID, { oldValue, newValue in
-            if newValue != self.id {
-                if self.state != .disabled {
-                    self.state = .unpressed
-                }
-            }
-        })
         .disabled(getDisabledStatus())
     }
     
@@ -107,7 +100,9 @@ struct HanvestButtonDefault: View {
     }
     
     func setupState() {
-        if style.isDisabled {
+        self.state = initialState
+        
+        if style.isDisabled || initialState == .disabled {
             self.state = .disabled
         }
         else {
@@ -118,8 +113,6 @@ struct HanvestButtonDefault: View {
 }
 
 #Preview {
-    @Previewable @State var selectedButtonID = ""
-    
     VStack() {
         HStack {
             VStack(alignment: .leading) {
@@ -130,45 +123,17 @@ struct HanvestButtonDefault: View {
             }
             Spacer()
         }
-        VStack(spacing: 16) {
-            HanvestButtonDefault(
-                size: .large,
-                style: .filled(isDisabled: false),
-                iconPosition: .leading,
-                selectedButtonID: $selectedButtonID,
-                id: "Third-Button",
-                title: "Button",
-                image: Image(systemName: "person.fill"),
-                action: {
-                    print("Selected Button: \(selectedButtonID)")
-                }
-            )
-            HanvestButtonDefault(
-                size: .large,
-                style: .filledCorrect(isDisabled: false),
-                iconPosition: .leading,
-                selectedButtonID: $selectedButtonID,
-                id: "First-Button",
-                title: "Button",
-                image: Image(systemName: "person.fill"),
-                action: {
-                    print("Selected Button: \(selectedButtonID)")
-                }
-            )
-            HanvestButtonDefault(
-                size: .large,
-                style: .filledIncorrect(isDisabled: false),
-                iconPosition: .leading,
-                selectedButtonID: $selectedButtonID,
-                id: "Second-Button",
-                title: "Button",
-                image: Image(systemName: "person.fill"),
-                action: {
-                    print("Selected Button: \(selectedButtonID)")
-                }
-            )
-        }
-        .padding(.top, 8)
+        HanvestButtonDefault(
+            size: .large,
+            style: .filledIncorrect(isDisabled: false),
+            iconPosition: .leading,
+            title: "Button",
+            image: Image(systemName: "person.fill"),
+            action: {
+                print("Button Pressed!")
+            }
+        )
+        .padding(.top, 16)
     }
     .padding(.horizontal, 16)
 }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HanvestConfirmationFeedbackView: View {
-    @State var buttonSelection: String = ""
     var state: HanvestConfirmationFeedbackState
     var action: () -> ()
     
@@ -26,7 +25,7 @@ struct HanvestConfirmationFeedbackView: View {
                 .padding(.bottom, 8)
                 
                 HanvestButtonDefault(
-                    style: state.buttonStyle, selectedButtonID: $buttonSelection, title: "Continue",
+                    style: state.buttonStyle, title: "Continue",
                     action: action
                 )
             }
