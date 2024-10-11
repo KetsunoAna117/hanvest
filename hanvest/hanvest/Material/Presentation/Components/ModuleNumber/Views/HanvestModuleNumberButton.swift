@@ -40,8 +40,7 @@ struct HanvestModuleNumberButton: View {
                 )
                 
             imageOrNumberViewBuilder
-                .fontWeight(.bold) // will need to be adjusted to new fonts
-                .font(.system(size: 34)) // will need to be adjusted to new fonts
+                .font(.nunito(.largeTitle, .bold))
                 .foregroundStyle(.mineShaft50)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         }
