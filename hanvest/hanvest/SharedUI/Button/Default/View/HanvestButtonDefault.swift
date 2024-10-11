@@ -18,11 +18,14 @@ struct HanvestButtonDefault: View {
     var size: HanvestButtonDefaultSize = .large
     var style: HanvestButtonDefaultStyle = .filled(isDisabled: false)
     var iconPosition: HanvestButtonDefaultIconPosition = .leading
-    var initialState: HanvestButtonDefaultState = .unpressed
     
     @State private var state: HanvestButtonDefaultState = .unpressed
     
+    // Bind to the parent selection
+    @Binding var selectedButtonID: String
+    
     // Button content
+    var id: String = UUID().uuidString
     var title: String
     var image: Image?
     var action: () -> Void
@@ -68,29 +71,30 @@ struct HanvestButtonDefault: View {
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
             if self.state != .disabled {
+                self.selectedButtonID = self.id
                 action()
             }
         }
-        .onLongPressGesture(minimumDuration: 0.1, pressing: { isPressing in
-            withAnimation {
-                if self.initialState == .unpressed {
-                    if isPressing {
-                        self.state = .pressed
-                    }
-                    else {
-                        self.state = .unpressed
-                    }
-                }
-
-            }
-        }, perform: {
+        .onLongPressGesture(minimumDuration: 0.1, perform: {
             if self.state != .disabled {
+                self.selectedButtonID = self.id
                 action()
+            }
+        }, onPressingChanged: { isPressing in
+            withAnimation {
+                self.state = .pressed
             }
         })
         .onAppear {
             setupState()
         }
+        .onChange(of: selectedButtonID, { oldValue, newValue in
+            if newValue != self.id {
+                if self.state != .disabled {
+                    self.state = .unpressed
+                }
+            }
+        })
         .disabled(getDisabledStatus())
     }
     
@@ -103,9 +107,7 @@ struct HanvestButtonDefault: View {
     }
     
     func setupState() {
-        self.state = initialState
-        
-        if style.isDisabled || initialState == .disabled {
+        if style.isDisabled {
             self.state = .disabled
         }
         else {
@@ -116,6 +118,8 @@ struct HanvestButtonDefault: View {
 }
 
 #Preview {
+    @Previewable @State var selectedButtonID = ""
+    
     VStack() {
         HStack {
             VStack(alignment: .leading) {
@@ -126,17 +130,45 @@ struct HanvestButtonDefault: View {
             }
             Spacer()
         }
-        HanvestButtonDefault(
-            size: .large,
-            style: .filledIncorrect(isDisabled: false),
-            iconPosition: .leading,
-            title: "Button",
-            image: Image(systemName: "person.fill"),
-            action: {
-                print("Button Pressed!")
-            }
-        )
-        .padding(.top, 16)
+        VStack(spacing: 16) {
+            HanvestButtonDefault(
+                size: .large,
+                style: .filled(isDisabled: false),
+                iconPosition: .leading,
+                selectedButtonID: $selectedButtonID,
+                id: "Third-Button",
+                title: "Button",
+                image: Image(systemName: "person.fill"),
+                action: {
+                    print("Selected Button: \(selectedButtonID)")
+                }
+            )
+            HanvestButtonDefault(
+                size: .large,
+                style: .filledCorrect(isDisabled: false),
+                iconPosition: .leading,
+                selectedButtonID: $selectedButtonID,
+                id: "First-Button",
+                title: "Button",
+                image: Image(systemName: "person.fill"),
+                action: {
+                    print("Selected Button: \(selectedButtonID)")
+                }
+            )
+            HanvestButtonDefault(
+                size: .large,
+                style: .filledIncorrect(isDisabled: false),
+                iconPosition: .leading,
+                selectedButtonID: $selectedButtonID,
+                id: "Second-Button",
+                title: "Button",
+                image: Image(systemName: "person.fill"),
+                action: {
+                    print("Selected Button: \(selectedButtonID)")
+                }
+            )
+        }
+        .padding(.top, 8)
     }
     .padding(.horizontal, 16)
 }
