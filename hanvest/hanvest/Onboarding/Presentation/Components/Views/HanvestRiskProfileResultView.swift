@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct HanvestRiskProfileQuestionView: View {
+struct HanvestRiskProfileResultView: View {
     // Constants
     let image: Image
-    let riskStringValue: String
-    let riskDescription: String
+    let riskHeaderText: String
+    let riskDetailText: String
     
     var body: some View {
         ZStack {
@@ -26,11 +26,11 @@ struct HanvestRiskProfileQuestionView: View {
                     .cornerRadius(12)
                 
                 VStack(spacing: 18) {
-                    Text("\(riskStringValue)")
+                    Text("\(riskHeaderText)")
                         .font(.nunito(.largeTitle, .bold))
                         .frame(maxWidth: .infinity)
                     
-                    Text("\(riskDescription)")
+                    Text("\(riskDetailText)")
                         .font(.nunito(.body))
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
@@ -43,12 +43,12 @@ struct HanvestRiskProfileQuestionView: View {
 }
 
 #Preview {
-    HanvestRiskProfileQuestionView(
+    HanvestRiskProfileResultView(
         image:
             Image(systemName: "checkmark"),
-        riskStringValue:
+        riskHeaderText:
             "Conservative",
-        riskDescription:
+        riskDetailText:
             "Prefers low-risk investments with stable returns. Focuses on capital preservation over growth, such as bonds or savings accounts."
     )
 }

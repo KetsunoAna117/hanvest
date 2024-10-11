@@ -12,8 +12,7 @@ struct HanvestMultipleChoiceView: View {
     let question: String
     let answers: [String]
     
-    // View Model
-    @State private var viewModel = HanvestMultipleChoiceViewModel()
+    @State private var selectedButtonID = ""
     
     var body: some View {
         ZStack {
@@ -23,13 +22,15 @@ struct HanvestMultipleChoiceView: View {
                     .frame(maxWidth: .infinity)
                 
                 ForEach(answers, id: \.self) { answer in
-                    HanvestButtonDefault(
+                    HanvestButtonRadioBehavior(
                         style: .bordered(
                             isDisabled: false
                         ),
+                        selectedButtonID: $selectedButtonID,
                         title: answer,
                         action: {
-                            viewModel.updateSelectedAnswer(answer)
+                            // TODO: Change this into doing something
+                            print("\(selectedButtonID)")
                         }
                     )
                     .font(.nunito(.body))

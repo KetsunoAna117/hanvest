@@ -9,65 +9,78 @@ import SwiftUI
 
 struct RiskProfileView: View {
     // Constant
-    let totalPage = 8
+    let totalPage = 7
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
     
     @State private var pageState: RiskProfilePageState = .openingPage
+    @State private var resultState: RiskProfileResultState = .conservative
     @State private var currentTab: Int = 0
-    
-    // ViewModel
-    @State private var viewModel = RiskProfileViewModel()
+    @State private var progressBarValue: Int = 10
     
     var body: some View {
         ZStack {
             Color.background
             
-            if pageState == .questionPage {
-                ZStack {
-                    HanvestProgressBar(
-                        value:
-                            $viewModel.progressBarValue,
-                        minimum:
-                            progressBarMinValue,
-                        maximum:
-                            progressBarMaxValue
-                    )
-                }
-                .padding(.horizontal, 36)
-                .padding(.top, 74)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            }
-            
             ZStack {
-                VStack(spacing: 230) {
-                    TabView(selection: $currentTab) {
-                        HanvestRiskProfileOpeningView()
-                            .tag(0)
-                            .transition(.slide)
-                        
-                        HanvestMultipleChoiceView(        question:
-                                "Are you new to stock market?",
-                            answers:
-                                [
-                                    "Yes, I'm completely new.",
-                                    "I've done some research.",
-                                    "I’ve invested a little, but I’m still learning.",
-                                    "I’ve Invested and understand how it work."
-                                ])
-                        .tag(1)
-                        .transition(.slide)
+                VStack(spacing: 58) {
+                    if pageState == .questionPage {
+                        HanvestProgressBar(
+                            value:
+                                $progressBarValue,
+                            minimum:
+                                progressBarMinValue,
+                            maximum:
+                                progressBarMaxValue
+                        )
+                        .padding(.horizontal, 36)
+                        .frame(maxWidth: .infinity)
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
                     
-                    HanvestButtonDefault(title: pageState.buttonStringValue) {
-                        goToNextPage()
-                        changePageState()
+                    VStack(spacing: 230) {
+                        TabView(selection: $currentTab) {
+                            HanvestRiskProfileOpeningView()
+                                .tag(0)
+                                .transition(.slide)
+                            
+                            ForEach(Array(RiskProfileQuestionsAndOptions.allCases.enumerated()), id: \.offset) { index, page in
+                                
+                                HanvestMultipleChoiceView(        question:
+                                        page.questions,
+                                    answers:
+                                        page.options
+                                )
+                                .tag(index+1)
+                                .transition(.slide)
+                            }
+                            
+                            HanvestRiskProfileResultView(
+                                image:
+                                    resultState.riskImage,
+                                riskHeaderText:
+                                    resultState.riskHeaderText,
+                                riskDetailText:
+                                    resultState.riskDetailText
+                            )
+                            .tag(7)
+                            .transition(.slide)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .tabViewStyle(.page(indexDisplayMode: .never))
+                        
+                        HanvestButtonDefault(
+                            title: pageState.buttonStringValue
+                        ) {
+                            goToNextPage()
+                            updateProgressBarValue()
+                            changePageState()
+                        }
+                        .padding(.horizontal, 20)
+                        .frame(maxWidth: .infinity)
                     }
-                    .padding(.horizontal, 20)
                 }
             }
-            .padding(.top, 140)
+            .padding(.top, pageState == .questionPage ? 74 : 140)
             .padding(.bottom, 54)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -79,7 +92,7 @@ struct RiskProfileView: View {
             currentTab += 1
         }
         if currentTab == totalPage + 1 {
-
+            // TODO: direct to the corresponding page
         }
     }
     
@@ -90,12 +103,13 @@ struct RiskProfileView: View {
             pageState = .resultPage
         }
     }
+    
+    func updateProgressBarValue() {
+        if pageState == .questionPage {
+            progressBarValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
+        }
+    }
 }
-
-// progress bar
-//            VStack {
-//                HanvestProgressBar(value: $viewModel.progressBarValue, minimum: progressBarMinValue, maximum: progressBarMaxValue)
-//            }
 
 #Preview {
     RiskProfileView()
