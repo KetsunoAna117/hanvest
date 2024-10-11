@@ -18,16 +18,14 @@ struct HanvestConfirmationFeedbackView: View {
                     HanvestCorrectionSymbol(state: state.iconType)
                         .padding(.trailing, 8)
                     Text(state.content)
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                        .font(.nunito(.title2, .bold))
                         .foregroundStyle(state.fontColor)
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 
                 HanvestButtonDefault(
-                    style: state.buttonStyle,
-                    title: "Continue",
+                    style: state.buttonStyle, title: "Continue",
                     action: action
                 )
             }

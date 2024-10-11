@@ -20,28 +20,31 @@ struct HanvestProgressBar: View {
     }
     
     var body: some View {
-        ZStack(alignment: .leading){
-            RoundedRectangle(cornerRadius: 100)
-                .frame(width: 280, height: 4)
-                .foregroundStyle(.fillSecondary)
-            
-            RoundedRectangle(cornerRadius: 100)
-                .frame(width: 280 * calculateProgressPercentage() , height: 4)
-                .foregroundStyle(.seagull400)
-                .animation(.easeInOut, value: value)
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 100)
+                    .frame(height: 8)
+                    .foregroundStyle(.fillSecondary)
+                
+                RoundedRectangle(cornerRadius: 100)
+                    .frame(width: geometry.size.width * calculateProgressPercentage(), height: 8)
+                    .foregroundStyle(.seagull400)
+                    .animation(.easeInOut, value: value)
+            }
         }
-        .onAppear(){
-            print("Process Percentage: \(calculateProgressPercentage())")
+        .frame(height: 8)
+        .onAppear {
+            print("Progress Percentage: \(calculateProgressPercentage())")
         }
     }
 }
 
 #Preview {
-    @Previewable @State var value = 90
+    @Previewable @State var value = 10
     
     VStack {
         HanvestProgressBar(value: $value, minimum: 0, maximum: 100)
     }
-    .padding(.horizontal, 16)
+    .padding(.horizontal, 24)
 }
 
