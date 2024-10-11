@@ -10,7 +10,7 @@ import SwiftUI
 struct HanvestRiskProfileQuestionView: View {
     // Constants
     let image: Image
-    let riskValue: String
+    let riskStringValue: String
     let riskDescription: String
     
     var body: some View {
@@ -26,7 +26,7 @@ struct HanvestRiskProfileQuestionView: View {
                     .cornerRadius(12)
                 
                 VStack(spacing: 18) {
-                    Text("\(riskValue)")
+                    Text("\(riskStringValue)")
                         .font(.nunito(.largeTitle, .bold))
                         .frame(maxWidth: .infinity)
                     
@@ -46,7 +46,7 @@ struct HanvestRiskProfileQuestionView: View {
     HanvestRiskProfileQuestionView(
         image:
             Image(systemName: "checkmark"),
-        riskValue:
+        riskStringValue:
             "Conservative",
         riskDescription:
             "Prefers low-risk investments with stable returns. Focuses on capital preservation over growth, such as bonds or savings accounts."
