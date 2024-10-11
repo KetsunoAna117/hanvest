@@ -13,7 +13,7 @@ struct RiskProfileTextView: View {
     let headerText: String
     let detailText: String
     
-    @State var state: RiskProfilePageState = .openingPage
+//    @State var state: RiskProfilePageState = .openingPage
     
     //    @ViewBuilder
     //    var openingOrResult: some View {
