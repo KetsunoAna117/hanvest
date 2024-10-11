@@ -1,5 +1,5 @@
 //
-//  HanvestButtonDefaultStyle.swift
+//  HanvestButtonStyle.swift
 //  hanvest
 //
 //  Created by Hans Arthur Cupiterson on 09/10/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum HanvestButtonDefaultStyle {
+enum HanvestButtonStyle {
     case filled(isDisabled: Bool)
     case bordered(isDisabled: Bool)
     case borderless(isDisabled: Bool)
