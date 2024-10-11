@@ -8,13 +8,29 @@
 import SwiftUI
 
 struct HanvestMultipleChoiceView: View {
+    // Constants
+    let isDisabledButtonValue: Bool = false
+    
     let question: String
     let answers: [String]
     
     var body: some View {
-        ZStack {
+        VStack {
             Text("\(question)")
+                .font(.nunito(.title2))
+            
+            ForEach(answers, id: \.self) { answer in
+                HanvestButtonDefault(
+                    style: .bordered(
+                        isDisabled: isDisabledButtonValue
+                    ),
+                    title: answer,
+                    action: {}
+                )
+                .font(.nunito(.body))
+            }
         }
+        .padding(.horizontal, 20)
     }
 }
 
