@@ -34,7 +34,6 @@ enum NunitoFontSize {
     case title1
     case title2
     case title3
-    case title4
     case body
     case callout
     case subhead
@@ -51,10 +50,8 @@ enum NunitoFontSize {
             case .title1:
                 28
             case .title2:
-                28
-            case .title3:
                 22
-            case .title4:
+            case .title3:
                 20
             case .body:
                 17
@@ -73,48 +70,8 @@ enum NunitoFontSize {
 }
 
 extension Font {
-    // Static nested struct to simulate a namespace
-    struct Nunito {
-        // Default is regular weight
-        static func largeTitle() -> Font {
-            return Font.custom(NunitoFontWeight.regular.value, size: NunitoFontSize.largeTitle.size)
-        }
-        
-        static func title1() -> Font {
-            return Font.custom(NunitoFontWeight.regular.value, size: NunitoFontSize.title1.size)
-        }
-        
-        static func title2() -> Font {
-            return Font.custom(NunitoFontWeight.regular.value, size: NunitoFontSize.title2.size)
-        }
-        
-        static func body() -> Font {
-            return Font.custom(NunitoFontWeight.regular.value, size: NunitoFontSize.body.size)
-        }
-        
-        static func regular(_ size: NunitoFontSize = .body) -> Font {
-            return Font.custom(NunitoFontWeight.regular.value, size: size.size)
-        }
-        
-        static func bold(_ size: NunitoFontSize = .body) -> Font {
-            return Font.custom(NunitoFontWeight.bold.value, size: size.size)
-        }
-        
-        // Convenience method for custom sizes
-        static func regular(size: CGFloat) -> Font {
-            return Font.custom(NunitoFontWeight.regular.value, size: size)
-        }
-
-        static func bold(size: CGFloat) -> Font {
-            return Font.custom(NunitoFontWeight.bold.value, size: size)
-        }
+    static func nunito(_ fontSize: NunitoFontSize, _ fontWeight: NunitoFontWeight = .regular) -> Font {
+        return Font.custom(fontWeight.value, size: fontSize.size)
     }
 }
 
-// Usage Examples:
-// .font(.nunito.largeTitle())
-extension Font {
-    static var nunito: Nunito.Type {
-        return Nunito.self
-    }
-}
