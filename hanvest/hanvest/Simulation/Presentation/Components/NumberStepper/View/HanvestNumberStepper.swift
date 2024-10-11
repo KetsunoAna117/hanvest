@@ -29,7 +29,7 @@ struct HanvestNumberStepper: View {
             }
             
             Text("\(value)")
-                .font(.title)
+                .font(.nunito(.body))
                 .padding(.horizontal)
             
             Button {
