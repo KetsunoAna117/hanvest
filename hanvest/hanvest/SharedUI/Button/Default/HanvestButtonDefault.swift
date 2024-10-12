@@ -7,20 +7,17 @@
 
 import SwiftUI
 
-/// A Hanvest Button that have multiple styles
-/// If you want to freeze a button to state, change the initialState
-
 struct HanvestButtonDefault: View {
     // Constants
     let SHADOW_OFFSET: CGFloat = 5
     
     // Styling Variable (Initialized Before)
-    var size: HanvestButtonDefaultSize = .large
-    var style: HanvestButtonDefaultStyle = .filled(isDisabled: false)
-    var iconPosition: HanvestButtonDefaultIconPosition = .leading
-    var initialState: HanvestButtonDefaultState = .unpressed
+    var size: HanvestButtonSize = .large
+    var style: HanvestButtonStyle = .filled(isDisabled: false)
+    var iconPosition: HanvestButtonIconPosition = .leading
+    var initialState: HanvestButtonState = .unpressed
     
-    @State private var state: HanvestButtonDefaultState = .unpressed
+    @State private var state: HanvestButtonState = .unpressed
     
     // Button content
     var title: String
