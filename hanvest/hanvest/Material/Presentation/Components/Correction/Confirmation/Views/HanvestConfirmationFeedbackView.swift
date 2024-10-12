@@ -25,8 +25,7 @@ struct HanvestConfirmationFeedbackView: View {
                 .padding(.bottom, 8)
                 
                 HanvestButtonDefault(
-                    style: state.buttonStyle,
-                    title: "Continue",
+                    style: state.buttonStyle, title: "Continue",
                     action: action
                 )
             }
