@@ -9,17 +9,33 @@ import SwiftUI
 
 struct ModuleJourneyView: View {
     // Constant
-    let numberOfModules: Int = 6
     let maxModulesVisible: Int = 6
     let eachModuleNumberHeight: CGFloat = 80
     let moduleSpacing: CGFloat = 24
     
+    // View Model
+    @State private var viewModel = ModuleJourneyViewModel()
+    
     @ViewBuilder
     var moduleListView: some View {
         VStack(spacing: moduleSpacing) {
-            ForEach(1...numberOfModules, id: \.self) { number in
+            ForEach(1...viewModel.numberOfModules, id: \.self) { number in
                 HStack {
-                    HanvestModuleNumberButton(number: number, action: {})
+                    HanvestModuleNumberButton(
+                        style:
+                            viewModel.getUserModuleProgress(
+                                moduleIndex: number
+                            ),
+                        number:
+                            number,
+                        action: {
+                            
+                        // TODO: Do action for every module, the viewModel.updateUserModuleProgressIfDone should be triggered only when a module is Done
+                
+                        viewModel.updateUserModuleProgressIfDone(
+                            moduleIndex: number
+                        )
+                    })
                 }
                 .frame(maxWidth: .infinity, alignment: moduleNumberButtonAlignmentLayout(for: number))
                 .frame(height: eachModuleNumberHeight)
@@ -29,13 +45,11 @@ struct ModuleJourneyView: View {
     }
     
     var body: some View {
-        let totalHeight = CGFloat(maxModulesVisible) * (eachModuleNumberHeight + moduleSpacing) - moduleSpacing
-        
-        if numberOfModules > maxModulesVisible {
+        if viewModel.numberOfModules > maxModulesVisible {
             ScrollView {
                 moduleListView
             }
-            .frame(height: totalHeight)
+            .frame(height: countTotalMaxHeightForScrollView())
         } else {
             moduleListView
         }
@@ -45,15 +59,21 @@ struct ModuleJourneyView: View {
         let positionInCycle = number % 4
         
         switch positionInCycle {
-        case 1, 3:
-            return .center
-        case 2:
-            return .trailing
-        case 0:
-            return .leading
-        default:
-            return .center
+            case 1, 3:
+                return .center
+            case 2:
+                return .trailing
+            case 0:
+                return .leading
+            default:
+                return .center
         }
+    }
+    
+    func countTotalMaxHeightForScrollView() -> CGFloat {
+        let totalHeight = CGFloat(maxModulesVisible) * (eachModuleNumberHeight + moduleSpacing) - moduleSpacing
+        
+        return totalHeight
     }
 }
 

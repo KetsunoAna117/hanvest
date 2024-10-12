@@ -11,20 +11,19 @@ struct HanvestModuleNumberButton: View {
     // Constants
     let SHADOW_OFFSET: CGFloat = 5
     
-    @State var state: HanvestModuleNumberDefaultState = .pressed
+    @State var state: HanvestModuleNumberDefaultState = .unpressed
     
     // Styling variable
     var style: HanvestModuleNumberDefaultStyle = .current
     
     // Button content
     var number: Int?
-    var image: Image?
     var action: () -> Void
     
     @ViewBuilder
     var imageOrNumberViewBuilder: some View {
-        if let image = image {
-            image
+        if style == .done {
+            Image(systemName: "checkmark")
         } else if let number = number {
             Text("\(number)")
         }
@@ -48,11 +47,13 @@ struct HanvestModuleNumberButton: View {
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
-             action()
-         }
+            if self.style == .current {
+                action()
+            }
+        }
         .onLongPressGesture(minimumDuration: 0.1, pressing: { isPressing in
              withAnimation {
-                 if isPressing {
+                 if isPressing && style != .next {
                      self.state = .pressed
                  }
                  else if self.style == .current {
@@ -65,8 +66,8 @@ struct HanvestModuleNumberButton: View {
              }
          })
         .onAppear {
-            if self.style == .current {
-                self.state = .unpressed
+            if self.style == .done {
+                self.state = .pressed
             }
         }
     }
@@ -85,7 +86,7 @@ struct HanvestModuleNumberButton: View {
     
     VStack {
         HanvestModuleNumberButton(
-            style: .current,
+            style: .next,
             number: 1, action: {
                 print("Hello World!")
             })
