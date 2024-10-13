@@ -9,6 +9,11 @@ import SwiftUI
 
 @main
 struct hanvestApp: App {
+    
+    init(){
+        AppModule.inject()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
