@@ -20,11 +20,6 @@ struct DependencyInjector {
     static func register<T>(dependency: T) {
         dependencyList[String(describing: T.self)] = dependency
     }
-
-    // New method to unregister a dependency
-    static func unregister<T>(type: T.Type) {
-        dependencyList.removeValue(forKey: String(describing: type))
-    }
 }
 
 @propertyWrapper struct Inject<T> {
