@@ -8,6 +8,8 @@
 import Foundation
 
 struct SimulationStockPriceEntity: Equatable {
+    var id: String = UUID().uuidString
+    var stockIDName: String
     var stockPrice: Int
     var time: Date
     

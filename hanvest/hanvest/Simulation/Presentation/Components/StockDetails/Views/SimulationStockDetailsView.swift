@@ -21,6 +21,12 @@ struct SimulationStockDetailsView: View {
                     initialPrice: $viewmodel.initialPrice,
                     currentPrice: $viewmodel.currentPrice
                 )
+                
+                HanvestStockPriceChart(
+                    viewmodel: HanvestStockPriceChartViewModel(
+                        stockPrices: selectedStock.stockPrice),
+                    symbolCategoryKeyPath: \.stockIDName
+                )
             }
             else {
                 Text("No Stock selected")

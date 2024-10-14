@@ -29,7 +29,10 @@ struct HanvestSimulationView: View {
                     SimulationStockDetailsView(
                         selectedStock: $viewmodel.selectedStock
                     )
+                    
                 }
+                
+                Spacer()
                 
             }
         }
