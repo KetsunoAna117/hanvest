@@ -1,136 +1,98 @@
 import SwiftUI
 
 struct StockOption: View {
-    
- 
-    static var currentID: String = "none"
-
-    @State private var state: HanvestStockOptionDefaultState = .unpressed
-    var style: HanvestingStockOptionStyle = .filled(isDisabled: false)
-    var initialState: HanvestStockOptionDefaultState = .unpressed
+    // Constant
     let SHADOW_OFFSET: CGFloat = 5
     let WIDTH: CGFloat = 75
     let HEIGHT: CGFloat = 75
     
+    // Bind to the parent selection
+    @Binding var selectedStockID: String
+    
+    // Styling Variable (Initialized Before)
+    var initialState: HanvestStockOptionDefaultState
+    
+    @State private var state: HanvestStockOptionDefaultState =
+        .unselected(color: .mineShaft500)
+    
+    // Button Content
     var id: String
-    var image: Image?
-    var action: () -> Void
+    var image: Image
     var color: Color
-    var shadowColor: Color
-
+    var action: () -> Void
+    
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(color)
+                .fill(state.backgroundColor)
                 .frame(width: WIDTH, height: HEIGHT)
                 .cornerRadius(12)
                 .shadow(
-                    color: getInitialStatus() ? .clear : shadowColor,
-                    radius: getInitialStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET
+                    color: (state.shadowColor),
+                    radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET
                 )
-
-            if let image = image {
-                image
-                    .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
-            }
+            
+            // The Image
+            image
+                .foregroundStyle(Color.white)
         }
         .frame(maxWidth: WIDTH, maxHeight: HEIGHT)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(style.borderColor, lineWidth: 0.5)
+                .fill(.clear)
         )
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
-            if self.state != .disabled {
-                StockOption.currentID = self.id
+            if selectedStockID != id {
+                self.selectedStockID = self.id
+                state = .selected(color: color)
                 print("\(id) pressed")
                 action()
             }
+
         }
-        .onLongPressGesture(minimumDuration: 0.1, pressing: { isPressing in
-            withAnimation {
-                if self.initialState == .unpressed {
-                    self.state = isPressing ? .pressed : .pressed
-                }
+        .onChange(of: selectedStockID) { oldValue, newValue in
+            if newValue != id {
+                state = .unselected(color: .mineShaft500)
             }
-        }, perform: {
-            if self.state != .disabled {
-                action()
-            }
-        })
-        .onAppear {
-            setupState()
         }
-        .disabled(getDisabledStatus())
-    }
-    func getInitialStatus() -> Bool {
-        return initialState == .pressed
     }
     
     func getPressedStatus() -> Bool {
-        return state == .pressed
+        return state == .selected(color: color)
     }
     
-    func getDisabledStatus() -> Bool {
-        return state == .disabled
-    }
-    
-    func setupState() {
-        if StockOption.currentID != id {
-            self.state = .unpressed
-        } else {
-            self.state = initialState
-        }
-        
-        if style.isDisabled || initialState == .disabled {
-            self.state = .disabled
-        }
-    }
 }
 
 #Preview {
-    VStack {
+    @Previewable @State var selectedStockOption: String = ""
+    HStack {
         StockOption(
-            style: .filled(isDisabled: false),
-            initialState: .unpressed, id: "uniqueID1",
-            image: Image(systemName: "star.fill"),
-            action: {
-                print("Button 1 pressed")
-            },
-            color: .blue, shadowColor: .gray
-            
-        )
+            selectedStockID: $selectedStockOption,
+            initialState: .unselected(color: .red),
+            id: "Stock-1",
+            image: Image(systemName: "star"), color: .red
+        ) {
+            print("Stock-1 selected")
+        }
         
         StockOption(
-            style: .filled(isDisabled: false),
-            initialState: .pressed,
-            id: "uniqueID2",
-            image: Image(systemName: "star.fill"),
-            action: {
-                print("Button 2 pressed")
-            },
-            color: .red, shadowColor: .gray
-        )
+            selectedStockID: $selectedStockOption,
+            initialState: .unselected(color: .blue),
+            id: "Stock-2",
+            image: Image(systemName: "person"), color: .blue
+        ) {
+            print("Stock-2 selected")
+        }
+        
         StockOption(
-            style: .filled(isDisabled: false),
-            initialState: .unpressed,
-            id: "uniqueID3",
-            image: Image(systemName: "star.fill"),
-            action: {
-                print("Button 3 pressed")
-            },
-            color: .green, shadowColor: .gray
-        )
-        StockOption(
-            style: .filled(isDisabled: false),
-            initialState: .unpressed,
-            id: "uniqueID4",
-            image: Image(systemName: "star.fill"),
-            action: {
-                print("Button 4 pressed")
-            },
-            color: .yellow, shadowColor: .gray
-        )
+            selectedStockID: $selectedStockOption,
+            initialState: .unselected(color: .green),
+            id: "Stock-3",
+            image: Image(systemName: "book"), color: .green
+        ) {
+            print("Stock-3 selected")
+        }
     }
 }
