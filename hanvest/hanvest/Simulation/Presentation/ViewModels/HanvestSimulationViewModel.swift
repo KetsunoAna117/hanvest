@@ -11,6 +11,7 @@ class HanvestSimulationViewModel: ObservableObject {
     @Inject var getStockList: GetAvailableSimulationStocks
     
     @Published var stockList: [SimulationStockEntity] = []
+    @Published var selectedStock: SimulationStockEntity?
     
     init(){
         stockList = getStockList.execute()

@@ -10,10 +10,16 @@ import SwiftUI
 struct HanvestSimulationView: View {
     @StateObject private var viewmodel = HanvestSimulationViewModel()
     
+    @State var selectedStock: String = ""
+    
     var body: some View {
         VStack {
             VStack {
-                Text("This is list of available stocks")
+                HanvestStockOptionList(
+                    selectedStockID: $selectedStock,
+                    simulationStockList: <#T##[SimulationStockEntity]#>
+                )
+                
                 Divider()
             }
             
