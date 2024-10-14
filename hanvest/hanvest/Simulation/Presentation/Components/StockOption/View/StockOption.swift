@@ -12,8 +12,7 @@ struct StockOption: View {
     // Styling Variable (Initialized Before)
     var initialState: HanvestStockOptionDefaultState
     
-    @State private var state: HanvestStockOptionDefaultState =
-        .unselected(color: .mineShaft500)
+    @State private var state: HanvestStockOptionDefaultState = .unselected
     
     // Button Content
     var id: String
@@ -24,11 +23,11 @@ struct StockOption: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(state.backgroundColor)
+                .fill(self.state == .unselected ? .mineShaft500 : color)
                 .frame(width: WIDTH, height: HEIGHT)
                 .cornerRadius(12)
                 .shadow(
-                    color: (state.shadowColor),
+                    color: (self.state == .unselected ? .mineShaft700 : color),
                     radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET
                 )
             
@@ -46,7 +45,7 @@ struct StockOption: View {
         .onTapGesture {
             if selectedStockID != id {
                 self.selectedStockID = self.id
-                state = .selected(color: color)
+                state = .selected
                 print("\(id) pressed")
                 action()
             }
@@ -54,13 +53,13 @@ struct StockOption: View {
         }
         .onChange(of: selectedStockID) { oldValue, newValue in
             if newValue != id {
-                state = .unselected(color: .mineShaft500)
+                state = .unselected
             }
         }
     }
     
     func getPressedStatus() -> Bool {
-        return state == .selected(color: color)
+        return state == .selected
     }
     
 }
@@ -70,7 +69,7 @@ struct StockOption: View {
     HStack {
         StockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected(color: .red),
+            initialState: .unselected,
             id: "Stock-1",
             image: Image(systemName: "star"), color: .red
         ) {
@@ -79,7 +78,7 @@ struct StockOption: View {
         
         StockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected(color: .blue),
+            initialState: .unselected,
             id: "Stock-2",
             image: Image(systemName: "person"), color: .blue
         ) {
@@ -88,7 +87,7 @@ struct StockOption: View {
         
         StockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected(color: .green),
+            initialState: .unselected,
             id: "Stock-3",
             image: Image(systemName: "book"), color: .green
         ) {
