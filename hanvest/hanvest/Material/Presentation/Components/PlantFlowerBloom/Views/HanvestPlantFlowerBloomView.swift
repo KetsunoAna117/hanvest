@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlantFlowerBloomView: View {
+struct HanvestPlantFlowerBloomView: View {
     // Constant
     private let normalTimeToChangePage: CGFloat = 2.0
     private let flowerAndAppleAppearTime: CGFloat = 0.2
@@ -41,9 +41,9 @@ struct PlantFlowerBloomView: View {
         }
         .onChange(of: self.growthProgress) { _, newValue in
             if newValue == .progress11 {
-                self.replaceFlowerWithHalfApple()
+                self.replaceFlowersWithApple(with: \.halfAppleImage)
             } else if newValue == .progress12 {
-                self.replaceFlowerWithFullApple()
+                self.replaceFlowersWithApple(with: \.fullAppleImage)
             }
         }
     }
@@ -62,26 +62,14 @@ struct PlantFlowerBloomView: View {
         }
     }
     
-    func replaceFlowerWithHalfApple() {
+    func replaceFlowersWithApple(with imageKeyPath: KeyPath<FlowerBloomImage, (image: Image, topPadding: CGFloat, leadingPadding: CGFloat)?>) {
         for (index, flower) in self.visibleFlowers.enumerated() {
-            if let halfAppleImage = flower.halfAppleImage?.image, let halfAppleTopPadding = flower.halfAppleImage?.topPadding, let halfAppleLeadingPadding = flower.halfAppleImage?.leadingPadding,
-               self.displayedImages[index].image != halfAppleImage {
+            if let appleImage = flower[keyPath: imageKeyPath]?.image,
+               let topPadding = flower[keyPath: imageKeyPath]?.topPadding,
+               let leadingPadding = flower[keyPath: imageKeyPath]?.leadingPadding,
+               self.displayedImages[index].image != appleImage {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * flowerAndAppleAppearTime) {
-                    self.displayedImages[index] = (halfAppleImage, halfAppleTopPadding, halfAppleLeadingPadding)
-                }
-            }
-        }
-        
-        let totalDelay = (Double(self.visibleFlowers.count) * self.flowerAndAppleAppearTime) + self.normalTimeToChangePage
-        self.returnToMainView(duration: totalDelay)
-    }
-    
-    func replaceFlowerWithFullApple() {
-        for (index, flower) in self.visibleFlowers.enumerated() {
-            if let fullAppleImage = flower.fullAppleImage?.image, let fullAppleTopPadding = flower.fullAppleImage?.topPadding, let fullAppleLeadingPadding = flower.fullAppleImage?.leadingPadding,
-               self.displayedImages[index].image != fullAppleImage {
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * flowerAndAppleAppearTime) {
-                    self.displayedImages[index] = (fullAppleImage, fullAppleTopPadding, fullAppleLeadingPadding)
+                    self.displayedImages[index] = (appleImage, topPadding, leadingPadding)
                 }
             }
         }
@@ -98,5 +86,5 @@ struct PlantFlowerBloomView: View {
 }
 
 #Preview {
-    PlantFlowerBloomView(growthProgress: .constant(.progress01))
+    HanvestPlantFlowerBloomView(growthProgress: .constant(.progress01))
 }

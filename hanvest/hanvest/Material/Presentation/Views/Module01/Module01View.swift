@@ -15,9 +15,7 @@ struct Module01View: View {
     let progressBarMaxValue: Int = 100
     
     @State private var progressBarCurrValue: Int = 4
-    @State private var growthProgress: PlantGrowthProgress = .progress08
-    @State private var plantVisibility: PlantImageVisibility = .isHidden
-    @State private var currentPlantImage: Image?
+    @State private var growthProgress: PlantGrowthProgress = .progress01
     @State private var growthTimer: AnyCancellable?
     @State private var spriteScene: Module01SpriteController?
     
@@ -71,33 +69,10 @@ struct Module01View: View {
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
-            if let plantGrowthImage = self.growthProgress.plantGrowthImage {
-                ZStack {
-                    HStack {
-                        if self.plantVisibility == .isVisible {
-                            plantGrowthImage.image
-                                .transition(.opacity)
-                        }
-                    }
-                    .padding(.leading, plantGrowthImage.leadingPadding)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .padding(.top, plantGrowthImage.topPadding)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .onAppear {
-                    self.updatePlantVisibility(with: plantGrowthImage.image)
-                }
-                .onChange(of: self.growthProgress) { _, _ in
-                    if plantGrowthImage.image != self.currentPlantImage {
-                        self.plantVisibility = .isHidden
-                        
-                        self.updatePlantVisibility(with: plantGrowthImage.image)
-                    }
-                }
-            }
+            HanvestPlantVisibilityView(growthProgress: self.$growthProgress)
             
             if checkEligibilityPlantFlowerBloom() {
-                PlantFlowerBloomView(growthProgress: $growthProgress) {
+                HanvestPlantFlowerBloomView(growthProgress: self.$growthProgress) {
                     self.getNextGrowthProgress()
                 }
             }
@@ -111,13 +86,6 @@ struct Module01View: View {
         }
     }
     
-    private func updatePlantVisibility(with image: Image) {
-        withAnimation(.spring(duration: 1.0)) {
-            self.plantVisibility = .isVisible
-            self.currentPlantImage = image
-        }
-    }
-    
     private func startGrowthTimer() {
         self.growthTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
             .sink { _ in
@@ -126,9 +94,7 @@ struct Module01View: View {
     }
     
     private func handleGrowthTimerEvent() {
-        let rawValue = growthProgress.rawValue
-        
-        if (!(3...7).contains(rawValue)) && (!(10...12).contains(rawValue)) {
+        if (checkForPauseGrowthProgress()) {
             self.getNextGrowthProgress()
         } else {
             self.stopGrowthTimer()
@@ -155,8 +121,23 @@ struct Module01View: View {
         startGrowthTimer()
     }
     
+    private func checkForPauseGrowthProgress() -> Bool {
+        let currentGrowthProgress = self.growthProgress.rawValue
+        
+        let waterCanSection = (3...7).contains(currentGrowthProgress)
+        let plantFlowerBloomSection = (10...12).contains(currentGrowthProgress)
+        
+        return (!(waterCanSection || plantFlowerBloomSection))
+    }
+    
     private func checkEligibilityPlantFlowerBloom() -> Bool {
-        return (self.currentPlantImage == Image("plant-growth-6")) && ((10...12).contains(self.growthProgress.rawValue))
+        let currentGrowthProgress = self.growthProgress.rawValue
+        let plantGrowthImage = self.growthProgress.plantGrowthImage
+        
+        let firstConditionPlantFlowerBloomSection = (10...12).contains(currentGrowthProgress)
+        let secondConditionPlantFlowerBloomSection = plantGrowthImage?.image == Image("plant-growth-6")
+        
+        return (firstConditionPlantFlowerBloomSection && secondConditionPlantFlowerBloomSection)
     }
 }
 
