@@ -15,9 +15,11 @@ struct HanvestSimulationView: View {
     var body: some View {
         VStack {
             VStack {
+                Divider()
+                
                 HanvestStockOptionList(
                     selectedStockID: $selectedStock,
-                    simulationStockList: <#T##[SimulationStockEntity]#>
+                    simulationStockList: viewmodel.stockList
                 )
                 
                 Divider()
