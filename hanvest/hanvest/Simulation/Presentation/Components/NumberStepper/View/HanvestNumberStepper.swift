@@ -14,13 +14,14 @@ struct HanvestNumberStepper: View {
     var body: some View {
         HStack(spacing: 56) {
             Button{
-                viewModel.increment(&value)
+                viewModel.decrement(&value)
             }label: {
                 Circle()
+                    .stroke(.mineShaft200, lineWidth: 1)
                     .frame(width: 28, height: 28)
                     .foregroundStyle(.seagull100)
                     .overlay{
-                        Image(systemName: "plus")
+                        Image(systemName: "minus")
                             .frame(width: 17, height: 17)
                             .foregroundColor(.black)
                             .padding()
@@ -33,13 +34,14 @@ struct HanvestNumberStepper: View {
                 .padding(.horizontal)
             
             Button {
-                viewModel.decrement(&value)
+                viewModel.increment(&value)
             }label: {
                 Circle()
+                    .stroke(.mineShaft200, lineWidth: 1)
                     .frame(width: 28, height: 28)
                     .foregroundStyle(.seagull100)
                     .overlay{
-                        Image(systemName: "minus")
+                        Image(systemName: "plus")
                             .frame(width: 17, height: 17)
                             .foregroundColor(.black)
                             .padding()
