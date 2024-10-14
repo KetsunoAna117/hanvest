@@ -8,5 +8,14 @@
 import Foundation
 
 class SimulationStockDetailViewModel: ObservableObject {
-
+    @Inject var getSimulationStockByID: GetStockInformationByID
+    
+    @Published var initialPrice: Int = 0
+    @Published var currentPrice: Int = 0
+    
+    init(){
+        let fetchedStock = getSimulationStockByID.execute(id: "BBRI")
+        initialPrice = fetchedStock.stockPrice.first?.stockPrice ?? 0
+        currentPrice = fetchedStock.stockPrice.last?.stockPrice ?? 0
+    }
 }

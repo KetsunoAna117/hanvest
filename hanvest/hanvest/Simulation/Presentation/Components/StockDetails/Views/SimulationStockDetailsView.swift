@@ -10,23 +10,18 @@ import SwiftUI
 struct SimulationStockDetailsView: View {
     var selectedStock: SimulationStockEntity
     
-    @State private var initialPrice: Int = 0
-    @State private var currentPrice: Int = 0
+    @StateObject var viewmodel = SimulationStockDetailViewModel()
     
     var body: some View {
         VStack {
             StockHeaderInformationView(
                 stockCodeName: selectedStock.stockIDName,
                 stockName: selectedStock.stockName,
-                initialPrice: $initialPrice,
-                currentPrice: $currentPrice
+                initialPrice: $viewmodel.initialPrice,
+                currentPrice: $viewmodel.currentPrice
             )
         }
         .padding(.horizontal, 20)
-        .onAppear(){
-            initialPrice = selectedStock.stockPrice.first?.stockPrice ?? 0
-            currentPrice = selectedStock.stockPrice.last?.stockPrice ?? 0
-        }
 
     }
 }

@@ -31,7 +31,7 @@ struct SimulationStockEntity {
                     SimulationStockPriceEntity(stockPrice: 5000, time: HanvestDateFormatter.stringToDate("2024-10-10 20:23:00")),
                     SimulationStockPriceEntity(stockPrice: 6000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:33:00")),
                     SimulationStockPriceEntity(stockPrice: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:43:00")),
-                    SimulationStockPriceEntity(stockPrice: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:53:00"))
+                    SimulationStockPriceEntity(stockPrice: 7000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:53:00"))
                 ]
             ),
             SimulationStockEntity(
