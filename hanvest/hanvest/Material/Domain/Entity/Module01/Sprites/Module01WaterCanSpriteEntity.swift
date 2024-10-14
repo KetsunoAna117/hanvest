@@ -9,11 +9,12 @@ import Foundation
 import SpriteKit
 
 class WaterCan: SKNode {
+    private let image: SKSpriteNode = SKSpriteNode(imageNamed: "water-can-default")
     private let easing : CGFloat = 0.1
     private var destination : CGPoint?
     private var initialPosition: CGPoint?
     
-    init(image: SKSpriteNode) {
+    override init() {
         super.init()
 
         self.setScale(1)
@@ -21,7 +22,7 @@ class WaterCan: SKNode {
         self.position = CGPoint(x: (UIScreen.main.bounds.width / 4.15), y: (UIScreen.main.bounds.width / 0.691))
         self.initialPosition = self.position
         
-        self.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "water-can-default"), size: CGSize(width: image.size.width, height: image.size.height))
+        self.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "water-can-default"), size: CGSize(width: self.image.size.width, height: self.image.size.height))
         self.physicsBody?.categoryBitMask = SpriteCollisionTypes.waterCan.rawValue
         self.physicsBody?.collisionBitMask = 0
         self.physicsBody?.isDynamic = false

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import SpriteKit
 
 struct Module01View: View {
@@ -15,17 +16,19 @@ struct Module01View: View {
     
     @State private var progressBarCurrValue: Int = 4
     @State private var growthProgress: PlantGrowthProgress = .progress01
+    @State private var growthTimer: AnyCancellable?
     @State private var spriteScene: Module01SpriteController?
 
     var body: some View {
         ZStack {
             if let spriteScene = spriteScene {
                 SpriteView(scene: spriteScene)
-                    .onTapGesture {
-                        withAnimation(.easeInOut) {
-                            if let nextProgress = growthProgress.nextProgress() {
-                                growthProgress = nextProgress
-                            }
+                    .onAppear {
+                        startGrowthTimer()
+                    }
+                    .onChange(of: self.growthProgress) { _, newValue in
+                        if newValue == .progress08 {
+                            startGrowthTimer()
                         }
                     }
             }
@@ -73,6 +76,37 @@ struct Module01View: View {
             scene.scaleMode = .resizeFill
             self.spriteScene = scene
         }
+    }
+    
+    private func startGrowthTimer() {
+        self.growthTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+            .sink { _ in
+                self.handleGrowthTimerEvent()
+            }
+    }
+
+    private func handleGrowthTimerEvent() {
+        withAnimation(.easeInOut) {
+            let rawValue = growthProgress.rawValue
+            
+            if !(3...7).contains(rawValue) {
+                if let nextProgress = growthProgress.nextProgress() {
+                    growthProgress = nextProgress
+                } else {
+                    self.stopGrowthTimer()
+                }
+            } else {
+                self.stopGrowthTimer()
+            }
+        }
+    }
+
+    private func stopGrowthTimer() {
+        self.growthTimer?.cancel()
+    }
+
+    private func resumeGrowthTimer() {
+        startGrowthTimer()
     }
 }
 

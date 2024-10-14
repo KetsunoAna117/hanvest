@@ -10,7 +10,6 @@ import SpriteKit
 
 class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
     // Sprites
-    private let soil: Soil
     private var waterCan: WaterCan
     
     // Variables
@@ -18,15 +17,16 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
     private var lastUpdatedTime : TimeInterval
     private var currentWaterDropletSpawnTime : TimeInterval
     private var waterDropletSpawnRate : TimeInterval
+    private var spriteContactCounter: Int
     @Binding var growthProgress: PlantGrowthProgress
     
     init(size: CGSize, growthProgress: Binding<PlantGrowthProgress>) {
-        self.soil = Soil(image: SKSpriteNode(imageNamed: "soil"))
-        self.waterCan = WaterCan(image: SKSpriteNode(imageNamed: "water-can-default"))
+        self.waterCan = WaterCan()
         self.draggingBehavior = .isNotDragging
         self.lastUpdatedTime = 0
         self.currentWaterDropletSpawnTime = 0
         self.waterDropletSpawnRate = 0.01
+        self.spriteContactCounter = 0
         self._growthProgress = growthProgress
         
         super.init(size: size)
@@ -40,8 +40,7 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = .background
         self.size = view.frame.size
         self.physicsWorld.contactDelegate = self
-        
-        self.addChild(soil)
+        self.createSoil()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -75,7 +74,7 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         handleGrowthProgress()
         
-        if self.draggingBehavior == .isDragging {
+        if (self.draggingBehavior == .isDragging) && (waterCan.parent != nil) {
             if (self.lastUpdatedTime == 0) {
                 self.lastUpdatedTime = currentTime
             }
@@ -91,7 +90,7 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
             if self.currentWaterDropletSpawnTime > self.waterDropletSpawnRate {
                 self.currentWaterDropletSpawnTime = 0
                 
-                self.createWaterDroplet(image: SKSpriteNode(imageNamed: "water-droplet"), position: currPosition)
+                self.createWaterDroplet(position: currPosition)
             }
             
             self.lastUpdatedTime = currentTime
@@ -111,12 +110,29 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
         let scale = SKAction.scale(to: 0.0001, duration: 0.1)
         let sequence = SKAction.sequence([move, scale])
         
+        self.handlesSpriteContactCounterForGrowthProgress()
+        
         droplet.node?.run(sequence)
         droplet.node?.physicsBody?.categoryBitMask = 0
     }
     
-    private func createWaterDroplet(image: SKSpriteNode, position: CGPoint) {
-        let droplets = WaterDroplet(image: image, position: position)
+    private func handlesSpriteContactCounterForGrowthProgress() {
+        self.spriteContactCounter += 1
+        
+        if spriteContactCounter % 300 == 0 {
+            if let nextProgress = growthProgress.nextProgress() {
+                growthProgress = nextProgress
+            }
+        }
+    }
+    
+    private func createSoil() {
+        let soil = Soil()
+        self.addChild(soil)
+    }
+    
+    private func createWaterDroplet(position: CGPoint) {
+        let droplets = WaterDroplet(position: position)
         self.addChild(droplets)
     }
     
@@ -134,6 +150,8 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
 
                 waterCan.run(group)
             }
+        } else if growthProgress == .progress08 {
+            waterCan.removeFromParent()
         }
     }
 }

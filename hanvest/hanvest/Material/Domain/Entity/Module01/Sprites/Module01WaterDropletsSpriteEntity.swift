@@ -9,14 +9,16 @@ import Foundation
 import SpriteKit
 
 class WaterDroplet: SKNode {
-    init(image: SKSpriteNode, position: CGPoint) {
+    private let image: SKSpriteNode = SKSpriteNode(imageNamed: "water-droplet")
+    
+    init(position: CGPoint) {
         super.init()
         
         self.setScale(1)
         self.zPosition = 1
         self.position = position
         
-        self.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "air"), size: CGSize(width: image.size.width, height: image.size.height))
+        self.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "water-droplet"), size: CGSize(width: self.image.size.width, height: self.image.size.height))
         self.physicsBody?.categoryBitMask = SpriteCollisionTypes.waterDroplets.rawValue
         self.physicsBody?.contactTestBitMask = SpriteCollisionTypes.soil.rawValue
         self.physicsBody?.collisionBitMask = 0
