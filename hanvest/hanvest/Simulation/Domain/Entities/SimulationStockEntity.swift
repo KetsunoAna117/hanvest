@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct SimulationStockEntity {
+struct SimulationStockEntity: Equatable {
     var stockIDName: String
     var stockName: String
     var stockImageName: String
@@ -17,6 +17,16 @@ struct SimulationStockEntity {
     var stockDescription: String
     
     var stockPrice: [SimulationStockPriceEntity]
+    
+    static func == (lhs: SimulationStockEntity, rhs: SimulationStockEntity) -> Bool {
+        return
+            lhs.stockIDName == rhs.stockIDName &&
+            lhs.stockName == rhs.stockName &&
+            lhs.stockImageName == rhs.stockImageName &&
+            lhs.stockImageColor == rhs.stockImageColor &&
+            lhs.stockDescription == rhs.stockDescription &&
+            lhs.stockPrice == rhs.stockPrice
+    }
     
     
     static func getMockData() -> [SimulationStockEntity] {
@@ -44,7 +54,7 @@ struct SimulationStockEntity {
                     SimulationStockPriceEntity(stockPrice: 5000, time: HanvestDateFormatter.stringToDate("2024-10-10 20:20:00")),
                     SimulationStockPriceEntity(stockPrice: 6000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
                     SimulationStockPriceEntity(stockPrice: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:40:00")),
-                    SimulationStockPriceEntity(stockPrice: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:50:00"))
+                    SimulationStockPriceEntity(stockPrice: 4500, time: HanvestDateFormatter.stringToDate("2024-10-11 20:50:00"))
                 ]
             ),
             SimulationStockEntity(
@@ -56,8 +66,8 @@ struct SimulationStockEntity {
                 stockPrice: [
                     SimulationStockPriceEntity(stockPrice: 50, time: HanvestDateFormatter.stringToDate("2024-10-10 20:20:00")),
                     SimulationStockPriceEntity(stockPrice: 60, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
-                    SimulationStockPriceEntity(stockPrice: 55, time: HanvestDateFormatter.stringToDate("2024-10-11 20:40:00")),
-                    SimulationStockPriceEntity(stockPrice: 50, time: HanvestDateFormatter.stringToDate("2024-10-11 20:50:00"))
+                    SimulationStockPriceEntity(stockPrice: 65, time: HanvestDateFormatter.stringToDate("2024-10-11 20:40:00")),
+                    SimulationStockPriceEntity(stockPrice: 55, time: HanvestDateFormatter.stringToDate("2024-10-11 20:50:00"))
                 ]
             )
         ]

@@ -26,10 +26,9 @@ struct HanvestSimulationView: View {
                     
                     Divider()
                     
-                    if let selectedStock = viewmodel.selectedStock {
-                        SimulationStockDetailsView(selectedStock: selectedStock)
-                        
-                    }
+                    SimulationStockDetailsView(
+                        selectedStock: $viewmodel.selectedStock
+                    )
                 }
                 
             }

@@ -7,7 +7,13 @@
 
 import Foundation
 
-struct SimulationStockPriceEntity {
+struct SimulationStockPriceEntity: Equatable {
     var stockPrice: Int
     var time: Date
+    
+    static func == (lhs: SimulationStockPriceEntity, rhs: SimulationStockPriceEntity) -> Bool {
+        return
+            lhs.stockPrice == rhs.stockPrice &&
+            lhs.time == rhs.time
+    }
 }

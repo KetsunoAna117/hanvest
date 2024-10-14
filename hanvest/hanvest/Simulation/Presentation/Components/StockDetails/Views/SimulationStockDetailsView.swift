@@ -8,26 +8,38 @@
 import SwiftUI
 
 struct SimulationStockDetailsView: View {
-    var selectedStock: SimulationStockEntity
+    @Binding var selectedStock: SimulationStockEntity?
     
     @StateObject var viewmodel = SimulationStockDetailViewModel()
     
     var body: some View {
         VStack {
-            StockHeaderInformationView(
-                stockCodeName: selectedStock.stockIDName,
-                stockName: selectedStock.stockName,
-                initialPrice: $viewmodel.initialPrice,
-                currentPrice: $viewmodel.currentPrice
-            )
+            if let selectedStock = selectedStock {
+                StockHeaderInformationView(
+                    stockCodeName: selectedStock.stockIDName,
+                    stockName: selectedStock.stockName,
+                    initialPrice: $viewmodel.initialPrice,
+                    currentPrice: $viewmodel.currentPrice
+                )
+            }
+            else {
+                Text("No Stock selected")
+                    .font(.nunito(.title2, .bold))
+            }
+
         }
         .padding(.horizontal, 20)
+        .onChange(of: selectedStock) { oldValue, newValue in
+            viewmodel.initialPrice = newValue?.stockPrice.first?.stockPrice ?? 0
+            viewmodel.currentPrice = newValue?.stockPrice.last?.stockPrice ?? 0
+        }
+
 
     }
 }
 
 #Preview {
     SimulationStockDetailsView(
-        selectedStock: SimulationStockEntity.getMockData().first!
+        selectedStock: .constant(SimulationStockEntity.getMockData().first!)
     )
 }

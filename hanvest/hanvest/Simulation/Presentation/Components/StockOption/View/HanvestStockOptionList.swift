@@ -26,18 +26,12 @@ struct HanvestStockOptionList: View {
                                 print("\(stock.stockName) is pressed")
                             }
                             .padding(.bottom, 6)
-                            .onAppear() {
-                                print("\(stock.stockIDName) Initial State: \(self.selectedStockID == stock.stockIDName ? "selected" : "unselected")")
-                            }
                     }
                 }
             }
             .safeAreaPadding(.horizontal, 20)
         }
         .padding(.vertical, 12)
-        .onAppear(){
-            print("SelectedStockID in OptionList: \(selectedStockID)")
-        }
     }
 }
 

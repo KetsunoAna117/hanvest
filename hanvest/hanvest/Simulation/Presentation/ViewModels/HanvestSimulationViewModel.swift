@@ -11,7 +11,11 @@ class HanvestSimulationViewModel: ObservableObject {
     @Inject var getStockList: GetAvailableSimulationStocks
     
     @Published var stockList: [SimulationStockEntity] = []
-    @Published var selectedStockID: String = ""
+    @Published var selectedStockID: String = "" {
+        didSet {
+            updateSelectedStock()
+        }
+    }
     @Published var selectedStock: SimulationStockEntity?
     
     init(){
@@ -24,6 +28,15 @@ class HanvestSimulationViewModel: ObservableObject {
     
     func setupSelectedStockOnAppear(){
         self.selectedStock = stockList.first
+    }
+    
+    private func updateSelectedStock() {
+        if let stock = stockList.first(where: { $0.stockIDName == selectedStockID }) {
+            self.selectedStock = stock
+        } else {
+            print("Error: Stock with ID \(selectedStockID) not found.")
+            self.selectedStock = nil
+        }
     }
 }
 
