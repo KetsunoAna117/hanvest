@@ -16,19 +16,21 @@ struct Module01View: View {
     
     @State private var progressBarCurrValue: Int = 4
     @State private var growthProgress: PlantGrowthProgress = .progress01
+    @State private var plantVisibility: PlantImageVisibility = .isHidden
+    @State private var currentPlantImage: Image?
     @State private var growthTimer: AnyCancellable?
     @State private var spriteScene: Module01SpriteController?
-
+    
     var body: some View {
         ZStack {
-            if let spriteScene = spriteScene {
+            if let spriteScene = self.spriteScene {
                 SpriteView(scene: spriteScene)
                     .onAppear {
-                        startGrowthTimer()
+                        self.startGrowthTimer()
                     }
                     .onChange(of: self.growthProgress) { _, newValue in
                         if newValue == .progress08 {
-                            startGrowthTimer()
+                            self.startGrowthTimer()
                         }
                     }
             }
@@ -58,7 +60,7 @@ struct Module01View: View {
                     }
                     .frame(maxWidth: .infinity)
                     
-                    Text("\(growthProgress.description)")
+                    Text("\(self.growthProgress.description)")
                         .font(.nunito(.title2))
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity)
@@ -68,6 +70,33 @@ struct Module01View: View {
             .padding(.top, 71)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            
+            if let plantGrowthImage = self.growthProgress.plantGrowthImage {
+                ZStack {
+                    HStack {
+                        if self.plantVisibility == .isVisible {
+                            plantGrowthImage.image
+                                .transition(.opacity)
+                        }
+                    }
+                    .padding(.leading, plantGrowthImage.leadingPadding)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.top, plantGrowthImage.topPadding)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .onAppear {
+                    self.updatePlantVisibility(with: plantGrowthImage.image)
+                }
+                .onChange(of: self.growthProgress) { _, _ in
+                    if plantGrowthImage.image != self.currentPlantImage {
+                        self.plantVisibility = .isHidden
+                        
+                        self.updatePlantVisibility(with: plantGrowthImage.image)
+                    }
+                }
+                
+            }
+            
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -78,13 +107,20 @@ struct Module01View: View {
         }
     }
     
+    private func updatePlantVisibility(with image: Image) {
+        withAnimation(.spring(duration: 1.0)) {
+            self.plantVisibility = .isVisible
+            self.currentPlantImage = image
+        }
+    }
+    
     private func startGrowthTimer() {
         self.growthTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
             .sink { _ in
                 self.handleGrowthTimerEvent()
             }
     }
-
+    
     private func handleGrowthTimerEvent() {
         withAnimation(.easeInOut) {
             let rawValue = growthProgress.rawValue
@@ -100,11 +136,11 @@ struct Module01View: View {
             }
         }
     }
-
+    
     private func stopGrowthTimer() {
         self.growthTimer?.cancel()
     }
-
+    
     private func resumeGrowthTimer() {
         startGrowthTimer()
     }

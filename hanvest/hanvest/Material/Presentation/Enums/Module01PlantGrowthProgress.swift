@@ -5,7 +5,7 @@
 //  Created by Bryan Vernanda on 13/10/24.
 //
 
-import Foundation
+import SwiftUI
 
 enum PlantGrowthProgress: Int {
     case progress01 = 1
@@ -50,6 +50,27 @@ enum PlantGrowthProgress: Int {
                 "Then we can enjoy the result"
             case .progress13:
                 "The fruit can be the interpretation as the profit that we get"
+        }
+    }
+    
+    var plantGrowthImage: (image: Image, topPadding: CGFloat, leadingPadding: CGFloat)? {
+        switch self {
+            case .progress01, .progress02, .progress03:
+                return nil
+            case .progress04:
+                return (Image("plant-growth-1"), 582, 190)
+            case .progress05:
+                return (Image("plant-growth-2"), 550, 172)
+            case .progress06:
+                return (Image("plant-growth-3"), 505, 155)
+            case .progress07:
+                return (Image("plant-growth-4"), 418, 148)
+            case .progress08:
+                return (Image("plant-growth-5"), 344, 96)
+            case .progress09, .progress10, .progress11, .progress12:
+                return (Image("plant-growth-6"), 289, 52)
+            case .progress13:
+                return (Image("plant-growth-7"), 314, 52)
         }
     }
     

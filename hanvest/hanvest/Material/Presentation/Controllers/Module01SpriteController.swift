@@ -120,8 +120,10 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
         self.spriteContactCounter += 1
         
         if spriteContactCounter % 300 == 0 {
-            if let nextProgress = growthProgress.nextProgress() {
-                growthProgress = nextProgress
+            withAnimation(.easeInOut) {
+                if let nextProgress = growthProgress.nextProgress() {
+                    growthProgress = nextProgress
+                }
             }
         }
     }
