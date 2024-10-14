@@ -13,17 +13,28 @@ struct HanvestSimulationView: View {
     @State var selectedStock: String = ""
     
     var body: some View {
-        VStack {
+        ZStack {
+            Color.mineShaft50
+                .edgesIgnoringSafeArea(.all)
             VStack {
-                Divider()
+                VStack {
+                    Divider()
+                    
+                    HanvestStockOptionList(
+                        selectedStockID: $selectedStock,
+                        simulationStockList: viewmodel.stockList
+                    )
+                    
+                    Divider()
+                    
+                    if let selectedStock = viewmodel.selectedStock {
+                        SimulationStockDetailsView(selectedStock: selectedStock)
+                    }
+                }
                 
-                HanvestStockOptionList(
-                    selectedStockID: $selectedStock,
-                    simulationStockList: viewmodel.stockList
-                )
-                
-                Divider()
             }
+        }
+        .onAppear(){
             
         }
     }

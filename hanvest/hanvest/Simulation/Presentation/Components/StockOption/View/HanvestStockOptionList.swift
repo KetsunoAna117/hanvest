@@ -19,7 +19,7 @@ struct HanvestStockOptionList: View {
                     ForEach(simulationStockList, id: \.stockIDName) { stock in
                         HanvestStockOption(
                             selectedStockID: $selectedStockID,
-                            initialState: .unselected,
+                            initialState: .selected,
                             id: stock.stockIDName,
                             image: Image(systemName: "star"),
                             color: stock.stockImageColor) {
@@ -32,6 +32,9 @@ struct HanvestStockOptionList: View {
             .safeAreaPadding(.horizontal, 20)
         }
         .padding(.vertical, 24)
+        .onAppear() {
+            selectedStockID = simulationStockList.first?.stockIDName ?? ""
+        }
     }
 }
 

@@ -56,6 +56,9 @@ struct HanvestStockOption: View {
                 state = .unselected
             }
         }
+        .onAppear(){
+            state = initialState
+        }
     }
     
     func getPressedStatus() -> Bool {
@@ -65,11 +68,11 @@ struct HanvestStockOption: View {
 }
 
 #Preview {
-    @Previewable @State var selectedStockOption: String = ""
+    @Previewable @State var selectedStockOption: String = "Stock-1"
     HStack {
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected,
+            initialState: .selected,
             id: "Stock-1",
             image: Image(systemName: "star"), color: .red
         ) {
