@@ -8,11 +8,42 @@
 import SwiftUI
 
 struct HanvestModuleDescription: View {
+    var title: String
+    var description: String
+    var action: () -> ()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HanvestCardBackground{
+            VStack(spacing: 16){
+                VStack{
+                    Text(title)
+                        .font(.nunito(.title2, .bold))
+                    
+                    Text(description)
+                        .font(.nunito(.subhead))
+                }
+                
+                HanvestButtonDefault(
+                    size: .medium,
+                    style: .filled(isDisabled: false),
+                    iconPosition: .hidden,
+                    title: "Let's go",
+                    image: Image(systemName: "person.fill"),
+                    action: action
+                )
+            }
+            .padding()
+        }
     }
 }
 
 #Preview {
-    HanvestModuleDescription()
+    HanvestModuleDescription(
+            title: "Title",
+            description: "Description Detail",
+            action: {
+                print("Let's go")
+            }
+        )
+    .padding()
 }
