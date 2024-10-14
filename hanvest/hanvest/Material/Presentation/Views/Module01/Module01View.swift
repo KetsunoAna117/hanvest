@@ -15,7 +15,7 @@ struct Module01View: View {
     let progressBarMaxValue: Int = 100
     
     @State private var progressBarCurrValue: Int = 4
-    @State private var growthProgress: PlantGrowthProgress = .progress01
+    @State private var growthProgress: PlantGrowthProgress = .progress08
     @State private var plantVisibility: PlantImageVisibility = .isHidden
     @State private var currentPlantImage: Image?
     @State private var growthTimer: AnyCancellable?
@@ -94,9 +94,13 @@ struct Module01View: View {
                         self.updatePlantVisibility(with: plantGrowthImage.image)
                     }
                 }
-                
             }
             
+            if checkEligibilityPlantFlowerBloom() {
+                PlantFlowerBloomView(growthProgress: $growthProgress) {
+                    self.getNextGrowthProgress()
+                }
+            }
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -122,17 +126,23 @@ struct Module01View: View {
     }
     
     private func handleGrowthTimerEvent() {
+        let rawValue = growthProgress.rawValue
+        
+        if (!(3...7).contains(rawValue)) && (!(10...12).contains(rawValue)) {
+            self.getNextGrowthProgress()
+        } else {
+            self.stopGrowthTimer()
+        }
+    }
+    
+    private func getNextGrowthProgress() {
         withAnimation(.easeInOut) {
-            let rawValue = growthProgress.rawValue
-            
-            if !(3...7).contains(rawValue) {
-                if let nextProgress = growthProgress.nextProgress() {
-                    growthProgress = nextProgress
-                } else {
+            if let nextProgress = self.growthProgress.nextProgress() {
+                self.growthProgress = nextProgress
+            } else {
+                if self.growthTimer != nil {
                     self.stopGrowthTimer()
                 }
-            } else {
-                self.stopGrowthTimer()
             }
         }
     }
@@ -143,6 +153,10 @@ struct Module01View: View {
     
     private func resumeGrowthTimer() {
         startGrowthTimer()
+    }
+    
+    private func checkEligibilityPlantFlowerBloom() -> Bool {
+        return (self.currentPlantImage == Image("plant-growth-6")) && ((10...12).contains(self.growthProgress.rawValue))
     }
 }
 

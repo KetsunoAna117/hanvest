@@ -56,21 +56,21 @@ enum PlantGrowthProgress: Int {
     var plantGrowthImage: (image: Image, topPadding: CGFloat, leadingPadding: CGFloat)? {
         switch self {
             case .progress01, .progress02, .progress03:
-                return nil
+                nil
             case .progress04:
-                return (Image("plant-growth-1"), 582, 190)
+                (Image("plant-growth-1"), 582, 190)
             case .progress05:
-                return (Image("plant-growth-2"), 550, 172)
+                (Image("plant-growth-2"), 550, 172)
             case .progress06:
-                return (Image("plant-growth-3"), 505, 155)
+                (Image("plant-growth-3"), 505, 155)
             case .progress07:
-                return (Image("plant-growth-4"), 418, 148)
+                (Image("plant-growth-4"), 418, 148)
             case .progress08:
-                return (Image("plant-growth-5"), 344, 96)
+                (Image("plant-growth-5"), 344, 96)
             case .progress09, .progress10, .progress11, .progress12:
-                return (Image("plant-growth-6"), 289, 52)
+                (Image("plant-growth-6"), 292, 52)
             case .progress13:
-                return (Image("plant-growth-7"), 314, 52)
+                (Image("plant-growth-7"), 314, 52)
         }
     }
     

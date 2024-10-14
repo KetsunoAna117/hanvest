@@ -11,5 +11,4 @@ enum SpriteCollisionTypes: UInt32 {
     case waterCan = 1
     case waterDroplets = 2
     case soil = 4
-//    case wall = 8
 }
