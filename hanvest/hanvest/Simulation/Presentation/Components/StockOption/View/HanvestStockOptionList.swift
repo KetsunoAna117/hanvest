@@ -19,27 +19,30 @@ struct HanvestStockOptionList: View {
                     ForEach(simulationStockList, id: \.stockIDName) { stock in
                         HanvestStockOption(
                             selectedStockID: $selectedStockID,
-                            initialState: .selected,
+                            initialState: self.selectedStockID == stock.stockIDName ? .selected : .unselected,
                             id: stock.stockIDName,
                             image: Image(systemName: "star"),
                             color: stock.stockImageColor) {
                                 print("\(stock.stockName) is pressed")
                             }
                             .padding(.bottom, 6)
+                            .onAppear() {
+                                print("\(stock.stockIDName) Initial State: \(self.selectedStockID == stock.stockIDName ? "selected" : "unselected")")
+                            }
                     }
                 }
             }
             .safeAreaPadding(.horizontal, 20)
         }
-        .padding(.vertical, 24)
-        .onAppear() {
-            selectedStockID = simulationStockList.first?.stockIDName ?? ""
+        .padding(.vertical, 12)
+        .onAppear(){
+            print("SelectedStockID in OptionList: \(selectedStockID)")
         }
     }
 }
 
 #Preview {
-    @Previewable @State var selectedStockID: String = ""
+    @Previewable @State var selectedStockID: String = "BBRI"
     
     HanvestStockOptionList(
         selectedStockID: $selectedStockID,

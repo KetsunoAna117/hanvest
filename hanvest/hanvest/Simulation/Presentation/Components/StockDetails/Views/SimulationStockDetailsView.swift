@@ -22,6 +22,7 @@ struct SimulationStockDetailsView: View {
                 currentPrice: $currentPrice
             )
         }
+        .padding(.horizontal, 20)
         .onAppear(){
             initialPrice = selectedStock.stockPrice.first?.stockPrice ?? 0
             currentPrice = selectedStock.stockPrice.last?.stockPrice ?? 0

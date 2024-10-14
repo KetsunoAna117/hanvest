@@ -9,19 +9,18 @@ import SwiftUI
 
 struct HanvestSimulationView: View {
     @StateObject private var viewmodel = HanvestSimulationViewModel()
-    
-    @State var selectedStock: String = ""
+
     
     var body: some View {
         ZStack {
-            Color.mineShaft50
+            Color.background
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 VStack {
                     Divider()
                     
                     HanvestStockOptionList(
-                        selectedStockID: $selectedStock,
+                        selectedStockID: $viewmodel.selectedStockID,
                         simulationStockList: viewmodel.stockList
                     )
                     
@@ -29,13 +28,11 @@ struct HanvestSimulationView: View {
                     
                     if let selectedStock = viewmodel.selectedStock {
                         SimulationStockDetailsView(selectedStock: selectedStock)
+                        
                     }
                 }
                 
             }
-        }
-        .onAppear(){
-            
         }
     }
 }
