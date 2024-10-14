@@ -7,11 +7,13 @@
 
 import Foundation
 
-@Observable class HanvestSimulationViewModel {
-    var stockList: [SimulationStockEntity]
+class HanvestSimulationViewModel: ObservableObject {
+    @Inject var getStockList: GetAvailableSimulationStocks
+    
+    @Published var stockList: [SimulationStockEntity] = []
     
     init(){
-        stockList = []
+        stockList = getStockList.execute()
     }
 }
 

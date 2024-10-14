@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct HanvestSimulationView: View {
-    @State private var viewmodel = HanvestSimulationViewModel()
+    @StateObject private var viewmodel = HanvestSimulationViewModel()
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            VStack {
+                Text("This is list of available stocks")
+                Divider()
+            }
+            
+        }
     }
 }
 

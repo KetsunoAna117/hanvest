@@ -7,7 +7,8 @@
 
 struct AppModule {
     static func inject(){
-        
+        // Simulation Use Case
+        @Provider var getAvailableStocks: GetAvailableSimulationStocks = GetAvailableSimulationStocksImpl()
     }
 }
 
