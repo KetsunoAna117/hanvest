@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct hanvestApp: App {
+    @StateObject private var appRouter = AppRouter()
+    @State private var startScreen: Screen?
     
     init(){
         AppModule.inject()
@@ -16,7 +18,14 @@ struct hanvestApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack(path: $appRouter.path) {
+                if let startScreen = startScreen {
+                    appRouter.build(startScreen)
+                        .navigationDestination(for: Screen.self) { screen in
+                            appRouter.build(screen)
+                        }
+                }
+            }
         }
     }
 }
