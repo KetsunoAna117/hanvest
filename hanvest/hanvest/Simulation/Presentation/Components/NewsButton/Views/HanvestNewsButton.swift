@@ -8,12 +8,85 @@
 import SwiftUI
 
 struct HanvestNewsButton: View {
+    // Constant
+    let SHADOW_OFFSET: CGFloat = 5
+    
+    // State
+    var initialState: HanvestNewsButtonState = .unpressed
+    @State private var state: HanvestNewsButtonState = .unpressed
+    
+    var viewmodel: HanvestNewsButtonViewModels
+    var action: () -> ()
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack() {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text(viewmodel.stockIDName)
+                        .font(.nunito(.subhead, .bold))
+                    Text("Report: \(viewmodel.newsTitle)")
+                        .font(.nunito(.subhead))
+                }
+                Text(viewmodel.printReleaseTime())
+                    .font(.nunito(.caption1))
+                    .foregroundStyle(.secondary)
+            }
+            .padding(12)
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(state.borderColor, lineWidth: 0.5) // Default stroke
+        )
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(state.backgroundColor)
+                .shadow(
+                    color: getPressedStatus() ? .clear : state.shadowColor,
+                    radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET // Shadow changes when pressed
+                )
+            
+        )
+        .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
+        .onTapGesture {
+            action()
+        }
+        .onLongPressGesture(minimumDuration: 0.1, pressing: { isPressing in
+            withAnimation {
+                if self.initialState == .unpressed {
+                    if isPressing {
+                        self.state = .pressed
+                    }
+                    else {
+                        self.state = .unpressed
+                    }
+                }
+
+            }
+        }, perform: {
+            action()
+        })
+        .onAppear(){
+            self.state = self.initialState
+        }
+    }
+    
+    func getPressedStatus() -> Bool {
+        return state == .pressed
     }
 }
 
 #Preview {
-    HanvestNewsButton()
+    HanvestNewsButton(
+        viewmodel: HanvestNewsButtonViewModels(
+            stockIDName: "BBRI",
+            newsTitle: "GOTO gets billions in funding",
+            newsReleaseTIme: Date.init(timeInterval: -120, since: Date.now)
+        ), action: {
+            print("News Button Pressed")
+        }
+    )
+    .padding(.horizontal, 16)
 }

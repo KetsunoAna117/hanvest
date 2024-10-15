@@ -10,20 +10,20 @@ import Foundation
 class HanvestNewsButtonViewModels: ObservableObject {
     var stockIDName: String
     var newsTitle: String
-    var newsReleaseTIme: Date
+    var newsReleaseTime: Date
     
     init(stockIDName: String, newsTitle: String, newsReleaseTIme: Date) {
         self.stockIDName = stockIDName
         self.newsTitle = newsTitle
-        self.newsReleaseTIme = newsReleaseTIme
+        self.newsReleaseTime = newsReleaseTIme
     }
     
-    func convertIntoString() -> String {
+    func printReleaseTime() -> String {
         let calendar = Calendar.current
         let now = Date()
         
         // Calculate the difference in time between the given date and now
-        let components = calendar.dateComponents([.year, .month, .weekOfYear, .day, .hour, .minute, .second], from: newsReleaseTIme, to: now)
+        let components = calendar.dateComponents([.year, .month, .weekOfYear, .day, .hour, .minute, .second], from: newsReleaseTime, to: now)
         
         // Determine the relative time description
         if let year = components.year, year > 0 {
