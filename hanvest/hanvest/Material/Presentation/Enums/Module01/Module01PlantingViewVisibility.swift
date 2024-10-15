@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ItemVisibility {
+enum PlantingViewVisibility {
     case isVisible
     case isHidden
 }

@@ -14,7 +14,7 @@ struct Module01View: View {
     let progressBarMaxValue: Int = 100
     let completionItem: CompletionItem = .module01 // TODO: the achivementName and moneyBonus from this enum need to be stored to swiftdata
     
-    @State private var spriteViewVisibility: ItemVisibility = .isVisible
+    @State private var plantingViewVisibility: PlantingViewVisibility = .isVisible
     @State private var pageState: Module01PageState = .moduleMaterial
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
@@ -23,9 +23,9 @@ struct Module01View: View {
         ZStack {
             Color.background
             
-            if spriteViewVisibility == .isVisible {
+            if plantingViewVisibility == .isVisible {
                 Module01PlantingView() {
-                    spriteViewVisibility = .isHidden
+                    plantingViewVisibility = .isHidden
                     updateProgressBarValue()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -60,7 +60,7 @@ struct Module01View: View {
                         .frame(maxWidth: .infinity)
                     }
                     
-                    if spriteViewVisibility == .isHidden {
+                    if plantingViewVisibility == .isHidden {
                         VStack(spacing: (pageState == .moduleMaterial) ? 227 : 50) {
                             TabView(selection: $currentTab) {
                                 if let moduleMaterialContent = pageState.contentOfModuleMaterial {
