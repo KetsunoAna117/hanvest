@@ -12,6 +12,9 @@ struct HanvestStockPriceChart: View {
     @ObservedObject var viewmodel: HanvestStockPriceChartViewModel
     let symbolCategoryKeyPath: KeyPath<SimulationStockPriceEntity, String> // Category to differentiate symbols
     
+    var displayBy: Calendar.Component
+    var displayStep: Int = 1
+    
     var body: some View {
         HanvestCardBackground {
             VStack {
@@ -37,7 +40,7 @@ struct HanvestStockPriceChart: View {
                     }
                 }
                 .chartXAxis {
-                    AxisMarks(values: .stride(by: .hour, count: 1)) { value in
+                    AxisMarks(values: .stride(by: displayBy, count: displayStep)) { value in
                         if value.as(Date.self) != nil {
                             AxisGridLine()
                             AxisTick()
@@ -71,6 +74,6 @@ struct HanvestStockPriceChart: View {
     @Previewable @State var stockPrices = SimulationStockEntity.getMockData().first!.stockPrice ?? []
     
     HanvestStockPriceChart(
-        viewmodel: HanvestStockPriceChartViewModel(stockPrices: stockPrices), symbolCategoryKeyPath: \.stockIDName)
+        viewmodel: HanvestStockPriceChartViewModel(stockPrices: stockPrices), symbolCategoryKeyPath: \.stockIDName, displayBy: .hour)
     .padding(.horizontal, 20)
 }

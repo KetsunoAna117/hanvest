@@ -25,7 +25,8 @@ struct SimulationStockDetailsView: View {
                 HanvestStockPriceChart(
                     viewmodel: HanvestStockPriceChartViewModel(
                         stockPrices: selectedStock.stockPrice),
-                    symbolCategoryKeyPath: \.stockIDName
+                    symbolCategoryKeyPath: \.stockIDName,
+                    displayBy: .hour
                 )
             }
             else {
