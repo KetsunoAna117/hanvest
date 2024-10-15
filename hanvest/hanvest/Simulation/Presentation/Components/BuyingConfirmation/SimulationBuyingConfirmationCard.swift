@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SimulationBuyingConfirmationCard: View {
     var viewModel: BuyingStockDataViewModel
+    var cancelAction: () -> ()
+    var confirmAction: () -> ()
     var body: some View {
         HanvestCardBackground {
             VStack(alignment: .center, spacing: 24){
@@ -26,27 +28,21 @@ struct SimulationBuyingConfirmationCard: View {
                         style: .filledIncorrect(isDisabled: false),
                         iconPosition: .leading,
                         title: "Cancel",
-                        action: {
-                            print("Button Pressed!")
-                        }
+                        action: cancelAction
                     )
                     HanvestButtonDefault(
                         size: .medium,
                         style: .filledCorrect(isDisabled: false),
                         iconPosition: .leading,
                         title: "Confirm",
-                        action: {
-                            print("Button Pressed!")
-                        }
+                        action: confirmAction
                     )
                 }
-           
             }.padding(16)
-            
         }
         }
     func rowDes(title: String, value: String) -> some View {
-        HStack(alignment: .center, spacing: 24) {
+        HStack(spacing: 24) {
             Text(title)
                 .font(.nunito(.body))
                 .frame(width: 120, alignment: .topLeading)
@@ -55,16 +51,21 @@ struct SimulationBuyingConfirmationCard: View {
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
     }
-    
     }
-    
 #Preview {
     SimulationBuyingConfirmationCard(viewModel: BuyingStockDataViewModel(
         stock: "bbca",
         priceStock: 5000,
         lot: 1,
         fee: 500
-        )
+        ),
+        cancelAction: {
+            print("Cancel button pressed")
+        },
+        
+        confirmAction: {
+            print("Confirm button pressed")
+        }
     )
     .padding(.horizontal, 16)
     }
