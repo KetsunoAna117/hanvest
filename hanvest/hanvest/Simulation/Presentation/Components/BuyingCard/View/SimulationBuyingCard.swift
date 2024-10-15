@@ -50,13 +50,11 @@ struct SimulationBuyingCard: View {
                         .font(.nunito(.body, .regular))
                         
                     Spacer()
-                        .padding(.horizontal)
                     
-                    VStack{
-                        HanvestNumberStepper(value: $viewModel.stockPrice, raise: $priceRaise)
-                    }
+                    HanvestNumberStepper(value: $viewModel.stockPrice, raise: $priceRaise)
                     
                 }
+                
                 
                 
                 HStack{
@@ -64,11 +62,8 @@ struct SimulationBuyingCard: View {
                         .font(.nunito(.body, .regular))
                     
                     Spacer()
-                        .padding(.horizontal)
                     
-                    VStack{
-                        HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: $lotRaise)
-                    }
+                    HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: $lotRaise)
                 }
             }
             .padding()

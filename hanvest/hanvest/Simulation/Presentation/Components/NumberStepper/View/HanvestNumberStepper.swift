@@ -16,7 +16,7 @@ struct HanvestNumberStepper: View {
         HStack() {
             Button{
                 viewModel.decrement(&value, &raise)
-            }label: {
+            } label: {
                 Circle()
                     .stroke(.mineShaft200, lineWidth: 1)
                     .frame(width: 28, height: 28)
@@ -40,7 +40,7 @@ struct HanvestNumberStepper: View {
             
             Button {
                 viewModel.increment(&value, &raise)
-            }label: {
+            } label: {
                 Circle()
                     .stroke(.mineShaft200, lineWidth: 1)
                     .frame(width: 28, height: 28)
@@ -57,7 +57,6 @@ struct HanvestNumberStepper: View {
             }
         }
         .frame(minWidth: 168)
-        .padding()
     }
 }
 
@@ -67,6 +66,7 @@ struct HanvestNumberStepper: View {
     
     VStack {
         HanvestNumberStepper(value: $value, raise: $raise)
+            .padding()
     }
     .background(.mineShaft50)
 }
