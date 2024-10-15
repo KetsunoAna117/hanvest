@@ -33,7 +33,7 @@ struct HanvestSlider: View {
                     
                     Circle()
                         .frame(width: 28, height: 28)
-                        .foregroundColor(.mineShaft50)
+                        .foregroundColor(.seagull100)
                         .position(x: geometry.size.width * calculateProgressPercentage(), y: 14)
                         .gesture(DragGesture()
                             .onChanged { value in
@@ -51,7 +51,7 @@ struct HanvestSlider: View {
 
 #Preview {
     @Previewable @State var value: Int = 50
-    VStack {
+    HanvestCardBackground {
         HanvestSlider(value: $value, minimum: 0, maximum: 100)
             .padding(24)
         
