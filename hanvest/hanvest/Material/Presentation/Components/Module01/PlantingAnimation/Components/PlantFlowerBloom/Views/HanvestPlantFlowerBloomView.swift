@@ -48,7 +48,7 @@ struct HanvestPlantFlowerBloomView: View {
         }
     }
     
-    func addNextFlower() {
+    private func addNextFlower() {
         if self.currentFlowerIndex < self.allFlowers.count {
             DispatchQueue.main.asyncAfter(deadline: .now() + flowerAndAppleAppearTime) {
                 let flower = self.allFlowers[currentFlowerIndex]
@@ -62,7 +62,7 @@ struct HanvestPlantFlowerBloomView: View {
         }
     }
     
-    func replaceFlowersWithApple(with imageKeyPath: KeyPath<FlowerBloomImage, (image: Image, topPadding: CGFloat, leadingPadding: CGFloat)?>) {
+    private func replaceFlowersWithApple(with imageKeyPath: KeyPath<FlowerBloomImage, (image: Image, topPadding: CGFloat, leadingPadding: CGFloat)?>) {
         for (index, flower) in self.visibleFlowers.enumerated() {
             if let appleImage = flower[keyPath: imageKeyPath]?.image,
                let topPadding = flower[keyPath: imageKeyPath]?.topPadding,
@@ -78,7 +78,7 @@ struct HanvestPlantFlowerBloomView: View {
         self.returnToMainView(duration: totalDelay)
     }
     
-    func returnToMainView(duration: CGFloat) {
+    private func returnToMainView(duration: CGFloat) {
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
             self.onCompletion?()
         }

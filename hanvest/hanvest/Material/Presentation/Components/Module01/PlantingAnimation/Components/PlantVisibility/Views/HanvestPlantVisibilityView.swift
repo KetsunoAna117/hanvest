@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HanvestPlantVisibilityView: View {
-    @State private var plantVisibility: PlantImageVisibility = .isHidden
+    @State private var plantVisibility: ItemVisibility = .isHidden
     @State private var currentPlantImage: Image?
     @Binding var growthProgress: PlantGrowthProgress
     
