@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HanvestSimulationView: View {
     @StateObject private var viewmodel = HanvestSimulationViewModel()
-
     
     var body: some View {
         ZStack {
@@ -32,7 +31,7 @@ struct HanvestSimulationView: View {
                     
                     Divider()
                     
-                    HStack {
+                    HStack(spacing: 12) {
                         HanvestButtonDefault(
                             size: .medium,
                             style: .filledIncorrect(isDisabled: false),
@@ -46,8 +45,8 @@ struct HanvestSimulationView: View {
                                 print("Buy Button Triggered")
                             }
                     }
-                    .padding(.top, 12)
-                    .padding(.horizontal, 16)
+                    .padding(.top, 18)
+                    .padding(.horizontal, 20)
                 }
                 
                 Spacer()
