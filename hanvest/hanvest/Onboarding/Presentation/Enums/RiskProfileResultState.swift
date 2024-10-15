@@ -17,13 +17,13 @@ enum RiskProfileResultState {
     var riskImage: Image {
         switch self {
             case .conservative:
-                Image("conservative")
+                Image("risk-profile-conservative-badge")
             case .moderate:
-                Image("moderateBadge")
+                Image("risk-profile-moderate-badge")
             case .aggresive:
-                Image("aggresiveBadge")
+                Image("risk-profile-aggresive-badge")
             case .veryAggresive:
-                Image("veryAggresiveBadge")
+                Image("risk-profile-very-aggresive-badge")
         }
     }
     
