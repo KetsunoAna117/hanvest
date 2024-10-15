@@ -47,9 +47,9 @@ struct HanvestButtonRadioBehavior: View {
                     .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
             }
         }
-        .frame(maxWidth: size.rawValue)
+        .frame(maxWidth: size.minWidth)
         .padding(.horizontal, 20)
-        .padding(.vertical, 14)
+        .padding(.vertical, size.verticalPadding)
         .multilineTextAlignment(.center)
         .background(
             RoundedRectangle(cornerRadius: 12)
@@ -132,7 +132,7 @@ struct HanvestButtonRadioBehavior: View {
         }
         VStack(spacing: 16) {
             HanvestButtonRadioBehavior(
-                size: .large,
+                size: .medium,
                 style: .filled(isDisabled: false),
                 iconPosition: .leading,
                 selectedButtonID: $selectedButtonID,
@@ -144,7 +144,7 @@ struct HanvestButtonRadioBehavior: View {
                 }
             )
             HanvestButtonRadioBehavior(
-                size: .large,
+                size: .medium,
                 style: .filledCorrect(isDisabled: false),
                 iconPosition: .leading,
                 selectedButtonID: $selectedButtonID,
@@ -156,7 +156,7 @@ struct HanvestButtonRadioBehavior: View {
                 }
             )
             HanvestButtonRadioBehavior(
-                size: .large,
+                size: .medium,
                 style: .filledIncorrect(isDisabled: false),
                 iconPosition: .leading,
                 selectedButtonID: $selectedButtonID,
