@@ -15,14 +15,14 @@ struct HanvestProfitLossLabelView: View {
     var body: some View {
         let labelState = viewModel.determineLabelState(initialValue, currentValue)
         
-        HStack {
+        HStack(spacing: 4) {
             Text("\(labelState.symbolType)\(String(format: "%.0f", abs(viewModel.deficit)))")
                 .foregroundColor(labelState.textColor)
-                .font(.nunito(.body))
+                .font(.nunito(.caption1))
             
             Text("(\(labelState.symbolType)\(String(format: "%.2f", viewModel.percentageValue))%)")
                 .foregroundColor(labelState.textColor)
-                .font(.nunito(.body))
+                .font(.nunito(.caption1))
         }
         .onAppear {
             viewModel.calculatePercentageValue(initialValue, currentValue)

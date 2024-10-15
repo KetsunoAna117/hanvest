@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct StockOption: View {
+struct HanvestStockOption: View {
     // Constant
     let SHADOW_OFFSET: CGFloat = 5
     let WIDTH: CGFloat = 75
@@ -56,6 +56,9 @@ struct StockOption: View {
                 state = .unselected
             }
         }
+        .onAppear(){
+            state = initialState
+        }
     }
     
     func getPressedStatus() -> Bool {
@@ -65,18 +68,18 @@ struct StockOption: View {
 }
 
 #Preview {
-    @Previewable @State var selectedStockOption: String = ""
+    @Previewable @State var selectedStockOption: String = "Stock-1"
     HStack {
-        StockOption(
+        HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected,
+            initialState: .selected,
             id: "Stock-1",
             image: Image(systemName: "star"), color: .red
         ) {
             print("Stock-1 selected")
         }
         
-        StockOption(
+        HanvestStockOption(
             selectedStockID: $selectedStockOption,
             initialState: .unselected,
             id: "Stock-2",
@@ -85,7 +88,7 @@ struct StockOption: View {
             print("Stock-2 selected")
         }
         
-        StockOption(
+        HanvestStockOption(
             selectedStockID: $selectedStockOption,
             initialState: .unselected,
             id: "Stock-3",
