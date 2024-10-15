@@ -13,11 +13,12 @@ struct CompletionCardStyleViewModifier: ViewModifier {
             .frame(maxWidth: .infinity)
             .background(Color.mineShaft50)
             .cornerRadius(12)
+            .shadow(color: Color(red: 0.15, green: 0.15, blue: 0.15).opacity(0.1), radius: 2, x: 0, y: 0.33)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
+                    .inset(by: 0.5)
                     .stroke(Color.mineShaft200, lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.2), radius: 0.2, x: 0, y: 0)
     }
 }
 
