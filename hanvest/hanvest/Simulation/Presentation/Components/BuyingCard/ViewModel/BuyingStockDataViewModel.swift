@@ -8,7 +8,11 @@
 import SwiftUI
 
 class BuyingStockDataViewModel: ObservableObject{
-    @Published var tradingBalance: Int
+    @Published var tradingBalance: Int {
+        didSet {
+            validateStockBuyAmount()
+        }
+    }
     @Published var stockPrice: Int{
         didSet {
             validateStockBuyAmount()
@@ -21,7 +25,14 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     @Published var stockBuyAmount: Int = 0
     
-    init(tradingBalance: Int, stockPrice: Int = 0, stockBuyLot: Int = 0) {
+    init() {
+        self.tradingBalance = 0
+        self.stockPrice = 0
+        self.stockBuyLot = 0
+        
+    }
+    
+    func setup(tradingBalance: Int, stockPrice: Int, stockBuyLot: Int = 25){
         self.tradingBalance = tradingBalance
         self.stockPrice = stockPrice
         self.stockBuyLot = stockBuyLot

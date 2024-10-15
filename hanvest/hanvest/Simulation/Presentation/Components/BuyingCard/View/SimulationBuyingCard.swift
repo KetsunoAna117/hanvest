@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SimulationBuyingCard: View {
-    @StateObject var viewModel: BuyingStockDataViewModel
+    @ObservedObject var viewModel: BuyingStockDataViewModel
     @State var priceRaise: Int = 25
     @State var lotRaise: Int = 1
     
@@ -66,15 +66,41 @@ struct SimulationBuyingCard: View {
                     HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: $lotRaise)
                 }
             }
-            .padding()
         }
-        .padding()
     }
 }
 
 #Preview {
+    @Previewable @StateObject var viewmodel = BuyingStockDataViewModel()
     @Previewable @State var balance = 5300000
     @Previewable @State var price = 5300
     
-    SimulationBuyingCard(viewModel: BuyingStockDataViewModel(tradingBalance: balance, stockPrice: price))
+    VStack {
+        SimulationBuyingCard(viewModel: viewmodel)
+            .onAppear(){
+                viewmodel.setup(tradingBalance: balance, stockPrice: price)
+            }
+            .onChange(of: balance) { oldValue, newValue in
+                viewmodel.tradingBalance = newValue
+            }
+            .onChange(of: price) { oldValue, newValue in
+                viewmodel.stockPrice = newValue
+            }
+        
+        HStack {
+            HanvestButtonDefault(
+                style: .filledCorrect(isDisabled: false),
+                title: "Increment Balance") {
+                balance += 100
+            }
+            HanvestButtonDefault(
+                style: .filledIncorrect(isDisabled: false),
+                title: "Decrement Balance") {
+                    if balance >= 5300000 + 100 {
+                        balance -= 100
+                    }
+            }
+        }
+    }
+    .padding(.horizontal, 16)
 }
