@@ -23,16 +23,16 @@ struct HanvestProgressBar: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 100)
-                    .frame(height: 8)
+                    .frame(height: 14)
                     .foregroundStyle(.fillSecondary)
                 
                 RoundedRectangle(cornerRadius: 100)
-                    .frame(width: geometry.size.width * calculateProgressPercentage(), height: 8)
+                    .frame(width: geometry.size.width * calculateProgressPercentage(), height: 14)
                     .foregroundStyle(.seagull400)
                     .animation(.easeInOut, value: value)
             }
         }
-        .frame(height: 8)
+        .frame(height: 14)
         .onAppear {
             print("Progress Percentage: \(calculateProgressPercentage())")
         }
