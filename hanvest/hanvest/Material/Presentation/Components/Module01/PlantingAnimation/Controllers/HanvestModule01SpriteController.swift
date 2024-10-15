@@ -10,6 +10,7 @@ import SpriteKit
 
 class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
     // Sprites
+    private let soil: Soil
     private var waterCan: WaterCan
     
     // Variables
@@ -21,6 +22,7 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
     @Binding var growthProgress: PlantGrowthProgress
     
     init(size: CGSize, growthProgress: Binding<PlantGrowthProgress>) {
+        self.soil = Soil()
         self.waterCan = WaterCan()
         self.draggingBehavior = .isNotDragging
         self.lastUpdatedTime = 0
@@ -40,7 +42,7 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = .background
         self.size = view.frame.size
         self.physicsWorld.contactDelegate = self
-        self.createSoil()
+        self.addChild(soil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -128,11 +130,6 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    private func createSoil() {
-        let soil = Soil()
-        self.addChild(soil)
-    }
-    
     private func createWaterDroplet(position: CGPoint) {
         let droplets = WaterDroplet(position: position)
         self.addChild(droplets)
@@ -154,6 +151,8 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
             }
         } else if growthProgress == .progress08 {
             waterCan.removeFromParent()
+        } else if growthProgress == .progress13 {
+            soil.removeFromParent()
         }
     }
 }

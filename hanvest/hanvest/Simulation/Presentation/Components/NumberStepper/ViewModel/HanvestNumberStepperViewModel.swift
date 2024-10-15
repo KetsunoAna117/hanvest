@@ -8,12 +8,12 @@
 import Foundation
 
 class HanvestNumberStepperViewModel: ObservableObject {
-    func increment(_ value: inout Int) {
-        value += 1
+    func increment(_ value: inout Int, _ raise: inout Int) {
+        value += raise
     }
 
-    func decrement(_ value: inout Int) {
-        value -= 1
+    func decrement(_ value: inout Int, _ raise: inout Int) {
+        value -= raise
     }
 }
 
