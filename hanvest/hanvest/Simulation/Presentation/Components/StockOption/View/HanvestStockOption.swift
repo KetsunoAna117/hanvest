@@ -61,6 +61,7 @@ struct HanvestStockOption: View {
 
 #Preview {
     @Previewable @State var selectedStockOption: String = ""
+    
     VStack {
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
