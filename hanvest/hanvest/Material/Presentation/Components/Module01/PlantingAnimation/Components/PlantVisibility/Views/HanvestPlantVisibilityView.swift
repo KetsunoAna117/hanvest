@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HanvestPlantVisibilityView: View {
-    @State private var plantVisibility: ItemVisibility = .isHidden // change this into visible for debugging
     @State private var currentPlantImageName: String = "plant-growth-1"
     @Binding var growthProgress: PlantGrowthProgress
     
