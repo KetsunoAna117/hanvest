@@ -30,6 +30,24 @@ struct HanvestSimulationView: View {
                         selectedStock: $viewmodel.selectedStock
                     )
                     
+                    Divider()
+                    
+                    HStack {
+                        HanvestButtonDefault(
+                            size: .medium,
+                            style: .filledIncorrect(isDisabled: false),
+                            title: "Sell") {
+                                print("Sell Button Triggered")
+                            }
+                        HanvestButtonDefault(
+                            size: .medium,
+                            style: .filledCorrect(isDisabled: false),
+                            title: "Buy") {
+                                print("Buy Button Triggered")
+                            }
+                    }
+                    .padding(.top, 12)
+                    .padding(.horizontal, 16)
                 }
                 
                 Spacer()
