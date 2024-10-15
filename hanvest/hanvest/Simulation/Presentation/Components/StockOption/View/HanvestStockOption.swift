@@ -62,9 +62,9 @@ struct HanvestStockOption: View {
 #Preview {
     @Previewable @State var selectedStockOption: String = ""
     VStack {
-        StockOption(
+        HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .selected,
+            initialState: .unselected,
             id: "Stock-1",
             imageName: "Amazon-logo"
         ) {
@@ -89,7 +89,7 @@ struct HanvestStockOption: View {
             print("Stock-3 selected")
         }
         
-        StockOption(
+        HanvestStockOption(
             selectedStockID: $selectedStockOption,
             initialState: .unselected,
             id: "Stock-4",
@@ -98,7 +98,7 @@ struct HanvestStockOption: View {
             print("Stock-4 selected")
         }
         
-        StockOption(
+        HanvestStockOption(
             selectedStockID: $selectedStockOption,
             initialState: .unselected,
             id: "Stock-5",

@@ -21,8 +21,8 @@ struct HanvestStockOptionList: View {
                             selectedStockID: $selectedStockID,
                             initialState: self.selectedStockID == stock.stockIDName ? .selected : .unselected,
                             id: stock.stockIDName,
-                            image: Image(systemName: "star"),
-                            color: stock.stockImageColor) {
+                            imageName: stock.stockImageName
+                        ) {
                                 print("\(stock.stockName) is pressed")
                             }
                             .padding(.bottom, 6)
