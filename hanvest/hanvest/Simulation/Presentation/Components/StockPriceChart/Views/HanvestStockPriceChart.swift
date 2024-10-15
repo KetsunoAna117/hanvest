@@ -71,7 +71,7 @@ struct HanvestStockPriceChart: View {
 }
 
 #Preview {
-    @Previewable @State var stockPrices = SimulationStockEntity.getMockData().first!.stockPrice ?? []
+    @Previewable @State var stockPrices = SimulationStockEntity.getMockData().first!.stockPrice
     
     HanvestStockPriceChart(
         viewmodel: HanvestStockPriceChartViewModel(stockPrices: stockPrices), symbolCategoryKeyPath: \.stockIDName, displayBy: .hour)
