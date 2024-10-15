@@ -9,66 +9,66 @@ import SwiftUI
 
 struct SimulationBuyingCard: View {
     @StateObject var viewModel: BuyingStockDataViewModel
+    @State var priceRaise: Int = 25
+    @State var lotRaise: Int = 1
     
     var body: some View {
         HanvestCardBackground {
             VStack(spacing: 16) {
-                HStack {
+                HStack{
                     Text("Trading Balance")
                         .font(.nunito(.body, .regular))
                     
                     Spacer()
                     
-                    //                        Text("Rp \(viewModel.tradingBalance)")
-                    Text("Rp \(viewModel.tradingBalance)")
+                    Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.tradingBalance))")
                         .font(.nunito(.body, .bold))
                 }
                 
-                
-                
-                HStack {
+                HStack{
                     HanvestSlider(value: $viewModel.stockBuyLot, minimum: 0, maximum: viewModel.maximumStockBuyLot())
                     
                     Spacer()
                     
+                    
                     Text("\(viewModel.calculateStockBuyAmountPercentage()) %")
                         .font(.nunito(.body, .regular))
-                        .foregroundColor(.gray)
                 }
                 
-                HStack {
+                HStack{
                     Text("Amount")
                         .font(.nunito(.body, .regular))
                     
                     Spacer()
                     
-                    Text("Rp \(viewModel.stockBuyAmount)")
-                        .font(.nunito(.body, .bold))
+                    Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.stockBuyAmount))")
+                        .font(.nunito(.body, .regular))
                 }
                 
-                HStack {
+                HStack{
                     Text("Price")
                         .font(.nunito(.body, .regular))
-                    
+                        
                     Spacer()
+                        .padding(.horizontal)
                     
                     VStack{
-                        HanvestNumberStepper(value: $viewModel.stockPrice)
+                        HanvestNumberStepper(value: $viewModel.stockPrice, raise: $priceRaise)
                     }
-                    .frame(maxWidth: .infinity)
+                    
                 }
                 
-                HStack {
+                
+                HStack{
                     Text("Lot")
                         .font(.nunito(.body, .regular))
                     
                     Spacer()
+                        .padding(.horizontal)
                     
                     VStack{
-                        HanvestNumberStepper(value: $viewModel.stockBuyLot)
+                        HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: $lotRaise)
                     }
-                    .frame(maxWidth: .infinity)
-                    
                 }
             }
             .padding()
@@ -78,8 +78,8 @@ struct SimulationBuyingCard: View {
 }
 
 #Preview {
-    @Previewable @State var balance = 1000000
-    @Previewable @State var price = 500
+    @Previewable @State var balance = 5300000
+    @Previewable @State var price = 5300
     
     SimulationBuyingCard(viewModel: BuyingStockDataViewModel(tradingBalance: balance, stockPrice: price))
 }

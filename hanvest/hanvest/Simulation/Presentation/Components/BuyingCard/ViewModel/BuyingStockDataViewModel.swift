@@ -11,27 +11,51 @@ class BuyingStockDataViewModel: ObservableObject{
     @Published var tradingBalance: Int
     @Published var stockPrice: Int{
         didSet {
-            calculateStockBuyAmount()
+            validateStockBuyAmount()
         }
     }
     @Published var stockBuyLot: Int{
         didSet {
-            calculateStockBuyAmount()
+            validateStockBuyAmount()
         }
     }
     @Published var stockBuyAmount: Int = 0
     
-    init(tradingBalance: Int, stockPrice: Int, stockBuyLot: Int = 0) {
+    init(tradingBalance: Int, stockPrice: Int = 0, stockBuyLot: Int = 0) {
         self.tradingBalance = tradingBalance
         self.stockPrice = stockPrice
         self.stockBuyLot = stockBuyLot
+        validateStockBuyAmount()
+    }
+    
+    func validateStockBuyAmount() {
+        validateStockPrice()
+        validateStockBuyLot()
+        calculateStockBuyAmount()
     }
     
     func calculateStockBuyAmount(){
         stockBuyAmount = stockPrice * stockBuyLot * 100
     }
     
+    private func validateStockPrice() {
+            if stockPrice < 0 {
+                stockPrice = 0
+            }
+        }
+    
+    private func validateStockBuyLot() {
+        let maxLot = maximumStockBuyLot()
+            if stockBuyLot < 0 {
+                stockBuyLot = 0
+            } else if stockBuyLot > maxLot {
+                stockBuyLot = maxLot
+            }
+        }
+
+    
     func maximumStockBuyLot() -> Int {
+        guard stockPrice > 0 else { return 0 }
         let maxLot = tradingBalance / (stockPrice * 100)
         return maxLot
     }
@@ -39,11 +63,6 @@ class BuyingStockDataViewModel: ObservableObject{
     func calculateStockBuyAmountPercentage() -> String {
         let percentage = Double(stockBuyAmount) / Double(tradingBalance) * 100
         return String(format: "%.2f", percentage)
-    }
-    
-    func maximumStockBuyAmount() -> Int {
-        
-        stockBuyAmount
     }
 }
 
