@@ -18,10 +18,7 @@ struct HanvestRiskProfileResultView: View {
                     .font(.nunito(.title2, .bold))
                     .frame(maxWidth: .infinity)
                 
-                // TODO: replace the rectangle with image
-                Rectangle()
-                    .frame(maxWidth: 117.5, maxHeight: 138)
-                    .cornerRadius(12)
+                resultState.riskImage
                 
                 VStack(spacing: 18) {
                     Text("\(resultState.riskHeaderText)")
