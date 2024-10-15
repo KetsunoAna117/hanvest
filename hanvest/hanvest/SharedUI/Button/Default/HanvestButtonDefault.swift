@@ -44,9 +44,9 @@ struct HanvestButtonDefault: View {
                     .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
             }
         }
-        .frame(maxWidth: size.rawValue)
+        .frame(maxWidth: size.minWidth)
         .padding(.horizontal, 20)
-        .padding(.vertical, 14)
+        .padding(.vertical, size.verticalPadding)
         .multilineTextAlignment(.center)
         .background(
             RoundedRectangle(cornerRadius: 12)
