@@ -88,13 +88,13 @@ struct SimulationSellingCard: View {
             HanvestButtonDefault(
                 style: .filledCorrect(isDisabled: false),
                 title: "Increment Lot") {
-                    remainingLot += 100
+                    remainingLot += 1
             }
             HanvestButtonDefault(
                 style: .filledIncorrect(isDisabled: false),
                 title: "Decrement Lot") {
-                    if remainingLot >= 5300000 + 100 {
-                        remainingLot -= 100
+                    if remainingLot >= 0 + 1 {
+                        remainingLot -= 1
                     }
             }
         }

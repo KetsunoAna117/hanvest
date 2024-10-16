@@ -32,7 +32,6 @@ struct HanvestModuleDescription: View {
                     action: action
                 )
             }
-            .padding()
         }
     }
 }
