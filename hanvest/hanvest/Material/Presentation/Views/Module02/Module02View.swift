@@ -87,9 +87,10 @@ struct Module02View: View {
                             
                             if let page07Content = Module02PageState.page07.page07Content {
                                 
-                                HanvestMultipleChoiceView(
-                                    question: page07Content.headerText,
-                                    answers: page07Content.choices,
+                                HanvestSelectableOptionsView(
+                                    headerText: page07Content.headerText,
+                                    choicesText: page07Content.choices,
+                                    eachComponentSpacing: 24,
                                     onSelectAnswer: { answer in
                                         viewModel.userSelectedAnswers[Module02PageLoopSegmentation.textImageWithButtonDefault.pageSegmentation.count - 1] = answer
                                     }

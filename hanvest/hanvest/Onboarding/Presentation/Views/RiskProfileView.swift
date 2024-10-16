@@ -46,11 +46,12 @@ struct RiskProfileView: View {
                             
                             ForEach(Array(RiskProfileQuestionsAndOptions.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestMultipleChoiceView(
-                                    question:
+                                HanvestSelectableOptionsView(
+                                    headerText:
                                         page.questions,
-                                    answers:
+                                    choicesText:
                                         page.options,
+                                    eachComponentSpacing: 24,
                                     onSelectAnswer: { answer in
                                         viewModel.userSelectedAnswers[index] = answer
                                     }
