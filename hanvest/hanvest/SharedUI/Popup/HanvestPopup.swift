@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HanvestModuleDescription: View {
+struct HanvestPopup: View {
     var title: String
     var description: String
     var action: () -> ()
@@ -37,7 +37,7 @@ struct HanvestModuleDescription: View {
 }
 
 #Preview {
-    HanvestModuleDescription(
+    HanvestPopup(
             title: "Title",
             description: "Description Detail",
             action: {
