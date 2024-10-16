@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-enum Module02PageState: CaseIterable {
-    case page01
-    case page02
-    case page03
-    case page04
-    case page05
-    case page06
-    case page07
-    case page08
-    case page09
-    case page08Alt2
-    case page09Alt2
-    case page10
-    case claimRewardPage
+enum Module02PageState: Int, CaseIterable {
+    case page01 = 0
+    case page02 = 1
+    case page03 = 2
+    case page04 = 3
+    case page05 = 4
+    case page06 = 5
+    case page07 = 6
+    case page08 = 7
+    case page09 = 8
+    case page08Alt2 = 72
+    case page09Alt2 = 82
+    case page10 = 9
+    case claimRewardPage = 10
     
     var buttonStringValue: String {
         switch self {
@@ -37,7 +37,7 @@ enum Module02PageState: CaseIterable {
         }
     }
     
-    var page04Text: String? {
+    var page04Content: String? {
         switch self {
             case .page04:
                 "Now choose the color you want"
@@ -46,7 +46,7 @@ enum Module02PageState: CaseIterable {
         }
     }
     
-    var page07Text: (headerText: String, choices: [String])? {
+    var page07Content: (headerText: String, choices: [String])? {
         switch self {
         case .page07:
             (
@@ -58,7 +58,7 @@ enum Module02PageState: CaseIterable {
         }
     }
     
-    var page10Text: (headerText: Text, detailText: Text)? {
+    var page10Content: (headerText: Text, detailText: Text)? {
         switch self {
             case .page10:
             (
@@ -72,6 +72,19 @@ enum Module02PageState: CaseIterable {
             case .page01, .page02, .page03, .page04, .page05, .page06, .page07, .page08, .page09, .page08Alt2, .page09Alt2, .claimRewardPage:
                 nil
         }
+    }
+    
+    func nextPage() -> Module02PageState {
+        let allCases = Module02PageState.allCases
+        
+        if let currentIndex = allCases.firstIndex(of: self) {
+            let nextIndex = currentIndex + 1
+            if nextIndex < allCases.count {
+                return allCases[nextIndex]
+            }
+        }
+        
+        return self
     }
 
 }

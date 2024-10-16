@@ -95,7 +95,7 @@ struct RiskProfileView: View {
         .ignoresSafeArea()
     }
     
-    func goToNextPage() {
+    private func goToNextPage() {
         if currentTab < totalPage {
             currentTab += 1
         } else {
@@ -103,7 +103,7 @@ struct RiskProfileView: View {
         }
     }
     
-    func changePageState() {
+    private func changePageState() {
         if currentTab < totalPage {
             pageState = .questionPage
         } else {
@@ -111,13 +111,13 @@ struct RiskProfileView: View {
         }
     }
     
-    func updateProgressBarValue() {
+    private func updateProgressBarValue() {
         if pageState == .questionPage {
             progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
         }
     }
     
-    func checkIsDisabled() -> Bool {
+    private func checkIsDisabled() -> Bool {
         return pageState == .questionPage && viewModel.userSelectedAnswers[currentTab - 1].isEmpty
     }
 }
