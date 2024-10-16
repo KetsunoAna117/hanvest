@@ -34,37 +34,21 @@ struct Module01View: View {
             ZStack {
                 VStack(spacing: 49) {
                     if pageState == .moduleMaterial {
-                        HStack(spacing: 0) {
-                            Button {
-                                // TODO: Do something
-                            } label: {
-                                Image(systemName: "xmark")
-                                    .font(.system(size: 24))
-                                    .foregroundStyle(.labelPrimary)
-                            }
-                            
-                            
-                            HStack {
-                                HanvestProgressBar(
-                                    value:
-                                        $progressBarCurrValue,
-                                    minimum:
-                                        progressBarMinValue,
-                                    maximum:
-                                        progressBarMaxValue
-                                )
-                            }
-                            .padding(.horizontal, 16)
-                        }
-                        .padding(.horizontal, 20)
-                        .frame(maxWidth: .infinity)
+                        ProgressBarWithXMarkView(
+                            progressBarMinValue: progressBarMinValue,
+                            progressBarMaxValue: progressBarMaxValue,
+                            action: {},
+                            progressBarCurrValue: $progressBarCurrValue
+                        )
                     }
                     
                     if plantingViewVisibility == .isHidden {
                         VStack(spacing: (pageState == .moduleMaterial) ? 227 : 50) {
                             TabView(selection: $currentTab) {
+                                
                                 if let moduleMaterialContent = pageState.contentOfModuleMaterial {
                                     ForEach(0..<moduleMaterialContent.count, id: \.self) { index in
+                                        
                                         HanvestHeaderWithDetailTextView(
                                             spacingBetweenHeaderAndDetail: 24,
                                             headerText: moduleMaterialContent[index].headerText,
@@ -72,6 +56,7 @@ struct Module01View: View {
                                         )
                                         .tag(index)
                                         .transition(.slide)
+                                        
                                     }
                                 }
                                 
@@ -84,8 +69,7 @@ struct Module01View: View {
                             
                             ZStack {
                                 HanvestButtonDefault(
-                                    title:
-                                        pageState.buttonStringValue
+                                    title: pageState.buttonStringValue
                                 ) {
                                     goToNextPage()
                                     updateProgressBarValue()
