@@ -8,33 +8,29 @@
 import SwiftUI
 
 struct HanvestPlantVisibilityView: View {
-    @State private var plantVisibility: ItemVisibility = .isHidden
-    @State private var currentPlantImage: Image?
+    @State private var currentPlantImageName: String = "plant-growth-1"
     @Binding var growthProgress: PlantGrowthProgress
     
     var body: some View {
         ZStack {
-            if let plantGrowthImage = self.growthProgress.plantGrowthImage {
+            if let plantGrowthImageName = self.growthProgress.plantGrowthImageName {
                 ZStack {
                     HStack {
-                        if self.plantVisibility == .isVisible {
-                            plantGrowthImage.image
-                                .transition(.opacity)
-                        }
+                        Image(currentPlantImageName)
+                            .transition(.opacity)
+                            .id(currentPlantImageName)
                     }
-                    .padding(.leading, plantGrowthImage.leadingPadding)
+                    .padding(.leading, (growthProgress == .progress13) ? 52 : 46.5)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(.top, plantGrowthImage.topPadding)
+                .padding(.top, (growthProgress == .progress13) ? 314 : 226)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .onAppear {
-                    self.updatePlantVisibility(with: plantGrowthImage.image)
+                    self.updateCurrentPlantImageName(imageName: plantGrowthImageName)
                 }
                 .onChange(of: self.growthProgress) { _, _ in
-                    if plantGrowthImage.image != self.currentPlantImage {
-                        self.plantVisibility = .isHidden
-                        
-                        self.updatePlantVisibility(with: plantGrowthImage.image)
+                    if plantGrowthImageName != self.currentPlantImageName {
+                        self.updateCurrentPlantImageName(imageName: plantGrowthImageName)
                     }
                 }
             }
@@ -43,10 +39,9 @@ struct HanvestPlantVisibilityView: View {
         .ignoresSafeArea()
     }
     
-    private func updatePlantVisibility(with image: Image) {
-        withAnimation(.spring(duration: 1.0)) {
-            self.plantVisibility = .isVisible
-            self.currentPlantImage = image
+    private func updateCurrentPlantImageName(imageName: String) {
+        withAnimation(.easeInOut) {
+            self.currentPlantImageName = imageName
         }
     }
 }

@@ -28,4 +28,13 @@ enum HanvestButtonSize {
             return 8.5
         }
     }
+    
+    var horizontalPadding: CGFloat {
+        switch self {
+        case .large:
+            return 42
+        case .medium:
+            return 40
+        }
+    }
 }

@@ -45,7 +45,7 @@ struct HanvestButtonDefault: View {
             }
         }
         .frame(maxWidth: size.minWidth)
-        .padding(.horizontal, 20)
+        .padding(.horizontal, size.horizontalPadding)
         .padding(.vertical, size.verticalPadding)
         .multilineTextAlignment(.center)
         .background(
