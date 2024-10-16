@@ -66,6 +66,10 @@ struct Module01View: View {
                             }
                             .frame(maxWidth: .infinity)
                             .tabViewStyle(.page(indexDisplayMode: .never))
+                            .indexViewStyle(.page(backgroundDisplayMode: .always))
+                            .onAppear {
+                                UIScrollView.appearance().isScrollEnabled = false
+                            }
                             
                             ZStack {
                                 HanvestButtonDefault(

@@ -68,6 +68,10 @@ struct RiskProfileView: View {
                         }
                         .frame(maxWidth: .infinity)
                         .tabViewStyle(.page(indexDisplayMode: .never))
+                        .indexViewStyle(.page(backgroundDisplayMode: .always))
+                        .onAppear {
+                            UIScrollView.appearance().isScrollEnabled = false
+                        }
                         
                         HanvestButtonDefault(
                             style:
