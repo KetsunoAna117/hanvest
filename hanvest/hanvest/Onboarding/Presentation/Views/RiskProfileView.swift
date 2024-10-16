@@ -80,7 +80,6 @@ struct RiskProfileView: View {
                                 pageState.buttonStringValue
                         ) {
                             goToNextPage()
-                            updateProgressBarValue()
                             changePageState()
                         }
                         .padding(.horizontal, 20)
@@ -97,7 +96,10 @@ struct RiskProfileView: View {
     
     private func goToNextPage() {
         if currentTab < RiskProfilePageState.resultPage.rawValue {
-            currentTab += 1
+            if !checkIsDisabled() {
+                currentTab += 1
+                updateProgressBarValue()
+            }
         } else {
             // TODO: direct to the corresponding page
         }
@@ -112,9 +114,7 @@ struct RiskProfileView: View {
     }
     
     private func updateProgressBarValue() {
-        if pageState == .questionPage {
-            progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
-        }
+        progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
     }
     
     private func checkIsDisabled() -> Bool {

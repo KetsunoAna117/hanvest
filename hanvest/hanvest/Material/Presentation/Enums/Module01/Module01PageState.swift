@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Module01PageState: Int {
-    case moduleMaterial = 0
+    case moduleMaterial
     case claimReward = 2
     
     var buttonStringValue: String {

@@ -9,7 +9,7 @@ import Foundation
 
 enum RiskProfilePageState: Int {
     case openingPage = 0
-    case questionPage = 1
+    case questionPage
     case resultPage = 7
     
     var buttonStringValue: String {

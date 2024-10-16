@@ -17,6 +17,7 @@ struct HanvestColorPickerRadioButton: View {
     // Radio Behavior
     @State private var state: HanvestButtonState = .unpressed
     @Binding var selectedButtonID: String
+    var action: () -> Void
     
     var body: some View {
         ZStack {
@@ -42,11 +43,13 @@ struct HanvestColorPickerRadioButton: View {
         .onTapGesture {
             if self.selectedButtonID != self.id {
                 self.selectedButtonID = self.id
+                action()
             }
         }
         .onLongPressGesture(minimumDuration: 0.1, perform: {
             if self.selectedButtonID != self.id {
                 self.selectedButtonID = self.id
+                action()
             }
         }, onPressingChanged: { isPressing in
             withAnimation {
@@ -73,7 +76,8 @@ struct HanvestColorPickerRadioButton: View {
         ForEach(colorOptions, id: \.self) { option in
             HanvestColorPickerRadioButton(
                 radioButtonColor: option.colorOptions,
-                selectedButtonID: $selectedButtonID
+                selectedButtonID: $selectedButtonID,
+                action: {}
             )
         }
     }

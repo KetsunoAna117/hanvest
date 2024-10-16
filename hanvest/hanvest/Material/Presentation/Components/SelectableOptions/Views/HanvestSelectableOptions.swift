@@ -56,7 +56,10 @@ struct HanvestSelectableOptionsView: View {
                     ForEach(choicesColor, id: \.self) { choice in
                         HanvestColorPickerRadioButton(
                             radioButtonColor: choice.colorOptions,
-                            selectedButtonID: $selectedButtonID
+                            selectedButtonID: $selectedButtonID,
+                            action: {
+                                onSelectAnswer(choice.colorDescription)
+                            }
                         )
                     }
                 }

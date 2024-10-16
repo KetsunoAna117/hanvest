@@ -48,7 +48,6 @@ struct Module01View: View {
                                 ForEach(Array(ContentOfModule01Material.allCases.enumerated()), id: \.offset) { index, content in
                                         
                                         HanvestHeaderWithDetailTextView(
-                                            spacingBetweenHeaderAndDetail: 24,
                                             headerText: content.headerContent,
                                             detailText: content.detailContent
                                         )

@@ -47,7 +47,7 @@ enum RiskProfileResultState {
             case .moderate:
                 "Balances risk and return, opting for a mix of lower-risk assets like bonds and higher-risk assets like stocks, aiming for steady growth over time."
             case .aggresive:
-                "Willing to take higher risks for potentially greater returns. Primarily invests in stocks and other volatile assets."
+                "Willing to take higher risks for potentially greater returns. Primarily invests in stocks\nand other volatile assets."
             case .veryAggresive:
                 "Seeks maximum returns by taking the highest level of risk, focusing on high-growth stocks, speculative investments, and emerging markets."
         }

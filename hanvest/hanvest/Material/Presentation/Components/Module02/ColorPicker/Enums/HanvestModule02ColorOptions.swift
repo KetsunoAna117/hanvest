@@ -25,4 +25,18 @@ enum HanvestModule02ColorOptions: CaseIterable {
                 return .spaceGray
         }
     }
+    
+    // only for checkIsDisabled at Module02View only, not really important
+    var colorDescription: String {
+        switch self {
+            case .beige:
+                return "Beige"
+            case .sandpaper:
+                return "Sandpaper"
+            case .semiWhite:
+                return "SemiWhite"
+            case .spaceGray:
+                return "SpaceGray"
+        }
+    }
 }

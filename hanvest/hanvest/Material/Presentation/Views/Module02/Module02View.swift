@@ -9,14 +9,13 @@ import SwiftUI
 
 struct Module02View: View {
     // Constants
-    let totalPage = 10
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
     let completionItem: CompletionItem = .module02
     
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
-    @State private var pageState: Module02PageState = .page01
+    @State private var pageState: Module02PageState = .pageContinue
     
     // View Models
     @State private var viewModel = Module02ViewModel()
@@ -27,7 +26,7 @@ struct Module02View: View {
             
             ZStack {
                 VStack(spacing: 49) {
-                    if pageState != .claimRewardPage {
+                    if pageState != .pageClaimReward {
                         ProgressBarWithXMarkView(
                             progressBarMinValue: progressBarMinValue,
                             progressBarMaxValue: progressBarMaxValue,
@@ -36,124 +35,56 @@ struct Module02View: View {
                         )
                     }
                     
-                    VStack(spacing: 238) {
+                    VStack(spacing: 48) {
                         TabView(selection: $currentTab) {
                             
-                            createPageLoopForEach(
-                                pageSegment: Module02PageLoopSegmentation.textImage
-                            ) { pageState, index in
-                                if let content = Module02PageLoopSegmentation.textImage.textImageContent?[index] {
-                                    
-                                    HanvestTextWithImageView(
-                                        headerText: content.headerText,
-                                        image: content.imageText,
-                                        textAndImageSpacing: 65
-                                    )
-                                    .tag(pageState.rawValue)
-                                    .transition(.slide)
-                                    
-                                }
-                            }
-                            
-                            createPageLoopForEach(
-                                pageSegment: Module02PageLoopSegmentation.textImageWithButtonDefault
-                            ) { pageState, index in
-                                if let content = Module02PageLoopSegmentation.textImageWithButtonDefault.textImageWithButtonDefaultContent?[index] {
-                                    
-                                    HanvestTextImageWithButtonDefault(
-                                        headerText: content.headerText,
-                                        image: content.imageText,
-                                        textAndImageSpacing: 65,
-                                        choices: content.choices,
-                                        onSelectAnswer: { answer in
-                                            viewModel.userSelectedAnswers[index] = answer
-                                        }
-                                    )
-                                    .tag(pageState.rawValue)
-                                    .transition(.slide)
-                                    
-                                }
-                            }
-                            
-                            if let page04Content = Module02PageState.page04.page04Content {
-                                
-                                HanvestTextImageWithRadioButton(
-                                    headerText: page04Content
-                                )
-                                .tag(Module02PageState.page04.rawValue)
-                                .transition(.slide)
-                                
-                            }
-                            
-                            if let page07Content = Module02PageState.page07.page07Content {
+                            ForEach(Array(Module02TextImageChoices.allCases.enumerated()), id: \.offset) { index, page in
                                 
                                 HanvestSelectableOptionsView(
-                                    headerText: page07Content.headerText,
-                                    choicesText: page07Content.choices,
-                                    eachComponentSpacing: 24,
+                                    headerText: page.headerText,
+                                    image: page.image,
+                                    choicesText: page.choicesText,
+                                    choicesColor: page.choicesColor,
+                                    eachComponentSpacing: page.eachComponentSpacing,
+                                    textAndImageSpacing: page.textAndImageSpacing,
                                     onSelectAnswer: { answer in
-                                        viewModel.userSelectedAnswers[Module02PageLoopSegmentation.textImageWithButtonDefault.pageSegmentation.count - 1] = answer
+                                        viewModel.userSelectedAnswers[index] = answer
                                     }
                                 )
-                                .tag(Module02PageState.page07.rawValue)
+                                .tag(page.rawValue)
                                 .transition(.slide)
+                                .frame(maxHeight: .infinity, alignment: .top)
                                 
                             }
                             
-                            
-                            if viewModel.checkUserLastSelectedAnswer() {
+                            ForEach(Array(Module02HeaderWithDetailText.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                createPageLoopForEach(
-                                    pageSegment: Module02PageLoopSegmentation.headerWithDetailTextMain
-                                ) { pageState, index in
-                                    if let content = Module02PageLoopSegmentation.headerWithDetailTextMain.headerWithDetailTextContent?[index] {
+                                if checkPageToSkip(page: page, userSelectedAnswer: viewModel.checkUserLastSelectedAnswer()) {
+                                    EmptyView()
+                                } else {
+                                    
+                                    if let selectedAnswer = viewModel.userSelectedAnswers.first {
                                         
                                         HanvestHeaderWithDetailTextView(
-                                            spacingBetweenHeaderAndDetail: 24,
-                                            headerText: content.headerText,
-                                            detailText: content.detailText
+                                            headerText: page.headerText(userSelectedAnswer: selectedAnswer),
+                                            detailText: page.detailText(userSelectedAnswer: selectedAnswer)
                                         )
-                                        .tag(pageState.rawValue)
+                                        .tag(
+                                            adjustPageStateRawValue(
+                                                rawValue: page.rawValue
+                                            )
+                                        )
                                         .transition(.slide)
+                                        .frame(maxHeight: .infinity, alignment: .top)
                                         
                                     }
                                 }
-                                
-                            } else {
-                                
-                                createPageLoopForEach(
-                                    pageSegment: Module02PageLoopSegmentation.headerWithDetailTextAlt
-                                ) { pageState, index in
-                                    if let content = Module02PageLoopSegmentation.headerWithDetailTextAlt.headerWithDetailTextContent?[index] {
-                                        
-                                        HanvestHeaderWithDetailTextView(
-                                            spacingBetweenHeaderAndDetail: 24,
-                                            headerText: content.headerText,
-                                            detailText: content.detailText
-                                        )
-                                        .tag(pageState.rawValue)
-                                        .transition(.slide)
-                                        
-                                    }
-                                }
-                                
-                            }
-                            
-                            if let page10Content = Module02PageState.page10.page10Content {
-                                
-                                HanvestHeaderWithDetailTextView(
-                                    spacingBetweenHeaderAndDetail: 24,
-                                    headerText: page10Content.headerText,
-                                    detailText: page10Content.detailText
-                                )
-                                .tag(Module02PageState.page10.rawValue)
-                                .transition(.slide)
-                                
                             }
                             
                             CompletionPageView(completionItem: completionItem)
-                                .tag(Module02PageState.claimRewardPage.rawValue)
+                                .tag(Module02PageState.pageClaimReward.rawValue)
                                 .transition(.slide)
+                                .frame(maxHeight: .infinity, alignment: .bottom)
                             
                         }
                         .frame(maxWidth: .infinity)
@@ -165,10 +96,10 @@ struct Module02View: View {
                         
                         ZStack {
                             HanvestButtonDefault(
+                                style: .filled(isDisabled: checkIsDisabled()),
                                 title: pageState.buttonStringValue
                             ) {
                                 goToNextPage()
-                                updateProgressBarValue()
                                 changePageState()
                             }
                         }
@@ -187,57 +118,59 @@ struct Module02View: View {
     }
     
     private func goToNextPage() {
-        if currentTab < totalPage {
-            currentTab += 1
+        if currentTab < Module02PageState.pageClaimReward.rawValue {
+            if !checkIsDisabled() {
+                currentTab += 1
+                updateProgressBarValue()
+            }
         } else {
             // TODO: direct to the corresponding page
         }
     }
     
     private func changePageState() {
-        if currentTab < totalPage {
-            if pageState == .page07 && !(viewModel.checkUserLastSelectedAnswer()) {
-                pageState = .page08Alt2
-            } else if pageState == .page09 {
-                pageState = .page10
-            } else {
-                pageState = pageState.nextPage()
-            }
+        if currentTab == Module02TextImageChoices.page06.rawValue {
+            pageState = .pageCheckout
+        } else if currentTab == Module02TextImageChoices.page07.rawValue {
+            pageState = .pagePay
+        } else if currentTab == Module02PageState.pageClaimReward.rawValue  {
+            pageState = .pageClaimReward
         } else {
-            pageState = .claimRewardPage
+            pageState = .pageContinue
         }
-        
     }
     
     private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / (totalPage))
+        progressBarCurrValue += (progressBarMaxValue / (Module02PageState.pageClaimReward.rawValue))
     }
     
-    private func createPageLoopForEach<T: View>(
-        pageSegment: Module02PageLoopSegmentation,
-        @ViewBuilder content: @escaping (Module02PageState, Int) -> T
-    ) -> some View {
-        ForEach(0..<pageSegment.pageSegmentation.count, id: \.self) { index in
-            let pageState = pageSegment.pageSegmentation[index]
-
-            content(adjustedPageState(for: pageState, in: pageSegment), index)
-        }
+    private func checkPageToSkip(page: Module02HeaderWithDetailText, userSelectedAnswer: Bool) -> Bool {
+        return (
+            (
+                userSelectedAnswer && (page == .page08Alt2 || page == .page09Alt2)
+            ) || (
+                !userSelectedAnswer && (page == .page08 || page == .page09)
+            )
+        )
     }
-
-    private func adjustedPageState(for pageState: Module02PageState, in pageSegment: Module02PageLoopSegmentation) -> Module02PageState {
-        if pageSegment == .headerWithDetailTextAlt {
-            switch pageState {
-            case .page08Alt2:
-                return .page08
-            case .page09Alt2:
-                return .page09
-            default:
-                return pageState
-            }
+    
+    private func adjustPageStateRawValue(rawValue: Int) -> Int {
+        if rawValue > Module02PageState.pageClaimReward.rawValue {
+            return (rawValue / Module02PageState.pageClaimReward.rawValue)
         } else {
-            return pageState
+            return rawValue
         }
     }
+    
+    private func checkIsDisabled() -> Bool {
+        if let currentChoice = Module02TextImageChoices.allCases.first(where: { $0.rawValue == currentTab }) {
+            let isChoicesAvailable = (currentChoice.choicesText != nil || currentChoice.choicesColor != nil)
+            return isChoicesAvailable && viewModel.userSelectedAnswers[currentTab].isEmpty
+        }
+        
+        return false
+    }
+    
 }
 
 #Preview {
