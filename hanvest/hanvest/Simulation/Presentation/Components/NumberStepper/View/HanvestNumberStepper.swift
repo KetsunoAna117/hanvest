@@ -35,7 +35,7 @@ struct HanvestNumberStepper: View {
             
             Text("\(value)")
                 .font(.nunito(.body))
-                .frame(minWidth: 80, idealWidth: 168) // Ideal width set here
+                .frame(minWidth: 80, idealWidth: 168) 
                 .padding(.horizontal, 20)
             
             Button {
