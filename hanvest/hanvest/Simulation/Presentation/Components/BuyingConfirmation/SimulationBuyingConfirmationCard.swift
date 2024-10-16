@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SimulationBuyingConfirmationCard: View {
-    var viewModel: BuyingStockDataViewModel
+    var viewModel: BuyingStockDataConfirmationViewModel
     var cancelAction: () -> ()
     var confirmAction: () -> ()
     var body: some View {
@@ -53,7 +53,7 @@ struct SimulationBuyingConfirmationCard: View {
     }
     }
 #Preview {
-    SimulationBuyingConfirmationCard(viewModel: BuyingStockDataViewModel(
+    SimulationBuyingConfirmationCard(viewModel: BuyingStockDataConfirmationViewModel(
         stock: "bbca",
         priceStock: 5000,
         lot: 1,

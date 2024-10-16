@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class BuyingStockDataViewModel: ObservableObject {
+class BuyingStockDataConfirmationViewModel: ObservableObject {
   
     var stock: String
     var priceStock: Int
