@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum RiskProfileQuestionsAndOptions: CaseIterable {
-    case page1
-    case page2
-    case page3
-    case page4
-    case page5
-    case page6
+enum RiskProfileQuestionsAndOptions: Int, CaseIterable {
+    case page1 = 1
+    case page2 = 2
+    case page3 = 3
+    case page4 = 4
+    case page5 = 5
+    case page6 = 6
     
     var questions: String {
         switch self {
