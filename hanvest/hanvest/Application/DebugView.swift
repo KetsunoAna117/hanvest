@@ -46,7 +46,7 @@ struct DebugView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .contentview
+    @Previewable @State var startScreen: Screen? = .debug
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

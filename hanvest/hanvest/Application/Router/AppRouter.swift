@@ -35,26 +35,18 @@ class AppRouter: AppRouterProtocol {
     @ViewBuilder
     func build(_ screen: Screen) -> some View {
         switch screen {
-        case .contentview:
+        case .debug:
             ZStack {
                 Color.background.ignoresSafeArea()
                 DebugView(router: self)
             }
         case .onboarding:
             Text("Not yet Implemented!")
-        case .material:
-            VStack {
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(title: "Press to go back") {
-                    self.pop()
-                }
+        case .main:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                MainScreenView(router: self)
             }
-            .navigationBarBackButtonHidden()
-            
-        case .simulation:
-            Text("Not yet Implemented!")
-        case .profile:
-            Text("Not yet Implemented!")
         }
     }
     

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HanvestSimulationView: View {
+struct HanvestSimulationScreenView: View {
     @StateObject private var viewmodel = HanvestSimulationViewModel()
     
     var body: some View {
@@ -57,5 +57,5 @@ struct HanvestSimulationView: View {
 }
 
 #Preview {
-    HanvestSimulationView()
+    HanvestSimulationScreenView()
 }

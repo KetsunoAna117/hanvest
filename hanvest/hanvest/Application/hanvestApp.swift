@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct hanvestApp: App {
     @StateObject private var appRouter = AppRouter()
-    @State private var startScreen: Screen? = .contentview
+    @State private var startScreen: Screen? = .main
     
     init(){
         AppModule.inject()
@@ -34,6 +34,9 @@ struct hanvestApp: App {
                                 .animation(.easeInOut(duration: 0.3), value: appRouter.popup)
                             }
                         }
+                }
+                else {
+                    Text("ERROR: View is not routed anywhere!")
                 }
             }
         }

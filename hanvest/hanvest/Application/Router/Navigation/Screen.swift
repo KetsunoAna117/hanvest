@@ -8,11 +8,9 @@
 import Foundation
 
 enum Screen: Identifiable, Hashable {
-    case contentview
+    case debug
     case onboarding
-    case material
-    case simulation
-    case profile
+    case main
     
     var id: Self { return self }
 }
