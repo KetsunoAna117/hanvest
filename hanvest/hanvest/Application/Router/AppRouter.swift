@@ -64,7 +64,7 @@ class AppRouter: AppRouterProtocol {
         case .withButton(let title, let desc, let action):
             ZStack {
                 Color.black.opacity(0.5).ignoresSafeArea()
-                HanvestModuleDescription(title: title, description: desc, action: {
+                HanvestPopup(title: title, description: desc, action: {
                     action()
                     self.dismissPopup()
                 })
