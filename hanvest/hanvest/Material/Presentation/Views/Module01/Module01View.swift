@@ -36,7 +36,9 @@ struct Module01View: View {
                         ProgressBarWithXMarkView(
                             progressBarMinValue: progressBarMinValue,
                             progressBarMaxValue: progressBarMaxValue,
-                            action: {},
+                            action: {
+                                // TODO: DO SOMETHING
+                            },
                             progressBarCurrValue: $progressBarCurrValue
                         )
                     }

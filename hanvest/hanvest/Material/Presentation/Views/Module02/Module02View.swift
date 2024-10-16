@@ -30,7 +30,9 @@ struct Module02View: View {
                         ProgressBarWithXMarkView(
                             progressBarMinValue: progressBarMinValue,
                             progressBarMaxValue: progressBarMaxValue,
-                            action: {},
+                            action: {
+                                // TODO: DO SOMETHING
+                            },
                             progressBarCurrValue: $progressBarCurrValue
                         )
                     }
@@ -59,15 +61,22 @@ struct Module02View: View {
                             
                             ForEach(Array(Module02HeaderWithDetailText.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                if checkPageToSkip(page: page, userSelectedAnswer: viewModel.checkUserLastSelectedAnswer()) {
+                                if checkPageToSkip(
+                                    page: page,
+                                    userSelectedAnswer: viewModel.checkUserLastSelectedAnswer()
+                                ) {
                                     EmptyView()
                                 } else {
                                     
                                     if let selectedAnswer = viewModel.userSelectedAnswers.first {
                                         
                                         HanvestHeaderWithDetailTextView(
-                                            headerText: page.headerText(userSelectedAnswer: selectedAnswer),
-                                            detailText: page.detailText(userSelectedAnswer: selectedAnswer)
+                                            headerText: page.headerText(
+                                                userSelectedAnswer: selectedAnswer
+                                            ),
+                                            detailText: page.detailText(
+                                                userSelectedAnswer: selectedAnswer
+                                            )
                                         )
                                         .tag(
                                             adjustPageStateRawValue(
@@ -164,7 +173,9 @@ struct Module02View: View {
     
     private func checkIsDisabled() -> Bool {
         if let currentChoice = Module02TextImageChoices.allCases.first(where: { $0.rawValue == currentTab }) {
-            let isChoicesAvailable = (currentChoice.choicesText != nil || currentChoice.choicesColor != nil)
+            let isChoicesAvailable = (
+                currentChoice.choicesText != nil || currentChoice.choicesColor != nil
+            )
             return isChoicesAvailable && viewModel.userSelectedAnswers[currentTab].isEmpty
         }
         
