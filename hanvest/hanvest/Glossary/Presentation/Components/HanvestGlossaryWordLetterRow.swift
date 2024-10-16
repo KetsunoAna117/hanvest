@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct HanvestGlossaryWordLetterRow: View {
+    var letter: String
+   
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 4) {
+            Text("\(letter)")
+                .font(.nunito(.title3))
+                .fontWeight(.bold)
+                .frame(alignment: .topLeading)
+            Divider()
+        }
+        .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 }
 
 #Preview {
-    HanvestGlossaryWordLetterRow()
+    HanvestGlossaryWordLetterRow(letter: "A")
 }
