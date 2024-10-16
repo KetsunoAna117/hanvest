@@ -1,6 +1,6 @@
 import SwiftUI
 
-class GlosaryWordLetterViewModel: ObservableObject {
+class GlossaryViewModel: ObservableObject {
   @Published var letters: [String: [HanvestGlosaryEntities]] = [
     "A": [
       HanvestGlosaryEntities(

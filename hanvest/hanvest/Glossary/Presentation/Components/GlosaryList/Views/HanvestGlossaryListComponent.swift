@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct HanvestGlossaryListComponent: View {
-    @ObservedObject var viewModel: GlosaryWordLetterViewModel
+    @ObservedObject var viewModel: GlossaryViewModel
     
     var body: some View {
         ScrollView {
@@ -25,6 +25,6 @@ struct HanvestGlossaryListComponent: View {
 }
 
 #Preview {
-    @Previewable @State var viewmodel = GlosaryWordLetterViewModel()
+    @Previewable @State var viewmodel = GlossaryViewModel()
     HanvestGlossaryListComponent(viewModel: viewmodel)
 }
