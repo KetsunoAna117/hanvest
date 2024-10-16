@@ -22,17 +22,13 @@ struct ContentView: View {
                 style: .filledCorrect(isDisabled: false),
                 title: "Show Overlay") {
                     router.presentPopup(
-                        .withoutButton(title: "Test Without Button", action: {
-                            print("Overlay Dismissed")
-                        })
-                        
-//                        .withButton(
-//                            title: "Stock Regulator",
-//                            desc: "Identify the three key Self-Regulatory Organizations (SROs) in Indonesia's capital market.",
-//                            action: {
-//                                router.push(.material)
-//                            }
-//                        )
+                        .withHanvestPopupButton(
+                            title: "News",
+                            desc: "Learn action to take based on news",
+                            buttonAction: {
+                                print("Button Action trigerred")
+                            }
+                        )
                     )
                 }
         }
@@ -55,9 +51,7 @@ struct ContentView: View {
                         ZStack {
                             appRouter.build(popup)
                         }
-                        // Apply transition and animation
-                        .transition(.opacity)
-                        .animation(.spring(duration: 1), value: appRouter.popup)
+                       
                     }
                 }
         }

@@ -61,32 +61,62 @@ class AppRouter: AppRouterProtocol {
     @ViewBuilder
     func build(_ popup: Popup) -> some View {
         switch popup {
-        case .withButton(let title, let desc, let action):
+        case .withHanvestPopupButton(let title, let desc, let buttonAction):
             ZStack {
-                Color.black.opacity(0.5).ignoresSafeArea()
-                HanvestPopup(title: title, description: desc, action: {
-                    action()
-                    self.dismissPopup()
-                })
-                .padding(.horizontal, 40)
-            }
-            
-        case .withoutButton(let title, let action):
-            ZStack {
-                Color.black.opacity(0.5).ignoresSafeArea()
-                    .onTapGesture {
-                        action()
+                Color.black.opacity(0.7).ignoresSafeArea()
+                HanvestPopup(
+                    title: title,
+                    description: desc,
+                    action: {
+                        buttonAction()
                         self.dismissPopup()
                     }
-                HanvestCardBackground {
-                    VStack {
-                        Text(title)
-                            .font(.nunito(.subhead))
-                    }
-                }
+                )
                 .padding(.horizontal, 40)
             }
-            
+        case .withHanvestPopup(let title, let desc, let dismissAction):
+            ZStack {
+                Color.black.opacity(0.7).ignoresSafeArea().onTapGesture {
+                    dismissAction()
+                    self.dismissPopup()
+                }
+                HanvestPopup(title: title, description: desc)
+                    .padding(.horizontal, 40)
+            }
+        case .withBuyConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
+            ZStack {
+                Color.black.opacity(0.7).ignoresSafeArea()
+                
+                SimulationBuyingConfirmationCard(
+                    viewModel: viewmodel,
+                    cancelAction: {
+                        cancelAction()
+                        self.dismissPopup()
+                    },
+                    confirmAction: {
+                        confirmAction()
+                        self.dismissPopup()
+                    }
+                )
+                .padding(.horizontal, 40)
+            }
+        case .withSellConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
+            ZStack {
+                Color.black.opacity(0.7).ignoresSafeArea()
+                
+                SimulationSellingConfirmationCard(
+                    viewModel: viewmodel,
+                    cancelAction: {
+                        cancelAction()
+                        self.dismissPopup()
+                    },
+                    confirmAction: {
+                        confirmAction()
+                        self.dismissPopup()
+                    }
+                )
+                .padding(.horizontal, 40)
+            }
         }
     }
     
