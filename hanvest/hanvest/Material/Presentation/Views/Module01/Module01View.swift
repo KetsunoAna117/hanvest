@@ -9,7 +9,6 @@ import SwiftUI
 
 struct Module01View: View {
     // Constants
-    let totalPage = 2
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
     let completionItem: CompletionItem = .module01 // TODO: the achivementName and moneyBonus from this enum need to be stored to swiftdata
@@ -46,22 +45,20 @@ struct Module01View: View {
                         VStack(spacing: (pageState == .moduleMaterial) ? 227 : 50) {
                             TabView(selection: $currentTab) {
                                 
-                                if let moduleMaterialContent = pageState.contentOfModuleMaterial {
-                                    ForEach(0..<moduleMaterialContent.count, id: \.self) { index in
+                                ForEach(Array(ContentOfModule01Material.allCases.enumerated()), id: \.offset) { index, content in
                                         
                                         HanvestHeaderWithDetailTextView(
                                             spacingBetweenHeaderAndDetail: 24,
-                                            headerText: moduleMaterialContent[index].headerText,
-                                            detailText: moduleMaterialContent[index].detailText
+                                            headerText: content.headerContent,
+                                            detailText: content.detailContent
                                         )
-                                        .tag(index)
+                                        .tag(content.rawValue)
                                         .transition(.slide)
                                         
                                     }
-                                }
                                 
                                 CompletionPageView(completionItem: completionItem)
-                                    .tag(2)
+                                    .tag(Module01PageState.claimReward.rawValue)
                                     .transition(.slide)
                             }
                             .frame(maxWidth: .infinity)
@@ -97,7 +94,7 @@ struct Module01View: View {
     }
     
     func goToNextPage() {
-        if currentTab < totalPage {
+        if currentTab < Module01PageState.claimReward.rawValue {
             currentTab += 1
         } else {
             // TODO: direct to the corresponding page
@@ -105,14 +102,14 @@ struct Module01View: View {
     }
     
     func changePageState() {
-        if currentTab == totalPage {
+        if currentTab == Module01PageState.claimReward.rawValue {
             pageState = .claimReward
         }
     }
     
     func updateProgressBarValue() {
         if pageState == .moduleMaterial {
-            progressBarCurrValue += (progressBarMaxValue / (totalPage + 1))
+            progressBarCurrValue += (progressBarMaxValue / (Module01PageState.claimReward.rawValue + 1))
         }
     }
     
