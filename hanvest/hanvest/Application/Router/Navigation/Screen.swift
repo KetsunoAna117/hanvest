@@ -13,7 +13,6 @@ enum Screen: Identifiable, Hashable {
     case material
     case simulation
     case profile
-    case resources
     
     var id: Self { return self }
 }

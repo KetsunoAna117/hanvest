@@ -38,17 +38,22 @@ class AppRouter: AppRouterProtocol {
         case .contentview:
             ZStack {
                 Color.background.ignoresSafeArea()
-                ContentView()
+                ContentView(router: self)
             }
         case .onboarding:
             Text("Not yet Implemented!")
         case .material:
-            Text("Not yet Implemented!")
+            VStack {
+                Text("Not yet Implemented!")
+                HanvestButtonDefault(title: "Press to go back") {
+                    self.pop()
+                }
+            }
+            .navigationBarBackButtonHidden()
+            
         case .simulation:
             Text("Not yet Implemented!")
         case .profile:
-            Text("Not yet Implemented!")
-        case .resources:
             Text("Not yet Implemented!")
         }
     }
@@ -56,13 +61,32 @@ class AppRouter: AppRouterProtocol {
     @ViewBuilder
     func build(_ popup: Popup) -> some View {
         switch popup {
-        case .moduleInformation:
-            VStack {
-                Text("Not yet Implemented!")
-                    .padding()
+        case .withButton(let title, let desc, let action):
+            ZStack {
+                Color.black.opacity(0.5).ignoresSafeArea()
+                HanvestModuleDescription(title: title, description: desc, action: {
+                    action()
+                    self.dismissPopup()
+                })
+                .padding(.horizontal, 40)
             }
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .background(Color.white)
+            
+        case .withoutButton(let title, let action):
+            ZStack {
+                Color.black.opacity(0.5).ignoresSafeArea()
+                    .onTapGesture {
+                        action()
+                        self.dismissPopup()
+                    }
+                HanvestCardBackground {
+                    VStack {
+                        Text(title)
+                            .font(.nunito(.subhead))
+                    }
+                }
+                .padding(.horizontal, 40)
+            }
+            
         }
     }
     

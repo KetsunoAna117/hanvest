@@ -27,9 +27,11 @@ struct hanvestApp: App {
                         .overlay {
                             if let popup = appRouter.popup {
                                 ZStack {
-                                    Color.black.opacity(0.1).ignoresSafeArea()
                                     appRouter.build(popup)
                                 }
+                                // Apply transition and animation
+                                .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                                .animation(.easeInOut(duration: 0.3), value: appRouter.popup)
                             }
                         }
                 }
