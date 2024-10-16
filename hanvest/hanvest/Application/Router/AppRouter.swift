@@ -38,7 +38,7 @@ class AppRouter: AppRouterProtocol {
         case .contentview:
             ZStack {
                 Color.background.ignoresSafeArea()
-                ContentView(router: self)
+                DebugView(router: self)
             }
         case .onboarding:
             Text("Not yet Implemented!")

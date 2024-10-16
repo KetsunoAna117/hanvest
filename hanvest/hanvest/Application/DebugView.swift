@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DebugView: View {
     // Router
     let router: any AppRouterProtocol
     
