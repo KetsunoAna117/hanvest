@@ -5,7 +5,7 @@
 //  Created by Bryan Vernanda on 15/10/24.
 //
 
-import Foundation
+import SwiftUI
 
 enum Module02PageState: CaseIterable {
     case page01
@@ -22,48 +22,6 @@ enum Module02PageState: CaseIterable {
     case page10
     case claimRewardPage
     
-//    var pageText: (headerText: Text, detailText: Text?, choices: [String]?) {
-//        switch self {
-//            case .page01:
-//                (Text("There’s a brand new iphone just released").font(.nunito(.title2)), nil, nil)
-//            case .page02:
-//                (Text("Now you go the store to get one for yourself").font(.nunito(.title2)), nil, nil)
-//            case .page03:
-//                (
-//                    Text("Now choose the type of iphone you want to get").font(.nunito(.title2)),
-//                    nil,
-//                    ["Iphone 16", "Iphone 16 Pro Max"]
-//                )
-//            case .page04:
-//                (Text("Now choose the color you want").font(.nunito(.title2)), nil, nil)
-//            case .page05:
-//                (
-//                    Text("Choose the storage of the iphone").font(.nunito(.title2)),
-//                    nil,
-//                    ["256 GB", "512 GB"]
-//                )
-//            case .page06:
-//                (Text("You are set up this your brand new iphone").font(.nunito(.title2)), nil, nil)
-//            case .page07:
-//                (Text("Now its time for you to pay choose wisely your payment method").font(.nunito(.title2)))
-//            case .page08:
-//                Text("Congratulation!\n").font(.nunito(.title2, .bold)) +
-//                Text("You got your iphone 16 pro with your assets").font(.nunito(.title2))
-//            case .page09:
-//                Text("What if?\n").font(.nunito(.title2, .bold)) +
-//                Text("You got your iphone 16 pro, but with all your liabilities").font(.nunito(.title2))
-//            case .page08Alt2:
-//                Text("Congratulation!\n").font(.nunito(.title2, .bold)) +
-//                Text("You got your iphone 16 pro with your liabilities").font(.nunito(.title2))
-//            case .page09Alt2:
-//                Text("What if?\n").font(.nunito(.title2, .bold)) +
-//                Text("You got your iphone 16 pro, but with all your assets").font(.nunito(.title2))
-//            case .page10:
-//                Text("In summary\n").font(.nunito(.title2, .bold)) +
-//                Text("Liabilites vs Assets").font(.nunito(.title2))
-//        }
-//    }
-    
     var buttonStringValue: String {
         switch self {
             case .page01, .page02, .page03:
@@ -78,4 +36,42 @@ enum Module02PageState: CaseIterable {
                 return "Claim Reward"
         }
     }
+    
+    var page04Text: String? {
+        switch self {
+            case .page04:
+                "Now choose the color you want"
+            case .page01, .page02, .page03, .page05, .page06, .page07, .page08, .page09, .page08Alt2, .page09Alt2, .page10, .claimRewardPage:
+                nil
+        }
+    }
+    
+    var page07Text: (headerText: String, choices: [String])? {
+        switch self {
+        case .page07:
+            (
+                "Now it's time for you to pay, choose wisely your payment method",
+                ["Pay with Debit Card (Rp 24.999.000)", "Pay with PayLater (Rp 24.999.000)"]
+            )
+        case .page01, .page02, .page03, .page04, .page05, .page06, .page08, .page09, .page08Alt2, .page09Alt2, .page10, .claimRewardPage:
+            nil
+        }
+    }
+    
+    var page10Text: (headerText: Text, detailText: Text)? {
+        switch self {
+            case .page10:
+            (
+                Text("In summary\n").font(.nunito(.title2, .bold)) +
+                Text("Liabilities vs Assets").font(.nunito(.title2)),
+                
+                Text("Understanding assets (anything of value), liabilities (debts), income, and expenses is key to managing personal finances. Assets generate income streams, while liabilities represent financial obligations. A personal balance sheet helps individuals clearly monitor their financial position, showing the difference between what they own (assets) and what they owe (liabilities). Having a healthy balance sheet, where assets exceed liabilities, is one of the foundations of financial success.\n\n").font(.nunito(.callout)) +
+                Text("Reference").font(.nunito(.callout, .bold)) +
+                Text("Ross, S. A., Westerfield, R. W., & Jaffe, J. (2013). Corporate Finance. McGraw-Hill Education.").font(.nunito(.callout))
+            )
+            case .page01, .page02, .page03, .page04, .page05, .page06, .page07, .page08, .page09, .page08Alt2, .page09Alt2, .claimRewardPage:
+                nil
+        }
+    }
+
 }
