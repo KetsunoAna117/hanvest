@@ -11,32 +11,36 @@ struct ContentView: View {
     // Router
     let router: any AppRouterProtocol
     
+    @State var presentOverlay: Bool = true
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-            HanvestButtonDefault(
-                size: .medium,
-                style: .filledCorrect(isDisabled: false),
-                title: "Show Overlay") {
-                    router.presentPopup(
-                        .withoutButton(title: "Test Without Button", action: {
-                            print("Overlay Dismissed")
-                        })
-                        
-//                        .withButton(
-//                            title: "Stock Regulator",
-//                            desc: "Identify the three key Self-Regulatory Organizations (SROs) in Indonesia's capital market.",
-//                            action: {
-//                                router.push(.material)
-//                            }
-//                        )
-                    )
-                }
+        ZStack {
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                
+                Text("Hello, world!")
+                
+                HanvestButtonDefault(
+                    size: .medium,
+                    style: .filledCorrect(isDisabled: false),
+                    title: "Show Overlay") {
+                        presentOverlay = true
+                        router.presentPopup(
+                            .withHanvestPopup(
+                                title: "News",
+                                desc: "Learn action to take based on news",
+                                dismissAction: {
+                                    print("Button Action trigerred")
+                                }
+                            )
+                        )
+                    }
+                    .zIndex(presentOverlay ? 100 : 0)
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
@@ -55,9 +59,7 @@ struct ContentView: View {
                         ZStack {
                             appRouter.build(popup)
                         }
-                        // Apply transition and animation
-                        .transition(.opacity)
-                        .animation(.spring(duration: 1), value: appRouter.popup)
+                       
                     }
                 }
         }
