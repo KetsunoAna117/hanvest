@@ -14,28 +14,51 @@ struct MainScreenView: View {
     
     var body: some View {
         VStack {
+            HanvestHeaderView(
+                bookIconTappedAction: {
+                    print("Book Icon Tapped")
+                },
+                bellIconTappedAction: {
+                    print("Bell Icon Tapped")
+                },
+                profileIconTappedAction: {
+                    print("Profile Account Tapped")
+                }
+            )
+            
             TabView(selection: $selectionTab) {
                 Tab("Material",
                     systemImage: "books.vertical",
                     value: .material
                 ) {
-                    HanvestMaterialScreenView()
+                    ZStack {
+                        Color.background.ignoresSafeArea()
+                        HanvestMaterialScreenView()
+                    }
                 }
                 
                 Tab("Simulation",
                     systemImage: "chart.xyaxis.line",
                     value: .simulation
                 ) {
-                    HanvestSimulationScreenView()
+                    ZStack {
+                        Color.background.ignoresSafeArea()
+                        HanvestSimulationScreenView()
+                    }
                 }
                 
                 Tab("My Land",
                     systemImage: "globe.americas",
                     value: .land
                 ) {
-                    HanvestLandScreenView()
+                    ZStack {
+                        Color.background.ignoresSafeArea()
+                        HanvestLandScreenView()
+                    }
                 }
             }
+            .transition(.slide)
+            .animation(.easeInOut, value: selectionTab)
         }
     }
 }
