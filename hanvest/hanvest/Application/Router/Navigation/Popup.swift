@@ -5,6 +5,8 @@
 //  Created by Hans Arthur Cupiterson on 15/10/24.
 //
 
+import SwiftUI
+
 enum Popup: Identifiable, Hashable, Equatable {
     case withHanvestPopupButton(title: String?, desc: String, buttonAction: () -> Void)
     case withHanvestPopup(title: String?, desc: String, dismissAction: () -> Void)

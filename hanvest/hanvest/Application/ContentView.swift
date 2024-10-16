@@ -11,28 +11,36 @@ struct ContentView: View {
     // Router
     let router: any AppRouterProtocol
     
+    @State var presentOverlay: Bool = true
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-            HanvestButtonDefault(
-                size: .medium,
-                style: .filledCorrect(isDisabled: false),
-                title: "Show Overlay") {
-                    router.presentPopup(
-                        .withHanvestPopupButton(
-                            title: "News",
-                            desc: "Learn action to take based on news",
-                            buttonAction: {
-                                print("Button Action trigerred")
-                            }
+        ZStack {
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                
+                Text("Hello, world!")
+                
+                HanvestButtonDefault(
+                    size: .medium,
+                    style: .filledCorrect(isDisabled: false),
+                    title: "Show Overlay") {
+                        presentOverlay = true
+                        router.presentPopup(
+                            .withHanvestPopup(
+                                title: "News",
+                                desc: "Learn action to take based on news",
+                                dismissAction: {
+                                    print("Button Action trigerred")
+                                }
+                            )
                         )
-                    )
-                }
+                    }
+                    .zIndex(presentOverlay ? 100 : 0)
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
