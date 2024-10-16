@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct hanvestApp: App {
     @StateObject private var appRouter = AppRouter()
-    @State private var startScreen: Screen?
+    @State private var startScreen: Screen? = .contentview
     
     init(){
         AppModule.inject()
@@ -23,6 +23,14 @@ struct hanvestApp: App {
                     appRouter.build(startScreen)
                         .navigationDestination(for: Screen.self) { screen in
                             appRouter.build(screen)
+                        }
+                        .overlay {
+                            if let popup = appRouter.popup {
+                                ZStack {
+                                    Color.black.opacity(0.1).ignoresSafeArea()
+                                    appRouter.build(popup)
+                                }
+                            }
                         }
                 }
             }

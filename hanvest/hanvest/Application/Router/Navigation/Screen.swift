@@ -8,6 +8,7 @@
 import Foundation
 
 enum Screen: Identifiable, Hashable {
+    case contentview
     case onboarding
     case material
     case simulation

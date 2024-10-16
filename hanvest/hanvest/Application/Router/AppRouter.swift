@@ -35,6 +35,11 @@ class AppRouter: AppRouterProtocol {
     @ViewBuilder
     func build(_ screen: Screen) -> some View {
         switch screen {
+        case .contentview:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                ContentView()
+            }
         case .onboarding:
             Text("Not yet Implemented!")
         case .material:
@@ -52,7 +57,12 @@ class AppRouter: AppRouterProtocol {
     func build(_ popup: Popup) -> some View {
         switch popup {
         case .moduleInformation:
-            Text("Not yet Implemented!")
+            VStack {
+                Text("Not yet Implemented!")
+                    .padding()
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .background(Color.white)
         }
     }
     
