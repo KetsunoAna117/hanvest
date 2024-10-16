@@ -69,7 +69,7 @@ struct SimulationSellingCard: View {
 
 #Preview {
     @Previewable @StateObject var viewmodel = SellingStockDataViewModel()
-    @Previewable @State var remainingLot = 10
+    @Previewable @State var remainingLot = 100
     @Previewable @State var price = 100
     
     VStack {

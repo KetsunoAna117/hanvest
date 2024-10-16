@@ -64,8 +64,7 @@ class SellingStockDataViewModel: ObservableObject{
         }
 
     func maximumStockSellLot() -> Int {
-        guard stockSellLot > 0 else { return 0 }
-        let maxLot = availableLot 
+        let maxLot = availableLot
         return maxLot
     }
     
