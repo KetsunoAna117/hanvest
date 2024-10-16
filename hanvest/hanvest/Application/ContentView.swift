@@ -22,10 +22,8 @@ struct ContentView: View {
                 style: .filledCorrect(isDisabled: false),
                 title: "Show Overlay") {
                     router.presentPopup(
-                        .tapOutsideEnabled(view: {
-                            Text("Hello World!")
-                        }, action: {
-                            print("Popup disabled!")
+                        .withoutButton(title: "Test Without Button", action: {
+                            print("Overlay Dismissed")
                         })
                         
 //                        .withButton(
