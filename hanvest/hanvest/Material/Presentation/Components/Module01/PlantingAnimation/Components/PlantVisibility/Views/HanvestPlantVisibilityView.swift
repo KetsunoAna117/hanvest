@@ -28,6 +28,7 @@ struct HanvestPlantVisibilityView: View {
                 self.updateCurrentPlantImage(growthProgress: newValue)
             }
         }
+        .allowsHitTesting(false)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
     }
