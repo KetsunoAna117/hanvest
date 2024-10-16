@@ -61,32 +61,25 @@ class AppRouter: AppRouterProtocol {
     @ViewBuilder
     func build(_ popup: Popup) -> some View {
         switch popup {
-        case .withButton(let title, let desc, let action):
+        case .tapOutsideEnabled(let view, let action):
             ZStack {
-                Color.black.opacity(0.5).ignoresSafeArea()
-                HanvestModuleDescription(title: title, description: desc, action: {
+                Color.black.opacity(0.7).onTapGesture {
                     action()
                     self.dismissPopup()
-                })
-                .padding(.horizontal, 40)
-            }
-            
-        case .withoutButton(let title, let action):
-            ZStack {
-                Color.black.opacity(0.5).ignoresSafeArea()
-                    .onTapGesture {
-                        action()
-                        self.dismissPopup()
-                    }
-                HanvestCardBackground {
-                    VStack {
-                        Text(title)
-                            .font(.nunito(.subhead))
-                    }
                 }
-                .padding(.horizontal, 40)
+                
+                VStack {
+                    view
+                }
             }
-            
+        case .tapOutsideDisabled(let view):
+            ZStack {
+                Color.black.opacity(0.7)
+                
+                VStack {
+                    view
+                }
+            }
         }
     }
     
