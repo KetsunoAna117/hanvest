@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RiskProfileView: View {
     // Constant
-    let totalPage = 7
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
     
@@ -42,7 +41,7 @@ struct RiskProfileView: View {
                     VStack(spacing: 230) {
                         TabView(selection: $currentTab) {
                             HanvestRiskProfileOpeningView()
-                                .tag(0)
+                                .tag(RiskProfilePageState.openingPage.rawValue)
                                 .transition(.slide)
                             
                             ForEach(Array(RiskProfileQuestionsAndOptions.allCases.enumerated()), id: \.offset) { index, page in
@@ -56,14 +55,14 @@ struct RiskProfileView: View {
                                         viewModel.userSelectedAnswers[index] = answer
                                     }
                                 )
-                                .tag(index+1)
+                                .tag(page.rawValue)
                                 .transition(.slide)
                             }
                             
                             HanvestRiskProfileResultView(
                                 resultState: viewModel.resultState
                             )
-                            .tag(7)
+                            .tag(RiskProfilePageState.resultPage.rawValue)
                             .transition(.slide)
                         }
                         .frame(maxWidth: .infinity)
@@ -96,7 +95,7 @@ struct RiskProfileView: View {
     }
     
     private func goToNextPage() {
-        if currentTab < totalPage {
+        if currentTab < RiskProfilePageState.resultPage.rawValue {
             currentTab += 1
         } else {
             // TODO: direct to the corresponding page
@@ -104,7 +103,7 @@ struct RiskProfileView: View {
     }
     
     private func changePageState() {
-        if currentTab < totalPage {
+        if currentTab < RiskProfilePageState.resultPage.rawValue {
             pageState = .questionPage
         } else {
             pageState = .resultPage
