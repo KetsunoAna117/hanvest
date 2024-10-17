@@ -81,9 +81,6 @@ struct SimulationBuyingCard: View {
                     currentStockPrice: 5000
                 )
             }
-            .onChange(of: viewmodel.stockBuyLot) { oldValue, newValue in
-                print("Result: \(newValue)")
-            }
     }
     .padding(.horizontal, 16)
 }

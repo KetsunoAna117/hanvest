@@ -29,7 +29,6 @@ class BuyingStockDataViewModel: ObservableObject{
         }
     }
     @Published var stockBuyAmount: Int
-    
     @Published var initialStockPrice: Int
     @Published var currentStockPrice: Int
     

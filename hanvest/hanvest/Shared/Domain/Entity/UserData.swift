@@ -14,6 +14,6 @@ struct UserData {
 
 extension UserData {
     static func getMockupUserData() -> UserData {
-        return UserData(userName: "Bryon", userBalance: 100000)
+        return UserData(userName: "Bryon", userBalance: 100000000)
     }
 }
