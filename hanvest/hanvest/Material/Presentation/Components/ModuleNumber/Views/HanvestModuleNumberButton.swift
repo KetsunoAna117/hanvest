@@ -11,7 +11,8 @@ struct HanvestModuleNumberButton: View {
     // Constants
     let SHADOW_OFFSET: CGFloat = 5
     
-    @State var state: HanvestModuleNumberDefaultState = .unpressed
+    var initialState: HanvestModuleNumberDefaultState = .unpressed
+    @State private var state: HanvestModuleNumberDefaultState = .unpressed
     
     // Styling variable
     var style: HanvestModuleNumberDefaultStyle = .current
@@ -47,7 +48,7 @@ struct HanvestModuleNumberButton: View {
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
-            if self.style == .current {
+            if self.style != .next {
                 action()
             }
         }
@@ -56,19 +57,17 @@ struct HanvestModuleNumberButton: View {
                  if isPressing && style != .next {
                      self.state = .pressed
                  }
-                 else if self.style == .current {
+                 else {
                      self.state = .unpressed
                  }
              }
          }, perform: {
-             if self.style == .current {
+             if self.style != .next {
                  action()
              }
          })
         .onAppear {
-            if self.style == .done {
-                self.state = .pressed
-            }
+            self.state = self.initialState
         }
     }
     
@@ -86,7 +85,8 @@ struct HanvestModuleNumberButton: View {
     
     VStack {
         HanvestModuleNumberButton(
-            style: .next,
+            initialState: .unpressed,
+            style: .done,
             number: 1, action: {
                 print("Hello World!")
             })
