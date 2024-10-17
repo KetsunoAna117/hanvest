@@ -14,7 +14,7 @@ struct ModuleJourneyView: View {
     let moduleSpacing: CGFloat = 4
     
     // View Model
-    @State private var viewModel = ModuleJourneyViewModel()
+    @StateObject private var viewModel = ModuleJourneyViewModel()
     
     @ViewBuilder
     var moduleListView: some View {
@@ -40,6 +40,7 @@ struct ModuleJourneyView: View {
                             viewModel.updateUserModuleProgressIfDone(
                                 moduleIndex: number
                             )
+                            print("Button number \(number) pressed")
                         }
                     )
                 }
