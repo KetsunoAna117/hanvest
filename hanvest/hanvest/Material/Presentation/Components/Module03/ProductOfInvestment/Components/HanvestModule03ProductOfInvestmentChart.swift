@@ -9,8 +9,8 @@ import SwiftUI
 import Charts
 
 struct HanvestModule03ProductOfInvestmentChart: View {
-    @ObservedObject var viewmodel: HanvestModule03ProductOfInvestmentViewModel
-    let symbolCategoryKeyPath: KeyPath<Module03ProductOfInvestmentPriceEntity, String>
+    @ObservedObject var viewmodel: HanvestProductPriceChartViewModel
+    let symbolCategoryKeyPath: KeyPath<ProductPriceEntity, String>
     
     var displayStep: Int = 15
     
@@ -18,10 +18,10 @@ struct HanvestModule03ProductOfInvestmentChart: View {
         HanvestCardBackground {
             VStack {
                 Chart {
-                    ForEach(viewmodel.productPrices, id: \.id) { price in
+                    ForEach(viewmodel.prices, id: \.id) { price in
                         LineMark(
                             x: .value("Days", daysSinceStart(for: price.time)),
-                            y: .value("Price", price.productPrice)
+                            y: .value("Price", price.price)
                         )
                         .symbol(symbol: {
                             Circle()
@@ -31,7 +31,7 @@ struct HanvestModule03ProductOfInvestmentChart: View {
                         .foregroundStyle(.seagull500)
                     }
                 }
-                .chartXScale(domain: 0...daysSinceStart(for: viewmodel.productPrices.last?.time ?? Date()))
+                .chartXScale(domain: 0...daysSinceStart(for: viewmodel.prices.last?.time ?? Date()))
                 .chartXAxis {
                     AxisMarks(values: xAxisValues()) { value in
                         if let dayValue = value.as(Int.self) {
@@ -57,13 +57,13 @@ struct HanvestModule03ProductOfInvestmentChart: View {
     
     func daysSinceStart(for date: Date) -> Int {
         let calendar = Calendar.current
-        let startDate = viewmodel.productPrices.first?.time ?? Date()
+        let startDate = viewmodel.prices.first?.time ?? Date()
         let dayDifference = calendar.dateComponents([.day], from: startDate, to: date).day ?? 0
         return dayDifference
     }
     
     func xAxisValues() -> [Int] {
-        guard let endDate = viewmodel.productPrices.last?.time else {
+        guard let endDate = viewmodel.prices.last?.time else {
             return []
         }
 
@@ -91,8 +91,8 @@ struct HanvestModule03ProductOfInvestmentChart: View {
     @Previewable @State var productPrices = Module03ProductOfInvestmentEntity.getMockData().first!.productPrices
     
     HanvestModule03ProductOfInvestmentChart(
-        viewmodel: HanvestModule03ProductOfInvestmentViewModel(productPrices: productPrices),
-        symbolCategoryKeyPath: \.productName,
+        viewmodel: HanvestProductPriceChartViewModel(prices: productPrices),
+        symbolCategoryKeyPath: \.name,
         displayStep: 15
     )
     .padding(.horizontal, 20)
