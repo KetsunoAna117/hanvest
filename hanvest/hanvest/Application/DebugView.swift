@@ -26,16 +26,18 @@ struct DebugView: View {
                     size: .medium,
                     style: .filledCorrect(isDisabled: false),
                     title: "Show Overlay") {
-                        presentOverlay = true
-                        router.presentPopup(
-                            .withHanvestPopup(
-                                title: "News",
-                                desc: "Learn action to take based on news",
-                                dismissAction: {
-                                    print("Button Action trigerred")
-                                }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                            presentOverlay = true
+                            router.presentPopup(
+                                .withHanvestPopup(
+                                    title: "News",
+                                    desc: "Learn action to take based on news",
+                                    dismissAction: {
+                                        print("Button Action trigerred")
+                                    }
+                                )
                             )
-                        )
+                        })
                     }
                     .zIndex(presentOverlay ? 100 : 0)
             }

@@ -70,6 +70,21 @@ class AppRouter: AppRouterProtocol {
                 Color.background.ignoresSafeArea()
                 Text("Not yet Implemented!")
             }
+        case .simulationBuyingConfirmation(let stock):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                HanvestBuyStockView(router: self, stock: stock)
+            }
+        case .simulationSellingConfirmation(_):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
+        case .profile:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
         }
     }
     

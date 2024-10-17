@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct HanvestSimulationScreenView: View {
+struct HanvestSimulationView: View {
+    let router: any AppRouterProtocol
     @StateObject private var viewmodel = HanvestSimulationViewModel()
     
     var body: some View {
@@ -24,36 +25,58 @@ struct HanvestSimulationScreenView: View {
                     Divider()
                     
                     SimulationStockDetailsView(
+                        router: router,
                         selectedStock: $viewmodel.selectedStock
                     )
                     .padding(.top, 12)
                     
                     Divider()
+                        .padding(.top, -6)
                     
-                    HStack(spacing: 12) {
-                        HanvestButtonDefault(
-                            size: .medium,
-                            style: .filledIncorrect(isDisabled: false),
-                            title: "Sell") {
-                                print("Sell Button Triggered")
-                            }
-                        HanvestButtonDefault(
-                            size: .medium,
-                            style: .filledCorrect(isDisabled: false),
-                            title: "Buy") {
-                                print("Buy Button Triggered")
-                            }
+                    VStack {
+                        HStack(spacing: 12) {
+                            HanvestButtonDefault(
+                                size: .medium,
+                                style: .filledIncorrect(isDisabled: false),
+                                title: "Sell") {
+                                    print("Sell Button Triggered")
+                                }
+                            HanvestButtonDefault(
+                                size: .medium,
+                                style: .filledCorrect(isDisabled: false),
+                                title: "Buy") {
+                                    print("Buy Button Triggered")
+                                }
+                        }
                     }
                     .padding(.horizontal, 20)
+                    .padding(.bottom, 13)
+                    
+                    Divider()
                 }
-                
-                Spacer()
-                
             }
         }
     }
 }
 
 #Preview {
-    HanvestSimulationScreenView()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .main
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }
