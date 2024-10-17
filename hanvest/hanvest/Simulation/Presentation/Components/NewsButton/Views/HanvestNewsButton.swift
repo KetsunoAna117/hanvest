@@ -51,23 +51,13 @@ struct HanvestNewsButton: View {
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
-            action()
+            self.state = .pressed
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                self.state = .unpressed
+                action()
+            })
         }
-        .onLongPressGesture(minimumDuration: 0.1, pressing: { isPressing in
-            withAnimation {
-                if self.initialState == .unpressed {
-                    if isPressing {
-                        self.state = .pressed
-                    }
-                    else {
-                        self.state = .unpressed
-                    }
-                }
-
-            }
-        }, perform: {
-            action()
-        })
         .onAppear(){
             self.state = self.initialState
         }
