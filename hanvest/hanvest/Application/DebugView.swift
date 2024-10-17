@@ -16,6 +16,13 @@ struct DebugView: View {
     var body: some View {
         ZStack {
             VStack {
+                HanvestNavigationBar(
+                    label: "Label",
+                    leadingIcon: Image(systemName: "chevron.left"),
+                    leadingAction: {
+                        print("Leading Icon Pressed!")
+                    }
+                )
                 Image(systemName: "globe")
                     .imageScale(.large)
                     .foregroundStyle(.tint)
