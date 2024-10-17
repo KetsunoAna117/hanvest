@@ -10,10 +10,11 @@ import Foundation
 struct UserData {
     var userName: String
     var userBalance: Int
+    var userLotOwned: Int
 }
 
 extension UserData {
     static func getMockupUserData() -> UserData {
-        return UserData(userName: "Bryon", userBalance: 100000000)
+        return UserData(userName: "Bryon", userBalance: 100000000, userLotOwned: 10)
     }
 }
