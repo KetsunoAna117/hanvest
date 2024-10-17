@@ -15,7 +15,7 @@ class SimulationStockDetailViewModel: ObservableObject {
     
     init(){
         let fetchedStock = getSimulationStockByID.execute(id: "BBRI")
-        initialPrice = fetchedStock.stockPrice.first?.stockPrice ?? 0
-        currentPrice = fetchedStock.stockPrice.last?.stockPrice ?? 0
+        initialPrice = fetchedStock.stockPrice.first?.price ?? 0
+        currentPrice = fetchedStock.stockPrice.last?.price ?? 0
     }
 }

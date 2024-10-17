@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct SimulationStockPriceEntity: Equatable {
+struct ProductPriceEntity: Equatable {
     var id: String = UUID().uuidString
-    var stockIDName: String
-    var stockPrice: Int
+    var name: String
+    var price: Int
     var time: Date
     
-    static func == (lhs: SimulationStockPriceEntity, rhs: SimulationStockPriceEntity) -> Bool {
+    static func == (lhs: ProductPriceEntity, rhs: ProductPriceEntity) -> Bool {
         return
-            lhs.stockPrice == rhs.stockPrice &&
+            lhs.price == rhs.price &&
             lhs.time == rhs.time
     }
 }
