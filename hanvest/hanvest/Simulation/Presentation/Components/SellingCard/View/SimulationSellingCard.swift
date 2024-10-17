@@ -15,6 +15,8 @@ struct SimulationSellingCard: View {
     var lotRaise: Int = 1
     
     var body: some View {
+        let amountState = viewModel.determineAmountState()
+        
         HanvestCardBackground {
             VStack(spacing: 16) {
                 HStack{
@@ -34,6 +36,7 @@ struct SimulationSellingCard: View {
                     
                     Text("\(viewModel.calculateStockSellAmountPercentage()) %")
                         .font(.nunito(.body, .regular))
+                        .foregroundStyle(amountState.textColor)
                 }
                 
                 HStack{
@@ -44,6 +47,7 @@ struct SimulationSellingCard: View {
                     
                     Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.stockSellAmount))")
                         .font(.nunito(.body, .regular))
+                        .foregroundStyle(amountState.textColor)
                 }
                 
                 HStack{
