@@ -7,10 +7,10 @@
 
 import Foundation
 
-@Observable
-class ModuleJourneyViewModel {
+
+class ModuleJourneyViewModel: ObservableObject {
     let numberOfModules: Int = 6
-    var userTempModulesProgress: [HanvestModuleNumberDefaultStyle]
+    @Published var userTempModulesProgress: [HanvestModuleNumberDefaultStyle]
     
     init() {
         userTempModulesProgress = Array(repeating: .next, count: numberOfModules)
@@ -20,7 +20,9 @@ class ModuleJourneyViewModel {
     func updateUserModuleProgressIfDone(moduleIndex: Int) {
         if moduleIndex >= 1 && moduleIndex < numberOfModules {
             userTempModulesProgress[moduleIndex-1] = .done
-            userTempModulesProgress[moduleIndex] = .current
+            if userTempModulesProgress[moduleIndex] == .next {
+                userTempModulesProgress[moduleIndex] = .current
+            }
         } else {
             userTempModulesProgress[moduleIndex-1] = .done
         }
