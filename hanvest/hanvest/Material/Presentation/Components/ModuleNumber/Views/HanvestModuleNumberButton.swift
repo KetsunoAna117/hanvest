@@ -11,7 +11,8 @@ struct HanvestModuleNumberButton: View {
     // Constants
     let SHADOW_OFFSET: CGFloat = 5
     
-    @State var state: HanvestModuleNumberDefaultState = .unpressed
+    var initialState: HanvestModuleNumberDefaultState = .unpressed
+    @State private var state: HanvestModuleNumberDefaultState = .unpressed
     
     // Styling variable
     var style: HanvestModuleNumberDefaultStyle = .current
@@ -53,12 +54,11 @@ struct HanvestModuleNumberButton: View {
         }
         .onLongPressGesture(minimumDuration: 0.1, pressing: { isPressing in
              withAnimation {
-                 if self.style != .next {
-                     if isPressing {
-                         self.state = .pressed
-                     } else {
-                         self.state = .unpressed
-                     }
+                 if isPressing && style != .next {
+                     self.state = .pressed
+                 }
+                 else {
+                     self.state = .unpressed
                  }
              }
          }, perform: {
@@ -66,6 +66,9 @@ struct HanvestModuleNumberButton: View {
                  action()
              }
          })
+        .onAppear {
+            self.state = self.initialState
+        }
     }
     
     func getPressedStatus() -> Bool {
@@ -82,7 +85,8 @@ struct HanvestModuleNumberButton: View {
     
     VStack {
         HanvestModuleNumberButton(
-            style: .current,
+            initialState: .unpressed,
+            style: .done,
             number: 1, action: {
                 print("Hello World!")
             })
