@@ -11,21 +11,35 @@ struct HanvestProductOfInvestmentTable: View {
     // Constants
     let productTitle: String
     let productDetail: String
-    let productImageChart: Image
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            VStack {
+                VStack(spacing: 8) {
+                    VStack(spacing: 4) {
+                        Text(productTitle)
+                            .font(.nunito(.subhead, .bold))
+                            .frame(maxWidth: .infinity)
+                        Text(productDetail)
+                            .font(.nunito(.caption2))
+                    }
+                }
+                .padding(.vertical, 8)
+                .completionCardStyle()
+            
+
+            }
+        }
+        .padding(.horizontal, 20)
     }
 }
 
 #Preview {
     @Previewable let productTitle = "Deposito"
-    @Previewable let productDetail = "Rp 10.010.000 +0.1% "
-    @Previewable let productImageChart = Image("deposito-chart-01")
+    @Previewable let productDetail = "Rp 10.010.000 +0.1%"
     
     HanvestProductOfInvestmentTable(
         productTitle: productTitle,
-        productDetail: productDetail,
-        productImageChart: productImageChart
+        productDetail: productDetail
     )
 }
