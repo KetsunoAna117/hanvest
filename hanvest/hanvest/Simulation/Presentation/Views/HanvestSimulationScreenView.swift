@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HanvestSimulationView: View {
+struct HanvestSimulationScreenView: View {
     @StateObject private var viewmodel = HanvestSimulationViewModel()
     
     var body: some View {
@@ -16,8 +16,6 @@ struct HanvestSimulationView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 VStack {
-                    Divider()
-                    
                     HanvestStockOptionList(
                         selectedStockID: $viewmodel.selectedStockID,
                         simulationStockList: viewmodel.stockList
@@ -28,6 +26,7 @@ struct HanvestSimulationView: View {
                     SimulationStockDetailsView(
                         selectedStock: $viewmodel.selectedStock
                     )
+                    .padding(.top, 12)
                     
                     Divider()
                     
@@ -45,7 +44,6 @@ struct HanvestSimulationView: View {
                                 print("Buy Button Triggered")
                             }
                     }
-                    .padding(.top, 18)
                     .padding(.horizontal, 20)
                 }
                 
@@ -57,5 +55,5 @@ struct HanvestSimulationView: View {
 }
 
 #Preview {
-    HanvestSimulationView()
+    HanvestSimulationScreenView()
 }
