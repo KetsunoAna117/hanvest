@@ -69,22 +69,15 @@ struct HanvestButtonRadioBehavior: View {
         .onTapGesture {
             if self.state != .disabled &&
                 self.selectedButtonID != self.id {
-                self.selectedButtonID = self.id
-                print("Selected Button ID: \(selectedButtonID)")
-                action()
+                self.state = .pressed
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                    self.selectedButtonID = self.id
+                    print("Selected Button ID: \(selectedButtonID)")
+                    action()
+                })
             }
         }
-        .onLongPressGesture(minimumDuration: 0.1, perform: {
-            if self.state != .disabled &&
-                self.selectedButtonID != self.id {
-                self.selectedButtonID = self.id
-                action()
-            }
-        }, onPressingChanged: { isPressing in
-            withAnimation {
-                self.state = .pressed
-            }
-        })
         .onAppear {
             setupState()
         }
