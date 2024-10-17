@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum RiskProfilePageState {
-    case openingPage
+enum RiskProfilePageState: Int {
+    case openingPage = 0
     case questionPage
-    case resultPage
+    case resultPage = 7
     
     var buttonStringValue: String {
         switch self {
