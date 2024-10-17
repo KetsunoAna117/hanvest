@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HanvestLandScreenView: View {
     var body: some View {
-        Text("Hello, from HanvestLandScreenView!")
+        Text("My Land not yet implemented")
     }
 }
 
