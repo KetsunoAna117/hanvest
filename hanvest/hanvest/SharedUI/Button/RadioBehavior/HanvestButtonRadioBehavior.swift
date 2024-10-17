@@ -72,7 +72,6 @@ struct HanvestButtonRadioBehavior: View {
                 self.state = .pressed
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                    self.state = .unpressed
                     self.selectedButtonID = self.id
                     print("Selected Button ID: \(selectedButtonID)")
                     action()
