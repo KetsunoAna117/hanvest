@@ -65,7 +65,7 @@ struct HanvestStockOption: View {
     VStack {
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected,
+            initialState: .selected,
             id: "Stock-1",
             imageName: "Amazon-logo"
         ) {
