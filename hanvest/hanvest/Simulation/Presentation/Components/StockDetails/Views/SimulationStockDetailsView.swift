@@ -25,9 +25,9 @@ struct SimulationStockDetailsView: View {
                     )
                     
                     HanvestStockPriceChart(
-                        viewmodel: HanvestStockPriceChartViewModel(
-                            stockPrices: selectedStock.stockPrice),
-                        symbolCategoryKeyPath: \.stockIDName,
+                        viewmodel: HanvestProductPriceChartViewModel(
+                            prices: selectedStock.stockPrice),
+                        symbolCategoryKeyPath: \.name,
                         displayBy: .hour
                     )
                     
@@ -41,8 +41,8 @@ struct SimulationStockDetailsView: View {
             }
             .padding(.horizontal, 20)
             .onChange(of: selectedStock) { oldValue, newValue in
-                viewmodel.initialPrice = newValue?.stockPrice.first?.stockPrice ?? 0
-                viewmodel.currentPrice = newValue?.stockPrice.last?.stockPrice ?? 0
+                viewmodel.initialPrice = newValue?.stockPrice.first?.price ?? 0
+                viewmodel.currentPrice = newValue?.stockPrice.last?.price ?? 0
             }
         }
 

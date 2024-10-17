@@ -15,7 +15,7 @@ struct SimulationStockEntity: Equatable {
     
     var stockDescription: String
     
-    var stockPrice: [SimulationStockPriceEntity]
+    var stockPrice: [ProductPriceEntity]
     
     static func == (lhs: SimulationStockEntity, rhs: SimulationStockEntity) -> Bool {
         return
@@ -35,21 +35,21 @@ struct SimulationStockEntity: Equatable {
                 stockImageName: "BBRI-logo",
                 stockDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rhoncus tellus nulla, ut blandit neque rutrum in. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec sem lectus, semper a libero ut, congue sodales sem. Ut convallis volutpat ipsum quis maximus.",
                 stockPrice: [
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 3000, time: HanvestDateFormatter.stringToDate("2024-10-11 15:00:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 15:30:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 16:00:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 6000, time: HanvestDateFormatter.stringToDate("2024-10-11 16:30:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 17:00:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 2000, time: HanvestDateFormatter.stringToDate("2024-10-11 17:30:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 3000, time: HanvestDateFormatter.stringToDate("2024-10-11 18:00:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 18:30:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:00:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 6000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:30:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:00:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 7000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 7000, time: HanvestDateFormatter.stringToDate("2024-10-11 21:00:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 7000, time: HanvestDateFormatter.stringToDate("2024-10-11 21:30:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBRI", stockPrice: 7000, time: HanvestDateFormatter.stringToDate("2024-10-11 22:00:00"))
+                    ProductPriceEntity(name: "BBRI", price: 3000, time: HanvestDateFormatter.stringToDate("2024-10-11 15:00:00")),
+                    ProductPriceEntity(name: "BBRI", price: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 15:30:00")),
+                    ProductPriceEntity(name: "BBRI", price: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 16:00:00")),
+                    ProductPriceEntity(name: "BBRI", price: 6000, time: HanvestDateFormatter.stringToDate("2024-10-11 16:30:00")),
+                    ProductPriceEntity(name: "BBRI", price: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 17:00:00")),
+                    ProductPriceEntity(name: "BBRI", price: 2000, time: HanvestDateFormatter.stringToDate("2024-10-11 17:30:00")),
+                    ProductPriceEntity(name: "BBRI", price: 3000, time: HanvestDateFormatter.stringToDate("2024-10-11 18:00:00")),
+                    ProductPriceEntity(name: "BBRI", price: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 18:30:00")),
+                    ProductPriceEntity(name: "BBRI", price: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:00:00")),
+                    ProductPriceEntity(name: "BBRI", price: 6000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:30:00")),
+                    ProductPriceEntity(name: "BBRI", price: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:00:00")),
+                    ProductPriceEntity(name: "BBRI", price: 7000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
+                    ProductPriceEntity(name: "BBRI", price: 7000, time: HanvestDateFormatter.stringToDate("2024-10-11 21:00:00")),
+                    ProductPriceEntity(name: "BBRI", price: 7000, time: HanvestDateFormatter.stringToDate("2024-10-11 21:30:00")),
+                    ProductPriceEntity(name: "BBRI", price: 7000, time: HanvestDateFormatter.stringToDate("2024-10-11 22:00:00"))
                 ]
             ),
             SimulationStockEntity(
@@ -58,10 +58,10 @@ struct SimulationStockEntity: Equatable {
                 stockImageName: "BBCA-logo",
                 stockDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rhoncus tellus nulla, ut blandit neque rutrum in. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec sem lectus, semper a libero ut, congue sodales sem. Ut convallis volutpat ipsum quis maximus.",
                 stockPrice: [
-                    SimulationStockPriceEntity(stockIDName: "BBCA", stockPrice: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:20:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBCA", stockPrice: 6000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBCA", stockPrice: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 21:40:00")),
-                    SimulationStockPriceEntity(stockIDName: "BBCA", stockPrice: 4500, time: HanvestDateFormatter.stringToDate("2024-10-11 22:50:00"))
+                    ProductPriceEntity(name: "BBCA", price: 5000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:20:00")),
+                    ProductPriceEntity(name: "BBCA", price: 6000, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
+                    ProductPriceEntity(name: "BBCA", price: 4000, time: HanvestDateFormatter.stringToDate("2024-10-11 21:40:00")),
+                    ProductPriceEntity(name: "BBCA", price: 4500, time: HanvestDateFormatter.stringToDate("2024-10-11 22:50:00"))
                 ]
             ),
             SimulationStockEntity(
@@ -70,10 +70,10 @@ struct SimulationStockEntity: Equatable {
                 stockImageName: "GOTO-logo",
                 stockDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rhoncus tellus nulla, ut blandit neque rutrum in. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec sem lectus, semper a libero ut, congue sodales sem. Ut convallis volutpat ipsum quis maximus.",
                 stockPrice: [
-                    SimulationStockPriceEntity(stockIDName: "GOTO", stockPrice: 50, time: HanvestDateFormatter.stringToDate("2024-10-11 20:20:00")),
-                    SimulationStockPriceEntity(stockIDName: "GOTO", stockPrice: 60, time: HanvestDateFormatter.stringToDate("2024-10-11 21:30:00")),
-                    SimulationStockPriceEntity(stockIDName: "GOTO", stockPrice: 65, time: HanvestDateFormatter.stringToDate("2024-10-11 22:40:00")),
-                    SimulationStockPriceEntity(stockIDName: "GOTO", stockPrice: 55, time: HanvestDateFormatter.stringToDate("2024-10-11 23:50:00"))
+                    ProductPriceEntity(name: "GOTO", price: 50, time: HanvestDateFormatter.stringToDate("2024-10-11 20:20:00")),
+                    ProductPriceEntity(name: "GOTO", price: 60, time: HanvestDateFormatter.stringToDate("2024-10-11 21:30:00")),
+                    ProductPriceEntity(name: "GOTO", price: 65, time: HanvestDateFormatter.stringToDate("2024-10-11 22:40:00")),
+                    ProductPriceEntity(name: "GOTO", price: 55, time: HanvestDateFormatter.stringToDate("2024-10-11 23:50:00"))
                 ]
             )
         ]
