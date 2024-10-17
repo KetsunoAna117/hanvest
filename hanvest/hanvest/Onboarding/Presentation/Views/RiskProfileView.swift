@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RiskProfileView: View {
     // Constant
-    let totalPage = 7
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
     
@@ -42,32 +41,37 @@ struct RiskProfileView: View {
                     VStack(spacing: 230) {
                         TabView(selection: $currentTab) {
                             HanvestRiskProfileOpeningView()
-                                .tag(0)
+                                .tag(RiskProfilePageState.openingPage.rawValue)
                                 .transition(.slide)
                             
                             ForEach(Array(RiskProfileQuestionsAndOptions.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestMultipleChoiceView(
-                                    question:
+                                HanvestSelectableOptionsView(
+                                    headerText:
                                         page.questions,
-                                    answers:
+                                    choicesText:
                                         page.options,
+                                    eachComponentSpacing: 24,
                                     onSelectAnswer: { answer in
                                         viewModel.userSelectedAnswers[index] = answer
                                     }
                                 )
-                                .tag(index+1)
+                                .tag(page.rawValue)
                                 .transition(.slide)
                             }
                             
                             HanvestRiskProfileResultView(
                                 resultState: viewModel.resultState
                             )
-                            .tag(7)
+                            .tag(RiskProfilePageState.resultPage.rawValue)
                             .transition(.slide)
                         }
                         .frame(maxWidth: .infinity)
                         .tabViewStyle(.page(indexDisplayMode: .never))
+                        .indexViewStyle(.page(backgroundDisplayMode: .always))
+                        .onAppear {
+                            UIScrollView.appearance().isScrollEnabled = false
+                        }
                         
                         HanvestButtonDefault(
                             style:
@@ -76,7 +80,6 @@ struct RiskProfileView: View {
                                 pageState.buttonStringValue
                         ) {
                             goToNextPage()
-                            updateProgressBarValue()
                             changePageState()
                         }
                         .padding(.horizontal, 20)
@@ -91,29 +94,30 @@ struct RiskProfileView: View {
         .ignoresSafeArea()
     }
     
-    func goToNextPage() {
-        if currentTab < totalPage {
-            currentTab += 1
+    private func goToNextPage() {
+        if currentTab < RiskProfilePageState.resultPage.rawValue {
+            if !checkIsDisabled() {
+                currentTab += 1
+                updateProgressBarValue()
+            }
         } else {
             // TODO: direct to the corresponding page
         }
     }
     
-    func changePageState() {
-        if currentTab < totalPage {
+    private func changePageState() {
+        if currentTab < RiskProfilePageState.resultPage.rawValue {
             pageState = .questionPage
         } else {
             pageState = .resultPage
         }
     }
     
-    func updateProgressBarValue() {
-        if pageState == .questionPage {
-            progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
-        }
+    private func updateProgressBarValue() {
+        progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
     }
     
-    func checkIsDisabled() -> Bool {
+    private func checkIsDisabled() -> Bool {
         return pageState == .questionPage && viewModel.userSelectedAnswers[currentTab - 1].isEmpty
     }
 }

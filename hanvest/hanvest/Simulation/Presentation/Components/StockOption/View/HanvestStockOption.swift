@@ -16,24 +16,17 @@ struct HanvestStockOption: View {
     
     // Button Content
     var id: String
-    var image: Image
-    var color: Color
+    var imageName: String
     var action: () -> Void
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .fill(self.state == .unselected ? .mineShaft500 : color)
-                .frame(width: WIDTH, height: HEIGHT)
-                .cornerRadius(12)
+            Image(self.state == .unselected ? "\(imageName)-inactive" : "\(imageName)")
+                .clipShape(RoundedRectangle(cornerRadius: 12))
                 .shadow(
-                    color: (self.state == .unselected ? .mineShaft700 : color),
+                    color: (self.state == .unselected ? .mineShaft700 : .clear),
                     radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET
                 )
-            
-            // The Image
-            image
-                .foregroundStyle(Color.white)
         }
         .frame(maxWidth: WIDTH, maxHeight: HEIGHT)
         .overlay(
@@ -46,7 +39,6 @@ struct HanvestStockOption: View {
             if selectedStockID != id {
                 self.selectedStockID = self.id
                 state = .selected
-                print("\(id) pressed")
                 action()
             }
 
@@ -68,13 +60,14 @@ struct HanvestStockOption: View {
 }
 
 #Preview {
-    @Previewable @State var selectedStockOption: String = "Stock-1"
-    HStack {
+    @Previewable @State var selectedStockOption: String = ""
+    
+    VStack {
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
             initialState: .selected,
             id: "Stock-1",
-            image: Image(systemName: "star"), color: .red
+            imageName: "Amazon-logo"
         ) {
             print("Stock-1 selected")
         }
@@ -83,7 +76,7 @@ struct HanvestStockOption: View {
             selectedStockID: $selectedStockOption,
             initialState: .unselected,
             id: "Stock-2",
-            image: Image(systemName: "person"), color: .blue
+            imageName: "BBRI-logo"
         ) {
             print("Stock-2 selected")
         }
@@ -92,9 +85,27 @@ struct HanvestStockOption: View {
             selectedStockID: $selectedStockOption,
             initialState: .unselected,
             id: "Stock-3",
-            image: Image(systemName: "book"), color: .green
+            imageName: "Apple-logo"
         ) {
             print("Stock-3 selected")
+        }
+        
+        HanvestStockOption(
+            selectedStockID: $selectedStockOption,
+            initialState: .unselected,
+            id: "Stock-4",
+            imageName: "BBCA-logo"
+        ) {
+            print("Stock-4 selected")
+        }
+        
+        HanvestStockOption(
+            selectedStockID: $selectedStockOption,
+            initialState: .unselected,
+            id: "Stock-5",
+            imageName: "GOTO-logo"
+        ) {
+            print("Stock-5 selected")
         }
     }
 }

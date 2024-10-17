@@ -7,7 +7,34 @@
 
 import SwiftUI
 
-enum HanvestButtonSize: CGFloat {
-    case large = 351
-    case medium = 170
+enum HanvestButtonSize {
+    case large
+    case medium
+    
+    var minWidth: CGFloat {
+        switch self {
+        case .large:
+            return 351
+        case .medium:
+            return 170
+        }
+    }
+    
+    var verticalPadding: CGFloat {
+        switch self {
+        case .large:
+            return 14
+        case .medium:
+            return 8.5
+        }
+    }
+    
+    var horizontalPadding: CGFloat {
+        switch self {
+        case .large:
+            return 42
+        case .medium:
+            return 40
+        }
+    }
 }

@@ -35,6 +35,8 @@ struct Module01PlantingView: View {
                     .font(.nunito(.title2))
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity)
+                    .transition(.opacity)
+                    .id(self.growthProgress)
             }
             .padding(.top, 140)
             .padding(.horizontal, 20)
@@ -104,12 +106,10 @@ struct Module01PlantingView: View {
     
     private func checkEligibilityPlantFlowerBloom() -> Bool {
         let currentGrowthProgress = self.growthProgress.rawValue
-        let plantGrowthImage = self.growthProgress.plantGrowthImage
         
-        let firstConditionPlantFlowerBloomSection = (10...12).contains(currentGrowthProgress)
-        let secondConditionPlantFlowerBloomSection = plantGrowthImage?.image == Image("plant-growth-6")
+        let conditionPlantFlowerBloomSection = (10...12).contains(currentGrowthProgress)
         
-        return (firstConditionPlantFlowerBloomSection && secondConditionPlantFlowerBloomSection)
+        return conditionPlantFlowerBloomSection
     }
     
     private func checkIfReturnToMainView() {

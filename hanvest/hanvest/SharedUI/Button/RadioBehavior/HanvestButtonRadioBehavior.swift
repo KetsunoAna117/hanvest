@@ -47,9 +47,9 @@ struct HanvestButtonRadioBehavior: View {
                     .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
             }
         }
-        .frame(maxWidth: size.rawValue)
-        .padding(.horizontal, 20)
-        .padding(.vertical, 14)
+        .frame(maxWidth: size.minWidth)
+        .padding(.horizontal, size.horizontalPadding)
+        .padding(.vertical, size.verticalPadding)
         .multilineTextAlignment(.center)
         .background(
             RoundedRectangle(cornerRadius: 12)
@@ -69,22 +69,16 @@ struct HanvestButtonRadioBehavior: View {
         .onTapGesture {
             if self.state != .disabled &&
                 self.selectedButtonID != self.id {
-                self.selectedButtonID = self.id
-                print("Selected Button ID: \(selectedButtonID)")
-                action()
+                self.state = .pressed
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                    self.state = .unpressed
+                    self.selectedButtonID = self.id
+                    print("Selected Button ID: \(selectedButtonID)")
+                    action()
+                })
             }
         }
-        .onLongPressGesture(minimumDuration: 0.1, perform: {
-            if self.state != .disabled &&
-                self.selectedButtonID != self.id {
-                self.selectedButtonID = self.id
-                action()
-            }
-        }, onPressingChanged: { isPressing in
-            withAnimation {
-                self.state = .pressed
-            }
-        })
         .onAppear {
             setupState()
         }
@@ -132,7 +126,7 @@ struct HanvestButtonRadioBehavior: View {
         }
         VStack(spacing: 16) {
             HanvestButtonRadioBehavior(
-                size: .large,
+                size: .medium,
                 style: .filled(isDisabled: false),
                 iconPosition: .leading,
                 selectedButtonID: $selectedButtonID,
@@ -144,7 +138,7 @@ struct HanvestButtonRadioBehavior: View {
                 }
             )
             HanvestButtonRadioBehavior(
-                size: .large,
+                size: .medium,
                 style: .filledCorrect(isDisabled: false),
                 iconPosition: .leading,
                 selectedButtonID: $selectedButtonID,
@@ -156,7 +150,7 @@ struct HanvestButtonRadioBehavior: View {
                 }
             )
             HanvestButtonRadioBehavior(
-                size: .large,
+                size: .medium,
                 style: .filledIncorrect(isDisabled: false),
                 iconPosition: .leading,
                 selectedButtonID: $selectedButtonID,
