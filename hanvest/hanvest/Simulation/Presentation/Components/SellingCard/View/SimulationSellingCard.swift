@@ -9,8 +9,10 @@ import SwiftUI
 
 struct SimulationSellingCard: View {
     @ObservedObject var viewModel: SellingStockDataViewModel
-    @State var priceRaise: Int = 25
-    @State var lotRaise: Int = 1
+    
+    // Constant
+    var priceRaise: Int = 25
+    var lotRaise: Int = 1
     
     var body: some View {
         HanvestCardBackground {
@@ -50,7 +52,7 @@ struct SimulationSellingCard: View {
                         
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.stockPrice, raise: $priceRaise)
+                    HanvestNumberStepper(value: $viewModel.currentStockPrice, raise: priceRaise)
                     
                 }
                 
@@ -60,7 +62,7 @@ struct SimulationSellingCard: View {
                     
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.stockSellLot, raise: $lotRaise)
+                    HanvestNumberStepper(value: $viewModel.stockSellLot, raise: lotRaise)
                 }
             }
         }
@@ -69,35 +71,12 @@ struct SimulationSellingCard: View {
 
 #Preview {
     @Previewable @StateObject var viewmodel = SellingStockDataViewModel()
-    @Previewable @State var remainingLot = 100
-    @Previewable @State var price = 100
     
     VStack {
         SimulationSellingCard(viewModel: viewmodel)
             .onAppear(){
-                viewmodel.setup(availableLot: remainingLot, stockPrice: price)
+                viewmodel.setup(currentStockPrice: 5000)
             }
-            .onChange(of: remainingLot) { oldValue, newValue in
-                viewmodel.availableLot = newValue
-            }
-            .onChange(of: price) { oldValue, newValue in
-                viewmodel.stockPrice = newValue
-            }
-        
-        HStack {
-            HanvestButtonDefault(
-                style: .filledCorrect(isDisabled: false),
-                title: "Increment Lot") {
-                    remainingLot += 1
-            }
-            HanvestButtonDefault(
-                style: .filledIncorrect(isDisabled: false),
-                title: "Decrement Lot") {
-                    if remainingLot >= 0 + 1 {
-                        remainingLot -= 1
-                    }
-            }
-        }
     }
     .padding(.horizontal, 16)
 }

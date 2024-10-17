@@ -8,12 +8,15 @@
 import SwiftUI
 
 class SellingStockDataViewModel: ObservableObject{
+    // Dependency Injection
+    @Inject var getUserData: GetUserData
+    
     @Published var availableLot: Int {
         didSet {
             validateStockSellAmount()
         }
     }
-    @Published var stockPrice: Int{
+    @Published var currentStockPrice: Int{
         didSet {
             validateStockSellAmount()
         }
@@ -23,17 +26,22 @@ class SellingStockDataViewModel: ObservableObject{
             validateStockSellAmount()
         }
     }
-    @Published var stockSellAmount: Int = 0
+    
+    @Published var stockSellAmount: Int
     
     init() {
         self.availableLot = 0
-        self.stockPrice = 0
+        self.currentStockPrice = 0
         self.stockSellLot = 0
+        self.stockSellAmount = 0
     }
     
-    func setup(availableLot: Int, stockPrice: Int, stockSellLot: Int = 25){
-        self.availableLot = availableLot
-        self.stockPrice = stockPrice
+    func setup(
+        stockSellLot: Int = 25,
+        currentStockPrice: Int
+    ){
+        self.availableLot = getUserData.execute().userLotOwned
+        self.currentStockPrice = currentStockPrice
         self.stockSellLot = stockSellLot
         validateStockSellAmount()
     }
@@ -45,12 +53,12 @@ class SellingStockDataViewModel: ObservableObject{
     }
     
     func calculateStockSellAmount(){
-        stockSellAmount = stockPrice * stockSellLot * 100
+        stockSellAmount = currentStockPrice * stockSellLot * 100
     }
     
     private func validateStockPrice() {
-            if stockPrice < 0 {
-                stockPrice = 0
+            if currentStockPrice < 0 {
+                currentStockPrice = 0
             }
         }
     

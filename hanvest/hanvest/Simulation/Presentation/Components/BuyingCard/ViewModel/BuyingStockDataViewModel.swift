@@ -8,34 +8,50 @@
 import SwiftUI
 
 class BuyingStockDataViewModel: ObservableObject{
+    // Dependency Injection
+    @Inject var getUserData: GetUserData
+    
+    // Variables
     @Published var tradingBalance: Int {
         didSet {
             validateStockBuyAmount()
         }
     }
-    @Published var stockPrice: Int{
+    @Published var toBuyStockPrice: Int {
         didSet {
             validateStockBuyAmount()
         }
     }
-    @Published var stockBuyLot: Int{
+    @Published var stockBuyLot: Int {
         didSet {
+            print()
             validateStockBuyAmount()
         }
     }
-    @Published var stockBuyAmount: Int = 0
+    @Published var stockBuyAmount: Int
+    @Published var initialStockPrice: Int
+    @Published var currentStockPrice: Int
     
     init() {
         self.tradingBalance = 0
-        self.stockPrice = 0
+        self.toBuyStockPrice = 0
         self.stockBuyLot = 0
-        
+        self.stockBuyAmount = 0
+        self.initialStockPrice = 0
+        self.currentStockPrice = 0
     }
     
-    func setup(tradingBalance: Int, stockPrice: Int, stockBuyLot: Int = 25){
-        self.tradingBalance = tradingBalance
-        self.stockPrice = stockPrice
+    func setup(
+        stockBuyLot: Int = 0,
+        initialStockPrice: Int,
+        currentStockPrice: Int
+    ){
+        self.tradingBalance = getUserData.execute().userBalance
+        self.toBuyStockPrice = currentStockPrice
         self.stockBuyLot = stockBuyLot
+        
+        self.initialStockPrice = initialStockPrice
+        self.currentStockPrice = currentStockPrice
         validateStockBuyAmount()
     }
     
@@ -46,34 +62,38 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     
     func calculateStockBuyAmount(){
-        stockBuyAmount = stockPrice * stockBuyLot * 100
+        stockBuyAmount = toBuyStockPrice * stockBuyLot * 100
     }
     
     private func validateStockPrice() {
-            if stockPrice < 0 {
-                stockPrice = 0
-            }
+        if toBuyStockPrice < 0 {
+            toBuyStockPrice = 0
         }
+    }
     
     private func validateStockBuyLot() {
-        let maxLot = maximumStockBuyLot()
-            if stockBuyLot < 0 {
-                stockBuyLot = 0
-            } else if stockBuyLot > maxLot {
-                stockBuyLot = maxLot
-            }
+        if stockBuyLot < 0 {
+            stockBuyLot = 0
         }
-
+    }
     
     func maximumStockBuyLot() -> Int {
-        guard stockPrice > 0 else { return 0 }
-        let maxLot = tradingBalance / (stockPrice * 100)
+        guard toBuyStockPrice > 0 else { return 0 }
+        let maxLot = tradingBalance / (toBuyStockPrice * 100)
         return maxLot
     }
     
     func calculateStockBuyAmountPercentage() -> String {
         let percentage = Double(stockBuyAmount) / Double(tradingBalance) * 100
         return String(format: "%.2f", percentage)
+    }
+    
+    func determineAmountState() -> HanvestBuyingCardDefaultState{
+        if stockBuyAmount <= tradingBalance {
+            return .Affordable
+        } else {
+            return .Exceeded
+        }
     }
 }
 
