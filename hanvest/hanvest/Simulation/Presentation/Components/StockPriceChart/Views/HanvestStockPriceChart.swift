@@ -9,8 +9,8 @@ import SwiftUI
 import Charts
 
 struct HanvestStockPriceChart: View {
-    @ObservedObject var viewmodel: HanvestStockPriceChartViewModel
-    let symbolCategoryKeyPath: KeyPath<SimulationStockPriceEntity, String> // Category to differentiate symbols
+    @ObservedObject var viewmodel: HanvestProductPriceChartViewModel
+    let symbolCategoryKeyPath: KeyPath<ProductPriceEntity, String> // Category to differentiate symbols
     
     var displayBy: Calendar.Component
     var displayStep: Int = 1
@@ -19,7 +19,7 @@ struct HanvestStockPriceChart: View {
         HanvestCardBackground {
             VStack {
                 Chart {
-                    ForEach(viewmodel.stockPrices, id: \.id) { price in
+                    ForEach(viewmodel.prices, id: \.id) { price in
 //                        AreaMark(
 //                            x: .value("Time", price.time),
 //                            y: .value("Price", price.stockPrice)
@@ -29,7 +29,7 @@ struct HanvestStockPriceChart: View {
                         
                         LineMark(
                             x: .value("Time", price.time),
-                            y: .value("Price", price.stockPrice)
+                            y: .value("Price", price.price)
                         )
                         .symbol(symbol: {
                             Circle()
@@ -74,6 +74,6 @@ struct HanvestStockPriceChart: View {
     @Previewable @State var stockPrices = SimulationStockEntity.getMockData().first!.stockPrice
     
     HanvestStockPriceChart(
-        viewmodel: HanvestStockPriceChartViewModel(stockPrices: stockPrices), symbolCategoryKeyPath: \.stockIDName, displayBy: .hour)
+        viewmodel: HanvestProductPriceChartViewModel(prices: stockPrices), symbolCategoryKeyPath: \.name, displayBy: .hour)
     .padding(.horizontal, 20)
 }

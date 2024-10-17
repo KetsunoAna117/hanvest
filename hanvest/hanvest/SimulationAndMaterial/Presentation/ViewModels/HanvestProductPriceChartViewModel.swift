@@ -7,15 +7,15 @@
 
 import Foundation
 
-class HanvestStockPriceChartViewModel: ObservableObject {
-    @Published var stockPrices: [SimulationStockPriceEntity]
+class HanvestProductPriceChartViewModel: ObservableObject {
+    @Published var prices: [ProductPriceEntity]
     
     var minStockPrice: Double {
-        return stockPrices.map { Double($0.stockPrice) }.min() ?? 0.0
+        return prices.map { Double($0.price) }.min() ?? 0.0
     }
 
     var maxStockPrice: Double {
-        return stockPrices.map { Double($0.stockPrice) }.max() ?? 0.0
+        return prices.map { Double($0.price) }.max() ?? 0.0
     }
     
     var yAxisStep: Double {
@@ -37,12 +37,12 @@ class HanvestStockPriceChartViewModel: ObservableObject {
     }
     
     var timeRange: Double {
-        let startDate = stockPrices.first?.time ?? Date()
-        let endDate = stockPrices.last?.time ?? Date()
+        let startDate = prices.first?.time ?? Date()
+        let endDate = prices.last?.time ?? Date()
         return Double(endDate.timeIntervalSince(startDate))
     }
     
-    init(stockPrices: [SimulationStockPriceEntity]) {
-        self.stockPrices = stockPrices
+    init(prices: [ProductPriceEntity]) {
+        self.prices = prices
     }
 }
