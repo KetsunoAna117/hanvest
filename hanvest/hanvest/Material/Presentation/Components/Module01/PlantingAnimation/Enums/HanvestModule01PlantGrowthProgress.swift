@@ -53,27 +53,6 @@ enum PlantGrowthProgress: Int {
         }
     }
     
-    var plantGrowthImageName: String? {
-        switch self {
-            case .progress01, .progress02, .progress03:
-                nil
-            case .progress04:
-                "plant-growth-1"
-            case .progress05:
-                "plant-growth-2"
-            case .progress06:
-                "plant-growth-3"
-            case .progress07:
-                "plant-growth-4"
-            case .progress08:
-                "plant-growth-5"
-            case .progress09, .progress10, .progress11, .progress12:
-                "plant-growth-6"
-            case .progress13:
-                "plant-growth-7"
-        }
-    }
-    
     func nextProgress() -> PlantGrowthProgress? {
         return PlantGrowthProgress(rawValue: self.rawValue + 1)
     }

@@ -8,44 +8,55 @@
 import SwiftUI
 
 struct ModuleJourneyView: View {
+    let router: any AppRouterProtocol
+    
     // Constant
     let maxModulesVisible: Int = 6
-    let eachModuleNumberHeight: CGFloat = 80
-    let moduleSpacing: CGFloat = 24
+    let eachModuleNumberHeight: CGFloat = 100
+    let moduleSpacing: CGFloat = 4
     
     // View Model
-    @State private var viewModel = ModuleJourneyViewModel()
+    @StateObject private var viewModel = ModuleJourneyViewModel()
     
     @ViewBuilder
     var moduleListView: some View {
-        VStack(spacing: moduleSpacing) {
+        VStack(spacing: 4) {
             ForEach(1...viewModel.numberOfModules, id: \.self) { number in
                 HStack {
+                    if number == 2 {
+                        Image("hanvest-app-mascot")
+                            .resizable()
+                            .frame(width: 95, height: 106)
+                            .padding(.trailing, 157.94)
+                    }
+                    
                     HanvestModuleNumberButton(
-                        style:
-                            viewModel.getUserModuleProgress(
-                                moduleIndex: number
-                            ),
-                        number:
-                            number,
+                        style: viewModel.getUserModuleProgress(
+                            moduleIndex: number
+                        ),
+                        number: number,
                         action: {
                             
-                        // TODO: Do action for every module, the viewModel.updateUserModuleProgressIfDone should be triggered only when a module is Done
-                
-                        viewModel.updateUserModuleProgressIfDone(
-                            moduleIndex: number
-                        )
-                    })
+                            // TODO: Do action for every module, the viewModel.updateUserModuleProgressIfDone should be triggered only when a module is Done
+                            
+                            viewModel.updateUserModuleProgressIfDone(
+                                moduleIndex: number
+                            )
+                            print("Button number \(number) pressed")
+                        }
+                    )
                 }
+                .padding(10)
                 .frame(maxWidth: .infinity, alignment: moduleNumberButtonAlignmentLayout(for: number))
-                .frame(height: eachModuleNumberHeight)
+                .frame(height: 100)
             }
         }
-        .padding(.horizontal, moduleSpacing)
+        .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity)
     }
     
     var body: some View {
-        if viewModel.numberOfModules > maxModulesVisible {
+        if viewModel.numberOfModules >= maxModulesVisible {
             ScrollView {
                 moduleListView
             }
@@ -78,5 +89,23 @@ struct ModuleJourneyView: View {
 }
 
 #Preview {
-    ModuleJourneyView()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .main
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }

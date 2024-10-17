@@ -9,13 +9,12 @@ import SwiftUI
 
 struct HanvestHeaderWithDetailTextView: View {
     // Constants
-    let spacingBetweenHeaderAndDetail: CGFloat
     let headerText: Text
     let detailText: Text
     
     var body: some View {
         ZStack {
-            VStack(spacing: spacingBetweenHeaderAndDetail) {
+            VStack(spacing: 24) {
                 headerText
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
@@ -32,7 +31,6 @@ struct HanvestHeaderWithDetailTextView: View {
 
 #Preview {
     HanvestHeaderWithDetailTextView(
-        spacingBetweenHeaderAndDetail: 24,
         headerText:
             Text("In summary\n").font(.nunito(.title2, .bold)) +
             Text("Liabilities vs Assets").font(.nunito(.title2)),

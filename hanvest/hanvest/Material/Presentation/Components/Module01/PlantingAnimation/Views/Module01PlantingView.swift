@@ -106,12 +106,10 @@ struct Module01PlantingView: View {
     
     private func checkEligibilityPlantFlowerBloom() -> Bool {
         let currentGrowthProgress = self.growthProgress.rawValue
-        let plantGrowthImageName = self.growthProgress.plantGrowthImageName
         
-        let firstConditionPlantFlowerBloomSection = (10...12).contains(currentGrowthProgress)
-        let secondConditionPlantFlowerBloomSection = plantGrowthImageName == "plant-growth-6"
+        let conditionPlantFlowerBloomSection = (10...12).contains(currentGrowthProgress)
         
-        return (firstConditionPlantFlowerBloomSection && secondConditionPlantFlowerBloomSection)
+        return conditionPlantFlowerBloomSection
     }
     
     private func checkIfReturnToMainView() {

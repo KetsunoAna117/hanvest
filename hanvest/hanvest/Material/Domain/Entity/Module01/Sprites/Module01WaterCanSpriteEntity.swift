@@ -18,7 +18,7 @@ class WaterCan: SKNode {
         super.init()
 
         self.setScale(1)
-        self.zPosition = 3
+        self.zPosition = 2
         self.position = CGPoint(x: (UIScreen.main.bounds.width / 4.15), y: (UIScreen.main.bounds.width / 0.691))
         self.initialPosition = self.position
         
