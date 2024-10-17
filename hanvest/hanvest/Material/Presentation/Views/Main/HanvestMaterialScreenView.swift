@@ -8,11 +8,33 @@
 import SwiftUI
 
 struct HanvestMaterialScreenView: View {
+    let router: any AppRouterProtocol
+    
     var body: some View {
-        Text("Hello, from HanvestMaterialScreenView")
+        VStack {
+            ModuleJourneyView(router: router)
+        }
     }
 }
 
 #Preview {
-    HanvestMaterialScreenView()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .main
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }

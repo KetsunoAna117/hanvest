@@ -7,10 +7,9 @@
 
 import Foundation
 
-@Observable
-class ModuleJourneyViewModel {
-    let numberOfModules: Int = 6
-    var userTempModulesProgress: [HanvestModuleNumberDefaultStyle]
+class ModuleJourneyViewModel: ObservableObject {
+    @Published var numberOfModules: Int = 6
+    @Published var userTempModulesProgress: [HanvestModuleNumberDefaultStyle] = []
     
     init() {
         userTempModulesProgress = Array(repeating: .next, count: numberOfModules)

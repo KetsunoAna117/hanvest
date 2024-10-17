@@ -33,7 +33,7 @@ struct MainScreenView: View {
                 ) {
                     ZStack {
                         Color.background.ignoresSafeArea()
-                        HanvestMaterialScreenView()
+                        HanvestMaterialScreenView(router: router)
                     }
                 }
                 

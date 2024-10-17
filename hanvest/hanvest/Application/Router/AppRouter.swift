@@ -41,11 +41,34 @@ class AppRouter: AppRouterProtocol {
                 DebugView(router: self)
             }
         case .onboarding:
-            Text("Not yet Implemented!")
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
         case .main:
             ZStack {
                 Color.background.ignoresSafeArea()
                 MainScreenView(router: self)
+            }
+        case .materialModule01:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
+        case .materialModule02:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
+        case .materialModule03:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
+        case .materialModule04:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
             }
         }
     }

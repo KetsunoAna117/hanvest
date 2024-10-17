@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ModuleJourneyView: View {
+    let router: any AppRouterProtocol
+    
     // Constant
     let maxModulesVisible: Int = 6
     let eachModuleNumberHeight: CGFloat = 100
     let moduleSpacing: CGFloat = 4
     
     // View Model
-    @State private var viewModel = ModuleJourneyViewModel()
+    @StateObject private var viewModel = ModuleJourneyViewModel()
     
     @ViewBuilder
     var moduleListView: some View {
@@ -49,7 +51,6 @@ struct ModuleJourneyView: View {
             }
         }
         .padding(.horizontal, 20)
-        .padding(.top, 24)
         .frame(maxWidth: .infinity)
     }
     
@@ -87,5 +88,23 @@ struct ModuleJourneyView: View {
 }
 
 #Preview {
-    ModuleJourneyView()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .main
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }
