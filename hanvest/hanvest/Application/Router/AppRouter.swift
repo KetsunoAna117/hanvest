@@ -40,36 +40,91 @@ class AppRouter: AppRouterProtocol {
                 Color.background.ignoresSafeArea()
                 DebugView(router: self)
             }
+            .navigationBarBackButtonHidden()
+            
         case .onboarding:
             ZStack {
                 Color.background.ignoresSafeArea()
                 Text("Not yet Implemented!")
+                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                    self.pop()
+                })
             }
+            .navigationBarBackButtonHidden()
+            
         case .main:
             ZStack {
                 Color.background.ignoresSafeArea()
                 MainScreenView(router: self)
             }
+            .navigationBarBackButtonHidden()
+            
         case .materialModule01:
             ZStack {
                 Color.background.ignoresSafeArea()
                 Text("Not yet Implemented!")
+                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                    self.pop()
+                })
             }
+            .navigationBarBackButtonHidden()
+            
         case .materialModule02:
             ZStack {
                 Color.background.ignoresSafeArea()
                 Text("Not yet Implemented!")
+                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                    self.pop()
+                })
             }
+            .navigationBarBackButtonHidden()
+            
         case .materialModule03:
             ZStack {
                 Color.background.ignoresSafeArea()
                 Text("Not yet Implemented!")
+                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                    self.pop()
+                })
             }
+            .navigationBarBackButtonHidden()
+            
         case .materialModule04:
             ZStack {
                 Color.background.ignoresSafeArea()
                 Text("Not yet Implemented!")
+                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                    self.pop()
+                })
             }
+            .navigationBarBackButtonHidden()
+            
+        case .news:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                HanvestSimulationNewsScreenView(router: self)
+            }
+            .navigationBarBackButtonHidden()
+            
+        case .glossary:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                    self.pop()
+                })
+            }
+            .navigationBarBackButtonHidden()
+            
+        case .profile:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                    self.pop()
+                })
+            }
+            .navigationBarBackButtonHidden()
         }
     }
     

@@ -16,28 +16,29 @@ struct DebugView: View {
     var body: some View {
         ZStack {
             VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                
-                Text("Hello, world!")
-                
-                HanvestButtonDefault(
-                    size: .medium,
-                    style: .filledCorrect(isDisabled: false),
-                    title: "Show Overlay") {
-                        presentOverlay = true
-                        router.presentPopup(
-                            .withHanvestPopup(
-                                title: "News",
-                                desc: "Learn action to take based on news",
-                                dismissAction: {
-                                    print("Button Action trigerred")
-                                }
-                            )
-                        )
-                    }
-                    .zIndex(presentOverlay ? 100 : 0)
+//                Image(systemName: "globe")
+//                    .imageScale(.large)
+//                    .foregroundStyle(.tint)
+//                
+//                Text("Hello, world!")
+//                
+//                HanvestButtonDefault(
+//                    size: .medium,
+//                    style: .filledCorrect(isDisabled: false),
+//                    title: "Show Overlay") {
+//                        presentOverlay = true
+//                        router.presentPopup(
+//                            .withHanvestPopup(
+//                                title: "News",
+//                                desc: "Learn action to take based on news",
+//                                dismissAction: {
+//                                    print("Button Action trigerred")
+//                                }
+//                            )
+//                        )
+//                    }
+//                    .zIndex(presentOverlay ? 100 : 0)
+
             }
             .padding()
         }

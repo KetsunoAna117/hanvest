@@ -11,6 +11,9 @@ enum Screen: Identifiable, Hashable {
     case debug
     case onboarding
     case main
+    case news
+    case glossary
+    case profile
     case materialModule01
     case materialModule02
     case materialModule03
