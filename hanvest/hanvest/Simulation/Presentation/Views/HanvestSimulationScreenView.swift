@@ -31,26 +31,29 @@ struct HanvestSimulationView: View {
                     .padding(.top, 12)
                     
                     Divider()
+                        .padding(.top, -6)
                     
-                    HStack(spacing: 12) {
-                        HanvestButtonDefault(
-                            size: .medium,
-                            style: .filledIncorrect(isDisabled: false),
-                            title: "Sell") {
-                                print("Sell Button Triggered")
-                            }
-                        HanvestButtonDefault(
-                            size: .medium,
-                            style: .filledCorrect(isDisabled: false),
-                            title: "Buy") {
-                                print("Buy Button Triggered")
-                            }
+                    VStack {
+                        HStack(spacing: 12) {
+                            HanvestButtonDefault(
+                                size: .medium,
+                                style: .filledIncorrect(isDisabled: false),
+                                title: "Sell") {
+                                    print("Sell Button Triggered")
+                                }
+                            HanvestButtonDefault(
+                                size: .medium,
+                                style: .filledCorrect(isDisabled: false),
+                                title: "Buy") {
+                                    print("Buy Button Triggered")
+                                }
+                        }
                     }
                     .padding(.horizontal, 20)
+                    .padding(.bottom, 13)
+                    
+                    Divider()
                 }
-                
-                Spacer()
-                
             }
         }
     }
@@ -58,7 +61,7 @@ struct HanvestSimulationView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .contentview
+    @Previewable @State var startScreen: Screen? = .main
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

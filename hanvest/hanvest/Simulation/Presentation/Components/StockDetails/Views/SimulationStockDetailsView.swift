@@ -52,7 +52,7 @@ struct SimulationStockDetailsView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .contentview
+    @Previewable @State var startScreen: Screen? = .main
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

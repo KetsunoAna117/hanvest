@@ -26,7 +26,7 @@ extension Screen {
     // Conform to Hashable
     func hash(into hasher: inout Hasher) {
         switch self {
-        case .contentview:
+        case .debug:
             hasher.combine(self.hashValue)
         case .onboarding:
             hasher.combine(self.hashValue)
@@ -36,17 +36,32 @@ extension Screen {
             hasher.combine(self.hashValue)
         case .profile:
             hasher.combine(self.hashValue)
+        case .main:
+            hasher.combine(self.hashValue)
+        case .materialModule01:
+            hasher.combine(self.hashValue)
+        case .materialModule02:
+            hasher.combine(self.hashValue)
+        case .materialModule03:
+            hasher.combine(self.hashValue)
+        case .materialModule04:
+            hasher.combine(self.hashValue)
         }
     }
     
     // Conform to Equatable
     static func == (lhs: Screen, rhs: Screen) -> Bool {
         switch (lhs, rhs) {
-        case (.contentview, .contentview),
+        case (.debug, .debug),
             (.onboarding, .onboarding),
             (.simulationBuyingConfirmation, .simulationBuyingConfirmation),
             (.simulationSellingConfirmation, .simulationSellingConfirmation),
-            (.profile, .profile):
+            (.profile, .profile),
+            (.main, .main),
+            (.materialModule01, .materialModule01),
+            (.materialModule02, .materialModule02),
+            (.materialModule03, .materialModule03),
+            (.materialModule04, .materialModule04):
             return true
         default:
             return false
