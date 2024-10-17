@@ -46,7 +46,7 @@ struct Module02View: View {
                                     headerText: page.headerText,
                                     image: page.image,
                                     choicesText: page.choicesText,
-                                    choicesColor: page.choicesColor,
+                                    choicesColor: (page == .page04) ? HanvestModule02ColorOptions.allCases : nil,
                                     eachComponentSpacing: page.eachComponentSpacing,
                                     textAndImageSpacing: page.textAndImageSpacing,
                                     onSelectAnswer: { answer in
@@ -70,7 +70,7 @@ struct Module02View: View {
                                     
                                     if let selectedAnswer = viewModel.userSelectedAnswers.first {
                                         
-                                        HanvestHeaderWithDetailTextView(
+                                        HanvestHeaderWithDetailContent(
                                             headerText: page.headerText(
                                                 userSelectedAnswer: selectedAnswer
                                             ),
@@ -153,6 +153,17 @@ struct Module02View: View {
         progressBarCurrValue += (progressBarMaxValue / (Module02PageState.pageClaimReward.rawValue))
     }
     
+    private func checkIsDisabled() -> Bool {
+        if let currentChoice = Module02TextImageChoices.allCases.first(where: { $0.rawValue == currentTab }) {
+            let isChoicesAvailable = (
+                currentChoice.choicesText != nil || currentChoice == .page04
+            )
+            return isChoicesAvailable && viewModel.userSelectedAnswers[currentTab].isEmpty
+        }
+        
+        return false
+    }
+    
     private func checkPageToSkip(page: Module02HeaderWithDetailText, userSelectedAnswer: Bool) -> Bool {
         return (
             (
@@ -169,17 +180,6 @@ struct Module02View: View {
         } else {
             return rawValue
         }
-    }
-    
-    private func checkIsDisabled() -> Bool {
-        if let currentChoice = Module02TextImageChoices.allCases.first(where: { $0.rawValue == currentTab }) {
-            let isChoicesAvailable = (
-                currentChoice.choicesText != nil || currentChoice.choicesColor != nil
-            )
-            return isChoicesAvailable && viewModel.userSelectedAnswers[currentTab].isEmpty
-        }
-        
-        return false
     }
     
 }

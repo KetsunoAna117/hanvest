@@ -83,15 +83,6 @@ enum Module02TextImageChoices: Int, CaseIterable {
         }
     }
     
-    var choicesColor: [HanvestModule02ColorOptions]? {
-        switch self {
-            case .page04:
-                HanvestModule02ColorOptions.allCases
-            case .page01, .page02, .page03, .page05, .page06, .page07:
-                nil
-        }
-    }
-    
     var spacingVstackCustom: CGFloat {
         switch self {
             case .page01, .page02:

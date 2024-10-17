@@ -9,37 +9,66 @@ import SwiftUI
 
 struct HanvestProductOfInvestmentTable: View {
     // Constants
-    let productTitle: String
-    let productDetail: String
+    let productStage: Int
+    let productID: Int
     
     var body: some View {
-        ZStack {
-            VStack {
-                VStack(spacing: 8) {
-                    VStack(spacing: 4) {
-                        Text(productTitle)
-                            .font(.nunito(.subhead, .bold))
-                            .frame(maxWidth: .infinity)
-                        Text(productDetail)
+        VStack {
+            VStack(spacing: 8) {
+                VStack(spacing: 4) {
+                    Text(Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productName)
+                        .font(.nunito(.subhead, .bold))
+                        .frame(maxWidth: .infinity)
+                    
+                    if let lastPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.last?.price {
+                        
+                        Text("Rp. \(lastPrice) \(countPercentage(productID: productID, productStage: productStage))")
                             .font(.nunito(.caption2))
+                            .frame(maxWidth: .infinity)
+                        
                     }
                 }
-                .padding(.vertical, 8)
-                .completionCardStyle()
-            
-//                HanvestModule03ProductOfInvestmentChart(viewmodel: <#HanvestModule03ProductOfInvestmentViewModel#>, symbolCategoryKeyPath: <#KeyPath<Module03ProductOfInvestmentPriceEntity, String>#>)
             }
+            .padding(.vertical, 8)
+            .completionCardStyle()
+            
+            
+            HanvestModule03ProductOfInvestmentChart(
+                viewmodel: HanvestProductPriceChartViewModel(
+                    prices: Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices),
+                symbolCategoryKeyPath: \.name
+            )
+            .completionCardStyle()
         }
-        .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity)
     }
+    
+    private func countPercentage(productID: Int, productStage: Int) -> String {
+        guard let firstPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.first?.price else {
+            return "0.0%"
+        }
+        
+        guard let lastPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.last?.price else {
+            return "0.0%"
+        }
+        
+        let countPricePercentage = ((Double(lastPrice) - Double(firstPrice)) / Double(firstPrice)) * 100
+        
+        let formattedPercentage = String(format: "%+.1f%%", countPricePercentage)
+        
+        return formattedPercentage
+    }
+    
 }
 
 #Preview {
-    @Previewable let productTitle = "Deposito"
-    @Previewable let productDetail = "Rp 10.010.000 +0.1%"
+    @Previewable let productStage = 0
+    @Previewable let productID = 0
     
     HanvestProductOfInvestmentTable(
-        productTitle: productTitle,
-        productDetail: productDetail
+        productStage: productStage,
+        productID: productID
     )
+    .padding(.horizontal, 20)
+    
 }

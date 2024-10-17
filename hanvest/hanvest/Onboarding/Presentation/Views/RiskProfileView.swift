@@ -12,7 +12,7 @@ struct RiskProfileView: View {
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
     
-    @State private var pageState: RiskProfilePageState = .openingPage
+    @State private var pageState: RiskProfilePageState = .pageOpening
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 10
     
@@ -25,7 +25,7 @@ struct RiskProfileView: View {
             
             ZStack {
                 VStack(spacing: 58) {
-                    if pageState == .questionPage {
+                    if pageState == .pageQuestion {
                         HanvestProgressBar(
                             value:
                                 $progressBarCurrValue,
@@ -41,7 +41,7 @@ struct RiskProfileView: View {
                     VStack(spacing: 230) {
                         TabView(selection: $currentTab) {
                             HanvestRiskProfileOpeningView()
-                                .tag(RiskProfilePageState.openingPage.rawValue)
+                                .tag(RiskProfilePageState.pageOpening.rawValue)
                                 .transition(.slide)
                             
                             ForEach(Array(RiskProfileQuestionsAndOptions.allCases.enumerated()), id: \.offset) { index, page in
@@ -63,7 +63,7 @@ struct RiskProfileView: View {
                             HanvestRiskProfileResultView(
                                 resultState: viewModel.resultState
                             )
-                            .tag(RiskProfilePageState.resultPage.rawValue)
+                            .tag(RiskProfilePageState.pageRiskResult.rawValue)
                             .transition(.slide)
                         }
                         .frame(maxWidth: .infinity)
@@ -87,7 +87,7 @@ struct RiskProfileView: View {
                     }
                 }
             }
-            .padding(.top, (pageState == .questionPage) ? 74 : 140)
+            .padding(.top, (pageState == .pageQuestion) ? 74 : 140)
             .padding(.bottom, 54)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -95,7 +95,7 @@ struct RiskProfileView: View {
     }
     
     private func goToNextPage() {
-        if currentTab < RiskProfilePageState.resultPage.rawValue {
+        if currentTab < RiskProfilePageState.pageRiskResult.rawValue {
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
@@ -106,10 +106,10 @@ struct RiskProfileView: View {
     }
     
     private func changePageState() {
-        if currentTab < RiskProfilePageState.resultPage.rawValue {
-            pageState = .questionPage
+        if currentTab < RiskProfilePageState.pageRiskResult.rawValue {
+            pageState = .pageQuestion
         } else {
-            pageState = .resultPage
+            pageState = .pageRiskResult
         }
     }
     
@@ -118,7 +118,7 @@ struct RiskProfileView: View {
     }
     
     private func checkIsDisabled() -> Bool {
-        return pageState == .questionPage && viewModel.userSelectedAnswers[currentTab - 1].isEmpty
+        return pageState == .pageQuestion && viewModel.userSelectedAnswers[currentTab - 1].isEmpty
     }
 }
 

@@ -55,14 +55,14 @@ struct HanvestModule03ProductOfInvestmentChart: View {
         }
     }
     
-    func daysSinceStart(for date: Date) -> Int {
+    private func daysSinceStart(for date: Date) -> Int {
         let calendar = Calendar.current
         let startDate = viewmodel.prices.first?.time ?? Date()
         let dayDifference = calendar.dateComponents([.day], from: startDate, to: date).day ?? 0
         return dayDifference
     }
     
-    func xAxisValues() -> [Int] {
+    private func xAxisValues() -> [Int] {
         guard let endDate = viewmodel.prices.last?.time else {
             return []
         }
@@ -72,15 +72,17 @@ struct HanvestModule03ProductOfInvestmentChart: View {
         return stride(from: 0, through: daysDifference, by: displayStep).map { $0 }
     }
     
-    func formatLargeNumber(_ value: Double) -> String {
+    private func formatLargeNumber(_ value: Double) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        numberFormatter.maximumFractionDigits = 1
+        numberFormatter.maximumFractionDigits = 3
 
         if value >= 1_000_000 {
-            return "\(numberFormatter.string(from: NSNumber(value: value / 1_000_000))!)M"
+            let formattedValue = value / 1_000_000
+            return "\(numberFormatter.string(from: NSNumber(value: formattedValue))!)M"
         } else if value >= 1_000 {
-            return "\(numberFormatter.string(from: NSNumber(value: value / 1_000))!)K"
+            let formattedValue = value / 1_000
+            return "\(numberFormatter.string(from: NSNumber(value: formattedValue))!)K"
         } else {
             return "\(numberFormatter.string(from: NSNumber(value: value))!)"
         }
@@ -88,7 +90,7 @@ struct HanvestModule03ProductOfInvestmentChart: View {
 }
 
 #Preview {
-    @Previewable @State var productPrices = Module03ProductOfInvestmentEntity.getMockData().first!.productPrices
+    @Previewable @State var productPrices = Module03ProductOfInvestmentEntity.getMockData()[0][0].productPrices
     
     HanvestModule03ProductOfInvestmentChart(
         viewmodel: HanvestProductPriceChartViewModel(prices: productPrices),
