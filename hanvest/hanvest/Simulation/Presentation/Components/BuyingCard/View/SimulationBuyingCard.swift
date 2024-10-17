@@ -9,8 +9,10 @@ import SwiftUI
 
 struct SimulationBuyingCard: View {
     @ObservedObject var viewModel: BuyingStockDataViewModel
-    @State var priceRaise: Int = 25
-    @State var lotRaise: Int = 1
+    
+    // Constant
+    var priceRaise: Int = 25
+    var lotRaise: Int = 1
     
     var body: some View {
         HanvestCardBackground {
@@ -51,7 +53,7 @@ struct SimulationBuyingCard: View {
                         
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.toBuyStockPrice, raise: $priceRaise)
+                    HanvestNumberStepper(value: $viewModel.toBuyStockPrice, raise: priceRaise)
                     
                 }
                 
@@ -63,7 +65,7 @@ struct SimulationBuyingCard: View {
                     
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: $lotRaise)
+                    HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: lotRaise)
                 }
             }
         }

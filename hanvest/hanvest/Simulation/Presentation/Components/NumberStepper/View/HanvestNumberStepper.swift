@@ -9,13 +9,14 @@ import SwiftUI
 
 struct HanvestNumberStepper: View {
     @Binding var value: Int
-    @Binding var raise: Int
+    var raise: Int
+    
     @StateObject var viewModel = HanvestNumberStepperViewModel()
     
     var body: some View {
         HStack() {
             Button{
-                viewModel.decrement(&value, &raise)
+                viewModel.decrement(&value, raise)
             } label: {
                 Circle()
                     .stroke(.mineShaft200, lineWidth: 1)
@@ -39,7 +40,7 @@ struct HanvestNumberStepper: View {
                 .padding(.horizontal, 20)
             
             Button {
-                viewModel.increment(&value, &raise)
+                viewModel.increment(&value, raise)
             } label: {
                 Circle()
                     .stroke(.mineShaft200, lineWidth: 1)
@@ -62,10 +63,10 @@ struct HanvestNumberStepper: View {
 
 #Preview {
     @Previewable @State var value: Int = 10
-    @Previewable @State var raise: Int = 1000000
+    var raise = 25
     
     VStack {
-        HanvestNumberStepper(value: $value, raise: $raise)
+        HanvestNumberStepper(value: $value, raise: raise)
             .padding()
     }
     .background(.mineShaft50)
