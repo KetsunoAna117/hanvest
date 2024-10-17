@@ -10,10 +10,9 @@ import Charts
 
 struct HanvestModule03ProductOfInvestmentChart: View {
     @ObservedObject var viewmodel: HanvestModule03ProductOfInvestmentViewModel
-    let symbolCategoryKeyPath: KeyPath<Module03ProductOfInvestmentPriceEntity, String> // Category to differentiate symbols
+    let symbolCategoryKeyPath: KeyPath<Module03ProductOfInvestmentPriceEntity, String>
     
-    var displayBy: Calendar.Component
-    var displayStep: Int = 1
+    var displayStep: Int = 15
     
     var body: some View {
         HanvestCardBackground {
@@ -21,7 +20,7 @@ struct HanvestModule03ProductOfInvestmentChart: View {
                 Chart {
                     ForEach(viewmodel.productPrices, id: \.id) { price in
                         LineMark(
-                            x: .value("Time", price.time),
+                            x: .value("Days", daysSinceStart(for: price.time)),
                             y: .value("Price", price.productPrice)
                         )
                         .symbol(symbol: {
@@ -32,12 +31,12 @@ struct HanvestModule03ProductOfInvestmentChart: View {
                         .foregroundStyle(.seagull500)
                     }
                 }
+                .chartXScale(domain: 0...daysSinceStart(for: viewmodel.productPrices.last?.time ?? Date()))
                 .chartXAxis {
-                    AxisMarks(values: .stride(by: displayBy, count: displayStep)) { value in
-                        if value.as(Date.self) != nil {
-                            AxisGridLine()
-                            AxisTick()
-                            AxisValueLabel(format: .dateTime.month().day(), centered: true) // Display month/day
+                    AxisMarks(values: xAxisValues()) { value in
+                        if let dayValue = value.as(Int.self) {
+                            AxisValueLabel("\(dayValue)")
+                                .offset(x: (15))
                         }
                     }
                 }
@@ -46,14 +45,44 @@ struct HanvestModule03ProductOfInvestmentChart: View {
                     AxisMarks(values: viewmodel.yAxisValues) { value in
                         AxisGridLine()
                         AxisTick()
-                        AxisValueLabel("\(value.as(Double.self)!, specifier: "%.0f")") // Display as integers
+                        AxisValueLabel(formatLargeNumber(value.as(Double.self) ?? 0)) // Format large numbers
                     }
                 }
-                .chartXAxisLabel("Time (Days)")
+                .chartXAxisLabel("Days")
                 .chartYAxisLabel("Price")
                 .frame(height: 250)
             }
-            .padding()
+        }
+    }
+    
+    func daysSinceStart(for date: Date) -> Int {
+        let calendar = Calendar.current
+        let startDate = viewmodel.productPrices.first?.time ?? Date()
+        let dayDifference = calendar.dateComponents([.day], from: startDate, to: date).day ?? 0
+        return dayDifference
+    }
+    
+    func xAxisValues() -> [Int] {
+        guard let endDate = viewmodel.productPrices.last?.time else {
+            return []
+        }
+
+        let daysDifference = daysSinceStart(for: endDate)
+        
+        return stride(from: 0, through: daysDifference, by: displayStep).map { $0 }
+    }
+    
+    func formatLargeNumber(_ value: Double) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 1
+
+        if value >= 1_000_000 {
+            return "\(numberFormatter.string(from: NSNumber(value: value / 1_000_000))!)M"
+        } else if value >= 1_000 {
+            return "\(numberFormatter.string(from: NSNumber(value: value / 1_000))!)K"
+        } else {
+            return "\(numberFormatter.string(from: NSNumber(value: value))!)"
         }
     }
 }
@@ -64,7 +93,8 @@ struct HanvestModule03ProductOfInvestmentChart: View {
     HanvestModule03ProductOfInvestmentChart(
         viewmodel: HanvestModule03ProductOfInvestmentViewModel(productPrices: productPrices),
         symbolCategoryKeyPath: \.productName,
-        displayBy: .day
+        displayStep: 15
     )
     .padding(.horizontal, 20)
 }
+

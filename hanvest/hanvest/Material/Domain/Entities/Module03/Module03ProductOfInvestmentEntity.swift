@@ -23,10 +23,10 @@ struct Module03ProductOfInvestmentEntity: Equatable {
         let initialDate = HanvestDateFormatter.stringToDate(startDate)
         let calendar = Calendar.current
         let dayIncrement = 15
-        let maxDays = 45
+        let maxDays = 105
         
         var currentDate = initialDate
-        let currentPrice = initialPrice
+        var currentPrice = initialPrice
         
         // Loop every 15 days, creating stock prices up to day 165
         for _ in stride(from: 0, through: maxDays, by: dayIncrement) {
@@ -35,7 +35,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
             
             // Increment date by 15 days and simulate price change
             currentDate = calendar.date(byAdding: .day, value: dayIncrement, to: currentDate) ?? currentDate
-//            currentPrice += 1000 // Example price increment logic, adjust as needed
+            currentPrice += 100000000 // Example price increment logic, adjust as needed
         }
         
         return stockPrices
@@ -45,7 +45,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
         return [
             Module03ProductOfInvestmentEntity(
                 productName: "Deposito",
-                productPrices: generateStockPriceEntities(startDate: "2024-10-11 00:00:00", initialPrice: 3000)
+                productPrices: generateStockPriceEntities(startDate: "2024-10-11 00:00:00", initialPrice: 300000000)
             ),
             Module03ProductOfInvestmentEntity(
                 productName: "Government Bonds",

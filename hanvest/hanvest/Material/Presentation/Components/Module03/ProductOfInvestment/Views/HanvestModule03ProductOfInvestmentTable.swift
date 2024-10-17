@@ -27,7 +27,7 @@ struct HanvestProductOfInvestmentTable: View {
                 .padding(.vertical, 8)
                 .completionCardStyle()
             
-
+//                HanvestModule03ProductOfInvestmentChart(viewmodel: <#HanvestModule03ProductOfInvestmentViewModel#>, symbolCategoryKeyPath: <#KeyPath<Module03ProductOfInvestmentPriceEntity, String>#>)
             }
         }
         .padding(.horizontal, 20)
