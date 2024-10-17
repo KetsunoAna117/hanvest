@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DebugView: View {
     // Router
     let router: any AppRouterProtocol
     
@@ -48,7 +48,7 @@ struct ContentView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .contentview
+    @Previewable @State var startScreen: Screen? = .debug
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

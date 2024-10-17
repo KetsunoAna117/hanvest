@@ -35,15 +35,41 @@ class AppRouter: AppRouterProtocol {
     @ViewBuilder
     func build(_ screen: Screen) -> some View {
         switch screen {
-        case .contentview:
+        case .debug:
             ZStack {
                 Color.background.ignoresSafeArea()
-                ContentView(router: self)
+                DebugView(router: self)
             }
         case .onboarding:
-            Text("Not yet Implemented!")
-        case .profile:
-            Text("Not yet Implemented!")
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
+        case .main:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                MainScreenView(router: self)
+            }
+        case .materialModule01:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
+        case .materialModule02:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
+        case .materialModule03:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
+        case .materialModule04:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
         case .simulationBuyingConfirmation(stock: let stock):
             ZStack {
                 Color.background.ignoresSafeArea()

@@ -17,8 +17,6 @@ struct HanvestSimulationView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 VStack {
-                    Divider()
-                    
                     HanvestStockOptionList(
                         selectedStockID: $viewmodel.selectedStockID,
                         simulationStockList: viewmodel.stockList
@@ -30,6 +28,7 @@ struct HanvestSimulationView: View {
                         router: router,
                         selectedStock: $viewmodel.selectedStock
                     )
+                    .padding(.top, 12)
                     
                     Divider()
                     
@@ -47,7 +46,6 @@ struct HanvestSimulationView: View {
                                 print("Buy Button Triggered")
                             }
                     }
-                    .padding(.top, 18)
                     .padding(.horizontal, 20)
                 }
                 
