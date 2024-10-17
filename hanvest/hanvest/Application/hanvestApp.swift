@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct hanvestApp: App {
     @StateObject private var appRouter = AppRouter()
-    @State private var startScreen: Screen? = .main
+    @State private var startScreen: Screen? = .debug
     
     init(){
         AppModule.inject()
