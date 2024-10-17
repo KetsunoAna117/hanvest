@@ -42,6 +42,7 @@ struct ModuleJourneyView: View {
                             viewModel.updateUserModuleProgressIfDone(
                                 moduleIndex: number
                             )
+                            print("Button number \(number) pressed")
                         }
                     )
                 }

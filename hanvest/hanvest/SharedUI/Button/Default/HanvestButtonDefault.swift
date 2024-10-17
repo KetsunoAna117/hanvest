@@ -65,26 +65,14 @@ struct HanvestButtonDefault: View {
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
             if self.state != .disabled {
-                action()
+                self.state = .pressed
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                    self.state = .unpressed
+                    action()
+                })
             }
         }
-        .onLongPressGesture(minimumDuration: 0.1, pressing: { isPressing in
-            withAnimation {
-                if self.initialState == .unpressed {
-                    if isPressing {
-                        self.state = .pressed
-                    }
-                    else {
-                        self.state = .unpressed
-                    }
-                }
-
-            }
-        }, perform: {
-            if self.state != .disabled {
-                action()
-            }
-        })
         .onAppear {
             setupState()
         }
@@ -125,7 +113,7 @@ struct HanvestButtonDefault: View {
         }
         HanvestButtonDefault(
             size: .large,
-            style: .filledIncorrect(isDisabled: false),
+            style: .filled(isDisabled: false),
             iconPosition: .leading,
             title: "Button",
             image: Image(systemName: "person.fill"),
