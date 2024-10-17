@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SimulationStockDetailsView: View {
+    let router: any AppRouterProtocol
     @Binding var selectedStock: SimulationStockEntity?
     
     @StateObject var viewmodel = SimulationStockDetailViewModel()
@@ -50,7 +51,23 @@ struct SimulationStockDetailsView: View {
 }
 
 #Preview {
-    SimulationStockDetailsView(
-        selectedStock: .constant(SimulationStockEntity.getMockData().first!)
-    )
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .contentview
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HanvestSimulationView: View {
+    let router: any AppRouterProtocol
     @StateObject private var viewmodel = HanvestSimulationViewModel()
     
     var body: some View {
@@ -26,6 +27,7 @@ struct HanvestSimulationView: View {
                     Divider()
                     
                     SimulationStockDetailsView(
+                        router: router,
                         selectedStock: $viewmodel.selectedStock
                     )
                     
@@ -57,5 +59,23 @@ struct HanvestSimulationView: View {
 }
 
 #Preview {
-    HanvestSimulationView()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .contentview
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }

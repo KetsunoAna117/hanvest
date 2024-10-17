@@ -42,19 +42,18 @@ class AppRouter: AppRouterProtocol {
             }
         case .onboarding:
             Text("Not yet Implemented!")
-        case .material:
-            VStack {
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(title: "Press to go back") {
-                    self.pop()
-                }
-            }
-            .navigationBarBackButtonHidden()
-            
-        case .simulation:
-            Text("Not yet Implemented!")
         case .profile:
             Text("Not yet Implemented!")
+        case .simulationBuyingConfirmation(stock: let stock):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
+        case .simulationSellingConfirmation(stock: let stock):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Text("Not yet Implemented!")
+            }
         }
     }
     
