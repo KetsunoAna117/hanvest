@@ -28,7 +28,7 @@ enum HanvestModuleNumberDefaultStyle {
             case .current:
                 return .lemonChiffon600
             case .done:
-                return .seagull400
+                return .seagull500
             case .next:
                 return .mineShaft500
         }
