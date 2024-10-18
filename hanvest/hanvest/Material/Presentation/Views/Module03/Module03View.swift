@@ -67,8 +67,8 @@ struct Module03View: View {
                                 HanvestMaterialnformationView(
                                     title: Text(page.title).font(.nunito(.title2)),
                                     detailText: page.detailText,
-                                    bulletPoints: page.bulletPoints,
-                                    image: (page == .page05) ? Image("high-risk-low-risk-triangle") : nil
+                                    image: (page == .page05) ? Image("high-risk-low-risk-triangle") : nil,
+                                    bulletPoints: page.bulletPoints
                                 )
                                 .tag(page.rawValue)
                                 .transition(.slide)
