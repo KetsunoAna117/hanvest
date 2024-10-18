@@ -16,7 +16,7 @@ struct Module03View: View {
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
     @State private var pageState: Module03PageState = .pageContinue
-    @State private var isAnswered: CheckIsAnswered = .notAnswered
+    @State private var selectedProductIndex: Int = -1
     
     var body: some View {
         ZStack {
@@ -38,20 +38,39 @@ struct Module03View: View {
                     VStack(spacing: 48) {
                         TabView(selection: $currentTab) {
                             
-                            ForEach(Array(Module03AllContent.allCases.enumerated()), id: \.offset) { index, page in
+                            HanvestMultipleChoice(
+                                question: Module03MultipleChoice.page01.question,
+                                options: Module03MultipleChoice.page01.options){ answer in
+                                    
+                                checkSelectedProductIndex(answer: answer)
+                                    
+                            }
+                            .tag(Module03MultipleChoice.page01.rawValue)
+                            .transition(.slide)
+                            .frame(maxHeight: .infinity, alignment: .top)
+                            
+                            if selectedProductIndex != -1 {
+                                ForEach(Array(Module03ProductOfInvestmentContent.allCases.enumerated()), id: \.offset) { index, page in
+                                    
+                                    HanvestModule03AllProductOfInvestmentView(
+                                        title: page.title,
+                                        selectedProductIndex: selectedProductIndex,
+                                        productStage: page.rawValue - 1
+                                    )
+                                    .tag(page.rawValue)
+                                    .transition(.slide)
+                                    .frame(maxHeight: .infinity, alignment: .top)
+                                    
+                                }
+                            }
+                            
+                            ForEach(Array(Module03MaterialInformationContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestHeaderWithDetailContent(
-                                    headerText: Text(page.headerText).font(.nunito(.title2)),
+                                HanvestModule03MaterialnformationView(
+                                    title: page.title,
                                     detailText: page.detailText,
-                                    image: (page == .page05) ? Image("high-risk-low-risk-triangle") : nil,
-                                    customSpacing: ((0...3).contains(page.rawValue)) ? 0 : nil,
-                                    choicesText: page.choicesText,
-                                    productStage: ((1...3).contains(page.rawValue)) ? page.rawValue - 1 : nil,
-                                    onSelectAnswer: {
-                                        if isAnswered == .notAnswered {
-                                            isAnswered = .answered
-                                        }
-                                    }
+                                    bulletPoint: page.bulletPoints,
+                                    image: (page == .page05) ? Image("high-risk-low-risk-triangle") : nil
                                 )
                                 .tag(page.rawValue)
                                 .transition(.slide)
@@ -74,14 +93,13 @@ struct Module03View: View {
                         
                         ZStack {
                             HanvestButtonDefault(
-                                style: .filled(isDisabled: checkIsDisabled()),
+                                style: .filled(isDisabled: false),
                                 title: pageState.buttonStringValue
                             ) {
                                 goToNextPage()
                                 changePageState()
                             }
                         }
-                        .padding(.horizontal, 20)
                         .frame(maxWidth: .infinity)
                     }
                     .frame(maxWidth: .infinity)
@@ -89,6 +107,7 @@ struct Module03View: View {
             }
             .padding(.top, 71)
             .padding(.bottom, 54)
+            .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .ignoresSafeArea()
@@ -107,7 +126,7 @@ struct Module03View: View {
     }
     
     private func changePageState() {
-        if (Module03AllContent.page02.rawValue...Module03AllContent.page03.rawValue).contains(currentTab) {
+        if (Module03ProductOfInvestmentContent.page02.rawValue...Module03ProductOfInvestmentContent.page03.rawValue).contains(currentTab) {
             pageState = .pageNextMonth
         } else if currentTab == Module03PageState.pageClaimReward.rawValue  {
             pageState = .pageClaimReward
@@ -121,14 +140,16 @@ struct Module03View: View {
     }
     
     private func checkIsDisabled() -> Bool {
-        if let currentChoice = Module03AllContent.allCases.first(where: { $0.rawValue == currentTab }) {
-            let isChoicesAvailable = (
-                currentChoice.choicesText != nil
-            )
-            return (isChoicesAvailable) && (isAnswered == .notAnswered)
+        return (selectedProductIndex == -1) && (currentTab == Module03MultipleChoice.page01.rawValue)
+    }
+    
+    private func checkSelectedProductIndex(answer: String) {
+        for optionCase in Module03MultipleChoice.allCases {
+            if let index = optionCase.options.firstIndex(of: answer) {
+                self.selectedProductIndex = index
+                return
+            }
         }
-        
-        return false
     }
 }
 
