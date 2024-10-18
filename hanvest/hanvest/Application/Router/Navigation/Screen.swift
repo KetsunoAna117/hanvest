@@ -20,7 +20,6 @@ enum Screen: Identifiable, Hashable, Equatable {
     case materialModule04
     case simulationBuyingConfirmation(stock: SimulationStockEntity)
     case simulationSellingConfirmation(stock: SimulationStockEntity)
-    case profile
     
     var id: Self { return self }
 }
@@ -49,6 +48,10 @@ extension Screen {
             hasher.combine(self.hashValue)
         case .materialModule04:
             hasher.combine(self.hashValue)
+        case .news:
+            hasher.combine(self.hashValue)
+        case .glossary:
+            hasher.combine(self.hashValue)
         }
     }
     
@@ -64,7 +67,9 @@ extension Screen {
             (.materialModule01, .materialModule01),
             (.materialModule02, .materialModule02),
             (.materialModule03, .materialModule03),
-            (.materialModule04, .materialModule04):
+            (.materialModule04, .materialModule04),
+            (.news, .news),
+            (.glossary, .glossary):
             return true
         default:
             return false
