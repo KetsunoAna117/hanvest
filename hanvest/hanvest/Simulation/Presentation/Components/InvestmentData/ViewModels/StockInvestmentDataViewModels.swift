@@ -9,8 +9,24 @@ import Foundation
 import SwiftUI
 
 class StockInvestmentDataViewModels: ObservableObject {
-    @Published var profitLossLabel: Int = 0
-    @Published var profitLossPercentageLabel: Int = 0
+    @Inject var getUserData: GetUserData
+    
+    @Published var profitLossLabel: Int
+    @Published var profitLossPercentageLabel: Int
+    
+    @Published var userStockInvestment: Int
+    @Published var userTotalEquity: Int
+    
+    init(){
+        profitLossLabel = 0
+        profitLossPercentageLabel = 0
+        userStockInvestment = 0
+        userTotalEquity = 0
+    }
+    
+    func setup(){
+        
+    }
     
     func calculateProfitLoss(userInvestment: Binding<Int>, totalEquity: Binding<Int>) {
         profitLossLabel = userInvestment.wrappedValue - totalEquity.wrappedValue

@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct StockInvestmentData: View {
-    @Binding var stockNameID: String
-    @Binding var userStockInvestment: Int
-    @Binding var userTotalEquity: Int
+    var stockNameID: String
     
     @StateObject private var viewmodel: StockInvestmentDataViewModels = .init()
     
