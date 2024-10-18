@@ -88,26 +88,21 @@ struct Module02View: View {
                                 
                                 if checkPageToSkip(
                                     page: page,
-                                    userSelectedAnswer: viewModel.checkUserLastSelectedAnswer()
+                                    userSelectedAnswer: viewModel.checkDebitOrPayLater()
                                 ) {
                                     EmptyView()
                                 } else {
-                                    if let selectedAnswer = viewModel.userSelectedAnswers.first {
-                                        
-                                        HanvestMaterialnformationView(
-                                            title: page.title(userSelectedAnswer: selectedAnswer),
-                                            detailText: page.detailText(userSelectedAnswer: selectedAnswer),
-                                            bigTitle: page.bigTitle
+                                    HanvestMaterialnformationView(
+                                        title: page.title(userSelectedAnswer: viewModel.checkIphoneOrIphoneProMax()),
+                                        detailText: page.detailText(userSelectedAnswer: viewModel.checkIphoneOrIphoneProMax())
+                                    )
+                                    .tag(
+                                        adjustPageStateRawValue(
+                                            rawValue: page.rawValue
                                         )
-                                        .tag(
-                                            adjustPageStateRawValue(
-                                                rawValue: page.rawValue
-                                            )
-                                        )
-                                        .transition(.slide)
-                                        .frame(maxHeight: .infinity, alignment: .top)
-                                        
-                                    }
+                                    )
+                                    .transition(.slide)
+                                    .frame(maxHeight: .infinity, alignment: .top)
                                 }
                             }
                             
@@ -133,7 +128,6 @@ struct Module02View: View {
                                 changePageState()
                             }
                         }
-//                        .padding(.horizontal, 20)
                         .frame(maxWidth: .infinity)
                     }
                     .frame(maxWidth: .infinity)
