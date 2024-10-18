@@ -16,9 +16,7 @@ struct Module03View: View {
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
     @State private var pageState: Module03PageState = .pageContinue
-//    @State private var userSelectedAnswer: [String] = Array(repeating: "", count: Module03AllContent.allCases.count)
-    
-    @State private var viewModel = Module02ViewModel()
+    @State private var isAnswered: CheckIsAnswered = .notAnswered
     
     var body: some View {
         ZStack {
@@ -48,9 +46,11 @@ struct Module03View: View {
                                     image: (page == .page05) ? Image("high-risk-low-risk-triangle") : nil,
                                     customSpacing: ((0...3).contains(page.rawValue)) ? 0 : nil,
                                     choicesText: page.choicesText,
-                                    productStage: ((1...3).contains(page.rawValue)) ? page.rawValue-1 : nil,
-                                    onSelectAnswer: { answer in
-                                        viewModel.userSelectedAnswers[currentTab] = answer
+                                    productStage: ((1...3).contains(page.rawValue)) ? page.rawValue - 1 : nil,
+                                    onSelectAnswer: {
+                                        if isAnswered == .notAnswered {
+                                            isAnswered = .answered
+                                        }
                                     }
                                 )
                                 .tag(page.rawValue)
@@ -74,7 +74,7 @@ struct Module03View: View {
                         
                         ZStack {
                             HanvestButtonDefault(
-                                style: .filled(isDisabled: false),
+                                style: .filled(isDisabled: checkIsDisabled()),
                                 title: pageState.buttonStringValue
                             ) {
                                 goToNextPage()
@@ -125,7 +125,7 @@ struct Module03View: View {
             let isChoicesAvailable = (
                 currentChoice.choicesText != nil
             )
-            return (isChoicesAvailable) && (viewModel.userSelectedAnswers[currentTab] == "")
+            return (isChoicesAvailable) && (isAnswered == .notAnswered)
         }
         
         return false

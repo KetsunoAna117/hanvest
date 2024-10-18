@@ -17,7 +17,7 @@ struct HanvestHeaderWithDetailContent: View {
     var customSpacing: CGFloat?
     var choicesText: [String]?
     var productStage: Int?
-    var onSelectAnswer: ((String) -> Void)? = nil
+    var onSelectAnswer: (() -> Void)?
     
     @State private var selectedButtonID = ""
     
@@ -49,9 +49,7 @@ struct HanvestHeaderWithDetailContent: View {
                             selectedButtonID: $selectedButtonID,
                             title: choice,
                             action: {
-                                if let onSelectAnswer = onSelectAnswer {
-                                    onSelectAnswer(choice)
-                                }
+                                onSelectAnswer?()
                             }
                         )
                         .font(.nunito(.body))
