@@ -16,7 +16,7 @@ struct Module03View: View {
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
     @State private var pageState: Module03PageState = .pageContinue
-    @State private var selectedProductIndex: Int = -1
+    @State private var selectedProductIndex: Int = 0
     
     var body: some View {
         ZStack {
@@ -46,6 +46,11 @@ struct Module03View: View {
                             .tag(Module03MultipleChoice.page01.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    selectedProductIndex = -1
+                                }
+                            }
                             
                             if selectedProductIndex != -1 {
                                 ForEach(Array(Module03ProductOfInvestmentContent.allCases.enumerated()), id: \.offset) { index, page in
@@ -67,7 +72,7 @@ struct Module03View: View {
                                 HanvestMaterialnformationView(
                                     title: Text(page.title).font(.nunito(.title2)),
                                     detailText: page.detailText,
-                                    image: (page == .page05) ? Image("high-risk-low-risk-triangle") : nil,
+                                    image: (page == .page05) ? [Image("high-risk-low-risk-triangle")] : nil,
                                     bulletPoints: page.bulletPoints
                                 )
                                 .tag(page.rawValue)
@@ -91,7 +96,8 @@ struct Module03View: View {
                         
                         ZStack {
                             HanvestButtonDefault(
-                                style: .filled(isDisabled: false),
+                                style: .filled(isDisabled: checkIsDisabled()),
+                                initialState: .pressed,
                                 title: pageState.buttonStringValue
                             ) {
                                 goToNextPage()

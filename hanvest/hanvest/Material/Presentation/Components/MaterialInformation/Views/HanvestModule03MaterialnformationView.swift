@@ -13,7 +13,7 @@ struct HanvestMaterialnformationView: View {
     let detailText: Text
     
     // Component Contents
-    var image: Image?
+    var image: [Image]?
     var bulletPoints: [String]?
     var numberedList: [String]?
     
@@ -23,11 +23,8 @@ struct HanvestMaterialnformationView: View {
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
             
-            if let image = image {
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity)
+            if let images = image {
+                HanvestAutoSpacingImageView(images: images)
             }
             
             ScrollView {
@@ -67,7 +64,7 @@ struct HanvestMaterialnformationView: View {
     HanvestMaterialnformationView(
         title: Text(title).font(.nunito(.title2)),
         detailText: Text(detailText).font(.callout),
-        image: Image("high-risk-low-risk-triangle"),
+        image: [Image("high-risk-low-risk-triangle")],
         bulletPoints: bulletPoint
     )
     .padding(.horizontal, 20)

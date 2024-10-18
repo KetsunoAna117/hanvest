@@ -154,14 +154,15 @@ struct Module02View: View {
     }
     
     private func changePageState() {
-        if currentTab == Module02TextImage.page06.rawValue {
-            pageState = .pageCheckout
-        } else if currentTab == Module02MultipleChoice.page07.rawValue {
-            pageState = .pagePay
-        } else if currentTab == Module02PageState.pageClaimReward.rawValue  {
-            pageState = .pageClaimReward
-        } else {
-            pageState = .pageContinue
+        switch currentTab {
+            case Module02TextImage.page06.rawValue:
+                pageState = .pageCheckout
+            case Module02MultipleChoice.page07.rawValue:
+                pageState = .pagePay
+            case Module02PageState.pageClaimReward.rawValue:
+                pageState = .pageClaimReward
+            default:
+                pageState = .pageContinue
         }
     }
     
