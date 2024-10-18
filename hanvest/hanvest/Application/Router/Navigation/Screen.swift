@@ -12,6 +12,7 @@ enum Screen: Identifiable, Hashable, Equatable {
     case onboarding
     case main
     case news
+    case newsDetails(news: SimulationNewsEntity)
     case glossary
     case profile
     case materialModule01
@@ -52,6 +53,8 @@ extension Screen {
             hasher.combine(self.hashValue)
         case .glossary:
             hasher.combine(self.hashValue)
+        case .newsDetails:
+            hasher.combine(self.hashValue)
         }
     }
     
@@ -69,7 +72,8 @@ extension Screen {
             (.materialModule03, .materialModule03),
             (.materialModule04, .materialModule04),
             (.news, .news),
-            (.glossary, .glossary):
+            (.glossary, .glossary),
+            (.newsDetails, .newsDetails):
             return true
         default:
             return false

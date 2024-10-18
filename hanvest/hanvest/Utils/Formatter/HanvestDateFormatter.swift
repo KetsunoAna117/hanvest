@@ -22,12 +22,11 @@ struct HanvestDateFormatter {
         return dateFormatter.string(from: date)
     }
     
-    static func getTimeDifferenceFrom(_ time: Date) -> String {
+    static func getTimeDifferenceFrom(_ time: Date, to targetDate: Date = Date.now) -> String {
         let calendar = Calendar.current
-        let now = Date()
         
         // Calculate the difference in time between the given date and now
-        let components = calendar.dateComponents([.year, .month, .weekOfYear, .day, .hour, .minute, .second], from: time, to: now)
+        let components = calendar.dateComponents([.year, .month, .weekOfYear, .day, .hour, .minute, .second], from: time, to: targetDate)
         
         // Determine the relative time description
         if let year = components.year, year > 0 {

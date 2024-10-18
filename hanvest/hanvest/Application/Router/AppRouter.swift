@@ -139,6 +139,13 @@ class AppRouter: AppRouterProtocol {
                 })
             }
             .navigationBarBackButtonHidden()
+            
+        case .newsDetails(news: let news):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                HanvestSimulationNewsDetailsScreenView(router: self, news: news)
+            }
+            .navigationBarBackButtonHidden()
         }
     }
     

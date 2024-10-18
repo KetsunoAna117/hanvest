@@ -71,15 +71,20 @@ struct HanvestNavigationBar: View {
 }
 
 #Preview {
-    HanvestNavigationBar(
-        label: "Hello, World!",
-        leadingIcon: Image(systemName: "chevron.left"),
-        leadingAction: {
-            print("Leading Icon Pressed")
-        },
-        trailingIcon: Image(systemName: "magnifyingglass"),
-        trailingAction: {
-            print("Trailing Icon Pressed")
-        }
-    )
+    VStack {
+        HanvestNavigationBar(
+            label: "Hello, World!",
+            leadingIcon: Image(systemName: "chevron.left"),
+            leadingAction: {
+                print("Leading Icon Pressed")
+            },
+            trailingIcon: Image(systemName: "magnifyingglass"),
+            trailingAction: {
+                print("Trailing Icon Pressed")
+            }
+        )
+        
+        Text("Hello World!")
+        Spacer()
+    }
 }
