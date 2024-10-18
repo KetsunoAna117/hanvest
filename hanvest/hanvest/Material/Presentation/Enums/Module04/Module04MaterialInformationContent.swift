@@ -37,7 +37,7 @@ enum Module04MaterialInformationContent: Int, CaseIterable {
             case .page05:
                 Text("Mutual funds pool money from many investors to purchase a diversified portfolio of assets, including stocks and bonds. This allows investors to access a broader range of investments than they could individually.").font(.nunito(.body))
             case .page07:
-                Text("Mutual funds pool money from many investors to purchase a diversified portfolio of assets, including stocks and bonds. This allows investors to access a broader range of investments than they could individually.").font(.nunito(.body))
+                Text("Capital markets enable companies to raise funds by issuing stocks and bonds, which allows for growth, expansion, and innovation. This process benefits the economy by increasing productivity and creating jobs.").font(.nunito(.body))
         }
     }
     
