@@ -41,6 +41,8 @@ class StockInvestmentDataViewModels: ObservableObject {
     }
 
     private func setupTotalInvestment(selectedStockIDName: String){
+        setToZero()
+        
         let userTransaction = getUserTransaction.execute(stockIDName: selectedStockIDName)
         for transaction in userTransaction {
             userLotOwned += transaction.stockLotQuantity
@@ -48,6 +50,9 @@ class StockInvestmentDataViewModels: ObservableObject {
         }
     }
     
-
+    func setToZero(){
+        self.userLotOwned = 0
+        self.userStockInvestment = 0
+    }
     
 }
