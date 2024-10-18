@@ -1,20 +1,28 @@
 //
-//  HanvestBuyConfirmationView.swift
+//  HanvestSellStockView.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 17/10/24.
+//  Created by Hans Arthur Cupiterson on 18/10/24.
 //
 
 import SwiftUI
 
-struct HanvestBuyStockView: View {
+struct HanvestSellStockScreenView: View {
     let router: any AppRouterProtocol
     let stock: SimulationStockEntity
     
-    @StateObject var viewmodel: BuyingStockDataViewModel = .init()
+    @StateObject var viewmodel: SellingStockDataViewModel = .init()
     
     var body: some View {
         VStack {
+            HanvestNavigationBar(
+                label: "Sell \(stock.stockIDName)",
+                leadingIcon: Image(systemName: "chevron.left"),
+                leadingAction: {
+                    router.pop()
+                }
+            )
+            
             VStack(spacing: 24) {
                 StockHeaderInformationView(
                     stockCodeName: stock.stockIDName,
@@ -23,10 +31,13 @@ struct HanvestBuyStockView: View {
                     currentPrice: $viewmodel.currentStockPrice
                 )
                 
-                SimulationBuyingCard(viewModel: viewmodel)
+                SimulationSellingCard(viewModel: viewmodel)
             }
+            .padding(.horizontal, 20)
+            .padding(.top, 24)
+            
+            Spacer()
         }
-        .padding(.horizontal, 20)
         .onAppear(){
             viewmodel.setup(
                 initialStockPrice: stock.stockPrice.first?.price ?? 0,
@@ -38,7 +49,8 @@ struct HanvestBuyStockView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .simulationBuyingConfirmation(stock: SimulationStockEntity.getMockData().first!)
+    @Previewable @State var startScreen: Screen? =
+        .simulationSellingConfirmation(stock: SimulationStockEntity.getMockData().first!)
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {
@@ -51,7 +63,7 @@ struct HanvestBuyStockView: View {
                         ZStack {
                             appRouter.build(popup)
                         }
-                       
+                        
                     }
                 }
         }

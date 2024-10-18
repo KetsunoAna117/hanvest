@@ -102,14 +102,14 @@ class AppRouter: AppRouterProtocol {
         case .simulationBuyingConfirmation(let stock):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestBuyStockView(router: self, stock: stock)
+                HanvestBuyStockScreenView(router: self, stock: stock)
             }
             .navigationBarBackButtonHidden()
             
-        case .simulationSellingConfirmation(_):
+        case .simulationSellingConfirmation(let stock):
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
+                HanvestSellStockScreenView(router: self, stock: stock)
             }
             .navigationBarBackButtonHidden()
             

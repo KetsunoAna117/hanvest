@@ -39,13 +39,17 @@ struct HanvestSimulationView: View {
                                 size: .medium,
                                 style: .filledIncorrect(isDisabled: false),
                                 title: "Sell") {
-                                    print("Sell Button Triggered")
+                                    if let selectedStock = viewmodel.selectedStock {
+                                        router.push(.simulationSellingConfirmation(stock: selectedStock))
+                                    }
                                 }
                             HanvestButtonDefault(
                                 size: .medium,
                                 style: .filledCorrect(isDisabled: false),
                                 title: "Buy") {
-                                    print("Buy Button Triggered")
+                                    if let selectedStock = viewmodel.selectedStock {
+                                        router.push(.simulationBuyingConfirmation(stock: selectedStock))
+                                    }
                                 }
                         }
                     }

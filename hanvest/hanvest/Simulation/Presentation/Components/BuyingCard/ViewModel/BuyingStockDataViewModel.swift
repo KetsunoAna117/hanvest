@@ -24,7 +24,6 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     @Published var stockBuyLot: Int {
         didSet {
-            print()
             validateStockBuyAmount()
         }
     }

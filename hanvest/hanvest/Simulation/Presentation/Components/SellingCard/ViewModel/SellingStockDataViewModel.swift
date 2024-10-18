@@ -16,7 +16,7 @@ class SellingStockDataViewModel: ObservableObject{
             validateStockSellAmount()
         }
     }
-    @Published var currentStockPrice: Int{
+    @Published var toSellStockPrice: Int{
         didSet {
             validateStockSellAmount()
         }
@@ -29,20 +29,28 @@ class SellingStockDataViewModel: ObservableObject{
     
     @Published var stockSellAmount: Int
     
+    @Published var initialStockPrice: Int
+    @Published var currentStockPrice: Int
+    
     init() {
         self.availableLot = 0
-        self.currentStockPrice = 0
+        self.toSellStockPrice = 0
         self.stockSellLot = 0
         self.stockSellAmount = 0
+        self.initialStockPrice = 0
+        self.currentStockPrice = 0
     }
     
     func setup(
         stockSellLot: Int = 0,
+        initialStockPrice: Int,
         currentStockPrice: Int
     ){
         self.availableLot = getUserData.execute().userLotOwned
-        self.currentStockPrice = currentStockPrice
+        self.toSellStockPrice = currentStockPrice
         self.stockSellLot = stockSellLot
+        self.initialStockPrice = initialStockPrice
+        self.currentStockPrice = currentStockPrice
         validateStockSellAmount()
     }
     
@@ -53,12 +61,12 @@ class SellingStockDataViewModel: ObservableObject{
     }
     
     func calculateStockSellAmount(){
-        stockSellAmount = currentStockPrice * stockSellLot * 100
+        stockSellAmount = toSellStockPrice * stockSellLot * 100
     }
     
     private func validateStockPrice() {
-        if currentStockPrice < 0 {
-            currentStockPrice = 0
+        if toSellStockPrice < 0 {
+            toSellStockPrice = 0
         }
     }
     
