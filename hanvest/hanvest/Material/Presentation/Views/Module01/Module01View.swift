@@ -22,13 +22,13 @@ struct Module01View: View {
         ZStack {
             Color.background
             
-//            if plantingViewVisibility == .isVisible {
-//                Module01PlantingView() {
-//                    plantingViewVisibility = .isHidden
-//                    updateProgressBarValue()
-//                }
-//                .frame(maxWidth: .infinity, maxHeight: .infinity)
-//            }
+            if plantingViewVisibility == .isVisible {
+                Module01PlantingView() {
+                    plantingViewVisibility = .isHidden
+                    updateProgressBarValue()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
             
             ZStack {
                 VStack(spacing: 49) {
@@ -43,7 +43,7 @@ struct Module01View: View {
                         )
                     }
                     
-                    if plantingViewVisibility != .isHidden {
+                    if plantingViewVisibility == .isHidden {
                         VStack(spacing: 48) {
                             TabView(selection: $currentTab) {
                                 

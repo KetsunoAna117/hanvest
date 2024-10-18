@@ -13,15 +13,24 @@ struct HanvestMaterialnformationView: View {
     let detailText: Text
     
     // Component Contents
+    var bigTitle: String?
     var bulletPoints: [String]?
     var image: Image?
     
     var body: some View {
         VStack(spacing: 24) {
-            Text(title)
-                .font(.nunito(.title2))
-                .frame(maxWidth: .infinity)
-                .multilineTextAlignment(.center)
+            VStack(spacing: 0) {
+                if let bigTitle = bigTitle {
+                    Text(bigTitle)
+                        .font(.nunito(.title2, .bold))
+                        .frame(maxWidth: .infinity)
+                }
+                
+                Text(title)
+                    .font(.nunito(.title2))
+                    .frame(maxWidth: .infinity)
+            }
+            .multilineTextAlignment(.center)
             
             if let image = image {
                 image
@@ -30,7 +39,7 @@ struct HanvestMaterialnformationView: View {
                     .frame(maxWidth: .infinity)
             }
             
-            ScrollViewIfNeeded {
+            ScrollView {
                 VStack(spacing: 0) {
                     if let bulletPoints = bulletPoints {
                         Text("Explanation:")
@@ -47,7 +56,7 @@ struct HanvestMaterialnformationView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
-            }
+            }.scrollBounceBehavior(.basedOnSize, axes: [.vertical])
         }
         .frame(maxWidth: .infinity)
     }

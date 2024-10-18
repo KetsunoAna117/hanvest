@@ -12,6 +12,8 @@ struct HanvestMultipleChoice: View {
     let question: String
     let options: [String]
     
+    var image: Image?
+    var customSpacing: CGFloat?
     var onSelectAnswer: ((String) -> Void)
     
     @State private var moneyBalance: Int = 10000000
@@ -19,10 +21,17 @@ struct HanvestMultipleChoice: View {
     
     var body: some View {
         VStack(spacing: 24) {
-            VStack(spacing: 0) {
+            VStack(spacing: (customSpacing != nil) ? customSpacing : 0) {
                 Text(question)
                     .font(.nunito(.title2))
                     .frame(maxWidth: .infinity)
+                
+                if let image = image {
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                }
                 
                 if question.contains(Module03MultipleChoice.page01.question) {
                     Text("Balance: Rp. \(moneyBalance)")

@@ -14,18 +14,25 @@ enum Module02HeaderWithDetailText: Int, CaseIterable {
     case page09Alt2 = 80
     case page10 = 9
     
-    func headerText(userSelectedAnswer: String) -> Text {
+    var bigTitle: String {
         switch self {
-            case .page08:
-                congratulationText() + allAssetText(userSelectedAnswer: userSelectedAnswer)
-            case .page09:
-                whatIfText() + liabilitiesText(userSelectedAnswer: userSelectedAnswer)
-            case .page08Alt2:
-                congratulationText() + liabilitiesText(userSelectedAnswer: userSelectedAnswer)
-            case .page09Alt2:
-                whatIfText() + allAssetText(userSelectedAnswer: userSelectedAnswer)
+            case .page08, .page08Alt2:
+                "Congratulation!"
+            case .page09, .page09Alt2:
+                "Liabilities vs Assets"
             case .page10:
-                Text("In summary\n").font(.nunito(.title2, .bold)) + Text("Liabilities vs Assets").font(.nunito(.title2))
+                "In Summary"
+        }
+    }
+    
+    func title(userSelectedAnswer: String) -> String {
+        switch self {
+            case .page08, .page09Alt2:
+                "You got your \(normalOrProMax(userSelectedAnswer: userSelectedAnswer)) with your assets"
+            case .page09, .page08Alt2:
+                "You got your \(normalOrProMax(userSelectedAnswer: userSelectedAnswer)) with your liabilities"
+            case .page10:
+                "Liabilities vs Assets"
         }
     }
     
@@ -54,31 +61,11 @@ enum Module02HeaderWithDetailText: Int, CaseIterable {
         }
     }
     
-    private func congratulationText() -> Text {
-        return Text("Congratulation!\n").font(.nunito(.title2, .bold))
-    }
-
-    private func whatIfText() -> Text {
-        return Text("What if?\n").font(.nunito(.title2, .bold))
-    }
-    
-    private func liabilitiesText(userSelectedAnswer: String) -> Text {
-        return Text("You got your \(normalOrProMax(userSelectedAnswer: userSelectedAnswer)) with your liabilities").font(.nunito(.title2))
-    }
-    
-    private func allAssetText(userSelectedAnswer: String) -> Text {
-        return Text("You got your \(normalOrProMax(userSelectedAnswer: userSelectedAnswer)) with your assets").font(.nunito(.title2))
-    }
-    
     private func normalOrProMax(userSelectedAnswer: String) -> String {
-        if let page03choices = Module02TextImageChoices.page03.choicesText {
-            if userSelectedAnswer == page03choices.first {
-                return "iPhone 16"
-            } else {
-                return "iPhone 16 Pro"
-            }
+        if userSelectedAnswer == Module02MultipleChoice.page03.options.first {
+            return "iPhone 16"
+        } else {
+            return "iPhone 16 Pro"
         }
-        
-        return "iPhone 16 Pro"
     }
 }
