@@ -50,7 +50,7 @@ struct Module01View: View {
                                 ForEach(Array(ContentOfModule01Material.allCases.enumerated()), id: \.offset) { index, content in
                                         
                                         HanvestMaterialnformationView(
-                                            title: content.headerContent,
+                                            title: Text(content.headerContent).font(.nunito(.title2)),
                                             detailText: content.detailContent
                                         )
                                         .tag(content.rawValue)

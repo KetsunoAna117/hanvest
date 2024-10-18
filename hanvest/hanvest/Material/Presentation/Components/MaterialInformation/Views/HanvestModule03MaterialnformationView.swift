@@ -9,28 +9,18 @@ import SwiftUI
 
 struct HanvestMaterialnformationView: View {
     // Constants
-    let title: String
+    let title: Text
     let detailText: Text
     
     // Component Contents
-    var bigTitle: String?
     var bulletPoints: [String]?
     var image: Image?
     
     var body: some View {
         VStack(spacing: 24) {
-            VStack(spacing: 0) {
-                if let bigTitle = bigTitle {
-                    Text(bigTitle)
-                        .font(.nunito(.title2, .bold))
-                        .frame(maxWidth: .infinity)
-                }
-                
-                Text(title)
-                    .font(.nunito(.title2))
-                    .frame(maxWidth: .infinity)
-            }
-            .multilineTextAlignment(.center)
+            title
+                .frame(maxWidth: .infinity)
+                .multilineTextAlignment(.center)
             
             if let image = image {
                 image
@@ -68,7 +58,7 @@ struct HanvestMaterialnformationView: View {
     @Previewable let bulletPoint = ["Preview bullet point 1", "Preview bullet point 2"]
     
     HanvestMaterialnformationView(
-        title: title,
+        title: Text(title).font(.nunito(.title2)),
         detailText: Text(detailText).font(.callout),
         bulletPoints: bulletPoint,
         image: Image("high-risk-low-risk-triangle")

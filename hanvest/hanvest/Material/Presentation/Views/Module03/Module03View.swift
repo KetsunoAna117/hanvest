@@ -65,7 +65,7 @@ struct Module03View: View {
                             ForEach(Array(Module03MaterialInformationContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
                                 HanvestMaterialnformationView(
-                                    title: page.title,
+                                    title: Text(page.title).font(.nunito(.title2)),
                                     detailText: page.detailText,
                                     bulletPoints: page.bulletPoints,
                                     image: (page == .page05) ? Image("high-risk-low-risk-triangle") : nil
