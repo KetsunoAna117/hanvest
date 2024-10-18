@@ -8,7 +8,7 @@
 import Foundation
 
 struct DependencyInjector {
-    private static var dependencyList: [String: Any] = [:]
+    private static var dependencyList: [String:Any] = [:]
     
     static func resolve<T>() -> T {
         guard let t = dependencyList[String(describing: T.self)] as? T else {
