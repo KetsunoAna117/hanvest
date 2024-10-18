@@ -79,7 +79,7 @@ struct SimulationSellingCard: View {
     VStack {
         SimulationSellingCard(viewModel: viewmodel)
             .onAppear(){
-                viewmodel.setup(currentStockPrice: 5000)
+                viewmodel.setup(selectedStockIDName: "BBRI", currentStockPrice: 5000)
             }
     }
     .padding(.horizontal, 16)

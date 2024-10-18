@@ -10,11 +10,19 @@ import Foundation
 struct UserData {
     var userName: String
     var userBalance: Int
-    var userLotOwned: Int
+    var userInvestmentTransaction: [String: [StockInvestmentTransaction]]
 }
 
 extension UserData {
     static func getMockupUserData() -> UserData {
-        return UserData(userName: "Bryon", userBalance: 100000000, userLotOwned: 10)
+        return UserData(
+            userName: "Bryon",
+            userBalance: 100000000,
+            userInvestmentTransaction: [
+                "BBCA" : StockInvestmentTransaction.BBCAmock(),
+                "BBRI" : StockInvestmentTransaction.BBRImock(),
+                "GOTO" : StockInvestmentTransaction.GOTOmock(),
+            ]
+        )
     }
 }
