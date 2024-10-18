@@ -9,13 +9,10 @@ import Foundation
 
 @Observable
 class Module02ViewModel {
-    var userSelectedAnswers = Array(repeating: "", count: Module02TextImageChoices.allCases.count + 1)
+    // TODO: last index always bug, idk why need to exceess count by + 1
+    var userSelectedAnswers = Array(repeating: "", count: 8)
     
     func checkUserLastSelectedAnswer() -> Bool {
-        if let page07choices = Module02TextImageChoices.page07.choicesText {
-            return (userSelectedAnswers.last == page07choices.first)
-        }
-        
-        return false
+        return (userSelectedAnswers.last == Module02MultipleChoice.page07.options.first)
     }
 }

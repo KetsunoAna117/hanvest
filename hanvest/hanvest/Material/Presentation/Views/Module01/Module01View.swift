@@ -14,7 +14,7 @@ struct Module01View: View {
     let completionItem: CompletionItem = .module01 // TODO: the achivementName and moneyBonus from this enum need to be stored to swiftdata
     
     @State private var plantingViewVisibility: PlantingViewVisibility = .isVisible
-    @State private var pageState: Module01PageState = .moduleMaterial
+    @State private var pageState: Module01PageState = .pageModuleMaterial
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
     
@@ -32,7 +32,7 @@ struct Module01View: View {
             
             ZStack {
                 VStack(spacing: 49) {
-                    if pageState == .moduleMaterial {
+                    if pageState == .pageModuleMaterial {
                         ProgressBarWithXMarkView(
                             progressBarMinValue: progressBarMinValue,
                             progressBarMaxValue: progressBarMaxValue,
@@ -44,23 +44,25 @@ struct Module01View: View {
                     }
                     
                     if plantingViewVisibility == .isHidden {
-                        VStack(spacing: (pageState == .moduleMaterial) ? 227 : 50) {
+                        VStack(spacing: 48) {
                             TabView(selection: $currentTab) {
                                 
                                 ForEach(Array(ContentOfModule01Material.allCases.enumerated()), id: \.offset) { index, content in
                                         
-                                        HanvestHeaderWithDetailTextView(
-                                            headerText: content.headerContent,
+                                        HanvestMaterialnformationView(
+                                            title: content.headerContent,
                                             detailText: content.detailContent
                                         )
                                         .tag(content.rawValue)
                                         .transition(.slide)
+                                        .frame(maxHeight: .infinity, alignment: .top)
                                         
                                     }
                                 
                                 CompletionPageView(completionItem: completionItem)
-                                    .tag(Module01PageState.claimReward.rawValue)
+                                    .tag(Module01PageState.pageClaimReward.rawValue)
                                     .transition(.slide)
+                                    .frame(maxHeight: .infinity, alignment: .bottom)
                             }
                             .frame(maxWidth: .infinity)
                             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -78,7 +80,6 @@ struct Module01View: View {
                                     changePageState()
                                 }
                             }
-                            .padding(.horizontal, 20)
                             .frame(maxWidth: .infinity)
                         }
                         .frame(maxWidth: .infinity)
@@ -88,6 +89,7 @@ struct Module01View: View {
             }
             .padding(.top, 71)
             .padding(.bottom, 54)
+            .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .ignoresSafeArea()
@@ -95,7 +97,7 @@ struct Module01View: View {
     }
     
     func goToNextPage() {
-        if currentTab < Module01PageState.claimReward.rawValue {
+        if currentTab < Module01PageState.pageClaimReward.rawValue {
             currentTab += 1
         } else {
             // TODO: direct to the corresponding page
@@ -103,14 +105,14 @@ struct Module01View: View {
     }
     
     func changePageState() {
-        if currentTab == Module01PageState.claimReward.rawValue {
-            pageState = .claimReward
+        if currentTab == Module01PageState.pageClaimReward.rawValue {
+            pageState = .pageClaimReward
         }
     }
     
     func updateProgressBarValue() {
-        if pageState == .moduleMaterial {
-            progressBarCurrValue += (progressBarMaxValue / (Module01PageState.claimReward.rawValue + 1))
+        if pageState == .pageModuleMaterial {
+            progressBarCurrValue += (progressBarMaxValue / (Module01PageState.pageClaimReward.rawValue + 1))
         }
     }
     

@@ -36,9 +36,8 @@ struct ProgressBarWithXMarkView: View {
                         progressBarMaxValue
                 )
             }
-            .padding(.horizontal, 16)
+            .padding(.leading, 16)
         }
-        .padding(.horizontal, 20)
         .frame(maxWidth: .infinity)
     }
 }
