@@ -8,17 +8,17 @@
 import Foundation
 
 enum RiskProfilePageState: Int {
-    case openingPage = 0
-    case questionPage
-    case resultPage = 7
+    case pageOpening = 0
+    case pageQuestion
+    case pageRiskResult = 7
     
     var buttonStringValue: String {
         switch self {
-            case .openingPage: 
+            case .pageOpening: 
                 "Start"
-            case .questionPage: 
+            case .pageQuestion: 
                 "Continue"
-            case .resultPage:
+            case .pageRiskResult:
                 "Done"
         }
     }
