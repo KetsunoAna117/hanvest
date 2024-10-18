@@ -9,10 +9,14 @@ import SwiftUI
 
 struct SimulationBuyingCard: View {
     @ObservedObject var viewModel: BuyingStockDataViewModel
-    @State var priceRaise: Int = 25
-    @State var lotRaise: Int = 1
+    
+    // Constant
+    let priceRaise: Int = 25
+    var lotRaise: Int = 1
     
     var body: some View {
+        let amountState = viewModel.determineAmountState()
+        
         HanvestCardBackground {
             VStack(spacing: 16) {
                 HStack{
@@ -33,6 +37,7 @@ struct SimulationBuyingCard: View {
                     
                     Text("\(viewModel.calculateStockBuyAmountPercentage()) %")
                         .font(.nunito(.body, .regular))
+                        .foregroundStyle(amountState.textColor)
                 }
                 
                 HStack{
@@ -43,6 +48,8 @@ struct SimulationBuyingCard: View {
                     
                     Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.stockBuyAmount))")
                         .font(.nunito(.body, .regular))
+                        .foregroundStyle(amountState.textColor)
+                        
                 }
                 
                 HStack{
@@ -51,7 +58,7 @@ struct SimulationBuyingCard: View {
                         
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.stockPrice, raise: $priceRaise)
+                    HanvestNumberStepper(value: $viewModel.toBuyStockPrice, raise: priceRaise)
                     
                 }
                 
@@ -63,7 +70,7 @@ struct SimulationBuyingCard: View {
                     
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: $lotRaise)
+                    HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: lotRaise)
                 }
             }
         }
@@ -72,35 +79,15 @@ struct SimulationBuyingCard: View {
 
 #Preview {
     @Previewable @StateObject var viewmodel = BuyingStockDataViewModel()
-    @Previewable @State var balance = 5300000
-    @Previewable @State var price = 5300
     
     VStack {
         SimulationBuyingCard(viewModel: viewmodel)
             .onAppear(){
-                viewmodel.setup(tradingBalance: balance, stockPrice: price)
+                viewmodel.setup(
+                    initialStockPrice: 4000,
+                    currentStockPrice: 5000
+                )
             }
-            .onChange(of: balance) { oldValue, newValue in
-                viewmodel.tradingBalance = newValue
-            }
-            .onChange(of: price) { oldValue, newValue in
-                viewmodel.stockPrice = newValue
-            }
-        
-        HStack {
-            HanvestButtonDefault(
-                style: .filledCorrect(isDisabled: false),
-                title: "Increment Balance") {
-                balance += 100
-            }
-            HanvestButtonDefault(
-                style: .filledIncorrect(isDisabled: false),
-                title: "Decrement Balance") {
-                    if balance >= 5300000 + 100 {
-                        balance -= 100
-                    }
-            }
-        }
     }
     .padding(.horizontal, 16)
 }

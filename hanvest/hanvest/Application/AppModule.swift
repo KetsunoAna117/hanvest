@@ -11,6 +11,8 @@ struct AppModule {
         @Provider var getAvailableStocks: GetAvailableSimulationStocks = GetAvailableSimulationStocksImpl()
         @Provider var getStockInformationByID: GetStockInformationByID = GetStockInformationByIDImpl()
         @Provider var getStockNewsData: GetStockNewsData = GetStockDataImpl()
+        // User
+        @Provider var getUserData: GetUserData = GetUserDataImpl()
     }
 }
 

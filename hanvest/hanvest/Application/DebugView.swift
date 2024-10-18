@@ -16,29 +16,37 @@ struct DebugView: View {
     var body: some View {
         ZStack {
             VStack {
-//                Image(systemName: "globe")
-//                    .imageScale(.large)
-//                    .foregroundStyle(.tint)
-//                
-//                Text("Hello, world!")
-//                
-//                HanvestButtonDefault(
-//                    size: .medium,
-//                    style: .filledCorrect(isDisabled: false),
-//                    title: "Show Overlay") {
-//                        presentOverlay = true
-//                        router.presentPopup(
-//                            .withHanvestPopup(
-//                                title: "News",
-//                                desc: "Learn action to take based on news",
-//                                dismissAction: {
-//                                    print("Button Action trigerred")
-//                                }
-//                            )
-//                        )
-//                    }
-//                    .zIndex(presentOverlay ? 100 : 0)
-
+                HanvestNavigationBar(
+                    label: "Label",
+                    leadingIcon: Image(systemName: "chevron.left"),
+                    leadingAction: {
+                        print("Leading Icon Pressed!")
+                    }
+                )
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                
+                Text("Hello, world!")
+                
+                HanvestButtonDefault(
+                    size: .medium,
+                    style: .filledCorrect(isDisabled: false),
+                    title: "Show Overlay") {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                            presentOverlay = true
+                            router.presentPopup(
+                                .withHanvestPopup(
+                                    title: "News",
+                                    desc: "Learn action to take based on news",
+                                    dismissAction: {
+                                        print("Button Action trigerred")
+                                    }
+                                )
+                            )
+                        })
+                    }
+                    .zIndex(presentOverlay ? 100 : 0)
             }
             .padding()
         }

@@ -46,7 +46,7 @@ struct MainScreenView: View {
                 ) {
                     ZStack {
                         Color.background.ignoresSafeArea()
-                        HanvestSimulationScreenView()
+                        HanvestSimulationView(router: router)
                     }
                 }
                 

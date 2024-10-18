@@ -37,6 +37,7 @@ struct HanvestButtonDefault: View {
                 .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .font(.nunito(.body))
+                .padding(.horizontal, size.textHorizontalPadding)
             
             // If the icon position is trailing, place the image first
             if iconPosition == .trailing, let image = image {
