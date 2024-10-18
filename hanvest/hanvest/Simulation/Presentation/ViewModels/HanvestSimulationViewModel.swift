@@ -26,7 +26,7 @@ class HanvestSimulationViewModel: ObservableObject {
         }
     }
     
-    func setupSelectedStockOnAppear(){
+    func setup(){
         self.selectedStock = stockList.first
     }
     
@@ -37,6 +37,10 @@ class HanvestSimulationViewModel: ObservableObject {
             print("Error: Stock with ID \(selectedStockID) not found.")
             self.selectedStock = nil
         }
+    }
+    
+    func testPriceUpdate(){
+        
     }
 }
 

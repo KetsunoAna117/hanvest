@@ -13,8 +13,6 @@ struct HanvestSimulationView: View {
     
     var body: some View {
         ZStack {
-            Color.background
-                .edgesIgnoringSafeArea(.all)
             VStack {
                 VStack {
                     HanvestStockOptionList(
@@ -59,6 +57,9 @@ struct HanvestSimulationView: View {
                     Divider()
                 }
             }
+        }
+        .onAppear(){
+            viewmodel.setup()
         }
     }
 }

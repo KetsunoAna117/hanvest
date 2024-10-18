@@ -7,13 +7,15 @@
 
 struct AppModule {
     static func inject(){
-        // Simulation Use Case
+        //MARK: USE Case
+        // Simulation
         @Provider var getAvailableStocks: GetAvailableSimulationStocks = GetAvailableSimulationStocksImpl()
         @Provider var getStockInformationByID: GetStockInformationByID = GetStockInformationByIDImpl()
         @Provider var getStockNewsData: GetStockNewsData = GetStockDataImpl()
         
         // User
         @Provider var getUserData: GetUserData = GetUserDataImpl()
+        @Provider var getUserTransaction: GetUserTransaction = GetUserTransactionImpl()
     }
 }
 
