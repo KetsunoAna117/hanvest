@@ -17,12 +17,15 @@ struct MainScreenView: View {
             HanvestHeaderView(
                 bookIconTappedAction: {
                     print("Book Icon Tapped")
+                    router.push(.glossary)
                 },
                 bellIconTappedAction: {
                     print("Bell Icon Tapped")
+                    router.push(.news)
                 },
                 profileIconTappedAction: {
                     print("Profile Account Tapped")
+                    router.push(.profile)
                 }
             )
             

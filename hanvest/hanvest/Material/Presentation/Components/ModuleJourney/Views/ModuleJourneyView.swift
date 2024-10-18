@@ -38,7 +38,6 @@ struct ModuleJourneyView: View {
                         action: {
                             
                             // TODO: Do action for every module, the viewModel.updateUserModuleProgressIfDone should be triggered only when a module is Done
-                            
                             viewModel.updateUserModuleProgressIfDone(
                                 moduleIndex: number
                             )
