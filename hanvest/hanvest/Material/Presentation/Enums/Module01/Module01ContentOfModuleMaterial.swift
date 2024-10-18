@@ -11,12 +11,12 @@ enum ContentOfModule01Material: Int, CaseIterable {
     case page01 = 0
     case page02 = 1
     
-    var headerContent: Text {
+    var headerContent: String {
         switch self {
             case .page01:
-                Text("So, what is investment?").font(.nunito(.title2))
+                "So, what is investment?"
             case .page02:
-                Text("So, why invest?").font(.nunito(.title2))
+                "So, why invest?"
         }
     }
     

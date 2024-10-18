@@ -14,7 +14,7 @@ enum Module02HeaderWithDetailText: Int, CaseIterable {
     case page09Alt2 = 80
     case page10 = 9
     
-    func headerText(userSelectedAnswer: String) -> Text {
+    func title(userSelectedAnswer: String) -> Text {
         switch self {
             case .page08:
                 congratulationText() + allAssetText(userSelectedAnswer: userSelectedAnswer)
@@ -57,7 +57,6 @@ enum Module02HeaderWithDetailText: Int, CaseIterable {
     private func congratulationText() -> Text {
         return Text("Congratulation!\n").font(.nunito(.title2, .bold))
     }
-
     private func whatIfText() -> Text {
         return Text("What if?\n").font(.nunito(.title2, .bold))
     }
@@ -71,14 +70,10 @@ enum Module02HeaderWithDetailText: Int, CaseIterable {
     }
     
     private func normalOrProMax(userSelectedAnswer: String) -> String {
-        if let page03choices = Module02TextImageChoices.page03.choicesText {
-            if userSelectedAnswer == page03choices.first {
-                return "iPhone 16"
-            } else {
-                return "iPhone 16 Pro"
-            }
+        if userSelectedAnswer == Module02MultipleChoice.page03.options.first {
+            return "iPhone 16"
+        } else {
+            return "iPhone 16 Pro"
         }
-        
-        return "iPhone 16 Pro"
     }
 }

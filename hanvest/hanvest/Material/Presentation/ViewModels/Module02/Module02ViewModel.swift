@@ -9,13 +9,23 @@ import Foundation
 
 @Observable
 class Module02ViewModel {
-    var userSelectedAnswers = Array(repeating: "", count: Module02TextImageChoices.allCases.count + 1)
+    // TODO: last index always bug, idk why need to exceess count by + 1
+    var userSelectedAnswers = Array(repeating: "", count: Module02PageState.pageClaimReward.rawValue)
     
-    func checkUserLastSelectedAnswer() -> Bool {
-        if let page07choices = Module02TextImageChoices.page07.choicesText {
-            return (userSelectedAnswers.last == page07choices.first)
+    func checkDebitOrPayLater() -> Bool {
+        return userSelectedAnswers.contains(where: { $0 == Module02MultipleChoice.page07.options.first })
+    }
+    
+    func checkIphoneOrIphoneProMax() -> String {
+        guard let firstOption = Module02MultipleChoice.page03.options.first,
+              let lastOption = Module02MultipleChoice.page03.options.last else {
+            return ""
         }
         
-        return false
+        if userSelectedAnswers.contains(where: { $0 == firstOption }) {
+            return firstOption
+        } else {
+            return lastOption
+        }
     }
 }

@@ -12,10 +12,21 @@ struct UserData {
     var userBalance: Int
     var userLotOwned: Int
     var userRiskProfile: RiskProfileResultState
+    var userInvestmentTransaction: [String: [StockInvestmentTransaction]]
 }
 
 extension UserData {
     static func getMockupUserData() -> UserData {
-        return UserData(userName: "Bryon", userBalance: 100000000, userLotOwned: 10, userRiskProfile: .aggresive)
+        return UserData(
+            userName: "Bryon",
+            userBalance: 100000000,
+            userInvestmentTransaction: [
+                "BBCA" : StockInvestmentTransaction.BBCAmock(),
+                "BBRI" : StockInvestmentTransaction.BBRImock(),
+                "GOTO" : StockInvestmentTransaction.GOTOmock(),
+            ],
+            userLotOwned: 10,
+            userRiskProfile: .aggresive
+        )
     }
 }

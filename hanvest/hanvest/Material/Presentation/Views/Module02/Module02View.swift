@@ -11,6 +11,7 @@ struct Module02View: View {
     // Constants
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
+    let page04 = Module02TextImageColorPicker.page04
     let completionItem: CompletionItem = .module02
     
     @State private var currentTab: Int = 0
@@ -40,17 +41,27 @@ struct Module02View: View {
                     VStack(spacing: 48) {
                         TabView(selection: $currentTab) {
                             
-                            ForEach(Array(Module02TextImageChoices.allCases.enumerated()), id: \.offset) { index, page in
+                            ForEach(Array(Module02TextImage.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestSelectableOptionsView(
-                                    headerText: page.headerText,
+                                HanvestModule02TextImageView(
+                                    title: page.title,
                                     image: page.image,
-                                    choicesText: page.choicesText,
-                                    choicesColor: page.choicesColor,
-                                    eachComponentSpacing: page.eachComponentSpacing,
-                                    textAndImageSpacing: page.textAndImageSpacing,
+                                    customSpacing: page.customSpacing
+                                )
+                                .tag(page.rawValue)
+                                .transition(.slide)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                
+                            }
+                            
+                            ForEach(Array(Module02MultipleChoice.allCases.enumerated()), id: \.offset) { index, page in
+                                
+                                HanvestMultipleChoice(
+                                    question: page.questions,
+                                    options: page.options,
+                                    image: page.image,
                                     onSelectAnswer: { answer in
-                                        viewModel.userSelectedAnswers[index] = answer
+                                        viewModel.userSelectedAnswers[page.rawValue] = answer
                                     }
                                 )
                                 .tag(page.rawValue)
@@ -59,34 +70,39 @@ struct Module02View: View {
                                 
                             }
                             
+                            HanvestModule02TextImageColorPickerView(
+                                title: page04.title,
+                                image: page04.image,
+                                customSpacing: page04.customSpacing,
+                                needColorPicker: true,
+                                onSelectAnswer: { answer in
+                                    viewModel.userSelectedAnswers[page04.rawValue] = answer
+                                }
+                            )
+                            .tag(page04.rawValue)
+                            .transition(.slide)
+                            .frame(maxHeight: .infinity, alignment: .top)
+                            
+                            
                             ForEach(Array(Module02HeaderWithDetailText.allCases.enumerated()), id: \.offset) { index, page in
                                 
                                 if checkPageToSkip(
                                     page: page,
-                                    userSelectedAnswer: viewModel.checkUserLastSelectedAnswer()
+                                    userSelectedAnswer: viewModel.checkDebitOrPayLater()
                                 ) {
                                     EmptyView()
                                 } else {
-                                    
-                                    if let selectedAnswer = viewModel.userSelectedAnswers.first {
-                                        
-                                        HanvestHeaderWithDetailTextView(
-                                            headerText: page.headerText(
-                                                userSelectedAnswer: selectedAnswer
-                                            ),
-                                            detailText: page.detailText(
-                                                userSelectedAnswer: selectedAnswer
-                                            )
+                                    HanvestMaterialnformationView(
+                                        title: page.title(userSelectedAnswer: viewModel.checkIphoneOrIphoneProMax()),
+                                        detailText: page.detailText(userSelectedAnswer: viewModel.checkIphoneOrIphoneProMax())
+                                    )
+                                    .tag(
+                                        adjustPageStateRawValue(
+                                            rawValue: page.rawValue
                                         )
-                                        .tag(
-                                            adjustPageStateRawValue(
-                                                rawValue: page.rawValue
-                                            )
-                                        )
-                                        .transition(.slide)
-                                        .frame(maxHeight: .infinity, alignment: .top)
-                                        
-                                    }
+                                    )
+                                    .transition(.slide)
+                                    .frame(maxHeight: .infinity, alignment: .top)
                                 }
                             }
                             
@@ -112,7 +128,6 @@ struct Module02View: View {
                                 changePageState()
                             }
                         }
-                        .padding(.horizontal, 20)
                         .frame(maxWidth: .infinity)
                     }
                     .frame(maxWidth: .infinity)
@@ -120,6 +135,7 @@ struct Module02View: View {
             }
             .padding(.top, 71)
             .padding(.bottom, 54)
+            .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .ignoresSafeArea()
@@ -138,9 +154,9 @@ struct Module02View: View {
     }
     
     private func changePageState() {
-        if currentTab == Module02TextImageChoices.page06.rawValue {
+        if currentTab == Module02TextImage.page06.rawValue {
             pageState = .pageCheckout
-        } else if currentTab == Module02TextImageChoices.page07.rawValue {
+        } else if currentTab == Module02MultipleChoice.page07.rawValue {
             pageState = .pagePay
         } else if currentTab == Module02PageState.pageClaimReward.rawValue  {
             pageState = .pageClaimReward
@@ -151,6 +167,18 @@ struct Module02View: View {
     
     private func updateProgressBarValue() {
         progressBarCurrValue += (progressBarMaxValue / (Module02PageState.pageClaimReward.rawValue))
+    }
+    
+    private func checkIsDisabled() -> Bool {
+        guard currentTab < viewModel.userSelectedAnswers.count else {
+            return false
+        }
+        
+        let isPage04 = currentTab == page04.rawValue
+        let isChoicePage = Module02MultipleChoice.allCases.contains(where: { $0.rawValue == currentTab })
+        let isAnswerEmpty = viewModel.userSelectedAnswers[currentTab].isEmpty
+        
+        return (isPage04 || isChoicePage) && isAnswerEmpty
     }
     
     private func checkPageToSkip(page: Module02HeaderWithDetailText, userSelectedAnswer: Bool) -> Bool {
@@ -169,17 +197,6 @@ struct Module02View: View {
         } else {
             return rawValue
         }
-    }
-    
-    private func checkIsDisabled() -> Bool {
-        if let currentChoice = Module02TextImageChoices.allCases.first(where: { $0.rawValue == currentTab }) {
-            let isChoicesAvailable = (
-                currentChoice.choicesText != nil || currentChoice.choicesColor != nil
-            )
-            return isChoicesAvailable && viewModel.userSelectedAnswers[currentTab].isEmpty
-        }
-        
-        return false
     }
     
 }
