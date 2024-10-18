@@ -11,10 +11,12 @@ struct SimulationBuyingCard: View {
     @ObservedObject var viewModel: BuyingStockDataViewModel
     
     // Constant
-    var priceRaise: Int = 25
+    let priceRaise: Int = 25
     var lotRaise: Int = 1
     
     var body: some View {
+        let amountState = viewModel.determineAmountState()
+        
         HanvestCardBackground {
             VStack(spacing: 16) {
                 HStack{
@@ -35,6 +37,7 @@ struct SimulationBuyingCard: View {
                     
                     Text("\(viewModel.calculateStockBuyAmountPercentage()) %")
                         .font(.nunito(.body, .regular))
+                        .foregroundStyle(amountState.textColor)
                 }
                 
                 HStack{
@@ -45,6 +48,8 @@ struct SimulationBuyingCard: View {
                     
                     Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.stockBuyAmount))")
                         .font(.nunito(.body, .regular))
+                        .foregroundStyle(amountState.textColor)
+                        
                 }
                 
                 HStack{

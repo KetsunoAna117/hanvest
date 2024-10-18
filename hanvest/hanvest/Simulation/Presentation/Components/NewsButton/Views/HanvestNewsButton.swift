@@ -15,19 +15,21 @@ struct HanvestNewsButton: View {
     var initialState: HanvestNewsButtonState = .unpressed
     @State private var state: HanvestNewsButtonState = .unpressed
     
-    var viewmodel: HanvestNewsButtonViewModels
+    var news: SimulationNewsEntity
     var action: () -> ()
     
     var body: some View {
         HStack() {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(viewmodel.stockIDName)
+                    Text(news.stockIDName)
                         .font(.nunito(.subhead, .bold))
-                    Text("Report: \(viewmodel.newsTitle)")
+                    Text("Report: \(news.newsTitle)")
                         .font(.nunito(.subhead))
                 }
-                Text(viewmodel.printReleaseTime())
+                Text(
+                    HanvestDateFormatter.getTimeDifferenceFrom(news.newsReleasedTime)
+                )
                     .font(.nunito(.caption1))
                     .foregroundStyle(.secondary)
             }
@@ -70,12 +72,9 @@ struct HanvestNewsButton: View {
 
 #Preview {
     HanvestNewsButton(
-        viewmodel: HanvestNewsButtonViewModels(
-            stockIDName: "BBRI",
-            newsTitle: "GOTO gets billions in funding",
-            newsReleaseTIme: Date.init(timeInterval: -120, since: Date.now)
-        ), action: {
-            print("News Button Pressed")
+        news: SimulationNewsEntity.mock().first!,
+        action: {
+            print("News Pressed!")
         }
     )
     .padding(.horizontal, 16)

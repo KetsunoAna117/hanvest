@@ -63,7 +63,7 @@ struct HanvestNumberStepper: View {
 
 #Preview {
     @Previewable @State var value: Int = 10
-    var raise = 25
+    let raise = 25
     
     VStack {
         HanvestNumberStepper(value: $value, raise: raise)

@@ -37,7 +37,7 @@ class SellingStockDataViewModel: ObservableObject{
     }
     
     func setup(
-        stockSellLot: Int = 25,
+        stockSellLot: Int = 0,
         currentStockPrice: Int
     ){
         self.availableLot = getUserData.execute().userLotOwned
@@ -57,20 +57,17 @@ class SellingStockDataViewModel: ObservableObject{
     }
     
     private func validateStockPrice() {
-            if currentStockPrice < 0 {
-                currentStockPrice = 0
-            }
+        if currentStockPrice < 0 {
+            currentStockPrice = 0
         }
+    }
     
     private func validateStockSellLot() {
-        let maxLot = maximumStockSellLot()
-            if stockSellLot < 0 {
-                stockSellLot = 0
-            } else if stockSellLot > maxLot {
-                stockSellLot = maxLot
-            }
+        if stockSellLot < 0 {
+            stockSellLot = 0
         }
-
+    }
+    
     func maximumStockSellLot() -> Int {
         let maxLot = availableLot
         return maxLot
@@ -80,5 +77,14 @@ class SellingStockDataViewModel: ObservableObject{
         let percentage = Double(stockSellLot) / Double(availableLot) * 100
         return String(format: "%.2f", percentage)
     }
+    
+    func determineAmountState() -> HanvestSellingCardDefaultState{
+        if stockSellLot <= availableLot {
+            return .Affordable
+        } else {
+            return .Exceeded
+        }
+    }
+    
 }
 

@@ -29,8 +29,8 @@ struct HanvestBuyStockView: View {
         .padding(.horizontal, 20)
         .onAppear(){
             viewmodel.setup(
-                initialStockPrice: stock.stockPrice.first?.stockPrice ?? 0,
-                currentStockPrice: stock.stockPrice.last?.stockPrice ?? 0
+                initialStockPrice: stock.stockPrice.first?.price ?? 0,
+                currentStockPrice: stock.stockPrice.last?.price ?? 0
             )
         }
     }

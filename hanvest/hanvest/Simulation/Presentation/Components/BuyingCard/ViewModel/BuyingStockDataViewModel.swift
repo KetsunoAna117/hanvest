@@ -42,7 +42,7 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     
     func setup(
-        stockBuyLot: Int = 25,
+        stockBuyLot: Int = 0,
         initialStockPrice: Int,
         currentStockPrice: Int
     ){
@@ -66,20 +66,16 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     
     private func validateStockPrice() {
-            if toBuyStockPrice < 0 {
-                toBuyStockPrice = 0
-            }
+        if toBuyStockPrice < 0 {
+            toBuyStockPrice = 0
         }
+    }
     
     private func validateStockBuyLot() {
-        let maxLot = maximumStockBuyLot()
-            if stockBuyLot < 0 {
-                stockBuyLot = 0
-            } else if stockBuyLot > maxLot {
-                stockBuyLot = maxLot
-            }
+        if stockBuyLot < 0 {
+            stockBuyLot = 0
         }
-
+    }
     
     func maximumStockBuyLot() -> Int {
         guard toBuyStockPrice > 0 else { return 0 }
@@ -90,6 +86,14 @@ class BuyingStockDataViewModel: ObservableObject{
     func calculateStockBuyAmountPercentage() -> String {
         let percentage = Double(stockBuyAmount) / Double(tradingBalance) * 100
         return String(format: "%.2f", percentage)
+    }
+    
+    func determineAmountState() -> HanvestBuyingCardDefaultState{
+        if stockBuyAmount <= tradingBalance {
+            return .Affordable
+        } else {
+            return .Exceeded
+        }
     }
 }
 
