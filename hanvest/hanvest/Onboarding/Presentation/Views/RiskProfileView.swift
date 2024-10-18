@@ -38,26 +38,26 @@ struct RiskProfileView: View {
                         .frame(maxWidth: .infinity)
                     }
                     
-                    VStack(spacing: 230) {
+                    VStack(spacing: 0) {
                         TabView(selection: $currentTab) {
                             HanvestRiskProfileOpeningView()
                                 .tag(RiskProfilePageState.pageOpening.rawValue)
                                 .transition(.slide)
+                                .frame(maxHeight: .infinity, alignment: .top)
                             
                             ForEach(Array(RiskProfileQuestionsAndOptions.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestSelectableOptionsView(
-                                    headerText:
-                                        page.questions,
-                                    choicesText:
-                                        page.options,
-                                    eachComponentSpacing: 24,
+                                HanvestMultipleChoice(
+                                    question: page.questions,
+                                    options: page.options,
                                     onSelectAnswer: { answer in
                                         viewModel.userSelectedAnswers[index] = answer
                                     }
                                 )
                                 .tag(page.rawValue)
                                 .transition(.slide)
+                                .frame(maxHeight: .infinity, alignment: .top)
+
                             }
                             
                             HanvestRiskProfileResultView(
@@ -65,6 +65,7 @@ struct RiskProfileView: View {
                             )
                             .tag(RiskProfilePageState.pageRiskResult.rawValue)
                             .transition(.slide)
+                            .frame(maxHeight: .infinity, alignment: .top)
                         }
                         .frame(maxWidth: .infinity)
                         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -114,7 +115,9 @@ struct RiskProfileView: View {
     }
     
     private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
+        if pageState == .pageQuestion {
+            progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
+        }
     }
     
     private func checkIsDisabled() -> Bool {

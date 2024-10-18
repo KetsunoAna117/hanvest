@@ -45,6 +45,7 @@ struct HanvestMultipleChoice: View {
                 )
                 .font(.nunito(.body))
                 .frame(maxWidth: .infinity)
+                .multilineTextAlignment(.center)
             }
         }
         .frame(maxWidth: .infinity)

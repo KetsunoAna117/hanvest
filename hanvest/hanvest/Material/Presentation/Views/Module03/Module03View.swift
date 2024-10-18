@@ -41,9 +41,7 @@ struct Module03View: View {
                             HanvestMultipleChoice(
                                 question: Module03MultipleChoice.page01.question,
                                 options: Module03MultipleChoice.page01.options){ answer in
-                                    
                                 checkSelectedProductIndex(answer: answer)
-                                    
                             }
                             .tag(Module03MultipleChoice.page01.rawValue)
                             .transition(.slide)
@@ -66,10 +64,10 @@ struct Module03View: View {
                             
                             ForEach(Array(Module03MaterialInformationContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestModule03MaterialnformationView(
+                                HanvestMaterialnformationView(
                                     title: page.title,
                                     detailText: page.detailText,
-                                    bulletPoint: page.bulletPoints,
+                                    bulletPoints: page.bulletPoints,
                                     image: (page == .page05) ? Image("high-risk-low-risk-triangle") : nil
                                 )
                                 .tag(page.rawValue)

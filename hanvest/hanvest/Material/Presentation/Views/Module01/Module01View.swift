@@ -22,13 +22,13 @@ struct Module01View: View {
         ZStack {
             Color.background
             
-            if plantingViewVisibility == .isVisible {
-                Module01PlantingView() {
-                    plantingViewVisibility = .isHidden
-                    updateProgressBarValue()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
+//            if plantingViewVisibility == .isVisible {
+//                Module01PlantingView() {
+//                    plantingViewVisibility = .isHidden
+//                    updateProgressBarValue()
+//                }
+//                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            }
             
             ZStack {
                 VStack(spacing: 49) {
@@ -43,24 +43,26 @@ struct Module01View: View {
                         )
                     }
                     
-                    if plantingViewVisibility == .isHidden {
-                        VStack(spacing: (pageState == .pageModuleMaterial) ? 227 : 50) {
+                    if plantingViewVisibility != .isHidden {
+                        VStack(spacing: 48) {
                             TabView(selection: $currentTab) {
                                 
                                 ForEach(Array(ContentOfModule01Material.allCases.enumerated()), id: \.offset) { index, content in
                                         
-                                        HanvestHeaderWithDetailContent(
-                                            headerText: content.headerContent,
+                                        HanvestMaterialnformationView(
+                                            title: content.headerContent,
                                             detailText: content.detailContent
                                         )
                                         .tag(content.rawValue)
                                         .transition(.slide)
+                                        .frame(maxHeight: .infinity, alignment: .top)
                                         
                                     }
                                 
                                 CompletionPageView(completionItem: completionItem)
                                     .tag(Module01PageState.pageClaimReward.rawValue)
                                     .transition(.slide)
+                                    .frame(maxHeight: .infinity, alignment: .bottom)
                             }
                             .frame(maxWidth: .infinity)
                             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -78,7 +80,6 @@ struct Module01View: View {
                                     changePageState()
                                 }
                             }
-                            .padding(.horizontal, 20)
                             .frame(maxWidth: .infinity)
                         }
                         .frame(maxWidth: .infinity)
@@ -88,6 +89,7 @@ struct Module01View: View {
             }
             .padding(.top, 71)
             .padding(.bottom, 54)
+            .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .ignoresSafeArea()

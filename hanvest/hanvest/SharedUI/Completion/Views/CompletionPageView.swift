@@ -12,63 +12,60 @@ struct CompletionPageView: View {
     let completionItem: CompletionItem
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 54){
-                VStack(spacing: 78) {
-                    VStack(spacing: 12) {
-                        Text("Congratulations!")
-                            .font(.nunito(.title1, .bold))
-                            .frame(maxWidth: .infinity)
-                        
-                        completionItem.completionPageItem.badgeImage
-                    }
+        VStack(spacing: 54){
+            VStack(spacing: 78) {
+                VStack(spacing: 12) {
+                    Text("Congratulations!")
+                        .font(.nunito(.title1, .bold))
+                        .frame(maxWidth: .infinity)
                     
-                    VStack(spacing: 0) {
-                        HStack {
-                            Text(
-                                "You earned "
-                            ).font(.nunito(.body)) +
-                            Text(
-                                "\"\(completionItem.completionPageItem.achivementName)\""
-                            ).font(.nunito(.body, .bold))
-                        }
-                        .frame(maxWidth: .infinity)
-                        
-                        HStack {
-                            Text(
-                                "for completing "
-                            ).font(.nunito(.body)) +
-                            Text(
-                                "\"\(completionItem.completionPageItem.moduleName)\""
-                            ).font(.nunito(.body, .bold))
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .frame(maxWidth: .infinity)
+                    completionItem.completionPageItem.badgeImage
                 }
-                .padding(.vertical, 20)
-                .completionCardStyle()
                 
-                ZStack {
-                    VStack(spacing: 4) {
-                        Text("Bonus:")
-                            .font(.nunito(.body))
-                            .frame(maxWidth: .infinity)
-                        
-                        Text(formatToRupiah(completionItem.completionPageItem.moneyBonus))
-                            .font(.nunito(.title1, .bold))
-                            .frame(maxWidth: .infinity)
-                        
+                VStack(spacing: 0) {
+                    HStack {
+                        Text(
+                            "You earned "
+                        ).font(.nunito(.body)) +
+                        Text(
+                            "\"\(completionItem.completionPageItem.achivementName)\""
+                        ).font(.nunito(.body, .bold))
+                    }
+                    .frame(maxWidth: .infinity)
+                    
+                    HStack {
+                        Text(
+                            "for completing "
+                        ).font(.nunito(.body)) +
+                        Text(
+                            "\"\(completionItem.completionPageItem.moduleName)\""
+                        ).font(.nunito(.body, .bold))
                     }
                     .frame(maxWidth: .infinity)
                 }
-                .padding(.vertical, 12)
-                .padding(.horizontal, 46)
-                .completionCardStyle()
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
+            .padding(.vertical, 20)
+            .completionCardStyle()
+            
+            ZStack {
+                VStack(spacing: 4) {
+                    Text("Bonus:")
+                        .font(.nunito(.body))
+                        .frame(maxWidth: .infinity)
+                    
+                    Text(formatToRupiah(completionItem.completionPageItem.moneyBonus))
+                        .font(.nunito(.title1, .bold))
+                        .frame(maxWidth: .infinity)
+                    
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 46)
+            .completionCardStyle()
         }
-        .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity)
     }
     
     private func formatToRupiah(_ number: Int) -> String {
@@ -77,7 +74,7 @@ struct CompletionPageView: View {
         formatter.locale = Locale(identifier: "id_ID")
         formatter.currencySymbol = "Rp "
         formatter.maximumFractionDigits = 0
-
+        
         if let formattedString = formatter.string(from: NSNumber(value: number)) {
             return formattedString
         } else {
@@ -88,4 +85,5 @@ struct CompletionPageView: View {
 
 #Preview {
     CompletionPageView(completionItem: .module01)
+        .padding(.horizontal, 20)
 }
