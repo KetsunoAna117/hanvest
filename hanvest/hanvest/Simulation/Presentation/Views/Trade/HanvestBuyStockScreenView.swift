@@ -66,6 +66,7 @@ struct HanvestBuyStockScreenView: View {
                                 }
                             )
                         )
+                        print("[!] User Buy Button Event Pressed!")
                     }
                 )
                 .padding(.bottom, 48)
