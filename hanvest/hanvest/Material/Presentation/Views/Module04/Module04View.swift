@@ -35,6 +35,7 @@ struct Module04View: View {
                             },
                             progressBarCurrValue: $progressBarCurrValue
                         )
+                        .padding(.horizontal, (showingAnswer == .isShowing) ? 20 : 0)
                     }
                     
                     VStack(spacing: 48) {

@@ -17,7 +17,7 @@ struct Module02View: View {
     @State private var pageState: Module02PageState = .pageContinue
     
     // View Models
-    @State private var viewModel = Module02ViewModel()
+    @StateObject private var viewModel = Module02ViewModel()
     
     var body: some View {
         ZStack {

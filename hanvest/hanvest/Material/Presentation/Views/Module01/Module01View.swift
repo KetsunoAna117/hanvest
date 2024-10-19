@@ -12,10 +12,10 @@ struct Module01View: View {
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
     
-    @State private var plantingViewVisibility: PlantingViewVisibility = .isVisible
-    @State private var pageState: Module01PageState = .pageModuleMaterial
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
+    @State private var plantingViewVisibility: PlantingViewVisibility = .isVisible
+    @State private var pageState: Module01PageState = .pageModuleMaterial
     
     var body: some View {
         ZStack {
@@ -111,7 +111,7 @@ struct Module01View: View {
     
     private func updateProgressBarValue() {
         if pageState == .pageModuleMaterial {
-            progressBarCurrValue += (progressBarMaxValue / (Module01PageState.pageClaimReward.rawValue))
+            progressBarCurrValue += (progressBarMaxValue / (Module01PageState.pageClaimReward.rawValue + 1))
         }
     }
     

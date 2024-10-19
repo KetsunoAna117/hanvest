@@ -52,7 +52,9 @@ struct HanvestMultipleChoice: View {
                     title: option,
                     image: determineButtonImage(option: option),
                     action: {
-                        radioButtonAction(option: option)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            radioButtonAction(option: option)
+                        }
                     }
                 )
                 .font(.nunito(.body))

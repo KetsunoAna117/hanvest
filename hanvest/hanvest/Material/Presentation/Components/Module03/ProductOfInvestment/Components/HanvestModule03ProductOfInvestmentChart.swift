@@ -36,7 +36,7 @@ struct HanvestModule03ProductOfInvestmentChart: View {
                     AxisMarks(values: xAxisValues()) { value in
                         if let dayValue = value.as(Int.self) {
                             AxisValueLabel("\(dayValue)")
-                                .offset(x: (15))
+                                .offset(x: (30))
                         }
                     }
                 }
