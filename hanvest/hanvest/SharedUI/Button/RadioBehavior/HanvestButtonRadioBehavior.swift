@@ -32,11 +32,11 @@ struct HanvestButtonRadioBehavior: View {
             // If the icon position is leading, place the image first
             if iconPosition == .leading, let image = image {
                 image
-                    .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
+                    .foregroundStyle(style.fontColor)
             }
             
             Text(title)
-                .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
+                .foregroundStyle(style.fontColor)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .font(.nunito(.body))
@@ -45,7 +45,7 @@ struct HanvestButtonRadioBehavior: View {
             // If the icon position is trailing, place the image first
             if iconPosition == .trailing, let image = image {
                 image
-                    .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
+                    .foregroundStyle(style.fontColor)
             }
         }
         .frame(maxWidth: size.minWidth)
@@ -68,7 +68,7 @@ struct HanvestButtonRadioBehavior: View {
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0) // Button moves down by 4 points when pressed
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
-            if self.state != .disabled &&
+            if self.style.isDisabled == false &&
                 self.selectedButtonID != self.id {
                 self.state = .pressed
                 
@@ -79,34 +79,17 @@ struct HanvestButtonRadioBehavior: View {
                 })
             }
         }
-        .onAppear {
-            setupState()
-        }
         .onChange(of: selectedButtonID, { oldValue, newValue in
-            if newValue != self.id {
-                if self.state != .disabled {
-                    self.state = .unpressed
-                }
-            }
+            guard newValue != self.id else { return }
+            guard self.style.isDisabled == false else { return }
+            
+            self.state = .unpressed
         })
-        .disabled(getDisabledStatus())
+        .disabled(style.isDisabled)
     }
     
     func getPressedStatus() -> Bool {
         return state == .pressed
-    }
-    
-    func getDisabledStatus() -> Bool {
-        return state == .disabled
-    }
-    
-    func setupState() {
-        if style.isDisabled {
-            self.state = .disabled
-        }
-        else {
-            self.state = .unpressed
-        }
     }
     
 }
@@ -134,7 +117,7 @@ struct HanvestButtonRadioBehavior: View {
                 title: "Stocks provide ownership of company, while bonds represent a loan to issuer",
                 image: Image(systemName: "checkmark"),
                 action: {
-                   
+
                 }
             )
             HanvestButtonRadioBehavior(
@@ -146,7 +129,7 @@ struct HanvestButtonRadioBehavior: View {
                 title: "Stocks provide ownership of company",
                 image: Image(systemName: "person.fill"),
                 action: {
-                    
+ 
                 }
             )
             HanvestButtonRadioBehavior(
@@ -155,12 +138,21 @@ struct HanvestButtonRadioBehavior: View {
                 iconPosition: .leading,
                 selectedButtonID: $selectedButtonID,
                 id: "Second-Button",
-                title: "Button",
+                title: "Third Button",
                 image: Image(systemName: "person.fill"),
                 action: {
-                    
+
                 }
             )
+            
+            HanvestButtonDefault(
+                style: .bordered(isDisabled: selectedButtonID.isEmpty),
+                title: "Continue",
+                action: {
+                    print("Continue Tapped!")
+                    selectedButtonID = ""
+            })
+            .padding(.top, 32)
         }
         .padding(.top, 8)
     }
