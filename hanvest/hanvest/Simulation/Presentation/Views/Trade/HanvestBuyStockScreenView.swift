@@ -40,6 +40,7 @@ struct HanvestBuyStockScreenView: View {
         }
         .onAppear(){
             viewmodel.setup(
+                selectedStockIDName: stock.stockIDName,
                 initialStockPrice: stock.stockPrice.first?.price ?? 0,
                 currentStockPrice: stock.stockPrice.last?.price ?? 0
             )

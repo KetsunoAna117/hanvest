@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SimulationBuyingConfirmationCard: View {
-    var viewModel: BuyingStockDataConfirmationViewModel
+    var viewModel: BuyingStockDataViewModel
     var cancelAction: () -> ()
     var confirmAction: () -> ()
     
@@ -17,11 +17,11 @@ struct SimulationBuyingConfirmationCard: View {
             VStack(alignment: .center, spacing: 24){
                 Text("Preview Buy Order").font(.nunito(.body))
                 VStack(alignment: .leading, spacing: 12){
-                    ConfirmationRow(title: "Stock", value: viewModel.stock.uppercased())
-                    ConfirmationRow(title: "Price", value: "\(HanvestPriceFormatter.formatIntToIDR(viewModel.priceStock))")
-                    ConfirmationRow(title: "Fee", value: "\(HanvestPriceFormatter.formatIntToIDR(viewModel.fee))")
-                    ConfirmationRow(title: "Lot", value: "\(viewModel.lot)")
-                    ConfirmationRow(title: "Amount", value: "\(HanvestPriceFormatter.formatIntToIDR(viewModel.priceAmount))")
+                    ConfirmationRow(title: "Stock", value: viewModel.selectedStockIDName.uppercased())
+                    ConfirmationRow(title: "Price", value: "\(HanvestPriceFormatter.formatIntToIDR(viewModel.toBuyStockPrice))")
+                    ConfirmationRow(title: "Fee", value: "\(HanvestPriceFormatter.formatIntToIDR(viewModel.stockBuyFee))")
+                    ConfirmationRow(title: "Lot", value: "\(viewModel.stockBuyLot)")
+                    ConfirmationRow(title: "Amount", value: "\(HanvestPriceFormatter.formatIntToIDR(viewModel.stockBuyAmount))")
                 }
                 
                 HStack{
@@ -48,17 +48,13 @@ struct SimulationBuyingConfirmationCard: View {
 
 #Preview {
     SimulationBuyingConfirmationCard(
-        viewModel:
-            BuyingStockDataConfirmationViewModel(
-                stock: "BBCA",
-                priceStock: 5000,
-                lot: 1,
-                fee: 500
-            ), cancelAction: {
-                print("Cancel button pressed")
-            }, confirmAction: {
-                print("Confirm button pressed")
-            })
-    .padding(.horizontal, 16)
+        viewModel: BuyingStockDataViewModel(),
+        cancelAction: {
+            print("Cancel Action Pressed")
+        },
+        confirmAction: {
+            print("Confirm Action Pressed")
+        }
+    )
 }
 

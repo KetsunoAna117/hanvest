@@ -11,6 +11,9 @@ class SellingStockDataViewModel: ObservableObject{
     // Dependency Injection
     @Inject var getPurchasedLot: GetUserTransaction
     
+    var selectedStockIDName: String
+    var stockSellFee: Int
+    
     @Published var availableLot: Int {
         didSet {
             validateStockSellAmount()
@@ -33,6 +36,8 @@ class SellingStockDataViewModel: ObservableObject{
     @Published var currentStockPrice: Int
     
     init() {
+        self.selectedStockIDName = ""
+        self.stockSellFee = 500
         self.availableLot = 0
         self.toSellStockPrice = 0
         self.stockSellLot = 0
@@ -47,6 +52,7 @@ class SellingStockDataViewModel: ObservableObject{
         initialStockPrice: Int,
         currentStockPrice: Int
     ){
+        self.selectedStockIDName = selectedStockIDName
         self.availableLot = calculateOwnedLot(selectedStockIDName: selectedStockIDName)
         self.currentStockPrice = currentStockPrice
         validateStockSellAmount()

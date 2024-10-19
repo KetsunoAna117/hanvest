@@ -10,7 +10,6 @@ import Foundation
 struct UserData {
     var userName: String
     var userBalance: Int
-    var userLotOwned: Int
     var userRiskProfile: RiskProfileResultState
     var userInvestmentTransaction: [String: [StockInvestmentTransaction]]
 }
@@ -20,13 +19,12 @@ extension UserData {
         return UserData(
             userName: "Bryon",
             userBalance: 100000000,
+            userRiskProfile: .aggresive,
             userInvestmentTransaction: [
                 "BBCA" : StockInvestmentTransaction.BBCAmock(),
                 "BBRI" : StockInvestmentTransaction.BBRImock(),
                 "GOTO" : StockInvestmentTransaction.GOTOmock(),
-            ],
-            userLotOwned: 10,
-            userRiskProfile: .aggresive
+            ]
         )
     }
 }
