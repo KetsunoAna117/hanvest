@@ -10,17 +10,17 @@ import SwiftUI
 enum Module04NumberedListContent: Int {
     case page11 = 10
     
-    var title: String {
+    var title: Text {
         switch self {
             case .page11:
-                "Self Regulator Organizations"
+            Text("Self Regulator Organizations").font(.nunito(.title2, .bold))
         }
     }
     
-    var detailText: String {
+    var detailText: Text {
         switch self {
             case .page11:
-                "In Indonesia's capital market, Self-Regulatory Organizations (SROs) have the authority to create rules for their members. There are three key SROs:"
+            Text("In Indonesia's capital market, Self-Regulatory Organizations (SROs) have the authority to create rules for their members. There are three key SROs:").font(.nunito(.body))
         }
     }
     

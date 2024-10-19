@@ -29,7 +29,7 @@ enum Module04MaterialInformationContent: Int, CaseIterable {
     var detailText: Text {
         switch self {
             case .page01:
-                Text("Stocks represent a portion of ownership in a company. When you buy them, you own a small part of the business and may earn dividends or profit if the stock's price increases. Investing in stocks means buying shares with the expectation that their value will rise. The capital market is where these stocks and other financial assets are traded, allowing companies to raise money for growth while giving investors the opportunity to earn returns.").font(.nunito(.body)) +
+                Text("Stocks represent a portion of ownership in a company. When you buy them, you own a small part of the business and may earn dividends or profit if the stock's price increases. Investing in stocks means buying shares with the expectation that their value will rise. The capital market is where these stocks and other financial assets are traded, allowing companies to raise money for growth while giving investors the opportunity to earn returns.\n\n").font(.nunito(.body)) +
                 Text("Reference").font(.nunito(.body, .bold)) +
                 Text(": Graham, B., & Zweig, J. (2006)").font(.nunito(.body))
             case .page03:

@@ -68,6 +68,23 @@ enum Module04MultipleChoice: Int, CaseIterable {
         }
     }
     
+    var answers: String {
+        switch self {
+            case .page02:
+                "An ownership instrument in a company"
+            case .page04:
+                "Stocks provide ownership of  company, while bonds represent a loan to issuer"
+            case .page06:
+                "They facilitate the acquisition of funds for company expansion and innovation."
+            case .page08:
+                "clearing stock exchange settlements"
+            case .page09:
+                "A platform for buying and selling securities."
+            case .page10:
+                "Ensures efficient transactions under Indonesian law."
+        }
+    }
+    
     var image: Image? {
         switch self {
             case .page08:

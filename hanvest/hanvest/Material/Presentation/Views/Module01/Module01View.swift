@@ -11,7 +11,6 @@ struct Module01View: View {
     // Constants
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
-    let completionItem: CompletionItem = .module01 // TODO: the achivementName and moneyBonus from this enum need to be stored to swiftdata
     
     @State private var plantingViewVisibility: PlantingViewVisibility = .isVisible
     @State private var pageState: Module01PageState = .pageModuleMaterial
@@ -59,7 +58,7 @@ struct Module01View: View {
                                         
                                     }
                                 
-                                CompletionPageView(completionItem: completionItem)
+                                CompletionPageView(completionItem: CompletionItem.module01)
                                     .tag(Module01PageState.pageClaimReward.rawValue)
                                     .transition(.slide)
                                     .frame(maxHeight: .infinity, alignment: .bottom)
@@ -96,7 +95,7 @@ struct Module01View: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    func goToNextPage() {
+    private func goToNextPage() {
         if currentTab < Module01PageState.pageClaimReward.rawValue {
             currentTab += 1
         } else {
@@ -104,15 +103,15 @@ struct Module01View: View {
         }
     }
     
-    func changePageState() {
+    private func changePageState() {
         if currentTab == Module01PageState.pageClaimReward.rawValue {
             pageState = .pageClaimReward
         }
     }
     
-    func updateProgressBarValue() {
+    private func updateProgressBarValue() {
         if pageState == .pageModuleMaterial {
-            progressBarCurrValue += (progressBarMaxValue / (Module01PageState.pageClaimReward.rawValue + 1))
+            progressBarCurrValue += (progressBarMaxValue / (Module01PageState.pageClaimReward.rawValue))
         }
     }
     

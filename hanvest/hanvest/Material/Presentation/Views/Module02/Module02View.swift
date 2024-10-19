@@ -11,8 +11,6 @@ struct Module02View: View {
     // Constants
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
-    let page04 = Module02TextImageColorPicker.page04
-    let completionItem: CompletionItem = .module02
     
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
@@ -71,18 +69,17 @@ struct Module02View: View {
                             }
                             
                             HanvestModule02TextImageColorPickerView(
-                                title: page04.title,
-                                image: page04.image,
-                                customSpacing: page04.customSpacing,
+                                title: Module02TextImageColorPicker.page04.title,
+                                image: Module02TextImageColorPicker.page04.image,
+                                customSpacing: Module02TextImageColorPicker.page04.customSpacing,
                                 needColorPicker: true,
                                 onSelectAnswer: { answer in
-                                    viewModel.userSelectedAnswers[page04.rawValue] = answer
+                                    viewModel.userSelectedAnswers[Module02TextImageColorPicker.page04.rawValue] = answer
                                 }
                             )
-                            .tag(page04.rawValue)
+                            .tag(Module02TextImageColorPicker.page04.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
-                            
                             
                             ForEach(Array(Module02HeaderWithDetailText.allCases.enumerated()), id: \.offset) { index, page in
                                 
@@ -106,7 +103,7 @@ struct Module02View: View {
                                 }
                             }
                             
-                            CompletionPageView(completionItem: completionItem)
+                            CompletionPageView(completionItem: CompletionItem.module02)
                                 .tag(Module02PageState.pageClaimReward.rawValue)
                                 .transition(.slide)
                                 .frame(maxHeight: .infinity, alignment: .bottom)
@@ -175,7 +172,7 @@ struct Module02View: View {
             return false
         }
         
-        let isPage04 = currentTab == page04.rawValue
+        let isPage04 = (currentTab == Module02TextImageColorPicker.page04.rawValue)
         let isChoicePage = Module02MultipleChoice.allCases.contains(where: { $0.rawValue == currentTab })
         let isAnswerEmpty = viewModel.userSelectedAnswers[currentTab].isEmpty
         
