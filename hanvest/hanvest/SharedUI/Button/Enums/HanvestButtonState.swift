@@ -8,5 +8,4 @@
 enum HanvestButtonState {
     case unpressed
     case pressed
-    case disabled
 }

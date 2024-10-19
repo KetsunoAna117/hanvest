@@ -29,11 +29,11 @@ struct HanvestButtonDefault: View {
             // If the icon position is leading, place the image first
             if iconPosition == .leading, let image = image {
                 image
-                    .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
+                    .foregroundStyle(style.fontColor)
             }
             
             Text(title)
-                .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
+                .foregroundStyle(style.fontColor)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .font(.nunito(.body))
@@ -42,7 +42,7 @@ struct HanvestButtonDefault: View {
             // If the icon position is trailing, place the image first
             if iconPosition == .trailing, let image = image {
                 image
-                    .foregroundStyle(getDisabledStatus() ? .labelTertiary : style.fontColor)
+                    .foregroundStyle(style.fontColor)
             }
         }
         .frame(maxWidth: size.minWidth)
@@ -65,7 +65,7 @@ struct HanvestButtonDefault: View {
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0) // Button moves down by 4 points when pressed
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
-            if self.state != .disabled {
+            if self.style.isDisabled == false {
                 self.state = .pressed
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
@@ -77,31 +77,23 @@ struct HanvestButtonDefault: View {
         .onAppear {
             setupState()
         }
-        .disabled(getDisabledStatus())
+        .disabled(style.isDisabled)
     }
     
     func getPressedStatus() -> Bool {
         return state == .pressed
     }
-    
-    func getDisabledStatus() -> Bool {
-        return state == .disabled
-    }
+
     
     func setupState() {
         self.state = initialState
-        
-        if style.isDisabled || initialState == .disabled {
-            self.state = .disabled
-        }
-        else {
-            self.state = .unpressed
-        }
     }
+    
     
 }
 
 #Preview {
+    @Previewable @State var isDisabled: Bool = true
     VStack() {
         HStack {
             VStack(alignment: .leading) {
@@ -112,16 +104,25 @@ struct HanvestButtonDefault: View {
             }
             Spacer()
         }
-        HanvestButtonDefault(
-            size: .large,
-            style: .filled(isDisabled: false),
-            iconPosition: .leading,
-            title: "Button",
-            image: Image(systemName: "person.fill"),
-            action: {
-                print("Button Pressed!")
-            }
-        )
+        VStack(spacing: 16) {
+            HanvestButtonDefault(
+                size: .large,
+                style: .filled(isDisabled: isDisabled),
+                iconPosition: .leading,
+                title: "Button",
+                image: Image(systemName: "person.fill"),
+                action: {
+                    print("Button Pressed!")
+                }
+            )
+            HanvestButtonDefault(
+                style: .filledIncorrect(isDisabled: false),
+                title: "Set Disabled",
+                action: {
+                    isDisabled.toggle()
+                }
+            )
+        }
         .padding(.top, 16)
     }
     .padding(.horizontal, 16)
