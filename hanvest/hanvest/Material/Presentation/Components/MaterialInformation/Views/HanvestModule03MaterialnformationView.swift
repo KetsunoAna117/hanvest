@@ -13,8 +13,9 @@ struct HanvestMaterialnformationView: View {
     let detailText: Text
     
     // Component Contents
+    var image: [Image]?
     var bulletPoints: [String]?
-    var image: Image?
+    var numberedList: [String]?
     
     var body: some View {
         VStack(spacing: 24) {
@@ -22,31 +23,34 @@ struct HanvestMaterialnformationView: View {
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
             
-            if let image = image {
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity)
+            if let images = image {
+                HanvestAutoSpacingImageView(images: images)
             }
             
             ScrollView {
                 VStack(spacing: 0) {
-                    if let bulletPoints = bulletPoints {
-                        Text("Explanation:")
-                            .font(.nunito(.callout, .bold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        HanvestModule03BulletPointList(bulletPoints: bulletPoints)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
+                    if let numberedList = numberedList {
                         detailText
                             .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        HanvestModule04NumberedLists(numberedLists: numberedList)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     } else {
+                        if let bulletPoints = bulletPoints {
+                            Text("Explanation:")
+                                .font(.nunito(.callout, .bold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            HanvestModule03BulletPointList(bulletPoints: bulletPoints)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        
                         detailText
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
             }.scrollBounceBehavior(.basedOnSize, axes: [.vertical])
+            
         }
         .frame(maxWidth: .infinity)
     }
@@ -60,8 +64,8 @@ struct HanvestMaterialnformationView: View {
     HanvestMaterialnformationView(
         title: Text(title).font(.nunito(.title2)),
         detailText: Text(detailText).font(.callout),
-        bulletPoints: bulletPoint,
-        image: Image("high-risk-low-risk-triangle")
+        image: [Image("high-risk-low-risk-triangle")],
+        bulletPoints: bulletPoint
     )
     .padding(.horizontal, 20)
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum HanvestButtonStyle {
+enum HanvestButtonStyle: Equatable {
     case filled(isDisabled: Bool)
     case bordered(isDisabled: Bool)
     case borderless(isDisabled: Bool)

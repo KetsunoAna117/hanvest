@@ -35,7 +35,9 @@ struct HanvestModule02TextImageColorPickerView: View {
                             radioButtonColor: option.colorOptions,
                             selectedButtonID: $selectedButtonID,
                             action: {
-                                onSelectAnswer(option.colorDescription)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    onSelectAnswer(option.colorDescription)
+                                }
                             }
                         )
                     }

@@ -11,12 +11,13 @@ struct Module03View: View {
     // Constants
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
-    let completionItem: CompletionItem = .module03
     
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
     @State private var pageState: Module03PageState = .pageContinue
-    @State private var selectedProductIndex: Int = -1
+    
+    // View Model
+    @StateObject private var viewModel = Module03ViewModel()
     
     var body: some View {
         ZStack {
@@ -41,18 +42,18 @@ struct Module03View: View {
                             HanvestMultipleChoice(
                                 question: Module03MultipleChoice.page01.question,
                                 options: Module03MultipleChoice.page01.options){ answer in
-                                checkSelectedProductIndex(answer: answer)
+                                    viewModel.checkSelectedProductIndex(answer: answer)
                             }
                             .tag(Module03MultipleChoice.page01.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
                             
-                            if selectedProductIndex != -1 {
+                            if viewModel.selectedProductIndex != -1 {
                                 ForEach(Array(Module03ProductOfInvestmentContent.allCases.enumerated()), id: \.offset) { index, page in
                                     
                                     HanvestModule03AllProductOfInvestmentView(
                                         title: page.title,
-                                        selectedProductIndex: selectedProductIndex,
+                                        selectedProductIndex: viewModel.selectedProductIndex,
                                         productStage: page.rawValue - 1
                                     )
                                     .tag(page.rawValue)
@@ -67,8 +68,8 @@ struct Module03View: View {
                                 HanvestMaterialnformationView(
                                     title: Text(page.title).font(.nunito(.title2)),
                                     detailText: page.detailText,
-                                    bulletPoints: page.bulletPoints,
-                                    image: (page == .page05) ? Image("high-risk-low-risk-triangle") : nil
+                                    image: (page == .page05) ? [Image("high-risk-low-risk-triangle")] : nil,
+                                    bulletPoints: page.bulletPoints
                                 )
                                 .tag(page.rawValue)
                                 .transition(.slide)
@@ -76,7 +77,7 @@ struct Module03View: View {
                                 
                             }
                             
-                            CompletionPageView(completionItem: completionItem)
+                            CompletionPageView(completionItem: CompletionItem.module03)
                                 .tag(Module03PageState.pageClaimReward.rawValue)
                                 .transition(.slide)
                                 .frame(maxHeight: .infinity, alignment: .bottom)
@@ -91,7 +92,7 @@ struct Module03View: View {
                         
                         ZStack {
                             HanvestButtonDefault(
-                                style: .filled(isDisabled: false),
+                                style: .filled(isDisabled: checkIsDisabled()),
                                 title: pageState.buttonStringValue
                             ) {
                                 goToNextPage()
@@ -124,12 +125,13 @@ struct Module03View: View {
     }
     
     private func changePageState() {
-        if (Module03ProductOfInvestmentContent.page02.rawValue...Module03ProductOfInvestmentContent.page03.rawValue).contains(currentTab) {
-            pageState = .pageNextMonth
-        } else if currentTab == Module03PageState.pageClaimReward.rawValue  {
-            pageState = .pageClaimReward
-        } else {
-            pageState = .pageContinue
+        switch currentTab {
+            case Module03ProductOfInvestmentContent.page02.rawValue...Module03ProductOfInvestmentContent.page03.rawValue:
+                pageState = .pageNextMonth
+            case Module03PageState.pageClaimReward.rawValue:
+                pageState = .pageClaimReward
+            default:
+                pageState = .pageContinue
         }
     }
     
@@ -138,17 +140,9 @@ struct Module03View: View {
     }
     
     private func checkIsDisabled() -> Bool {
-        return (selectedProductIndex == -1) && (currentTab == Module03MultipleChoice.page01.rawValue)
+        return (viewModel.selectedProductIndex == -1) && (currentTab == Module03MultipleChoice.page01.rawValue)
     }
     
-    private func checkSelectedProductIndex(answer: String) {
-        for optionCase in Module03MultipleChoice.allCases {
-            if let index = optionCase.options.firstIndex(of: answer) {
-                self.selectedProductIndex = index
-                return
-            }
-        }
-    }
 }
 
 #Preview {

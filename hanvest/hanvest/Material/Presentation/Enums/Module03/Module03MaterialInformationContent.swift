@@ -33,18 +33,18 @@ enum Module03MaterialInformationContent: Int, CaseIterable {
     
     var bulletPoints: [String] {
         switch self {
-        case .page05:
-            [
-                "Deposits (Savings or Time Deposits): These are considered stable investments. Your principal is safe, and the return is steady but modest, much like a stable but low-interest savings account.",
-                "Bonds: Bonds have a moderate level of fluctuation. They can rise and fall in value, but the changes are generally smaller compared to stocks. The risk is low to moderate, and so is the return, but it's still more dynamic than a savings account.",
-                "Stocks: Stocks are the most volatile, with large price swings both up and down. The potential for high returns is significant, but there's also a greater chance of loss, making them the most fluid and unpredictable of the three."
-            ]
-        case .page06:
-            [
-                "Deposits: The return is steady but modest, much like a stable but low-interest savings account.",
-                "Bonds: Bonds have a moderate level of fluctuation. They can rise and fall in value, but the changes are generally smaller compared to stocks.",
-                "Stocks: Stocks are the most volatile, The potential for high returns and loss is significant, so stock are more unpredictable of the three."
-            ]
+            case .page05:
+                [
+                    "Deposits (Savings or Time Deposits): These are considered stable investments. Your principal is safe, and the return is steady but modest, much like a stable but low-interest savings account.",
+                    "Bonds: Bonds have a moderate level of fluctuation. They can rise and fall in value, but the changes are generally smaller compared to stocks. The risk is low to moderate, and so is the return, but it's still more dynamic than a savings account.",
+                    "Stocks: Stocks are the most volatile, with large price swings both up and down. The potential for high returns is significant, but there's also a greater chance of loss, making them the most fluid and unpredictable of the three."
+                ]
+            case .page06:
+                [
+                    "Deposits: The return is steady but modest, much like a stable but low-interest savings account.",
+                    "Bonds: Bonds have a moderate level of fluctuation. They can rise and fall in value, but the changes are generally smaller compared to stocks.",
+                    "Stocks: Stocks are the most volatile, The potential for high returns and loss is significant, so stock are more unpredictable of the three."
+                ]
         }
     }
 }
