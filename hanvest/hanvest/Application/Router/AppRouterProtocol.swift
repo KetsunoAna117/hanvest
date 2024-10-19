@@ -16,6 +16,6 @@ protocol AppRouterProtocol: ObservableObject {
     func pop()
     func popToRoot()
     
-    func presentPopup(_ popup: Popup)
+    func presentOverlay(_ popup: Popup)
     func dismissPopup()
 }

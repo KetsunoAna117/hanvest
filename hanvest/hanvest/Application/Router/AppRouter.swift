@@ -23,7 +23,7 @@ class AppRouter: AppRouterProtocol {
         path.removeLast(path.count)
     }
     
-    func presentPopup(_ popup: Popup) {
+    func presentOverlay(_ popup: Popup) {
         self.popup = popup
     }
     
@@ -146,6 +146,13 @@ class AppRouter: AppRouterProtocol {
                 HanvestSimulationNewsDetailsScreenView(router: self, news: news)
             }
             .navigationBarBackButtonHidden()
+            
+        case .transactionStatus(let transaction):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                TransactionStatusView(transaction: transaction)
+            }
+            .navigationBarBackButtonHidden()
         }
     }
     
@@ -163,7 +170,7 @@ class AppRouter: AppRouterProtocol {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 40)
+                .padding(.horizontal, 20)
             }
         case .withHanvestPopup(let title, let desc, let dismissAction):
             ZStack {
@@ -172,7 +179,7 @@ class AppRouter: AppRouterProtocol {
                     self.dismissPopup()
                 }
                 HanvestPopup(title: title, description: desc)
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, 20)
             }
         case .withBuyConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
             ZStack {
@@ -189,7 +196,7 @@ class AppRouter: AppRouterProtocol {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 40)
+                .padding(.horizontal, 20)
             }
         case .withSellConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
             ZStack {
@@ -206,7 +213,7 @@ class AppRouter: AppRouterProtocol {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 40)
+                .padding(.horizontal, 20)
             }
         }
     }

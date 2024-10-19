@@ -101,5 +101,13 @@ class BuyingStockDataViewModel: ObservableObject{
             return .Exceeded
         }
     }
+    
+    func determineIsDisabledButtonState() -> Bool {
+        if stockBuyAmount <= tradingBalance && stockBuyAmount > 0 {
+            return false
+        } else {
+            return true
+        }
+    }
 }
 

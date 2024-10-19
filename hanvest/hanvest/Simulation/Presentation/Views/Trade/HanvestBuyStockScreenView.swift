@@ -37,6 +37,36 @@ struct HanvestBuyStockScreenView: View {
             .padding(.top, 24)
             
             Spacer()
+            
+            HanvestButtonDefault(
+                style: .filledCorrect(
+                    isDisabled: viewmodel.determineIsDisabledButtonState()
+                ),
+                title: "Buy",
+                action: {
+                    router.presentOverlay(
+                        .withBuyConfirmationPopup(
+                            viewmodel: viewmodel,
+                            confirmAction: {
+                                router.push(
+                                    .transactionStatus(
+                                        transaction: TransactionStatusViewModel(
+                                            lotAmount: viewmodel.stockBuyLot,
+                                            stockPrice: viewmodel.toBuyStockPrice,
+                                            selectedStockIDName: viewmodel.selectedStockIDName,
+                                            transactionType: .buy
+                                        )
+                                    )
+                                )
+                            },
+                            cancelAction: {
+                                router.dismissPopup()
+                            }
+                        )
+                    )
+                }
+            )
+            .padding(.bottom, 48)
         }
         .onAppear(){
             viewmodel.setup(

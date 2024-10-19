@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct TransactionStatusView: View {
-    var lotAmount: Int
-    var stockPrice: Int
-    var selectedStockIDName: String
-    
-    var transactionType: TransactionType
+    let transaction: TransactionStatusViewModel
     
     var body: some View {
         ZStack {
@@ -21,7 +17,7 @@ struct TransactionStatusView: View {
                 VStack {
                     Text("Order Placed!")
                         .font(.nunito(.title1, .bold))
-                    Text("\(lotAmount) lot of \(selectedStockIDName) at price \(stockPrice) \(transactionType.description)")
+                    Text("\(transaction.lotAmount) lot of \(transaction.selectedStockIDName) at price \(transaction.stockPrice) \(transaction.transactionType.description)")
                 }
                 .padding(.top, 50)
             }
@@ -34,7 +30,7 @@ struct TransactionStatusView: View {
                 }
             )
             .padding(.horizontal, 20)
-            .padding(.vertical, 50)
+            .padding(.bottom, 48)
             .frame(maxHeight: .infinity, alignment: .bottom)
         }
     }
@@ -65,10 +61,12 @@ private struct TransactionStatusLogo: View {
     ZStack {
         Color.background.ignoresSafeArea()
         TransactionStatusView(
-            lotAmount: 1,
-            stockPrice: 5000,
-            selectedStockIDName: "BBRI",
-            transactionType: .buy
+            transaction: TransactionStatusViewModel(
+                lotAmount: 1,
+                stockPrice: 5000,
+                selectedStockIDName: "BBRI",
+                transactionType: .buy
+            )
         )
     }
 }

@@ -12,6 +12,7 @@ struct UserData {
     var userBalance: Int
     var userRiskProfile: RiskProfileResultState
     var userInvestmentTransaction: [String: [StockInvestmentTransaction]]
+    var transactionQueue: [StockInvestmentTransaction]
 }
 
 extension UserData {
@@ -24,6 +25,14 @@ extension UserData {
                 "BBCA" : StockInvestmentTransaction.BBCAmock(),
                 "BBRI" : StockInvestmentTransaction.BBRImock(),
                 "GOTO" : StockInvestmentTransaction.GOTOmock(),
+            ],
+            transactionQueue: [
+                StockInvestmentTransaction(
+                    stockIDName: "BBRI",
+                    priceAtPurchase: 1000,
+                    stockLotQuantity: 2,
+                    time: Date.now
+                )
             ]
         )
     }
