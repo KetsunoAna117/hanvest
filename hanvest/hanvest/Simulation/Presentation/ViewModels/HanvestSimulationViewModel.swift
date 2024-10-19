@@ -68,13 +68,15 @@ class HanvestSimulationViewModel: ObservableObject {
     }
     
     func testPriceUpdate(){
-        print("[TEST] Timer Update Started!")
+        print("[TEST] Timer to Update Stock Price Started!")
         if timer != nil {
             timer = nil
         }
         
         timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
-            let randomPriceIncrease = Int.random(in: 1...2)
+            let random = Int.random(in: 1...100)
+            let randomPriceIncrease = random % 2 == 0 ? 1 : -1
+            
             let randomStockIncrease = Int.random(in: 0...(self.stockList.count - 1))
             
             let currentStockPrice = self.stockList[randomStockIncrease].stockPrice.last?.price ?? 0
@@ -87,15 +89,13 @@ class HanvestSimulationViewModel: ObservableObject {
             )
 
             self.stockList[randomStockIncrease].stockPrice.append(newPrice)
-            print("[TEST] New Price added for \(self.stockList[randomStockIncrease].stockIDName) with new price: \(self.stockList[randomStockIncrease].stockPrice.last?.price ?? 0)")
-            
-//            let idx = self.getSelectedStockIdx(selectedStockID: self.selectedStockID)
-//            self.updateSelectedPrice(idx: idx)
+            print("[TEST] New Price for \(self.stockList[randomStockIncrease].stockIDName) with new price: \(self.stockList[randomStockIncrease].stockPrice.last?.price ?? 0)")
             
         }
     }
     
     func deactivateTimer(){
+        print("[TEST]: Timer Deactivated")
         self.timer?.invalidate()
         self.timer = nil
     }

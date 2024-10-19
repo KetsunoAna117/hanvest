@@ -11,7 +11,7 @@ class AppRouter: AppRouterProtocol {
     @Published var path: NavigationPath = NavigationPath()
     @Published var popup: Popup?
     
-    @Published var simulationViewModel: HanvestSimulationViewModel? = HanvestSimulationViewModel()
+    @Published var simulationViewModel: HanvestSimulationViewModel? = .init()
     
     func push(_ screen: Screen) {
         path.append(screen)
@@ -116,6 +116,16 @@ class AppRouter: AppRouterProtocol {
                 if let simulationViewModel = simulationViewModel {
                     HanvestBuyStockScreenView(router: self)
                         .environmentObject(simulationViewModel)
+                        .overlay {
+                            if let popup = popup {
+                                ZStack {
+                                    self.build(popup)
+                                }
+                                // Apply transition and animation
+                                .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                                .animation(.easeInOut(duration: 0.3), value: self.popup)
+                            }
+                        }
                 }
                 else {
                     Text("Error! Can't load the App")
@@ -132,6 +142,16 @@ class AppRouter: AppRouterProtocol {
                 if let simulationViewModel = simulationViewModel {
                     HanvestSellStockScreenView(router: self)
                         .environmentObject(simulationViewModel)
+                        .overlay {
+                            if let popup = popup {
+                                ZStack {
+                                    self.build(popup)
+                                }
+                                // Apply transition and animation
+                                .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                                .animation(.easeInOut(duration: 0.3), value: self.popup)
+                            }
+                        }
                 }
                 else {
                     Text("Error! Can't load the App")
@@ -179,7 +199,7 @@ class AppRouter: AppRouterProtocol {
         case .transactionStatus(let transaction):
             ZStack {
                 Color.background.ignoresSafeArea()
-                TransactionStatusView(transaction: transaction)
+                TransactionStatusView(router: self, transaction: transaction)
             }
             .navigationBarBackButtonHidden()
         }
@@ -201,6 +221,7 @@ class AppRouter: AppRouterProtocol {
                 )
                 .padding(.horizontal, 20)
             }
+            
         case .withHanvestPopup(let title, let desc, let dismissAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea().onTapGesture {
@@ -210,6 +231,7 @@ class AppRouter: AppRouterProtocol {
                 HanvestPopup(title: title, description: desc)
                     .padding(.horizontal, 20)
             }
+            
         case .withBuyConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea()
@@ -227,6 +249,7 @@ class AppRouter: AppRouterProtocol {
                 )
                 .padding(.horizontal, 20)
             }
+            
         case .withSellConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea()

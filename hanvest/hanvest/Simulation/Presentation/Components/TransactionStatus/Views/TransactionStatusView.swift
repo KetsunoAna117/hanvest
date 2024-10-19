@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TransactionStatusView: View {
+    let router: any AppRouterProtocol
     let transaction: TransactionStatusViewModel
     
     var body: some View {
@@ -26,7 +27,8 @@ struct TransactionStatusView: View {
             HanvestButtonDefault(
                 title: "Back To Market",
                 action: {
-                    print("Back to market action triggered!")
+                    print("[!] Back to market action triggered!")
+                    router.popToRoot()
                 }
             )
             .padding(.horizontal, 20)
@@ -37,36 +39,77 @@ struct TransactionStatusView: View {
 }
 
 private struct TransactionStatusLogo: View {
+    @State private var isAnimating = false
+
     var body: some View {
         ZStack {
+            // Outer Circle with scaling animation
             Circle()
-                .fill(.blizzardBlue200)
-                .frame(width: 310, height: 310)
+                .fill(Color.blizzardBlue200)
+                .frame(width: 250, height: 250)
+                .scaleEffect(isAnimating ? 1.5 : 1.0) // Scale the circle
+                .opacity(isAnimating ? 0.0 : 1.0) // Fade out during scaling
+                .animation(
+                    Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: false),
+                    value: isAnimating
+                )
+            
+            // Inner circle with checkmark
             ZStack {
                 Circle()
-                    .fill(.blizzardBlue400)
+                    .fill(Color.blizzardBlue400)
                     .frame(width: 250, height: 250)
                 Image(systemName: "checkmark")
                     .resizable()
-                    .foregroundStyle(.mineShaft50)
+                    .foregroundStyle(Color.mineShaft50)
                     .frame(width: 100, height: 100)
             }
-            
-            
+        }
+        .onAppear {
+            isAnimating = true // Start the animation when the view appears
         }
     }
 }
 
 #Preview {
-    ZStack {
-        Color.background.ignoresSafeArea()
-        TransactionStatusView(
-            transaction: TransactionStatusViewModel(
-                lotAmount: 1,
-                stockPrice: 5000,
-                selectedStockIDName: "BBRI",
-                transactionType: .buy
-            )
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .transactionStatus(
+        transaction: TransactionStatusViewModel(
+            lotAmount: 1,
+            stockPrice: 5000,
+            selectedStockIDName: "BBRI",
+            transactionType: .buy
         )
+    )
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
     }
 }
+
+//#Preview {
+//    ZStack {
+//        Color.background.ignoresSafeArea()
+//        TransactionStatusView(
+//            transaction: TransactionStatusViewModel(
+//                lotAmount: 1,
+//                stockPrice: 5000,
+//                selectedStockIDName: "BBRI",
+//                transactionType: .buy
+//            )
+//        )
+//    }
+//}
