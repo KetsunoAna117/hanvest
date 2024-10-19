@@ -11,6 +11,9 @@ class BuyingStockDataViewModel: ObservableObject{
     // Dependency Injection
     @Inject var getUserData: GetUserData
     
+    var selectedStockIDName: String
+    var stockBuyFee: Int
+    
     // Variables
     @Published var tradingBalance: Int {
         didSet {
@@ -24,7 +27,6 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     @Published var stockBuyLot: Int {
         didSet {
-            print()
             validateStockBuyAmount()
         }
     }
@@ -33,6 +35,8 @@ class BuyingStockDataViewModel: ObservableObject{
     @Published var currentStockPrice: Int
     
     init() {
+        self.selectedStockIDName = ""
+        self.stockBuyFee = 500
         self.tradingBalance = 0
         self.toBuyStockPrice = 0
         self.stockBuyLot = 0
@@ -42,10 +46,12 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     
     func setup(
+        selectedStockIDName: String,
         stockBuyLot: Int = 0,
         initialStockPrice: Int,
         currentStockPrice: Int
     ){
+        self.selectedStockIDName = selectedStockIDName
         self.tradingBalance = getUserData.execute().userBalance
         self.toBuyStockPrice = currentStockPrice
         self.stockBuyLot = stockBuyLot
@@ -93,6 +99,14 @@ class BuyingStockDataViewModel: ObservableObject{
             return .Affordable
         } else {
             return .Exceeded
+        }
+    }
+    
+    func determineIsDisabledButtonState() -> Bool {
+        if stockBuyAmount <= tradingBalance && stockBuyAmount > 0 {
+            return false
+        } else {
+            return true
         }
     }
 }

@@ -84,6 +84,7 @@ struct SimulationBuyingCard: View {
         SimulationBuyingCard(viewModel: viewmodel)
             .onAppear(){
                 viewmodel.setup(
+                    selectedStockIDName: "BBCA",
                     initialStockPrice: 4000,
                     currentStockPrice: 5000
                 )

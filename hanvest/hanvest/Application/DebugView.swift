@@ -35,7 +35,7 @@ struct DebugView: View {
                     title: "Show Overlay") {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                             presentOverlay = true
-                            router.presentPopup(
+                            router.presentOverlay(
                                 .withHanvestPopup(
                                     title: "News",
                                     desc: "Learn action to take based on news",

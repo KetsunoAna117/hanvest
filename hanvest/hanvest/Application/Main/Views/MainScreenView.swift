@@ -11,6 +11,7 @@ struct MainScreenView: View {
     let router: any AppRouterProtocol
     
     @State private var selectionTab: HanvestMainViewTabSelection = .material
+    @EnvironmentObject var simulationViewModel: HanvestSimulationViewModel
     
     var body: some View {
         VStack {
@@ -47,6 +48,7 @@ struct MainScreenView: View {
                     ZStack {
                         Color.background.ignoresSafeArea()
                         HanvestSimulationView(router: router)
+                            .environmentObject(simulationViewModel)
                     }
                 }
                 

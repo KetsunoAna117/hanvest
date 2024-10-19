@@ -11,6 +11,7 @@ struct HanvestStockOptionList: View {
     @Binding var selectedStockID: String
     
     var simulationStockList: [SimulationStockEntity]
+    var onPressed: (_ selectedStockID: String) -> ()
     
     var body: some View {
         VStack {
@@ -23,7 +24,7 @@ struct HanvestStockOptionList: View {
                             id: stock.stockIDName,
                             imageName: stock.stockImageName
                         ) {
-                                print("\(stock.stockName) is pressed")
+                            onPressed(self.selectedStockID)
                             }
                             .padding(.bottom, 6)
                     }
@@ -40,6 +41,9 @@ struct HanvestStockOptionList: View {
     
     HanvestStockOptionList(
         selectedStockID: $selectedStockID,
-        simulationStockList: SimulationStockEntity.getMockData()
+        simulationStockList: SimulationStockEntity.getMockData(),
+        onPressed: { data in
+            print("On Pressed \(data)")
+        }
     )
 }

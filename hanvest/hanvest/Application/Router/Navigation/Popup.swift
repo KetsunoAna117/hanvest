@@ -10,8 +10,8 @@ import SwiftUI
 enum Popup: Identifiable, Hashable, Equatable {
     case withHanvestPopupButton(title: String?, desc: String, buttonAction: () -> Void)
     case withHanvestPopup(title: String?, desc: String, dismissAction: () -> Void)
-    case withBuyConfirmationPopup(viewmodel: BuyingStockDataConfirmationViewModel, confirmAction: () -> (), cancelAction: () -> ())
-    case withSellConfirmationPopup(viewmodel: SellingStockDataConfirmationViewModel, confirmAction: () -> (), cancelAction: () -> ())
+    case withBuyConfirmationPopup(viewmodel: BuyingStockDataViewModel, confirmAction: () -> (), cancelAction: () -> ())
+    case withSellConfirmationPopup(viewmodel: SellingStockDataViewModel, confirmAction: () -> (), cancelAction: () -> ())
     
     var id: Self { return self }
 }

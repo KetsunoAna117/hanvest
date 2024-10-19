@@ -11,6 +11,8 @@ class AppRouter: AppRouterProtocol {
     @Published var path: NavigationPath = NavigationPath()
     @Published var popup: Popup?
     
+    @Published var simulationViewModel: HanvestSimulationViewModel? = .init()
+    
     func push(_ screen: Screen) {
         path.append(screen)
     }
@@ -23,7 +25,7 @@ class AppRouter: AppRouterProtocol {
         path.removeLast(path.count)
     }
     
-    func presentPopup(_ popup: Popup) {
+    func presentOverlay(_ popup: Popup) {
         self.popup = popup
     }
     
@@ -55,7 +57,16 @@ class AppRouter: AppRouterProtocol {
         case .main:
             ZStack {
                 Color.background.ignoresSafeArea()
-                MainScreenView(router: self)
+                if let simulationViewModel = simulationViewModel {
+                    MainScreenView(router: self)
+                        .environmentObject(simulationViewModel)
+                }
+                else {
+                    Text("Error! Can't load the App")
+                        .onAppear(){
+                            print("[ERROR]: Simulation View Model is nil")
+                        }
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -99,17 +110,55 @@ class AppRouter: AppRouterProtocol {
             }
             .navigationBarBackButtonHidden()
             
-        case .simulationBuyingConfirmation(let stock):
+        case .simulationBuyingConfirmation:
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestBuyStockView(router: self, stock: stock)
+                if let simulationViewModel = simulationViewModel {
+                    HanvestBuyStockScreenView(router: self)
+                        .environmentObject(simulationViewModel)
+                        .overlay {
+                            if let popup = popup {
+                                ZStack {
+                                    self.build(popup)
+                                }
+                                // Apply transition and animation
+                                .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                                .animation(.easeInOut(duration: 0.3), value: self.popup)
+                            }
+                        }
+                }
+                else {
+                    Text("Error! Can't load the App")
+                        .onAppear(){
+                            print("[ERROR]: Simulation View Model is nil")
+                        }
+                }
             }
             .navigationBarBackButtonHidden()
             
-        case .simulationSellingConfirmation(_):
+        case .simulationSellingConfirmation:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
+                if let simulationViewModel = simulationViewModel {
+                    HanvestSellStockScreenView(router: self)
+                        .environmentObject(simulationViewModel)
+                        .overlay {
+                            if let popup = popup {
+                                ZStack {
+                                    self.build(popup)
+                                }
+                                // Apply transition and animation
+                                .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                                .animation(.easeInOut(duration: 0.3), value: self.popup)
+                            }
+                        }
+                }
+                else {
+                    Text("Error! Can't load the App")
+                        .onAppear(){
+                            print("[ERROR]: Simulation View Model is nil")
+                        }
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -146,6 +195,13 @@ class AppRouter: AppRouterProtocol {
                 HanvestSimulationNewsDetailsScreenView(router: self, news: news)
             }
             .navigationBarBackButtonHidden()
+            
+        case .transactionStatus(let transaction):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                TransactionStatusView(router: self, transaction: transaction)
+            }
+            .navigationBarBackButtonHidden()
         }
     }
     
@@ -163,8 +219,9 @@ class AppRouter: AppRouterProtocol {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 40)
+                .padding(.horizontal, 20)
             }
+            
         case .withHanvestPopup(let title, let desc, let dismissAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea().onTapGesture {
@@ -172,8 +229,9 @@ class AppRouter: AppRouterProtocol {
                     self.dismissPopup()
                 }
                 HanvestPopup(title: title, description: desc)
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, 20)
             }
+            
         case .withBuyConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea()
@@ -189,8 +247,9 @@ class AppRouter: AppRouterProtocol {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 40)
+                .padding(.horizontal, 20)
             }
+            
         case .withSellConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea()
@@ -206,7 +265,7 @@ class AppRouter: AppRouterProtocol {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 40)
+                .padding(.horizontal, 20)
             }
         }
     }

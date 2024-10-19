@@ -27,6 +27,7 @@ struct SimulationSellingCard: View {
                     
                     Text("\(viewModel.availableLot)")
                         .font(.nunito(.body, .bold))
+                        .foregroundStyle(amountState.textColor)
                 }
                 
                 HStack{
@@ -47,7 +48,6 @@ struct SimulationSellingCard: View {
                     
                     Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.stockSellAmount))")
                         .font(.nunito(.body, .regular))
-                        .foregroundStyle(amountState.textColor)
                 }
                 
                 HStack{
@@ -56,7 +56,7 @@ struct SimulationSellingCard: View {
                         
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.currentStockPrice, raise: priceRaise)
+                    HanvestNumberStepper(value: $viewModel.toSellStockPrice, raise: priceRaise)
                     
                 }
                 
@@ -79,7 +79,11 @@ struct SimulationSellingCard: View {
     VStack {
         SimulationSellingCard(viewModel: viewmodel)
             .onAppear(){
-                viewmodel.setup(selectedStockIDName: "BBRI", currentStockPrice: 5000)
+                viewmodel.setup(
+                    selectedStockIDName: "BBRI",
+                    initialStockPrice: 4000,
+                    currentStockPrice: 5000
+                )
             }
     }
     .padding(.horizontal, 16)

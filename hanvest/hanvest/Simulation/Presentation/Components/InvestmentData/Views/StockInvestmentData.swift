@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct StockInvestmentData: View {
-    @Binding var stockNameID: String
-    @Binding var userStockInvestment: Int
-    @Binding var userTotalEquity: Int
+    var selectedStock: SimulationStockEntity
     
     @StateObject private var viewmodel: StockInvestmentDataViewModels = .init()
     
@@ -19,9 +17,9 @@ struct StockInvestmentData: View {
             VStack {
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Your Investment in \(stockNameID)")
+                        Text("Your Investment in \(selectedStock.stockIDName)")
                             .font(.nunito(.subhead))
-                        Text(HanvestPriceFormatter.formatIntToIDR(userStockInvestment))
+                        Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userStockInvestment))
                             .font(.nunito(.subhead, .bold))
                     }
                     
@@ -31,13 +29,13 @@ struct StockInvestmentData: View {
                         .padding(.horizontal, 10)
                     
                     VStack(alignment: .trailing) {
-                        Text("Total Equity in \(stockNameID)")
+                        Text("Total Equity in \(selectedStock.stockIDName)")
                             .font(.nunito(.subhead))
-                        Text(HanvestPriceFormatter.formatIntToIDR(userTotalEquity))
+                        Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userTotalEquity))
                             .font(.nunito(.subhead, .bold))
                     }
                     
-
+                    
                 }
                 .padding(.horizontal, 10)
                 .padding(.vertical, 12)
@@ -47,8 +45,8 @@ struct StockInvestmentData: View {
                         Text("P/L: Rp ")
                             .font(.nunito(.subhead, .bold))
                         HanvestProfitLossLabelView(
-                            initialValue: $userStockInvestment,
-                            currentValue: $userTotalEquity
+                            initialValue: $viewmodel.userStockInvestment,
+                            currentValue: $viewmodel.userTotalEquity
                         )
                     }
                     .padding(.vertical, 10)
@@ -69,6 +67,7 @@ struct StockInvestmentData: View {
                 )
                 
             }
+            
         }
         .background(
             RoundedRectangle(cornerRadius: 12)
@@ -78,18 +77,26 @@ struct StockInvestmentData: View {
                         .fill(.mineShaft50)
                 )
         )
+        .onAppear(){
+            viewmodel.setup(
+                selectedStockIDName: selectedStock.stockIDName,
+                stockPrice: selectedStock.stockPrice.last?.price ?? 0
+            )
+        }
+        .onChange(of: selectedStock.stockPrice) { oldValue, newValue in
+            viewmodel.setup(
+                selectedStockIDName: selectedStock.stockIDName,
+                stockPrice: selectedStock.stockPrice.last?.price ?? 0
+            )
+        }
     }
 }
 
 #Preview {
-    @Previewable @State var stockNameID: String = "BBRI"
-    @Previewable @State var userInvestment: Int = 1000
-    @Previewable @State var userTotalEquity: Int = 3000
+    @Previewable @State var selectedStock = SimulationStockEntity.getMockData().first!
     
     StockInvestmentData(
-        stockNameID: $stockNameID,
-        userStockInvestment: $userInvestment,
-        userTotalEquity: $userTotalEquity
+        selectedStock: selectedStock
     )
     .padding(20)
 }
