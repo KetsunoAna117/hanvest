@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HanvestSimulationView: View {
     let router: any AppRouterProtocol
-    @StateObject private var viewmodel = HanvestSimulationViewModel()
+    @EnvironmentObject private var viewmodel: HanvestSimulationViewModel
     
     var body: some View {
         ZStack {
@@ -17,16 +17,19 @@ struct HanvestSimulationView: View {
                 VStack {
                     HanvestStockOptionList(
                         selectedStockID: $viewmodel.selectedStockID,
-                        simulationStockList: viewmodel.stockList
+                        simulationStockList: viewmodel.stockList,
+                        onPressed: { data in
+                            print("[!] Selected Stock: \(data)")
+                        }
                     )
                     
                     Divider()
                     
                     SimulationStockDetailsView(
-                        router: router,
-                        selectedStock: $viewmodel.selectedStock
+                        router: router
                     )
                     .padding(.top, 12)
+                    .environmentObject(viewmodel)
                     
                     Divider()
                         .padding(.top, -6)
@@ -37,17 +40,13 @@ struct HanvestSimulationView: View {
                                 size: .medium,
                                 style: .filledIncorrect(isDisabled: false),
                                 title: "Sell") {
-                                    if let selectedStock = viewmodel.selectedStock {
-                                        router.push(.simulationSellingConfirmation(stock: selectedStock))
-                                    }
+                                    router.push(.simulationSellingConfirmation)
                                 }
                             HanvestButtonDefault(
                                 size: .medium,
                                 style: .filledCorrect(isDisabled: false),
                                 title: "Buy") {
-                                    if let selectedStock = viewmodel.selectedStock {
-                                        router.push(.simulationBuyingConfirmation(stock: selectedStock))
-                                    }
+                                    router.push(.simulationBuyingConfirmation)
                                 }
                         }
                     }
@@ -57,9 +56,6 @@ struct HanvestSimulationView: View {
                     Divider()
                 }
             }
-        }
-        .onAppear(){
-            viewmodel.setup()
         }
     }
 }

@@ -9,41 +9,43 @@ import SwiftUI
 
 struct HanvestSellStockScreenView: View {
     let router: any AppRouterProtocol
-    let stock: SimulationStockEntity
     
+    @EnvironmentObject var simulationViewModel: HanvestSimulationViewModel
     @StateObject var viewmodel: SellingStockDataViewModel = .init()
     
     var body: some View {
-        VStack {
-            HanvestNavigationBar(
-                label: "Sell \(stock.stockIDName)",
-                leadingIcon: Image(systemName: "chevron.left"),
-                leadingAction: {
-                    router.pop()
-                }
-            )
-            
-            VStack(spacing: 24) {
-                StockHeaderInformationView(
-                    stockCodeName: stock.stockIDName,
-                    stockName: stock.stockName,
-                    initialPrice: $viewmodel.initialStockPrice,
-                    currentPrice: $viewmodel.currentStockPrice
+        if let stock = simulationViewModel.selectedStock {
+            VStack {
+                HanvestNavigationBar(
+                    label: "Sell \(stock.stockIDName)",
+                    leadingIcon: Image(systemName: "chevron.left"),
+                    leadingAction: {
+                        router.pop()
+                    }
                 )
                 
-                SimulationSellingCard(viewModel: viewmodel)
+                VStack(spacing: 24) {
+                    StockHeaderInformationView(
+                        stockCodeName: stock.stockIDName,
+                        stockName: stock.stockName,
+                        initialPrice: $viewmodel.initialStockPrice,
+                        currentPrice: $viewmodel.currentStockPrice
+                    )
+                    
+                    SimulationSellingCard(viewModel: viewmodel)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 24)
+                
+                Spacer()
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 24)
-            
-            Spacer()
-        }
-        .onAppear(){
-            viewmodel.setup(
-                selectedStockIDName: "BBRI",
-                initialStockPrice: stock.stockPrice.first?.price ?? 0,
-                currentStockPrice: stock.stockPrice.last?.price ?? 0
-            )
+            .onAppear(){
+                viewmodel.setup(
+                    selectedStockIDName: "BBRI",
+                    initialStockPrice: stock.stockPrice.first?.price ?? 0,
+                    currentStockPrice: stock.stockPrice.last?.price ?? 0
+                )
+            }
         }
     }
 }
@@ -51,7 +53,7 @@ struct HanvestSellStockScreenView: View {
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
     @Previewable @State var startScreen: Screen? =
-        .simulationSellingConfirmation(stock: SimulationStockEntity.getMockData().first!)
+        .simulationSellingConfirmation
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

@@ -11,6 +11,8 @@ class AppRouter: AppRouterProtocol {
     @Published var path: NavigationPath = NavigationPath()
     @Published var popup: Popup?
     
+    @Published var simulationViewModel: HanvestSimulationViewModel? = HanvestSimulationViewModel()
+    
     func push(_ screen: Screen) {
         path.append(screen)
     }
@@ -55,7 +57,16 @@ class AppRouter: AppRouterProtocol {
         case .main:
             ZStack {
                 Color.background.ignoresSafeArea()
-                MainScreenView(router: self)
+                if let simulationViewModel = simulationViewModel {
+                    MainScreenView(router: self)
+                        .environmentObject(simulationViewModel)
+                }
+                else {
+                    Text("Error! Can't load the App")
+                        .onAppear(){
+                            print("[ERROR]: Simulation View Model is nil")
+                        }
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -99,17 +110,35 @@ class AppRouter: AppRouterProtocol {
             }
             .navigationBarBackButtonHidden()
             
-        case .simulationBuyingConfirmation(let stock):
+        case .simulationBuyingConfirmation:
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestBuyStockScreenView(router: self, stock: stock)
+                if let simulationViewModel = simulationViewModel {
+                    HanvestBuyStockScreenView(router: self)
+                        .environmentObject(simulationViewModel)
+                }
+                else {
+                    Text("Error! Can't load the App")
+                        .onAppear(){
+                            print("[ERROR]: Simulation View Model is nil")
+                        }
+                }
             }
             .navigationBarBackButtonHidden()
             
-        case .simulationSellingConfirmation(let stock):
+        case .simulationSellingConfirmation:
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSellStockScreenView(router: self, stock: stock)
+                if let simulationViewModel = simulationViewModel {
+                    HanvestSellStockScreenView(router: self)
+                        .environmentObject(simulationViewModel)
+                }
+                else {
+                    Text("Error! Can't load the App")
+                        .onAppear(){
+                            print("[ERROR]: Simulation View Model is nil")
+                        }
+                }
             }
             .navigationBarBackButtonHidden()
             
