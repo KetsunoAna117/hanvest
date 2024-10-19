@@ -32,7 +32,6 @@ struct HanvestConfirmationFeedbackView: View {
             .padding(.horizontal, 20)
             .padding(.top, 12)
             .padding(.bottom, 54)
-            
         }
         .frame(maxWidth: .infinity)
         .background(state.backgroundColor)
