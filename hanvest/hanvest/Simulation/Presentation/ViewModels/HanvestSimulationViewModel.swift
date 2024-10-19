@@ -89,8 +89,8 @@ class HanvestSimulationViewModel: ObservableObject {
             self.stockList[randomStockIncrease].stockPrice.append(newPrice)
             print("[TEST] New Price added for \(self.stockList[randomStockIncrease].stockIDName) with new price: \(self.stockList[randomStockIncrease].stockPrice.last?.price ?? 0)")
             
-            let idx = self.getSelectedStockIdx(selectedStockID: self.selectedStockID)
-            self.updateSelectedPrice(idx: idx)
+//            let idx = self.getSelectedStockIdx(selectedStockID: self.selectedStockID)
+//            self.updateSelectedPrice(idx: idx)
             
         }
     }

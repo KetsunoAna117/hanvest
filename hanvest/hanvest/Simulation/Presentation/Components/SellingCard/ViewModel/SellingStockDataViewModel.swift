@@ -31,7 +31,6 @@ class SellingStockDataViewModel: ObservableObject{
     }
     
     @Published var stockSellAmount: Int
-    
     @Published var initialStockPrice: Int
     @Published var currentStockPrice: Int
     
@@ -54,6 +53,10 @@ class SellingStockDataViewModel: ObservableObject{
     ){
         self.selectedStockIDName = selectedStockIDName
         self.availableLot = calculateOwnedLot(selectedStockIDName: selectedStockIDName)
+        self.toSellStockPrice = currentStockPrice
+        self.stockSellLot = stockSellLot
+        
+        self.initialStockPrice = initialStockPrice
         self.currentStockPrice = currentStockPrice
         validateStockSellAmount()
     }
@@ -106,6 +109,14 @@ class SellingStockDataViewModel: ObservableObject{
             return .Affordable
         } else {
             return .Exceeded
+        }
+    }
+    
+    func determineIsDisabledButtonState() -> Bool {
+        if stockSellLot <= availableLot && stockSellAmount > 0 {
+            return false
+        } else {
+            return true
         }
     }
     

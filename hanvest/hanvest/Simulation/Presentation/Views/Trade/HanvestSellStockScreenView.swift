@@ -28,8 +28,8 @@ struct HanvestSellStockScreenView: View {
                     StockHeaderInformationView(
                         stockCodeName: stock.stockIDName,
                         stockName: stock.stockName,
-                        initialPrice: $viewmodel.initialStockPrice,
-                        currentPrice: $viewmodel.currentStockPrice
+                        initialPrice: $simulationViewModel.displayActiveStockInitialPrice,
+                        currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
                     )
                     
                     SimulationSellingCard(viewModel: viewmodel)
@@ -38,10 +38,40 @@ struct HanvestSellStockScreenView: View {
                 .padding(.top, 24)
                 
                 Spacer()
+                
+                HanvestButtonDefault(
+                    style: .filledCorrect(
+                        isDisabled: viewmodel.determineIsDisabledButtonState()
+                    ),
+                    title: "Sell",
+                    action: {
+                        router.presentOverlay(
+                            .withSellConfirmationPopup(
+                                viewmodel: viewmodel,
+                                confirmAction: {
+                                    router.push(
+                                        .transactionStatus(
+                                            transaction: TransactionStatusViewModel(
+                                                lotAmount: viewmodel.stockSellLot,
+                                                stockPrice: viewmodel.toSellStockPrice,
+                                                selectedStockIDName: viewmodel.selectedStockIDName,
+                                                transactionType: .buy
+                                            )
+                                        )
+                                    )
+                                },
+                                cancelAction: {
+                                    router.dismissPopup()
+                                }
+                            )
+                        )
+                    }
+                )
+                .padding(.bottom, 48)
             }
             .onAppear(){
                 viewmodel.setup(
-                    selectedStockIDName: "BBRI",
+                    selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0
                 )
