@@ -13,6 +13,7 @@ struct Module02View: View {
     // Constants
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
+    let lastPage = Module02HeaderWithDetailText.page10.rawValue
     
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
@@ -135,7 +136,7 @@ struct Module02View: View {
     }
     
     private func goToNextPage() {
-        if currentTab < Module02PageState.pageClaimReward.rawValue {
+        if currentTab < lastPage {
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
@@ -151,15 +152,13 @@ struct Module02View: View {
                 pageState = .pageCheckout
             case Module02MultipleChoice.page07.rawValue:
                 pageState = .pagePay
-            case Module02PageState.pageClaimReward.rawValue:
-                pageState = .pageClaimReward
             default:
                 pageState = .pageContinue
         }
     }
     
     private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / (Module02PageState.pageClaimReward.rawValue))
+        progressBarCurrValue += (progressBarMaxValue / lastPage)
     }
     
     private func checkIsDisabled() -> Bool {
@@ -185,8 +184,8 @@ struct Module02View: View {
     }
     
     private func adjustPageStateRawValue(rawValue: Int) -> Int {
-        if rawValue > Module02PageState.pageClaimReward.rawValue {
-            return (rawValue / Module02PageState.pageClaimReward.rawValue)
+        if rawValue > lastPage {
+            return (rawValue / lastPage)
         } else {
             return rawValue
         }

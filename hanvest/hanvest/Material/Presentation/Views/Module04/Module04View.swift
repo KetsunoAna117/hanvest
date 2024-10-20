@@ -13,6 +13,7 @@ struct Module04View: View {
     // Constants
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
+    let lastPage = Module04NumberedListContent.page11.rawValue
     
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
@@ -129,7 +130,7 @@ struct Module04View: View {
     }
     
     private func goToNextPage() {
-        if currentTab < Module04PageState.pageClaimReward.rawValue {
+        if currentTab < lastPage {
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
@@ -142,15 +143,13 @@ struct Module04View: View {
     
     private func changePageState() {
         switch currentTab {
-            case Module04PageState.pageClaimReward.rawValue:
-                pageState = .pageClaimReward
             default:
                 pageState = .pageContinue
         }
     }
     
     private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / (Module04PageState.pageClaimReward.rawValue))
+        progressBarCurrValue += (progressBarMaxValue / lastPage)
     }
     
     private func checkIsDisabled() -> Bool {

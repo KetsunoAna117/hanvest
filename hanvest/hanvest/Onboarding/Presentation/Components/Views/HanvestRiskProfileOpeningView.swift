@@ -10,7 +10,7 @@ import SwiftUI
 struct HanvestRiskProfileOpeningView: View {
     var body: some View {
         ZStack {
-            VStack(spacing: 104) {
+            VStack(spacing: 85) {
                 VStack(spacing: 8) {
                     Text("Welcome to Hanvesting")
                         .font(.nunito(.title1, .bold))
@@ -22,10 +22,7 @@ struct HanvestRiskProfileOpeningView: View {
                 }
                 .frame(maxWidth: .infinity)
                 
-                // TODO: replace the rectangle with logo image
-                Rectangle()
-                    .frame(maxWidth: 180, maxHeight: 180)
-                    .cornerRadius(12)
+                Image("onboarding-hanvest-app-logo")
             }
             .frame(maxWidth: .infinity)
             .multilineTextAlignment(.center)
