@@ -9,69 +9,100 @@ import SwiftUI
 
 struct CompletionPageView: View {
     // Constant
+    let router: any AppRouterProtocol
     let completionItem: CompletionEntityType
     
     var body: some View {
-        VStack(spacing: 54){
-            VStack(spacing: 78) {
-                VStack(spacing: 12) {
-                    Text("Congratulations!")
-                        .font(.nunito(.title1, .bold))
-                        .frame(maxWidth: .infinity)
-                    
-                    Image(completionItem.value.badgeImageName)
-                }
-                
-                VStack(spacing: 0) {
-                    HStack {
-                        Text(
-                            "You earned "
-                        ).font(.nunito(.body)) +
-                        Text(
-                            "\"\(completionItem.value.badgeName)\""
-                        ).font(.nunito(.body, .bold))
-                    }
-                    .frame(maxWidth: .infinity)
-                    
-                    HStack {
-                        Text(
-                            "for completing "
-                        ).font(.nunito(.body)) +
-                        Text(
-                            "\"\(completionItem.value.achievedAfterCompleting)\""
-                        ).font(.nunito(.body, .bold))
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                .frame(maxWidth: .infinity)
-            }
-            .padding(.vertical, 20)
-            .completionCardStyle()
+        ZStack {
+            Color.background
             
             ZStack {
-                VStack(spacing: 4) {
-                    Text("Bonus:")
-                        .font(.nunito(.body))
-                        .frame(maxWidth: .infinity)
+                VStack(spacing: 48) {
+                    VStack(spacing: 54){
+                        VStack(spacing: 78) {
+                            VStack(spacing: 15) {
+                                Text("Congratulations!")
+                                    .font(.nunito(.title1, .bold))
+                                    .frame(maxWidth: .infinity)
+                                
+                                Image(completionItem.value.badgeImageName)
+                            }
+                            
+                            VStack(spacing: 0) {
+                                HStack {
+                                    Text(
+                                        "You earned "
+                                    ).font(.nunito(.body)) +
+                                    Text(
+                                        "\"\(completionItem.value.badgeName)\""
+                                    ).font(.nunito(.body, .bold))
+                                }
+                                .frame(maxWidth: .infinity)
+                                
+                                HStack {
+                                    Text(
+                                        "for completing "
+                                    ).font(.nunito(.body)) +
+                                    Text(
+                                        "\"\(completionItem.value.achievedAfterCompleting)\""
+                                    ).font(.nunito(.body, .bold))
+                                }
+                                .frame(maxWidth: .infinity)
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .padding(.vertical, 20)
+                        .completionCardStyle()
+                        
+                        ZStack {
+                            VStack(spacing: 4) {
+                                Text("Bonus:")
+                                    .font(.nunito(.body))
+                                    .frame(maxWidth: .infinity)
+                                
+                                Text(HanvestPriceFormatter.formatIntToIDR(completionItem.value.bonusMoney))
+                                    .font(.nunito(.title1, .bold))
+                                    .frame(maxWidth: .infinity)
+                                
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 46)
+                        .completionCardStyle()
+                    }
                     
-                    Text(HanvestPriceFormatter.formatIntToIDR(completionItem.value.bonusMoney))
-                        .font(.nunito(.title1, .bold))
-                        .frame(maxWidth: .infinity)
+                    ZStack {
+                        HanvestButtonDefault(
+                            title: "Claim Reward"
+                        ) {
+                            router.popToRoot()
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
                     
                 }
                 .frame(maxWidth: .infinity)
             }
-            .padding(.vertical, 12)
-            .padding(.horizontal, 46)
-            .completionCardStyle()
+            .padding(.horizontal, 20)
+            .padding(.bottom, 54)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
-        .frame(maxWidth: .infinity)
+        .ignoresSafeArea()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
 #Preview {
-    CompletionPageView(
-        completionItem: .module01
-    )
-        .padding(.horizontal, 20)
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .moduleCompletion(completionItem: .module01)
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+        }
+    }
 }

@@ -27,16 +27,14 @@ struct Module02View: View {
             
             ZStack {
                 VStack(spacing: 49) {
-                    if pageState != .pageClaimReward {
-                        ProgressBarWithXMarkView(
-                            progressBarMinValue: progressBarMinValue,
-                            progressBarMaxValue: progressBarMaxValue,
-                            action: {
-                                router.popToRoot()
-                            },
-                            progressBarCurrValue: $progressBarCurrValue
-                        )
-                    }
+                    ProgressBarWithXMarkView(
+                        progressBarMinValue: progressBarMinValue,
+                        progressBarMaxValue: progressBarMaxValue,
+                        action: {
+                            router.popToRoot()
+                        },
+                        progressBarCurrValue: $progressBarCurrValue
+                    )
                     
                     VStack(spacing: 48) {
                         TabView(selection: $currentTab) {
@@ -105,11 +103,6 @@ struct Module02View: View {
                                 }
                             }
                             
-                            CompletionPageView(completionItem: .module02)
-                                .tag(Module02PageState.pageClaimReward.rawValue)
-                                .transition(.slide)
-                                .frame(maxHeight: .infinity, alignment: .bottom)
-                            
                         }
                         .frame(maxWidth: .infinity)
                         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -148,7 +141,7 @@ struct Module02View: View {
                 updateProgressBarValue()
             }
         } else {
-            // TODO: direct to the corresponding page
+            router.push(.moduleCompletion(completionItem: .module02))
         }
     }
     

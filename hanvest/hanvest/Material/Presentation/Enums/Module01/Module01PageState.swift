@@ -9,14 +9,12 @@ import SwiftUI
 
 enum Module01PageState: Int {
     case pageModuleMaterial
-    case pageClaimReward = 2
+    case pageClaimReward = 1
     
     var buttonStringValue: String {
         switch self {
-            case .pageModuleMaterial:
+            case .pageModuleMaterial, .pageClaimReward:
                 "Continue"
-            case .pageClaimReward:
-                "Claim Reward"
         }
     }
 }

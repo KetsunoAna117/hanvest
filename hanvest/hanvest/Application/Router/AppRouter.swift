@@ -216,7 +216,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .moduleCompletion(let completionItem):
             ZStack {
                 Color.background.ignoresSafeArea()
-                CompletionPageView(completionItem: completionItem)
+                CompletionPageView(router: self, completionItem: completionItem)
             }
             .navigationBarBackButtonHidden()
         }

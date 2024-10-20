@@ -33,16 +33,14 @@ struct Module01View: View {
             
             ZStack {
                 VStack(spacing: 49) {
-                    if pageState == .pageModuleMaterial {
-                        ProgressBarWithXMarkView(
-                            progressBarMinValue: progressBarMinValue,
-                            progressBarMaxValue: progressBarMaxValue,
-                            action: {
-                                router.popToRoot()
-                            },
-                            progressBarCurrValue: $progressBarCurrValue
-                        )
-                    }
+                    ProgressBarWithXMarkView(
+                        progressBarMinValue: progressBarMinValue,
+                        progressBarMaxValue: progressBarMaxValue,
+                        action: {
+                            router.popToRoot()
+                        },
+                        progressBarCurrValue: $progressBarCurrValue
+                    )
                     
                     if plantingViewVisibility == .isHidden {
                         VStack(spacing: 48) {
@@ -60,10 +58,6 @@ struct Module01View: View {
                                         
                                     }
                                 
-                                CompletionPageView(completionItem: .module01)
-                                    .tag(Module01PageState.pageClaimReward.rawValue)
-                                    .transition(.slide)
-                                    .frame(maxHeight: .infinity, alignment: .bottom)
                             }
                             .frame(maxWidth: .infinity)
                             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -101,7 +95,7 @@ struct Module01View: View {
         if currentTab < Module01PageState.pageClaimReward.rawValue {
             currentTab += 1
         } else {
-            // TODO: direct to the corresponding page
+            router.push(.moduleCompletion(completionItem: .module01))
         }
     }
     

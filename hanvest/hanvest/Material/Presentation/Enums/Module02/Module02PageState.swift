@@ -15,14 +15,12 @@ enum Module02PageState: Int {
     
     var buttonStringValue: String {
         switch self {
-            case .pageContinue:
+            case .pageContinue, .pageClaimReward:
                 "Continue"
             case .pageCheckout:
                 "Checkout"
             case .pagePay:
                 "Pay"
-            case .pageClaimReward:
-                "Claim Reward"
         }
     }
 

@@ -28,17 +28,15 @@ struct Module04View: View {
             
             ZStack {
                 VStack(spacing: 49) {
-                    if pageState != .pageClaimReward {
-                        ProgressBarWithXMarkView(
-                            progressBarMinValue: progressBarMinValue,
-                            progressBarMaxValue: progressBarMaxValue,
-                            action: {
-                                router.popToRoot()
-                            },
-                            progressBarCurrValue: $progressBarCurrValue
-                        )
-                        .padding(.horizontal, (showingAnswer == .isShowing) ? 20 : 0)
-                    }
+                    ProgressBarWithXMarkView(
+                        progressBarMinValue: progressBarMinValue,
+                        progressBarMaxValue: progressBarMaxValue,
+                        action: {
+                            router.popToRoot()
+                        },
+                        progressBarCurrValue: $progressBarCurrValue
+                    )
+                    .padding(.horizontal, (showingAnswer == .isShowing) ? 20 : 0)
                     
                     VStack(spacing: 48) {
                         TabView(selection: $currentTab) {
@@ -83,11 +81,6 @@ struct Module04View: View {
                             .tag(Module04NumberedListContent.page11.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
-                            
-                            CompletionPageView(completionItem: .module04)
-                                .tag(Module04PageState.pageClaimReward.rawValue)
-                                .transition(.slide)
-                                .frame(maxHeight: .infinity, alignment: .bottom)
                             
                         }
                         .frame(maxWidth: .infinity)
@@ -143,7 +136,7 @@ struct Module04View: View {
                 viewModel.resetUserSelectedAnswer()
             }
         } else {
-            // TODO: direct to the corresponding page
+            router.push(.moduleCompletion(completionItem: .module04))
         }
     }
     
