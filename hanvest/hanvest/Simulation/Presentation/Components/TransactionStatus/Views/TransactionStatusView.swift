@@ -42,7 +42,7 @@ private struct TransactionStatusLogo: View {
     @State private var isAnimating = false
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .center) {
             // Outer Circle with scaling animation
             Circle()
                 .fill(Color.blizzardBlue200)
@@ -55,7 +55,7 @@ private struct TransactionStatusLogo: View {
                 )
             
             // Inner circle with checkmark
-            ZStack {
+            ZStack(alignment: .center) {
                 Circle()
                     .fill(Color.blizzardBlue400)
                     .frame(width: 250, height: 250)
