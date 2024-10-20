@@ -8,8 +8,10 @@
 import Foundation
 
 struct LocalUserRepository: UserRepository {
+    let modelContext: SwiftDataContextManager
+    
     func get() -> UserSchema {
-        return UserSchema()
+        return modelContext.context.
     }
     
     func update(_ userSchema: UserSchema) {
