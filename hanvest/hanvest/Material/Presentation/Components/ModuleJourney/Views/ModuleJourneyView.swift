@@ -16,7 +16,7 @@ struct ModuleJourneyView: View {
     let moduleSpacing: CGFloat = 4
     
     // View Model
-    @StateObject private var viewModel = ModuleJourneyViewModel()
+    @ObservedObject var viewModel: ModuleJourneyViewModel
     
     @ViewBuilder
     var moduleListView: some View {
