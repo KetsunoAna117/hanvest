@@ -47,10 +47,12 @@ class AppRouter: AppRouterProtocol {
         case .onboarding:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                VStack {
+                    Text("Not yet Implemented!")
+                    HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                        self.pop()
+                    })
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -160,20 +162,24 @@ class AppRouter: AppRouterProtocol {
         case .glossary:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                VStack {
+                    Text("Not yet Implemented!")
+                    HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                        self.pop()
+                    })
+                }
             }
             .navigationBarBackButtonHidden()
             
         case .profile:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                VStack {
+                    Text("Not yet Implemented!")
+                    HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                        self.pop()
+                    })
+                }
             }
             .navigationBarBackButtonHidden()
             

@@ -28,7 +28,7 @@ struct ModuleJourneyView: View {
                     if moduleNumber == 2 {
                         Image("hanvest-app-mascot")
                             .resizable()
-                            .frame(width: 95, height: 106)
+                            .frame(width: 79, height: 106)
                             .padding(.trailing, 157.94)
                     }
                     
