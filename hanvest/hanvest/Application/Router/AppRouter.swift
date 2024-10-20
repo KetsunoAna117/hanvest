@@ -73,40 +73,28 @@ class AppRouter: AppRouterProtocol {
         case .materialModule01:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                Module01View(router: self)
             }
             .navigationBarBackButtonHidden()
             
         case .materialModule02:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                Module02View(router: self)
             }
             .navigationBarBackButtonHidden()
             
         case .materialModule03:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                Module03View(router: self)
             }
             .navigationBarBackButtonHidden()
             
         case .materialModule04:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                Module04View(router: self)
             }
             .navigationBarBackButtonHidden()
             

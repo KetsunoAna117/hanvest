@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Module03View: View {
+    let router: any AppRouterProtocol
+    
     // Constants
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
@@ -146,5 +148,23 @@ struct Module03View: View {
 }
 
 #Preview {
-    Module03View()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .materialModule03
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }
