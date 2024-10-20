@@ -12,12 +12,12 @@ protocol GetModuleToDisplay {
 struct GetModuleToDisplayImpl: GetModuleToDisplay {
     func execute(userRisk: RiskProfileType) -> [ModuleNavigatiorEntity] {
         return [
-            ModuleNavigatiorEntity(moduleID: "module01", moduleScreenID: .materialModule01),
-            ModuleNavigatiorEntity(moduleID: "module02", moduleScreenID: .materialModule02),
-            ModuleNavigatiorEntity(moduleID: "module03", moduleScreenID: .materialModule03),
-            ModuleNavigatiorEntity(moduleID: "module04", moduleScreenID: .materialModule04),
-            ModuleNavigatiorEntity(moduleID: "module05", moduleScreenID: .main),
-            ModuleNavigatiorEntity(moduleID: "module06", moduleScreenID: .main)
+            ModuleNavigatiorEntity(moduleID: "module01", moduleScreenID: .materialModule01, state: .next),
+            ModuleNavigatiorEntity(moduleID: "module02", moduleScreenID: .materialModule02, state: .next),
+            ModuleNavigatiorEntity(moduleID: "module03", moduleScreenID: .materialModule03, state: .next),
+            ModuleNavigatiorEntity(moduleID: "module04", moduleScreenID: .materialModule04, state: .next),
+            ModuleNavigatiorEntity(moduleID: "module05", moduleScreenID: .main, state: .next),
+            ModuleNavigatiorEntity(moduleID: "module06", moduleScreenID: .main, state: .next)
         ]
     }
     

@@ -21,9 +21,11 @@ struct ModuleJourneyView: View {
     @ViewBuilder
     var moduleListView: some View {
         VStack(spacing: 4) {
-            ForEach(1...viewModel.numberOfModules, id: \.self) { number in
+            ForEach(viewModel.moduleProgressList, id: \.moduleID) { module in
+                let moduleNumber = viewModel.getModuleIdx(module: module) + 1
+                
                 HStack {
-                    if number == 2 {
+                    if moduleNumber == 2 {
                         Image("hanvest-app-mascot")
                             .resizable()
                             .frame(width: 95, height: 106)
@@ -31,27 +33,24 @@ struct ModuleJourneyView: View {
                     }
                     
                     HanvestModuleNumberButton(
-                        style: viewModel.getUserModuleProgress(
-                            moduleIndex: number
-                        ),
-                        number: number,
+                        style: module.state,
+                        number: moduleNumber,
                         action: {
-                            
-                            // TODO: Do action for every module, the viewModel.updateUserModuleProgressIfDone should be triggered only when a module is Done
-                            viewModel.updateUserModuleProgressIfDone(
-                                moduleIndex: number
-                            )
-                            print("Button number \(number) pressed")
+                            router.push(module.moduleScreenID)
+                            print("[!] Module \(moduleNumber + 1) is pressed!")
                         }
                     )
                 }
                 .padding(10)
-                .frame(maxWidth: .infinity, alignment: moduleNumberButtonAlignmentLayout(for: number))
+                .frame(maxWidth: .infinity, alignment: moduleNumberButtonAlignmentLayout(for: moduleNumber))
                 .frame(height: 100)
             }
         }
         .padding(.horizontal, 20)
         .frame(maxWidth: .infinity)
+        .onAppear(){
+            viewModel.setup()
+        }
     }
     
     var body: some View {

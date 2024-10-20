@@ -8,6 +8,7 @@
 import Foundation
 
 struct CompletionEntity {
+    var moduleID: String
     var badgeName: String
     var badgeImageName: String
     var achievedAfterCompleting: String
@@ -26,6 +27,7 @@ enum CompletionEntityType {
         switch self {
         case .module01:
             return CompletionEntity(
+                moduleID: "module01",
                 badgeName: "Basvestment",
                 badgeImageName: "badge-module-01",
                 achievedAfterCompleting: "Module 1",
@@ -33,6 +35,7 @@ enum CompletionEntityType {
             )
         case .module02:
             return CompletionEntity(
+                moduleID: "module02",
                 badgeName: "LvA",
                 badgeImageName: "badge-module-02",
                 achievedAfterCompleting: "Module 2",
@@ -40,6 +43,7 @@ enum CompletionEntityType {
             )
         case .module03:
             return CompletionEntity(
+                moduleID: "module03",
                 badgeName: "Risk Analyzer",
                 badgeImageName: "badge-module-03",
                 achievedAfterCompleting: "Module 3",
@@ -47,6 +51,7 @@ enum CompletionEntityType {
             )
         case .module04:
             return CompletionEntity(
+                moduleID: "module04",
                 badgeName: "Profile Hunter",
                 badgeImageName: "badge-module-04",
                 achievedAfterCompleting: "Module 4",
@@ -54,6 +59,7 @@ enum CompletionEntityType {
             )
         case .module05:
             return CompletionEntity(
+                moduleID: "module05",
                 badgeName: "Investor",
                 badgeImageName: "badge-module-05",
                 achievedAfterCompleting: "Module 5",
@@ -61,6 +67,7 @@ enum CompletionEntityType {
             )
         case .module06:
             return CompletionEntity(
+                moduleID: "module06",
                 badgeName: "Investor-II",
                 badgeImageName: "badge-module-06",
                 achievedAfterCompleting: "Module 6",
