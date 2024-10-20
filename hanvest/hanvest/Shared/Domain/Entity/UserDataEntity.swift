@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserData {
+struct UserDataEntity {
     var userName: String
     var userBalance: Int
     var userRiskProfile: RiskProfileResultState
@@ -15,9 +15,9 @@ struct UserData {
     var transactionQueue: [StockInvestmentTransaction]
 }
 
-extension UserData {
-    static func getMockupUserData() -> UserData {
-        return UserData(
+extension UserDataEntity {
+    static func getMockupUserData() -> UserDataEntity {
+        return UserDataEntity(
             userName: "Bryon",
             userBalance: 100000000,
             userRiskProfile: .aggresive,

@@ -6,11 +6,11 @@
 //
 
 protocol GetUserData {
-    func execute() -> UserData
+    func execute() -> UserDataEntity
 }
 
 struct GetUserDataImpl: GetUserData {
-    func execute() -> UserData {
-        return UserData.getMockupUserData()
+    func execute() -> UserDataEntity {
+        return UserDataEntity.getMockupUserData()
     }
 }

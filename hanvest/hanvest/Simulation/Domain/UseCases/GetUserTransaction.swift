@@ -13,7 +13,7 @@ protocol GetUserTransaction {
 
 struct GetUserTransactionImpl: GetUserTransaction {
     func execute(stockIDName: String) -> [StockInvestmentTransaction] {
-        let user = UserData.getMockupUserData()
+        let user = UserDataEntity.getMockupUserData()
         
         if let userStockInvestmentData = user.userInvestmentTransaction[stockIDName] {
             return userStockInvestmentData
