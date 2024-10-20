@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-class AppRouter: AppRouterProtocol {
+class AppRouter: AppRouterProtocol, ObservableObject {
     @Published var path: NavigationPath = NavigationPath()
     @Published var popup: Popup?
     
-    @Published var simulationViewModel: HanvestSimulationViewModel? = .init()
+    @Published var simulationViewModel: HanvestSimulationViewModel?
     
     func push(_ screen: Screen) {
         path.append(screen)
@@ -65,12 +65,14 @@ class AppRouter: AppRouterProtocol {
                 }
                 else {
                     Text("Error! Can't load the App")
-                        .onAppear(){
-                            print("[ERROR]: Simulation View Model is nil")
-                        }
                 }
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                if self.simulationViewModel == nil {
+                    self.simulationViewModel = .init()
+                }
+            }
             
         case .materialModule01:
             ZStack {
@@ -119,12 +121,14 @@ class AppRouter: AppRouterProtocol {
                 }
                 else {
                     Text("Error! Can't load the App")
-                        .onAppear(){
-                            print("[ERROR]: Simulation View Model is nil")
-                        }
                 }
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                if self.simulationViewModel == nil {
+                    self.simulationViewModel = .init()
+                }
+            }
             
         case .simulationSellingConfirmation:
             ZStack {
@@ -145,12 +149,14 @@ class AppRouter: AppRouterProtocol {
                 }
                 else {
                     Text("Error! Can't load the App")
-                        .onAppear(){
-                            print("[ERROR]: Simulation View Model is nil")
-                        }
                 }
             }
             .navigationBarBackButtonHidden()
+            .onAppear() {
+                if self.simulationViewModel == nil {
+                    self.simulationViewModel = .init()
+                }
+            }
             
         case .news:
             ZStack {
