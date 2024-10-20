@@ -33,7 +33,7 @@ struct Module04View: View {
                             progressBarMinValue: progressBarMinValue,
                             progressBarMaxValue: progressBarMaxValue,
                             action: {
-                                // TODO: DO SOMETHING
+                                router.popToRoot()
                             },
                             progressBarCurrValue: $progressBarCurrValue
                         )
