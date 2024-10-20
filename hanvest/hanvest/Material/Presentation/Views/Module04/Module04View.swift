@@ -82,7 +82,7 @@ struct Module04View: View {
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
                             
-                            CompletionPageView(completionItem: CompletionItem.module04)
+                            CompletionPageView(completionItem: .module04)
                                 .tag(Module04PageState.pageClaimReward.rawValue)
                                 .transition(.slide)
                                 .frame(maxHeight: .infinity, alignment: .bottom)

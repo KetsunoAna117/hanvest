@@ -9,10 +9,10 @@ import Foundation
 
 @Observable
 class RiskProfileViewModel {
-    var resultState: RiskProfileResultState = .conservative
+    var resultState: RiskProfileType = .conservative
     var userSelectedAnswers = Array(repeating: "", count: RiskProfileQuestionsAndOptions.allCases.count)
     
-    func calculateRiskProfile() -> RiskProfileResultState {
+    func calculateRiskProfile() -> RiskProfileType {
         // add logic to calculate risk profile from the 'userSelectedAnswers' variable
         
         return .conservative

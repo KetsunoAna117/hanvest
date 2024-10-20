@@ -13,6 +13,7 @@ struct HanvestMaterialScreenView: View {
     var body: some View {
         VStack {
             ModuleJourneyView(router: router)
+            Divider()
         }
     }
 }

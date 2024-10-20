@@ -202,6 +202,13 @@ class AppRouter: AppRouterProtocol {
                 TransactionStatusView(router: self, transaction: transaction)
             }
             .navigationBarBackButtonHidden()
+            
+        case .moduleCompletion(let completionItem):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                CompletionPageView(completionItem: completionItem)
+            }
+            .navigationBarBackButtonHidden()
         }
     }
     

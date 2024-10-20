@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CompletionPageView: View {
     // Constant
-    let completionItem: CompletionItem
+    let completionItem: CompletionEntityType
     
     var body: some View {
         VStack(spacing: 54){
@@ -19,7 +19,7 @@ struct CompletionPageView: View {
                         .font(.nunito(.title1, .bold))
                         .frame(maxWidth: .infinity)
                     
-                    completionItem.completionPageItem.badgeImage
+                    Image(completionItem.value.badgeImageName)
                 }
                 
                 VStack(spacing: 0) {
@@ -28,7 +28,7 @@ struct CompletionPageView: View {
                             "You earned "
                         ).font(.nunito(.body)) +
                         Text(
-                            "\"\(completionItem.completionPageItem.achivementName)\""
+                            "\"\(completionItem.value.badgeName)\""
                         ).font(.nunito(.body, .bold))
                     }
                     .frame(maxWidth: .infinity)
@@ -38,7 +38,7 @@ struct CompletionPageView: View {
                             "for completing "
                         ).font(.nunito(.body)) +
                         Text(
-                            "\"\(completionItem.completionPageItem.moduleName)\""
+                            "\"\(completionItem.value.achievedAfterCompleting)\""
                         ).font(.nunito(.body, .bold))
                     }
                     .frame(maxWidth: .infinity)
@@ -54,7 +54,7 @@ struct CompletionPageView: View {
                         .font(.nunito(.body))
                         .frame(maxWidth: .infinity)
                     
-                    Text(formatToRupiah(completionItem.completionPageItem.moneyBonus))
+                    Text(HanvestPriceFormatter.formatIntToIDR(completionItem.value.bonusMoney))
                         .font(.nunito(.title1, .bold))
                         .frame(maxWidth: .infinity)
                     
@@ -67,23 +67,11 @@ struct CompletionPageView: View {
         }
         .frame(maxWidth: .infinity)
     }
-    
-    private func formatToRupiah(_ number: Int) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = Locale(identifier: "id_ID")
-        formatter.currencySymbol = "Rp "
-        formatter.maximumFractionDigits = 0
-        
-        if let formattedString = formatter.string(from: NSNumber(value: number)) {
-            return formattedString
-        } else {
-            return "Rp 0"
-        }
-    }
 }
 
 #Preview {
-    CompletionPageView(completionItem: .module01)
+    CompletionPageView(
+        completionItem: .module01
+    )
         .padding(.horizontal, 20)
 }

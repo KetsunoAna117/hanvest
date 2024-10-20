@@ -10,9 +10,10 @@ import Foundation
 struct UserData {
     var userName: String
     var userBalance: Int
-    var userRiskProfile: RiskProfileResultState
+    var userRiskProfile: RiskProfileType
     var userInvestmentTransaction: [String: [StockInvestmentTransaction]]
     var transactionQueue: [StockInvestmentTransaction]
+    var moduleCompletionList: [CompletionEntityType]
 }
 
 extension UserData {
@@ -33,7 +34,8 @@ extension UserData {
                     stockLotQuantity: 2,
                     time: Date.now
                 )
-            ]
+            ],
+            moduleCompletionList: []
         )
     }
 }

@@ -103,7 +103,7 @@ struct Module02View: View {
                                 }
                             }
                             
-                            CompletionPageView(completionItem: CompletionItem.module02)
+                            CompletionPageView(completionItem: .module02)
                                 .tag(Module02PageState.pageClaimReward.rawValue)
                                 .transition(.slide)
                                 .frame(maxHeight: .infinity, alignment: .bottom)

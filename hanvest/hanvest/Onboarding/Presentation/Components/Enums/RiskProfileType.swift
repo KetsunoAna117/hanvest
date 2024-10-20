@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum RiskProfileResultState {
+enum RiskProfileType {
     case conservative
     case moderate
     case aggresive
