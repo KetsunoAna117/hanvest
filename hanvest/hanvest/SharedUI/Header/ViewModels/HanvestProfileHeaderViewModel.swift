@@ -7,11 +7,17 @@
 
 import Foundation
 
-@Observable class HanvestProfileHeaderViewModel {
+class HanvestProfileHeaderViewModel: ObservableObject {
+    @Inject var getUserData: GetUserData
+    
     var userBalance: Int
     
     init(){
-        self.userBalance = 100000000
+        self.userBalance = 0
+    }
+    
+    func setup(){
+        userBalance = getUserData.execute().userBalance
     }
     
     func displayBalancePrefixAndSuffix() -> String {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HanvestHeaderView: View {
-    @State private var viewmodel = HanvestProfileHeaderViewModel()
+    @StateObject private var viewmodel = HanvestProfileHeaderViewModel()
     
     var bookIconTappedAction: () -> ()
     var bellIconTappedAction: () -> ()

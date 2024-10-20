@@ -9,4 +9,5 @@ struct ModuleNavigatiorEntity {
     var moduleID: String
     var moduleScreenID: Screen
     var state: HanvestModuleNumberDefaultStyle
+    var popup: ModulePopupNavigatiorEntity
 }

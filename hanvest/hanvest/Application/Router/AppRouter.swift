@@ -62,6 +62,16 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 if let simulationViewModel = simulationViewModel {
                     MainScreenView(router: self)
                         .environmentObject(simulationViewModel)
+                        .overlay {
+                            if let popup = popup {
+                                ZStack {
+                                    self.build(popup)
+                                }
+                                // Apply transition and animation
+                                .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                                .animation(.easeInOut(duration: 0.3), value: self.popup)
+                            }
+                        }
                 }
                 else {
                     Text("Error! Can't load the App")
@@ -218,15 +228,24 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .withHanvestPopupButton(let title, let desc, let buttonAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea()
-                HanvestPopup(
-                    title: title,
-                    description: desc,
-                    action: {
-                        buttonAction()
+                    .onTapGesture {
                         self.dismissPopup()
                     }
-                )
-                .padding(.horizontal, 20)
+                
+                VStack(spacing: 8) {
+                    Text("Tap anywhere to cancel")
+                        .font(.nunito(.subhead))
+                        .foregroundStyle(.mineShaft50)
+                    HanvestPopup(
+                        title: title,
+                        description: desc,
+                        action: {
+                            buttonAction()
+                            self.dismissPopup()
+                        }
+                    )
+                }
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPadding)
             }
             
         case .withHanvestPopup(let title, let desc, let dismissAction):
@@ -235,8 +254,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     dismissAction()
                     self.dismissPopup()
                 }
-                HanvestPopup(title: title, description: desc)
-                    .padding(.horizontal, 20)
+                VStack(spacing: 8) {
+                    HanvestPopup(title: title, description: desc)
+                        .padding(.horizontal, 20)
+                    Text("Tap anywhere to continue")
+                        .font(.nunito(.subhead))
+                        .foregroundStyle(.mineShaft50)
+                }
             }
             
         case .withBuyConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
@@ -254,7 +278,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 20)
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPadding)
             }
             
         case .withSellConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
@@ -272,7 +296,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 20)
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPadding)
             }
         }
     }

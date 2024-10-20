@@ -36,7 +36,15 @@ struct ModuleJourneyView: View {
                         style: module.state,
                         number: moduleNumber,
                         action: {
-                            router.push(module.moduleScreenID)
+                            router.presentOverlay(
+                                .withHanvestPopupButton(
+                                    title: module.popup.title,
+                                    desc: module.popup.desc,
+                                    buttonAction: {
+                                        router.push(module.moduleScreenID)
+                                    }
+                                )
+                            )
                             print("[!] Module \(moduleNumber + 1) is pressed!")
                         }
                     )
@@ -95,14 +103,6 @@ struct ModuleJourneyView: View {
             appRouter.build(startScreen)
                 .navigationDestination(for: Screen.self) { screen in
                     appRouter.build(screen)
-                }
-                .overlay {
-                    if let popup = appRouter.popup {
-                        ZStack {
-                            appRouter.build(popup)
-                        }
-                       
-                    }
                 }
         }
     }
