@@ -6,11 +6,19 @@
 //
 
 protocol GetModuleToDisplay {
-    func execute(userRisk: RiskProfileType) -> [ModuleNavigatiorEntity]
+    func execute() -> [ModuleNavigatiorEntity]
 }
 
 struct GetModuleToDisplayImpl: GetModuleToDisplay {
-    func execute(userRisk: RiskProfileType) -> [ModuleNavigatiorEntity] {
+    let repo: UserRepository
+    
+    func execute() -> [ModuleNavigatiorEntity] {
+        guard let user = repo.get() else {
+            return []
+        }
+        
+        let riskProfile = user.userRiskProfile // TODO: Select Module based on user risk profile
+        
         return [
             ModuleNavigatiorEntity(
                 moduleID: "module01",

@@ -14,7 +14,7 @@ struct AppModule {
         
         //MARK: USE Case
         // Material
-        @Provider var getModuleToDisplay: GetModuleToDisplay = GetModuleToDisplayImpl()
+        @Provider var getModuleToDisplay: GetModuleToDisplay = GetModuleToDisplayImpl(repo: userRepository)
         
         // Simulation
         @Provider var getAvailableStocks: GetAvailableSimulationStocks = GetAvailableSimulationStocksImpl()

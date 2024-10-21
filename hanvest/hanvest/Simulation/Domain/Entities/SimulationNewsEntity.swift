@@ -8,11 +8,12 @@
 import Foundation
 
 struct SimulationNewsEntity {
-    var newsID: String = UUID().uuidString
+    var newsID: String
     var stockIDName: String
     var newsTitle: String
     var newsReleasedTime: Date
     var newsContent: String
+    var stockFluksPercentage: Int
     
 }
 
@@ -20,6 +21,7 @@ extension SimulationNewsEntity {
     static func mock() -> [SimulationNewsEntity] {
         return [
             SimulationNewsEntity(
+                newsID: UUID().uuidString,
                 stockIDName: "GOTO",
                 newsTitle: "GOTO gets billions in funding",
                 newsReleasedTime: Date(timeInterval: -10, since: Date.now),
@@ -33,9 +35,11 @@ extension SimulationNewsEntity {
 
                 Neither GOTO nor Alibaba has provided an official comment on the report, but analysts predict that this investment will further solidify GOTO’s position as a key player in Indonesia’s digital economy.
 
-                """
+                """,
+                stockFluksPercentage: 10
             ),
             SimulationNewsEntity(
+                newsID: UUID().uuidString,
                 stockIDName: "BBRI",
                 newsTitle: "BBRI got positive revenue",
                 newsReleasedTime: Date(timeInterval: -3 * 60 * 60 * 24, since: Date.now),
@@ -43,7 +47,8 @@ extension SimulationNewsEntity {
                 """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum nunc ac purus rutrum mollis. Proin in luctus velit. Morbi mollis mollis enim quis blandit. Donec sollicitudin nunc dui. Integer rhoncus lacus nec urna sagittis, eu facilisis lacus condimentum. Duis massa ex, volutpat ac ullamcorper quis, euismod id ex. Sed sit amet condimentum metus. Duis lobortis arcu ac justo dapibus viverra. Vestibulum sagittis ullamcorper metus, eu malesuada ligula laoreet vulputate. Nam convallis gravida auctor. Sed blandit arcu id luctus ullamcorper. Suspendisse vel feugiat dui. Aenean nec massa velit. Vestibulum ut ullamcorper purus. Fusce fermentum ipsum vitae quam tincidunt, a tincidunt dui ultricies.
 
-                """
+                """,
+                stockFluksPercentage: -5
             )
         ]
     }
