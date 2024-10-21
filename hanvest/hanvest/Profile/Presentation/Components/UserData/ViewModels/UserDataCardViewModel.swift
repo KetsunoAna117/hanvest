@@ -11,7 +11,7 @@ class UserDataCardViewModel: ObservableObject{
     @Inject var getUserData: GetUserData
     
     @Published var username: String
-    @Published var riskProfileStatus: RiskProfileResultState
+    @Published var riskProfileStatus: RiskProfileType
     @Published var todayEquity: Int
     @Published var yesterdayEquity: Int
     @Published var percentage: Int = 0

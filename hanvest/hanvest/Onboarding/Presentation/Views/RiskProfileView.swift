@@ -14,7 +14,7 @@ struct RiskProfileView: View {
     
     @State private var pageState: RiskProfilePageState = .pageOpening
     @State private var currentTab: Int = 0
-    @State private var progressBarCurrValue: Int = 10
+    @State private var progressBarCurrValue: Int = 4
     
     // View Model
     @State private var viewModel = RiskProfileViewModel()

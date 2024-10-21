@@ -9,7 +9,7 @@ import Foundation
 
 class Module02ViewModel: ObservableObject {
     // TODO: last index always bug, idk why need to exceess count by + 1
-    @Published var userSelectedAnswers = Array(repeating: "", count: Module02PageState.pageClaimReward.rawValue)
+    @Published var userSelectedAnswers = Array(repeating: "", count: Module02HeaderWithDetailText.page10.rawValue)
     
     func checkDebitOrPayLater() -> Bool {
         return userSelectedAnswers.contains(where: { $0 == Module02MultipleChoice.page07.options.first })

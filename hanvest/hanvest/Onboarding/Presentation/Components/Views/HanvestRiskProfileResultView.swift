@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HanvestRiskProfileResultView: View {
     // Constants
-    let resultState: RiskProfileResultState
+    let resultState: RiskProfileType
     
     var body: some View {
         ZStack {

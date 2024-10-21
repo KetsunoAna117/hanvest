@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HanvestHeaderView: View {
-    @State private var viewmodel = HanvestProfileHeaderViewModel()
+    @StateObject private var viewmodel = HanvestProfileHeaderViewModel()
     
     var bookIconTappedAction: () -> ()
     var bellIconTappedAction: () -> ()
@@ -58,6 +58,9 @@ struct HanvestHeaderView: View {
         }
         .background(Color.background)
         .shadow(color: Color.black.opacity(0.1), radius: 0, x: 0, y: 1)
+        .onAppear(){
+            viewmodel.setup()
+        }
     }
 }
 
