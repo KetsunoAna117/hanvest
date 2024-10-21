@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-class AppRouter: AppRouterProtocol {
+class AppRouter: AppRouterProtocol, ObservableObject {
     @Published var path: NavigationPath = NavigationPath()
     @Published var popup: Popup?
     
-    @Published var simulationViewModel: HanvestSimulationViewModel? = .init()
+    @Published var simulationViewModel: HanvestSimulationViewModel?
     
     func push(_ screen: Screen) {
         path.append(screen)
@@ -47,10 +47,12 @@ class AppRouter: AppRouterProtocol {
         case .onboarding:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                VStack {
+                    Text("Not yet Implemented!")
+                    HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                        self.pop()
+                    })
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -60,53 +62,53 @@ class AppRouter: AppRouterProtocol {
                 if let simulationViewModel = simulationViewModel {
                     MainScreenView(router: self)
                         .environmentObject(simulationViewModel)
+                        .overlay {
+                            if let popup = popup {
+                                ZStack {
+                                    self.build(popup)
+                                }
+                                // Apply transition and animation
+                                .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                                .animation(.easeInOut(duration: 0.3), value: self.popup)
+                            }
+                        }
                 }
                 else {
                     Text("Error! Can't load the App")
-                        .onAppear(){
-                            print("[ERROR]: Simulation View Model is nil")
-                        }
                 }
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                if self.simulationViewModel == nil {
+                    self.simulationViewModel = .init()
+                }
+            }
             
         case .materialModule01:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                Module01View(router: self)
             }
             .navigationBarBackButtonHidden()
             
         case .materialModule02:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                Module02View(router: self)
             }
             .navigationBarBackButtonHidden()
             
         case .materialModule03:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                Module03View(router: self)
             }
             .navigationBarBackButtonHidden()
             
         case .materialModule04:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                Module04View(router: self)
             }
             .navigationBarBackButtonHidden()
             
@@ -129,12 +131,14 @@ class AppRouter: AppRouterProtocol {
                 }
                 else {
                     Text("Error! Can't load the App")
-                        .onAppear(){
-                            print("[ERROR]: Simulation View Model is nil")
-                        }
                 }
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                if self.simulationViewModel == nil {
+                    self.simulationViewModel = .init()
+                }
+            }
             
         case .simulationSellingConfirmation:
             ZStack {
@@ -155,12 +159,14 @@ class AppRouter: AppRouterProtocol {
                 }
                 else {
                     Text("Error! Can't load the App")
-                        .onAppear(){
-                            print("[ERROR]: Simulation View Model is nil")
-                        }
                 }
             }
             .navigationBarBackButtonHidden()
+            .onAppear() {
+                if self.simulationViewModel == nil {
+                    self.simulationViewModel = .init()
+                }
+            }
             
         case .news:
             ZStack {
@@ -172,20 +178,24 @@ class AppRouter: AppRouterProtocol {
         case .glossary:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                VStack {
+                    Text("Not yet Implemented!")
+                    HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                        self.pop()
+                    })
+                }
             }
             .navigationBarBackButtonHidden()
             
         case .profile:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Text("Not yet Implemented!")
-                HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                    self.pop()
-                })
+                VStack {
+                    Text("Not yet Implemented!")
+                    HanvestButtonDefault(size: .medium, title: "Go Back", action: {
+                        self.pop()
+                    })
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -202,6 +212,13 @@ class AppRouter: AppRouterProtocol {
                 TransactionStatusView(router: self, transaction: transaction)
             }
             .navigationBarBackButtonHidden()
+            
+        case .moduleCompletion(let completionItem):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                CompletionPageView(router: self, completionItem: completionItem)
+            }
+            .navigationBarBackButtonHidden()
         }
     }
     
@@ -211,15 +228,24 @@ class AppRouter: AppRouterProtocol {
         case .withHanvestPopupButton(let title, let desc, let buttonAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea()
-                HanvestPopup(
-                    title: title,
-                    description: desc,
-                    action: {
-                        buttonAction()
+                    .onTapGesture {
                         self.dismissPopup()
                     }
-                )
-                .padding(.horizontal, 20)
+                
+                VStack(spacing: 8) {
+                    Text("Tap anywhere to cancel")
+                        .font(.nunito(.subhead))
+                        .foregroundStyle(.mineShaft50)
+                    HanvestPopup(
+                        title: title,
+                        description: desc,
+                        action: {
+                            buttonAction()
+                            self.dismissPopup()
+                        }
+                    )
+                }
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingMain)
             }
             
         case .withHanvestPopup(let title, let desc, let dismissAction):
@@ -228,8 +254,13 @@ class AppRouter: AppRouterProtocol {
                     dismissAction()
                     self.dismissPopup()
                 }
-                HanvestPopup(title: title, description: desc)
-                    .padding(.horizontal, 20)
+                VStack(spacing: 8) {
+                    HanvestPopup(title: title, description: desc)
+                        .padding(.horizontal, 20)
+                    Text("Tap anywhere to continue")
+                        .font(.nunito(.subhead))
+                        .foregroundStyle(.mineShaft50)
+                }
             }
             
         case .withBuyConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
@@ -247,7 +278,7 @@ class AppRouter: AppRouterProtocol {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 20)
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
             }
             
         case .withSellConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
@@ -265,7 +296,7 @@ class AppRouter: AppRouterProtocol {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, 20)
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
             }
         }
     }

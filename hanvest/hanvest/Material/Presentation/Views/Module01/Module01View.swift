@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct Module01View: View {
+    let router: any AppRouterProtocol
+    
     // Constants
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
+    let lastPage = ContentOfModule01Material.page02.rawValue
     
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
     @State private var plantingViewVisibility: PlantingViewVisibility = .isVisible
-    @State private var pageState: Module01PageState = .pageModuleMaterial
     
     var body: some View {
         ZStack {
@@ -31,16 +33,14 @@ struct Module01View: View {
             
             ZStack {
                 VStack(spacing: 49) {
-                    if pageState == .pageModuleMaterial {
-                        ProgressBarWithXMarkView(
-                            progressBarMinValue: progressBarMinValue,
-                            progressBarMaxValue: progressBarMaxValue,
-                            action: {
-                                // TODO: DO SOMETHING
-                            },
-                            progressBarCurrValue: $progressBarCurrValue
-                        )
-                    }
+                    ProgressBarWithXMarkView(
+                        progressBarMinValue: progressBarMinValue,
+                        progressBarMaxValue: progressBarMaxValue,
+                        action: {
+                            router.popToRoot()
+                        },
+                        progressBarCurrValue: $progressBarCurrValue
+                    )
                     
                     if plantingViewVisibility == .isHidden {
                         VStack(spacing: 48) {
@@ -58,10 +58,6 @@ struct Module01View: View {
                                         
                                     }
                                 
-                                CompletionPageView(completionItem: CompletionItem.module01)
-                                    .tag(Module01PageState.pageClaimReward.rawValue)
-                                    .transition(.slide)
-                                    .frame(maxHeight: .infinity, alignment: .bottom)
                             }
                             .frame(maxWidth: .infinity)
                             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -72,11 +68,10 @@ struct Module01View: View {
                             
                             ZStack {
                                 HanvestButtonDefault(
-                                    title: pageState.buttonStringValue
+                                    title: "Continue"
                                 ) {
                                     goToNextPage()
                                     updateProgressBarValue()
-                                    changePageState()
                                 }
                             }
                             .frame(maxWidth: .infinity)
@@ -96,28 +91,40 @@ struct Module01View: View {
     }
     
     private func goToNextPage() {
-        if currentTab < Module01PageState.pageClaimReward.rawValue {
+        if currentTab < lastPage {
             currentTab += 1
         } else {
-            // TODO: direct to the corresponding page
-        }
-    }
-    
-    private func changePageState() {
-        if currentTab == Module01PageState.pageClaimReward.rawValue {
-            pageState = .pageClaimReward
+            router.push(.moduleCompletion(completionItem: .module01))
         }
     }
     
     private func updateProgressBarValue() {
-        if pageState == .pageModuleMaterial {
-            progressBarCurrValue += (progressBarMaxValue / (Module01PageState.pageClaimReward.rawValue + 1))
+        if plantingViewVisibility == .isHidden {
+            progressBarCurrValue += (progressBarMaxValue / (lastPage + 1))
         }
     }
     
 }
 
 #Preview {
-    Module01View()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .materialModule01
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }
 

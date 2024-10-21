@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct Module04View: View {
+    let router: any AppRouterProtocol
+    
     // Constants
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
+    let lastPage = Module04NumberedListContent.page11.rawValue
     
     @State private var currentTab: Int = 0
     @State private var progressBarCurrValue: Int = 4
@@ -26,17 +29,15 @@ struct Module04View: View {
             
             ZStack {
                 VStack(spacing: 49) {
-                    if pageState != .pageClaimReward {
-                        ProgressBarWithXMarkView(
-                            progressBarMinValue: progressBarMinValue,
-                            progressBarMaxValue: progressBarMaxValue,
-                            action: {
-                                // TODO: DO SOMETHING
-                            },
-                            progressBarCurrValue: $progressBarCurrValue
-                        )
-                        .padding(.horizontal, (showingAnswer == .isShowing) ? 20 : 0)
-                    }
+                    ProgressBarWithXMarkView(
+                        progressBarMinValue: progressBarMinValue,
+                        progressBarMaxValue: progressBarMaxValue,
+                        action: {
+                            router.popToRoot()
+                        },
+                        progressBarCurrValue: $progressBarCurrValue
+                    )
+                    .padding(.horizontal, (showingAnswer == .isShowing) ? 20 : 0)
                     
                     VStack(spacing: 48) {
                         TabView(selection: $currentTab) {
@@ -81,11 +82,6 @@ struct Module04View: View {
                             .tag(Module04NumberedListContent.page11.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
-                            
-                            CompletionPageView(completionItem: CompletionItem.module04)
-                                .tag(Module04PageState.pageClaimReward.rawValue)
-                                .transition(.slide)
-                                .frame(maxHeight: .infinity, alignment: .bottom)
                             
                         }
                         .frame(maxWidth: .infinity)
@@ -134,28 +130,26 @@ struct Module04View: View {
     }
     
     private func goToNextPage() {
-        if currentTab < Module04PageState.pageClaimReward.rawValue {
+        if currentTab < lastPage {
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
                 viewModel.resetUserSelectedAnswer()
             }
         } else {
-            // TODO: direct to the corresponding page
+            router.push(.moduleCompletion(completionItem: .module04))
         }
     }
     
     private func changePageState() {
         switch currentTab {
-            case Module04PageState.pageClaimReward.rawValue:
-                pageState = .pageClaimReward
             default:
                 pageState = .pageContinue
         }
     }
     
     private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / (Module04PageState.pageClaimReward.rawValue))
+        progressBarCurrValue += (progressBarMaxValue / lastPage)
     }
     
     private func checkIsDisabled() -> Bool {
@@ -172,5 +166,23 @@ struct Module04View: View {
 }
 
 #Preview {
-    Module04View()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .materialModule04
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }

@@ -10,16 +10,17 @@ import Foundation
 struct UserData {
     var userName: String
     var userBalance: Int
-    var userRiskProfile: RiskProfileResultState
+    var userRiskProfile: RiskProfileType
     var userInvestmentTransaction: [String: [StockInvestmentTransaction]]
     var transactionQueue: [StockInvestmentTransaction]
+    var moduleCompletionList: [CompletionEntityType]
 }
 
 extension UserData {
     static func getMockupUserData() -> UserData {
         return UserData(
             userName: "Bryon",
-            userBalance: 100000000,
+            userBalance: 2000000,
             userRiskProfile: .aggresive,
             userInvestmentTransaction: [
                 "BBCA" : StockInvestmentTransaction.BBCAmock(),
@@ -33,7 +34,8 @@ extension UserData {
                     stockLotQuantity: 2,
                     time: Date.now
                 )
-            ]
+            ],
+            moduleCompletionList: [.module01, .module02]
         )
     }
 }

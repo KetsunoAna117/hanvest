@@ -8,6 +8,9 @@
 struct AppModule {
     static func inject(){
         //MARK: USE Case
+        // Material
+        @Provider var getModuleToDisplay: GetModuleToDisplay = GetModuleToDisplayImpl()
+        
         // Simulation
         @Provider var getAvailableStocks: GetAvailableSimulationStocks = GetAvailableSimulationStocksImpl()
         @Provider var getStockInformationByID: GetStockInformationByID = GetStockInformationByIDImpl()
