@@ -28,11 +28,9 @@ struct LocalUserRepository: UserRepository {
     func save(_ userSchema: UserSchema) {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<UserSchema>(
-                    predicate: #Predicate{ $0.id == userSchema.id}
-                )
+                let descriptor = FetchDescriptor<UserSchema>()
                 
-                guard var fetchedUserSchema = try context.fetch(descriptor).first else {
+                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
                     // Create new user if not found
                     context.insert(userSchema)
                     try? context.save()
@@ -54,7 +52,7 @@ struct LocalUserRepository: UserRepository {
         if let context = modelContext.context {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
-                guard var fetchedUserSchema = try context.fetch(descriptor).first else {
+                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
                     throw SwiftDataError.notFound
                 }
                 
@@ -72,7 +70,7 @@ struct LocalUserRepository: UserRepository {
         if let context = modelContext.context {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
-                guard var fetchedUserSchema = try context.fetch(descriptor).first else {
+                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
                     throw SwiftDataError.notFound
                 }
                 
@@ -90,7 +88,7 @@ struct LocalUserRepository: UserRepository {
         if let context = modelContext.context {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
-                guard var fetchedUserSchema = try context.fetch(descriptor).first else {
+                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
                     throw SwiftDataError.notFound
                 }
                 
@@ -108,7 +106,7 @@ struct LocalUserRepository: UserRepository {
         if let context = modelContext.context {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
-                guard var fetchedUserSchema = try context.fetch(descriptor).first else {
+                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
                     throw SwiftDataError.notFound
                 }
                 

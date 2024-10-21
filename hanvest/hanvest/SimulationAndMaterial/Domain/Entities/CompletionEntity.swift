@@ -15,7 +15,7 @@ struct CompletionEntity {
     var bonusMoney: Int
 }
 
-enum CompletionEntityType {
+enum CompletionEntityType: String, Codable, CaseIterable {
     case module01
     case module02
     case module03

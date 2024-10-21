@@ -8,22 +8,22 @@
 import SwiftData
 
 @Model final class UserSchema {
-    @Attribute(.unique) var id: String
+    @Attribute(.unique) var userId: String
     var userName: String?
     var userBalance: Int?
     var userRiskProfile: RiskProfileType?
     var userInvestmentTransactionID: [String]?
     var transactionQueueID: [String]?
-    var moduleCompletionList: [CompletionEntityType]?
+    var moduleCompletionIDList: [CompletionEntityType]?
     
     init(id: String, userName: String? = nil, userBalance: Int? = nil, userRiskProfile: RiskProfileType? = nil, userInvestmentTransactionID: [String]? = nil, transactionQueueID: [String]? = nil, moduleCompletionList: [CompletionEntityType]? = nil) {
-        self.id = id
+        self.userId = id
         self.userName = userName
         self.userBalance = userBalance
         self.userRiskProfile = userRiskProfile
         self.userInvestmentTransactionID = userInvestmentTransactionID
         self.transactionQueueID = transactionQueueID
-        self.moduleCompletionList = moduleCompletionList
+        self.moduleCompletionIDList = moduleCompletionList
     }
     
     func update(newUserData: UserSchema) {
@@ -56,13 +56,13 @@ import SwiftData
         moduleCompletionList: [CompletionEntityType]
     ) -> UserDataEntity {
         return UserDataEntity(
-            userId: self.id,
+            userId: self.userId,
             userName: self.userName ?? "",
             userBalance: self.userBalance ?? 0,
             userRiskProfile: self.userRiskProfile ?? .noData,
             userInvestmentTransaction: userInvestmentTransaction.map { $0.mapToStockInvestmentTransactionEntity() },
             transactionQueue: transactionQueue.map { $0.mapToStockInvestmentTransactionEntity() },
-            moduleCompletionList: self.moduleCompletionList ?? []
+            moduleCompletionList: self.moduleCompletionIDList ?? []
         )
     }
 }

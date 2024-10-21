@@ -15,9 +15,10 @@ struct GetUserTransactionImpl: GetUserTransaction {
     func execute(stockIDName: String) -> [StockTransactionEntity] {
         let user = UserDataEntity.mock()
         
-        if let userStockInvestmentData = user.userInvestmentTransaction[stockIDName] {
-            return userStockInvestmentData
+        let res = user.userInvestmentTransaction.filter {
+            $0.stockIDName == stockIDName
         }
-        return []
+        
+        return res
     }
 }

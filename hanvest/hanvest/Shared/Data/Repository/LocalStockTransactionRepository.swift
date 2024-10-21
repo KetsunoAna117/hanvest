@@ -27,11 +27,9 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
     func save(_ transaction: StockTransactionSchema) throws {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
-                    predicate: #Predicate { $0.id == transaction.id }
-                )
+                let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
-                if let transaction = try context.fetch(descriptor).first {
+                if (try context.fetch(descriptor).first) != nil {
                     throw SwiftDataError.alreadyExists
                 }
                 
@@ -47,15 +45,15 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
     func delete(_ transactionID: String) {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
-                    predicate: #Predicate { $0.id == transactionID }
-                )
+                let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
-                guard let transaction = try context.fetch(descriptor).first else {
+                guard let result = try context.fetch(descriptor).first(where: {
+                    $0.transactionID == transactionID
+                }) else {
                     throw SwiftDataError.notFound
                 }
                 
-                context.delete(transaction)
+                context.delete(result)
                 try? context.save()
             }
             catch {
@@ -67,11 +65,11 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
     func update(id: String, price: Int) {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
-                    predicate: #Predicate { $0.id == id }
-                )
+                let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
-                guard let transaction = try context.fetch(descriptor).first else {
+                guard let transaction = try context.fetch(descriptor).first(where: {
+                    $0.transactionID == id
+                }) else {
                     throw SwiftDataError.notFound
                 }
                 
@@ -87,11 +85,11 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
     func update(id: String, stockLotQty: Int) {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
-                    predicate: #Predicate { $0.id == id }
-                )
+                let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
-                guard let transaction = try context.fetch(descriptor).first else {
+                guard let transaction = try context.fetch(descriptor).first(where: {
+                    $0.transactionID == id
+                }) else {
                     throw SwiftDataError.notFound
                 }
                 
@@ -107,11 +105,11 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
     func update(id: String, time: Date) {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
-                    predicate: #Predicate { $0.id == id }
-                )
+                let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
-                guard let transaction = try context.fetch(descriptor).first else {
+                guard let transaction = try context.fetch(descriptor).first(where: {
+                    $0.transactionID == id
+                }) else {
                     throw SwiftDataError.notFound
                 }
                 
