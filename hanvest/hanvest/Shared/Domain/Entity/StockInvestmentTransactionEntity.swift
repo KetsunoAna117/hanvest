@@ -8,7 +8,7 @@
 import Foundation
 
 struct StockInvestmentTransactionEntity {
-    var transactionID: UUID = UUID()
+    var transactionID: String
     var stockIDName: String
     var priceAtPurchase: Int
     var stockLotQuantity: Int
@@ -16,90 +16,57 @@ struct StockInvestmentTransactionEntity {
 }
 
 extension StockInvestmentTransactionEntity {
-    static func BBRImock() -> [Self] {
-        return [
-            .init(
-                stockIDName: "BBRI",
-                priceAtPurchase: 5000,
-                stockLotQuantity: 1,
-                time: Date.now
-            ),
-            .init(
-                stockIDName: "BBRI",
-                priceAtPurchase: 5200,
-                stockLotQuantity: 1,
-                time: Date.now
-            ),
-            .init(
-                stockIDName: "BBRI",
-                priceAtPurchase: 5100,
-                stockLotQuantity: 1,
-                time: Date.now
-            )
-        ]
+    func mapToSchema() -> StockInvestmentTransactionSchema {
+        return StockInvestmentTransactionSchema(
+            id: self.transactionID,
+            stockIDName: self.stockIDName,
+            priceAtPurchase: self.priceAtPurchase,
+            stockLotQuantity: self.stockLotQuantity,
+            time: self.time
+        )
     }
-    
-    static func BBCAmock() -> [Self] {
-        return [
-            .init(
-                stockIDName: "BBCA",
-                priceAtPurchase: 5000,
-                stockLotQuantity: 1,
-                time: Date.now
-            ),
-            .init(
-                stockIDName: "BBCA",
-                priceAtPurchase: 4000,
-                stockLotQuantity: 3,
-                time: Date.now
-            ),
-        ]
-    }
-    
-    static func GOTOmock() -> [Self] {
-        return [
-            .init(
-                stockIDName: "GOTO",
-                priceAtPurchase: 40,
-                stockLotQuantity: 10,
-                time: Date.now
-            )
-        ]
-    }
-    
+}
+
+extension StockInvestmentTransactionEntity {
     static func mock() -> [Self] {
         return [
             .init(
+                transactionID: UUID().uuidString,
                 stockIDName: "BBRI",
                 priceAtPurchase: 5000,
                 stockLotQuantity: 1,
                 time: Date.now
             ),
             .init(
+                transactionID: UUID().uuidString,
                 stockIDName: "BBRI",
                 priceAtPurchase: 5200,
                 stockLotQuantity: 1,
                 time: Date.now
             ),
             .init(
+                transactionID: UUID().uuidString,
                 stockIDName: "BBRI",
                 priceAtPurchase: 5100,
                 stockLotQuantity: 1,
                 time: Date.now
             ),
             .init(
+                transactionID: UUID().uuidString,
                 stockIDName: "BBCA",
                 priceAtPurchase: 5000,
                 stockLotQuantity: 1,
                 time: Date.now
             ),
             .init(
+                transactionID: UUID().uuidString,
                 stockIDName: "BBCA",
                 priceAtPurchase: 4000,
                 stockLotQuantity: 3,
                 time: Date.now
             ),
             .init(
+                transactionID: UUID().uuidString,
                 stockIDName: "GOTO",
                 priceAtPurchase: 40,
                 stockLotQuantity: 10,

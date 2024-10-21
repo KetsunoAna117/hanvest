@@ -56,6 +56,7 @@ import SwiftData
         moduleCompletionList: [CompletionEntityType]
     ) -> UserDataEntity {
         return UserDataEntity(
+            userId: self.id,
             userName: self.userName ?? "",
             userBalance: self.userBalance ?? 0,
             userRiskProfile: self.userRiskProfile ?? .noData,

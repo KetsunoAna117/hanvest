@@ -11,6 +11,6 @@ protocol GetUserData {
 
 struct GetUserDataImpl: GetUserData {
     func execute() -> UserDataEntity {
-        return UserDataEntity.getMockupUserData()
+        return UserDataEntity.mock()
     }
 }

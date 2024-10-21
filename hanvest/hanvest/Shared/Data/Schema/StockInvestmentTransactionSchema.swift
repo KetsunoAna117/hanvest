@@ -44,6 +44,7 @@ import SwiftData
     
     func mapToStockInvestmentTransactionEntity() -> StockInvestmentTransactionEntity {
         return StockInvestmentTransactionEntity(
+            transactionID: self.id,
             stockIDName: self.stockIDName ?? "",
             priceAtPurchase: self.priceAtPurchase ?? 0,
             stockLotQuantity: self.stockLotQuantity ?? 0,
