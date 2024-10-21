@@ -7,6 +7,11 @@
 
 struct AppModule {
     static func inject(){
+        // MARK: Repository
+        let swiftDataContextManager = SwiftDataContextManager.shared
+        let userRepository: UserRepository = LocalUserRepository(modelContext: swiftDataContextManager)
+        let stockInvestmentRepository: StockInvestmentRepository = LocalStockTransactionRepository(modelContext: swiftDataContextManager)
+        
         //MARK: USE Case
         // Material
         @Provider var getModuleToDisplay: GetModuleToDisplay = GetModuleToDisplayImpl()

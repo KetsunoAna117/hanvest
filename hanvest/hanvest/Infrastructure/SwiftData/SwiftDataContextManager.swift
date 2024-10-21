@@ -16,9 +16,7 @@ public class SwiftDataContextManager {
     init() {
         do {
             container = try ModelContainer(
-                for:
-                    UserSchema.self,
-                StockInvestmentTransactionSchema.self
+                for: UserSchema.self, StockTransactionSchema.self
             )
             
             if let container {
@@ -38,7 +36,7 @@ private extension SwiftDataContextManager {
         }
     }
     
-    func saveStockTransactionData(stockTransaction: StockInvestmentTransactionSchema){
+    func saveStockTransactionData(stockTransaction: StockTransactionSchema){
         if let context {
             context.insert(stockTransaction)
         }
@@ -58,10 +56,10 @@ private extension SwiftDataContextManager {
         return nil
     }
     
-    func fetchTransactionSchema() -> [StockInvestmentTransactionSchema] {
+    func fetchTransactionSchema() -> [StockTransactionSchema] {
         if let context {
             do {
-                let descriptor = FetchDescriptor<StockInvestmentTransactionSchema>()
+                let descriptor = FetchDescriptor<StockTransactionSchema>()
                 let result = try context.fetch(descriptor)
                 return result
             }
@@ -108,30 +106,30 @@ private extension SwiftDataContextManager {
         )
     }
     
-    func getMockTransactionSchemaData() -> [StockInvestmentTransactionSchema] {
+    func getMockTransactionSchemaData() -> [StockTransactionSchema] {
         return [
-            StockInvestmentTransactionSchema(
+            StockTransactionSchema(
                 id: "transaction-01",
                 stockIDName: "BBRI",
                 priceAtPurchase: 5000,
                 stockLotQuantity: 1,
                 time: Date.now.addingTimeInterval(-40 * 60)
             ),
-            StockInvestmentTransactionSchema(
+            StockTransactionSchema(
                 id: "transaction-02",
                 stockIDName: "BBRI",
                 priceAtPurchase: 5100,
                 stockLotQuantity: 2,
                 time: Date.now.addingTimeInterval(-30 * 60)
             ),
-            StockInvestmentTransactionSchema(
+            StockTransactionSchema(
                 id: "transaction-03",
                 stockIDName: "BBCA",
                 priceAtPurchase: 7000,
                 stockLotQuantity: 1,
                 time: Date.now.addingTimeInterval(-20 * 60)
             ),
-            StockInvestmentTransactionSchema(
+            StockTransactionSchema(
                 id: "transaction-04",
                 stockIDName: "GOTO",
                 priceAtPurchase: 50,

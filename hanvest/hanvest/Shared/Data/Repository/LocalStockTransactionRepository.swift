@@ -8,13 +8,13 @@
 import Foundation
 import SwiftData
 
-struct LocalStockInvestmentRepository: StockInvestmentRepository {
+struct LocalStockTransactionRepository: StockInvestmentRepository {
     let modelContext: SwiftDataContextManager
     
-    func get() -> [StockInvestmentTransactionSchema] {
+    func get() -> [StockTransactionSchema] {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockInvestmentTransactionSchema>()
+                let descriptor = FetchDescriptor<StockTransactionSchema>()
                 return try context.fetch(descriptor)
             }
             catch {
@@ -24,10 +24,10 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
         return []
     }
     
-    func save(_ transaction: StockInvestmentTransactionSchema) throws {
+    func save(_ transaction: StockTransactionSchema) throws {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockInvestmentTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionSchema>(
                     predicate: #Predicate { $0.id == transaction.id }
                 )
                 
@@ -47,7 +47,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
     func delete(_ transactionID: String) {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockInvestmentTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionSchema>(
                     predicate: #Predicate { $0.id == transactionID }
                 )
                 
@@ -67,7 +67,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
     func update(id: String, price: Int) {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockInvestmentTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionSchema>(
                     predicate: #Predicate { $0.id == id }
                 )
                 
@@ -87,7 +87,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
     func update(id: String, stockLotQty: Int) {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockInvestmentTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionSchema>(
                     predicate: #Predicate { $0.id == id }
                 )
                 
@@ -107,7 +107,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
     func update(id: String, time: Date) {
         if let context = modelContext.context {
             do {
-                let descriptor = FetchDescriptor<StockInvestmentTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionSchema>(
                     predicate: #Predicate { $0.id == id }
                 )
                 

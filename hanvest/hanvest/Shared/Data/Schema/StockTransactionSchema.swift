@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-@Model final class StockInvestmentTransactionSchema {
+@Model final class StockTransactionSchema {
     @Attribute(.unique) var id: String
     var stockIDName: String?
     var priceAtPurchase: Int?
@@ -23,7 +23,7 @@ import SwiftData
         self.time = time
     }
     
-    func update(stockInvestmentTransactionSchema: StockInvestmentTransactionSchema) {
+    func update(stockInvestmentTransactionSchema: StockTransactionSchema) {
         self.id = stockInvestmentTransactionSchema.id
         self.priceAtPurchase = stockInvestmentTransactionSchema.priceAtPurchase
         self.stockLotQuantity = stockInvestmentTransactionSchema.stockLotQuantity
@@ -42,8 +42,8 @@ import SwiftData
         self.time = time
     }
     
-    func mapToStockInvestmentTransactionEntity() -> StockInvestmentTransactionEntity {
-        return StockInvestmentTransactionEntity(
+    func mapToStockInvestmentTransactionEntity() -> StockTransactionEntity {
+        return StockTransactionEntity(
             transactionID: self.id,
             stockIDName: self.stockIDName ?? "",
             priceAtPurchase: self.priceAtPurchase ?? 0,

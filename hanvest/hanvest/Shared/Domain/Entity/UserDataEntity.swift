@@ -12,8 +12,8 @@ struct UserDataEntity {
     var userName: String
     var userBalance: Int
     var userRiskProfile: RiskProfileType
-    var userInvestmentTransaction: [StockInvestmentTransactionEntity]
-    var transactionQueue: [StockInvestmentTransactionEntity]
+    var userInvestmentTransaction: [StockTransactionEntity]
+    var transactionQueue: [StockTransactionEntity]
     var moduleCompletionList: [CompletionEntityType]
 }
 
@@ -39,9 +39,9 @@ extension UserDataEntity {
             userName: "Bryon",
             userBalance: 2000000,
             userRiskProfile: .aggresive,
-            userInvestmentTransaction: StockInvestmentTransactionEntity.mock(),
+            userInvestmentTransaction: StockTransactionEntity.mock(),
             transactionQueue: [
-                StockInvestmentTransactionEntity(
+                StockTransactionEntity(
                     transactionID: UUID().uuidString,
                     stockIDName: "BBRI",
                     priceAtPurchase: 1000,

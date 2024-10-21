@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StockInvestmentTransactionEntity {
+struct StockTransactionEntity {
     var transactionID: String
     var stockIDName: String
     var priceAtPurchase: Int
@@ -15,9 +15,9 @@ struct StockInvestmentTransactionEntity {
     var time: Date
 }
 
-extension StockInvestmentTransactionEntity {
-    func mapToSchema() -> StockInvestmentTransactionSchema {
-        return StockInvestmentTransactionSchema(
+extension StockTransactionEntity {
+    func mapToSchema() -> StockTransactionSchema {
+        return StockTransactionSchema(
             id: self.transactionID,
             stockIDName: self.stockIDName,
             priceAtPurchase: self.priceAtPurchase,
@@ -27,7 +27,7 @@ extension StockInvestmentTransactionEntity {
     }
 }
 
-extension StockInvestmentTransactionEntity {
+extension StockTransactionEntity {
     static func mock() -> [Self] {
         return [
             .init(

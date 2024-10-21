@@ -51,8 +51,8 @@ import SwiftData
     }
     
     func mapToUserDataEntity(
-        userInvestmentTransaction: [StockInvestmentTransactionSchema],
-        transactionQueue: [StockInvestmentTransactionSchema],
+        userInvestmentTransaction: [StockTransactionSchema],
+        transactionQueue: [StockTransactionSchema],
         moduleCompletionList: [CompletionEntityType]
     ) -> UserDataEntity {
         return UserDataEntity(
