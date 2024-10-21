@@ -245,7 +245,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                         }
                     )
                 }
-                .padding(.horizontal, HanvestConstant.overlayHorizontalPadding)
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingMain)
             }
             
         case .withHanvestPopup(let title, let desc, let dismissAction):
@@ -278,7 +278,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, HanvestConstant.overlayHorizontalPadding)
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
             }
             
         case .withSellConfirmationPopup(let viewmodel, let confirmAction, let cancelAction):
@@ -296,7 +296,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                         self.dismissPopup()
                     }
                 )
-                .padding(.horizontal, HanvestConstant.overlayHorizontalPadding)
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
             }
         }
     }

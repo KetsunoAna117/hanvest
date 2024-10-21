@@ -10,7 +10,7 @@ import Foundation
 class HanvestProfileHeaderViewModel: ObservableObject {
     @Inject var getUserData: GetUserData
     
-    var userBalance: Int
+    @Published var userBalance: Int
     
     init(){
         self.userBalance = 0

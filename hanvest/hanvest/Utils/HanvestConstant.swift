@@ -8,7 +8,11 @@
 import Foundation
 
 struct HanvestConstant {
-    static var overlayHorizontalPadding: CGFloat {
+    static var overlayHorizontalPaddingMain: CGFloat {
         return 41
+    }
+    
+    static var overlayHorizontalPaddingSimulation: CGFloat {
+        return 20
     }
 }

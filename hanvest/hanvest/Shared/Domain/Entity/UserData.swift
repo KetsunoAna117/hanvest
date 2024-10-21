@@ -20,7 +20,7 @@ extension UserData {
     static func getMockupUserData() -> UserData {
         return UserData(
             userName: "Bryon",
-            userBalance: 0,
+            userBalance: 2000000,
             userRiskProfile: .aggresive,
             userInvestmentTransaction: [
                 "BBCA" : StockInvestmentTransaction.BBCAmock(),
@@ -35,7 +35,7 @@ extension UserData {
                     time: Date.now
                 )
             ],
-            moduleCompletionList: []
+            moduleCompletionList: [.module01, .module02]
         )
     }
 }
