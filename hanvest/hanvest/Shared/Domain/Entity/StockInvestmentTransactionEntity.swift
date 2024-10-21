@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StockInvestmentTransaction {
+struct StockInvestmentTransactionEntity {
     var transactionID: UUID = UUID()
     var stockIDName: String
     var priceAtPurchase: Int
@@ -15,7 +15,7 @@ struct StockInvestmentTransaction {
     var time: Date
 }
 
-extension StockInvestmentTransaction {
+extension StockInvestmentTransactionEntity {
     static func BBRImock() -> [Self] {
         return [
             .init(
@@ -64,6 +64,48 @@ extension StockInvestmentTransaction {
                 stockLotQuantity: 10,
                 time: Date.now
             )
+        ]
+    }
+    
+    static func mock() -> [Self] {
+        return [
+            .init(
+                stockIDName: "BBRI",
+                priceAtPurchase: 5000,
+                stockLotQuantity: 1,
+                time: Date.now
+            ),
+            .init(
+                stockIDName: "BBRI",
+                priceAtPurchase: 5200,
+                stockLotQuantity: 1,
+                time: Date.now
+            ),
+            .init(
+                stockIDName: "BBRI",
+                priceAtPurchase: 5100,
+                stockLotQuantity: 1,
+                time: Date.now
+            ),
+            .init(
+                stockIDName: "BBCA",
+                priceAtPurchase: 5000,
+                stockLotQuantity: 1,
+                time: Date.now
+            ),
+            .init(
+                stockIDName: "BBCA",
+                priceAtPurchase: 4000,
+                stockLotQuantity: 3,
+                time: Date.now
+            ),
+            .init(
+                stockIDName: "GOTO",
+                priceAtPurchase: 40,
+                stockLotQuantity: 10,
+                time: Date.now
+            )
+            
         ]
     }
 }

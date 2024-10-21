@@ -44,18 +44,18 @@ private extension SwiftDataContextManager {
         }
     }
     
-    func fetchUserSchema() -> [UserSchema] {
+    func fetchUserSchema() -> UserSchema? {
         if let context {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
                 let userSchema = try context.fetch(descriptor)
-                return userSchema
+                return userSchema.first
             }
             catch {
                 debugPrint("Error Fetch Data:",error)
             }
         }
-        return []
+        return nil
     }
     
     func fetchTransactionSchema() -> [StockInvestmentTransactionSchema] {
@@ -78,12 +78,12 @@ private extension SwiftDataContextManager {
         let userSchemaData = fetchUserSchema()
         let transactionSchemaData = fetchTransactionSchema()
         
-        guard userSchemaData.count > 0 else {
+        if userSchemaData == nil {
             let result = getMockUserSchemaData()
             saveUserData(userDataSchema: result)
         }
         
-        guard transactionSchemaData.count > 0 else {
+        if transactionSchemaData.count <= 0 {
             let result = getMockTransactionSchemaData()
             for data in result {
                 saveStockTransactionData(stockTransaction: data)

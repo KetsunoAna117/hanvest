@@ -8,11 +8,11 @@
 import Foundation
 
 protocol GetUserTransaction {
-    func execute(stockIDName: String) -> [StockInvestmentTransaction]
+    func execute(stockIDName: String) -> [StockInvestmentTransactionEntity]
 }
 
 struct GetUserTransactionImpl: GetUserTransaction {
-    func execute(stockIDName: String) -> [StockInvestmentTransaction] {
+    func execute(stockIDName: String) -> [StockInvestmentTransactionEntity] {
         let user = UserDataEntity.getMockupUserData()
         
         if let userStockInvestmentData = user.userInvestmentTransaction[stockIDName] {
