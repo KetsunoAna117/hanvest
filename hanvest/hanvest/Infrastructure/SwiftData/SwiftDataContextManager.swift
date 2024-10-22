@@ -200,7 +200,8 @@ private extension SwiftDataContextManager {
             ],
             transactionQueueID: [
                 "transaction-04"
-            ]
+            ],
+            moduleCompletionList: [.module01, .module02]
         )
     }
     

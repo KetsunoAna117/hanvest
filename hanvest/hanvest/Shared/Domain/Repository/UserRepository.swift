@@ -10,6 +10,5 @@ protocol UserRepository {
     func save(_ userSchema: UserSchema) throws -> Void
     func update(balance: Int) throws -> Void
     func update(name: String) throws -> Void
-    func update(userTransaction: [String]) throws -> Void
-    func update(transactionQueue: [String]) throws -> Void
+    func add(moduleCompletion: CompletionEntityType) throws -> Void
 }

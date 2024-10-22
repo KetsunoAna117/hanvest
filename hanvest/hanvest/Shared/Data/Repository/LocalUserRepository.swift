@@ -84,33 +84,15 @@ struct LocalUserRepository: UserRepository {
         }
     }
     
-    func update(userTransaction: [String]) throws {
-        if let context = modelContext{
+    func add(moduleCompletion: CompletionEntityType) throws {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
                 guard let fetchedUserSchema = try context.fetch(descriptor).first else {
                     throw SwiftDataError.notFound
                 }
                 
-                fetchedUserSchema.update(newUserInvestmentTransactionID: userTransaction)
-                try? context.save()
-                
-            }
-            catch {
-                debugPrint("Error Fetch Data:",error)
-            }
-        }
-    }
-    
-    func update(transactionQueue: [String]) throws {
-        if let context = modelContext{
-            do {
-                let descriptor = FetchDescriptor<UserSchema>()
-                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                    throw SwiftDataError.notFound
-                }
-                
-                fetchedUserSchema.update(newTransactionQueueID: transactionQueue)
+                fetchedUserSchema.add(moduleCompletion: moduleCompletion)
                 try? context.save()
                 
             }

@@ -44,6 +44,11 @@ struct AppModule {
             userRepo: userRepository,
             transactionRepo: stockTransactionRepository
         )
+        
+        // Simulation and Material
+        @Provider var saveUserModuleProgress: SaveUserModuleProgress = SaveUserModuleProgressImpl(
+            userRepo: userRepository
+        )
     }
 }
 

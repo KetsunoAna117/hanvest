@@ -65,6 +65,13 @@ struct MainScreenView: View {
             .transition(.slide)
             .animation(.easeInOut, value: selectionTab)
         }
+        .onAppear(){
+            @Inject var getUserData: GetUserData
+            
+            if let user = getUserData.execute() {
+                print("[!] Current User Progress: \(user.moduleCompletionList)")
+            }
+        }
     }
 }
 

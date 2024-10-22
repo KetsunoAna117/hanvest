@@ -50,6 +50,14 @@ import SwiftData
         self.transactionQueueID = newTransactionQueueID
     }
     
+    func add(moduleCompletion: CompletionEntityType) {
+        self.moduleCompletionIDList?.append(moduleCompletion)
+    }
+    
+    func delete(moduleCompletion: CompletionEntityType) throws {
+        moduleCompletionIDList?.removeAll(where: { $0 == moduleCompletion })
+    }
+    
     func mapToEntity(
         userInvestmentTransaction: [StockTransactionSchema],
         transactionQueue: [StockTransactionSchema]
