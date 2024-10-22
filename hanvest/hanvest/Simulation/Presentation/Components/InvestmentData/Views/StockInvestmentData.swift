@@ -92,11 +92,11 @@ struct StockInvestmentData: View {
     }
 }
 
-#Preview {
-    @Previewable @State var selectedStock = SimulationStockEntity.getMockData().first!
-    
-    StockInvestmentData(
-        selectedStock: selectedStock
-    )
-    .padding(20)
-}
+//#Preview {
+//    @Previewable @State var selectedStock = SimulationStockEntity.getMockData().first!
+//    
+//    StockInvestmentData(
+//        selectedStock: selectedStock
+//    )
+//    .padding(20)
+//}

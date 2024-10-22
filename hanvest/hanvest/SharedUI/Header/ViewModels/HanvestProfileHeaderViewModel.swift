@@ -17,7 +17,10 @@ class HanvestProfileHeaderViewModel: ObservableObject {
     }
     
     func setup(){
-        userBalance = getUserData.execute().userBalance
+        if let user = getUserData.execute() {
+            userBalance = user.userBalance
+        }
+        
     }
     
     func displayBalancePrefixAndSuffix() -> String {

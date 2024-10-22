@@ -70,10 +70,10 @@ struct HanvestStockPriceChart: View {
     }
 }
 
-#Preview {
-    @Previewable @State var stockPrices = SimulationStockEntity.getMockData().first!.stockPrice
-    
-    HanvestStockPriceChart(
-        viewmodel: HanvestProductPriceChartViewModel(prices: stockPrices), symbolCategoryKeyPath: \.name, displayBy: .hour)
-    .padding(.horizontal, 20)
-}
+//#Preview {
+//    @Previewable @State var stockPrices = SimulationStockEntity.getMockData().first!.stockPrice
+//    
+//    HanvestStockPriceChart(
+//        viewmodel: HanvestProductPriceChartViewModel(prices: stockPrices), symbolCategoryKeyPath: \.name, displayBy: .hour)
+//    .padding(.horizontal, 20)
+//}

@@ -9,8 +9,10 @@ protocol GetStockNewsData {
     func execute() -> [SimulationNewsEntity]
 }
 
-struct GetStockDataImpl: GetStockNewsData {
+struct GetStockNewsDataImpl: GetStockNewsData {
+    let newsRepo: SimulationNewsRepository
+    
     func execute() -> [SimulationNewsEntity] {
-        return SimulationNewsEntity.mock()
+        return newsRepo.fetch().map { $0.mapToEntity() }
     }
 }

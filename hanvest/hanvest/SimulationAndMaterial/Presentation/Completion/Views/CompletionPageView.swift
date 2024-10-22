@@ -12,6 +12,8 @@ struct CompletionPageView: View {
     let router: any AppRouterProtocol
     let completionItem: CompletionEntityType
     
+    private let viewmodel = CompletionPageViewModel()
+    
     var body: some View {
         ZStack {
             Color.background
@@ -76,7 +78,10 @@ struct CompletionPageView: View {
                         HanvestButtonDefault(
                             title: "Claim Reward"
                         ) {
-                            router.popToRoot()
+                            viewmodel.saveData(
+                                router: self.router,
+                                completionItem: self.completionItem
+                            )
                         }
                     }
                     .frame(maxWidth: .infinity)

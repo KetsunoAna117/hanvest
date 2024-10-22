@@ -51,8 +51,11 @@ class BuyingStockDataViewModel: ObservableObject{
         initialStockPrice: Int,
         currentStockPrice: Int
     ){
+        if let user = getUserData.execute() {
+            self.tradingBalance = user.userBalance
+        }
+        
         self.selectedStockIDName = selectedStockIDName
-        self.tradingBalance = getUserData.execute().userBalance
         self.toBuyStockPrice = currentStockPrice
         self.stockBuyLot = stockBuyLot
         
