@@ -23,6 +23,26 @@ import SwiftData
         self.stockPriceID = stockPriceID
     }
     
+    func update(stockIDName: String) {
+        self.stockIDName = stockIDName
+    }
+    
+    func update(stockName: String) {
+        self.stockName = stockName
+    }
+    
+    func update(stockImageName: String) {
+        self.stockImageName = stockImageName
+    }
+    
+    func update(stockDescription: String) {
+        self.stockDescription = stockDescription
+    }
+    
+    func update(stockPriceID: [String]) {
+        self.stockPriceID = stockPriceID
+    }
+    
     func mapToEntity(
         productPriceSchema: [ProductPriceSchema]
     ) -> SimulationStockEntity {
