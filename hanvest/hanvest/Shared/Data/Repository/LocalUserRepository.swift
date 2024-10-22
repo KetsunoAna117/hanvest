@@ -48,7 +48,7 @@ struct LocalUserRepository: UserRepository {
         }
     }
     
-    func update(balance: Int) throws {
+    func add(balance: Int) throws {
         if let context = modelContext{
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
@@ -56,7 +56,7 @@ struct LocalUserRepository: UserRepository {
                     throw SwiftDataError.notFound
                 }
                 
-                fetchedUserSchema.update(newBalance: balance)
+                fetchedUserSchema.add(newBalance: balance)
                 try? context.save()
                 
             }

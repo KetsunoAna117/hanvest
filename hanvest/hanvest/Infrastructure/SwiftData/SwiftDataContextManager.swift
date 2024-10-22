@@ -189,7 +189,7 @@ private extension SwiftDataContextManager {
     
     func getMockUserSchemaData() -> UserSchema {
         return  UserSchema(
-            id: UUID().uuidString,
+            userId: UUID().uuidString,
             userName: "Bryon",
             userBalance: 100000,
             userRiskProfile: .conservative,
@@ -201,35 +201,35 @@ private extension SwiftDataContextManager {
             transactionQueueID: [
                 "transaction-04"
             ],
-            moduleCompletionList: [.module01, .module02]
+            moduleCompletionIDList: [.module01, .module02]
         )
     }
     
     func getMockTransactionSchemaData() -> [StockTransactionSchema] {
         return [
             StockTransactionSchema(
-                id: "transaction-01",
+                transactionID: "transaction-01",
                 stockIDName: "BBRI",
                 priceAtPurchase: 5000,
                 stockLotQuantity: 1,
                 time: Date.now.addingTimeInterval(-40 * 60)
             ),
             StockTransactionSchema(
-                id: "transaction-02",
+                transactionID: "transaction-02",
                 stockIDName: "BBRI",
                 priceAtPurchase: 5100,
                 stockLotQuantity: 2,
                 time: Date.now.addingTimeInterval(-30 * 60)
             ),
             StockTransactionSchema(
-                id: "transaction-03",
+                transactionID: "transaction-03",
                 stockIDName: "BBCA",
                 priceAtPurchase: 7000,
                 stockLotQuantity: 1,
                 time: Date.now.addingTimeInterval(-20 * 60)
             ),
             StockTransactionSchema(
-                id: "transaction-04",
+                transactionID: "transaction-04",
                 stockIDName: "GOTO",
                 priceAtPurchase: 50,
                 stockLotQuantity: 10,

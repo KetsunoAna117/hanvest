@@ -20,13 +20,13 @@ struct UserDataEntity {
 extension UserDataEntity {
     func mapToSchema() -> UserSchema {
         return UserSchema(
-            id: self.userId,
+            userId: self.userId,
             userName: self.userName,
             userBalance: self.userBalance,
             userRiskProfile: self.userRiskProfile,
             userInvestmentTransactionID: self.userInvestmentTransaction.map { $0.transactionID },
             transactionQueueID: self.transactionQueue.map { $0.transactionID },
-            moduleCompletionList: self.moduleCompletionList
+            moduleCompletionIDList: self.moduleCompletionList
         )
     }
 }

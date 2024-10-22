@@ -16,12 +16,12 @@ struct GetUserTransactionImpl: GetUserTransaction {
     let transactionRepo: StockTransactionRepository
     
     func execute(stockIDName: String) -> [StockTransactionEntity] {
-        guard let user = userRepo.fetch(),
-              let transactionQueueID = user.transactionQueueID
+        guard let user = userRepo.fetch()
         else {
             return []
         }
         
+        let transactionQueueID = user.transactionQueueID
         return transactionQueueID.compactMap { id in
             if let data = transactionRepo.fetch(id: id) {
                 return data.mapToEntity()

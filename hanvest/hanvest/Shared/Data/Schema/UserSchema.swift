@@ -9,21 +9,21 @@ import SwiftData
 
 @Model final class UserSchema {
     @Attribute(.unique) var userId: String
-    var userName: String?
-    var userBalance: Int?
-    var userRiskProfile: RiskProfileType?
-    var userInvestmentTransactionID: [String]?
-    var transactionQueueID: [String]?
-    var moduleCompletionIDList: [CompletionEntityType]?
+    var userName: String
+    var userBalance: Int
+    var userRiskProfile: RiskProfileType
+    var userInvestmentTransactionID: [String]
+    var transactionQueueID: [String]
+    var moduleCompletionIDList: [CompletionEntityType]
     
-    init(id: String, userName: String? = nil, userBalance: Int? = nil, userRiskProfile: RiskProfileType? = nil, userInvestmentTransactionID: [String]? = nil, transactionQueueID: [String]? = nil, moduleCompletionList: [CompletionEntityType]? = nil) {
-        self.userId = id
+    init(userId: String, userName: String, userBalance: Int, userRiskProfile: RiskProfileType, userInvestmentTransactionID: [String], transactionQueueID: [String], moduleCompletionIDList: [CompletionEntityType]) {
+        self.userId = userId
         self.userName = userName
         self.userBalance = userBalance
         self.userRiskProfile = userRiskProfile
         self.userInvestmentTransactionID = userInvestmentTransactionID
         self.transactionQueueID = transactionQueueID
-        self.moduleCompletionIDList = moduleCompletionList
+        self.moduleCompletionIDList = moduleCompletionIDList
     }
     
     func update(newUserData: UserSchema) {
@@ -34,8 +34,8 @@ import SwiftData
         self.transactionQueueID = newUserData.transactionQueueID
     }
     
-    func update(newBalance: Int) {
-        self.userBalance = newBalance
+    func add(newBalance: Int) {
+        self.userBalance += newBalance
     }
     
     func update(newName: String) {
@@ -51,11 +51,11 @@ import SwiftData
     }
     
     func add(moduleCompletion: CompletionEntityType) {
-        self.moduleCompletionIDList?.append(moduleCompletion)
+        self.moduleCompletionIDList.append(moduleCompletion)
     }
     
     func delete(moduleCompletion: CompletionEntityType) throws {
-        moduleCompletionIDList?.removeAll(where: { $0 == moduleCompletion })
+        moduleCompletionIDList.removeAll(where: { $0 == moduleCompletion })
     }
     
     func mapToEntity(
@@ -64,12 +64,12 @@ import SwiftData
     ) -> UserDataEntity {
         return UserDataEntity(
             userId: self.userId,
-            userName: self.userName ?? "",
-            userBalance: self.userBalance ?? 0,
-            userRiskProfile: self.userRiskProfile ?? .noData,
+            userName: self.userName,
+            userBalance: self.userBalance,
+            userRiskProfile: self.userRiskProfile,
             userInvestmentTransaction: userInvestmentTransaction.map { $0.mapToEntity() }.sorted(by: { $0.time < $1.time }),
             transactionQueue: transactionQueue.map { $0.mapToEntity() }.sorted(by: { $0.time < $1.time }),
-            moduleCompletionList: self.moduleCompletionIDList ?? []
+            moduleCompletionList: self.moduleCompletionIDList
         )
     }
 }

@@ -10,13 +10,13 @@ import SwiftData
 
 @Model final class StockTransactionSchema: Equatable, Hashable {
     @Attribute(.unique) var transactionID: String
-    var stockIDName: String?
-    var priceAtPurchase: Int?
-    var stockLotQuantity: Int?
-    var time: Date?
+    var stockIDName: String
+    var priceAtPurchase: Int
+    var stockLotQuantity: Int
+    var time: Date
     
-    init(id: String, stockIDName: String? = nil, priceAtPurchase: Int? = nil, stockLotQuantity: Int? = nil, time: Date? = nil) {
-        self.transactionID = id
+    init(transactionID: String, stockIDName: String, priceAtPurchase: Int, stockLotQuantity: Int, time: Date) {
+        self.transactionID = transactionID
         self.stockIDName = stockIDName
         self.priceAtPurchase = priceAtPurchase
         self.stockLotQuantity = stockLotQuantity
@@ -45,9 +45,9 @@ import SwiftData
     func mapToEntity() -> StockTransactionEntity {
         return StockTransactionEntity(
             transactionID: self.transactionID,
-            stockIDName: self.stockIDName ?? "",
-            priceAtPurchase: self.priceAtPurchase ?? 0,
-            stockLotQuantity: self.stockLotQuantity ?? 0,
+            stockIDName: self.stockIDName,
+            priceAtPurchase: self.priceAtPurchase,
+            stockLotQuantity: self.stockLotQuantity,
             time: Date.distantPast
         )
     }

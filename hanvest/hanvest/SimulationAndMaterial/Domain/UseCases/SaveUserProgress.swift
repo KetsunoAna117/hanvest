@@ -14,5 +14,6 @@ struct SaveUserModuleProgressImpl: SaveUserModuleProgress {
     
     func execute(data: CompletionEntityType) throws {
         try userRepo.add(moduleCompletion: data)
+        try userRepo.add(balance: data.value.bonusMoney)
     }
 }

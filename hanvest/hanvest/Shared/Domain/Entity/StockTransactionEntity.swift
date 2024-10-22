@@ -18,7 +18,7 @@ struct StockTransactionEntity {
 extension StockTransactionEntity {
     func mapToSchema() -> StockTransactionSchema {
         return StockTransactionSchema(
-            id: self.transactionID,
+            transactionID: self.transactionID,
             stockIDName: self.stockIDName,
             priceAtPurchase: self.priceAtPurchase,
             stockLotQuantity: self.stockLotQuantity,
