@@ -59,8 +59,8 @@ import SwiftData
             userName: self.userName ?? "",
             userBalance: self.userBalance ?? 0,
             userRiskProfile: self.userRiskProfile ?? .noData,
-            userInvestmentTransaction: userInvestmentTransaction.map { $0.mapToEntity() },
-            transactionQueue: transactionQueue.map { $0.mapToEntity() },
+            userInvestmentTransaction: userInvestmentTransaction.map { $0.mapToEntity() }.sorted(by: { $0.time < $1.time }),
+            transactionQueue: transactionQueue.map { $0.mapToEntity() }.sorted(by: { $0.time < $1.time }),
             moduleCompletionList: self.moduleCompletionIDList ?? []
         )
     }

@@ -22,5 +22,6 @@ struct GetAvailableSimulationStocksImpl: GetAvailableSimulationStocks {
             let fetchedPrice = productPriceRepo.fetchAllWith(stockID: stock.stockIDName)
             return stock.mapToEntity(productPriceSchema: fetchedPrice)
         }
+
     }
 }

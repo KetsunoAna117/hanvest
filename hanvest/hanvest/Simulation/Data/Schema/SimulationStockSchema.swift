@@ -51,7 +51,7 @@ import SwiftData
             stockName: self.stockName ?? "",
             stockImageName: self.stockImageName ?? "",
             stockDescription: self.stockDescription ?? "",
-            stockPrice: productPriceSchema.map({ $0.mapToEntity() })
+            stockPrice: productPriceSchema.map({ $0.mapToEntity() }).sorted(by: {$0.time < $1.time})
         )
     }
 }
