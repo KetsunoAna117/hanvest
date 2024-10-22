@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-struct LocalStockTransactionRepository: StockInvestmentRepository {
+struct LocalStockTransactionRepository: StockTransactionRepository {
     let modelContext: ModelContext?
     
     func fetch() -> [StockTransactionSchema] {
@@ -37,6 +37,23 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
                 debugPrint("Error Fetch Data:",error)
             }
         }
+        return nil
+    }
+    
+    func fetchWith(stockIDName: String) -> [StockTransactionSchema] {
+        if let context = modelContext {
+            do {
+                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                    predicate: #Predicate { $0.stockIDName == stockIDName}
+                )
+                return try context.fetch(descriptor)
+                
+            }
+            catch {
+                debugPrint("Error Fetch Data:",error)
+            }
+        }
+        return []
     }
     
     func save(_ transaction: StockTransactionSchema) throws {

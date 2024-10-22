@@ -8,13 +8,13 @@
 import Foundation
 
 protocol SimulationStockRepository {
-    func fetch() -> [SimulationStockSchema]
-    func fetch(id: String) -> SimulationStockSchema?
-    func save(_ stocks: SimulationStockSchema)
-    func delete(id: String)
-    func update(stockIDName: String)
-    func update(stockName: String)
-    func update(stockImageName: String)
-    func update(stockDescription: String)
-    func update(stockPriceID: [String])
+    func fetchAll() -> [SimulationStockSchema]
+    func fetch(stockID: String) -> SimulationStockSchema?
+    func save(_ stocks: SimulationStockSchema) throws
+    func delete(id: String) throws
+    func update(id: String, stockIDName: String) throws
+    func update(id: String, stockName: String) throws
+    func update(id: String, stockImageName: String) throws
+    func update(id: String, stockDescription: String) throws
+    func update(id: String, stockPriceID: [String]) throws
 }

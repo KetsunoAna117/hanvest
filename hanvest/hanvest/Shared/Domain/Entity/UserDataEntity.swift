@@ -32,24 +32,24 @@ extension UserDataEntity {
 }
 
 
-extension UserDataEntity {
-    static func mock() -> UserDataEntity {
-        return UserDataEntity(
-            userId: UUID().uuidString,
-            userName: "Bryon",
-            userBalance: 2000000,
-            userRiskProfile: .aggresive,
-            userInvestmentTransaction: StockTransactionEntity.mock(),
-            transactionQueue: [
-                StockTransactionEntity(
-                    transactionID: UUID().uuidString,
-                    stockIDName: "BBRI",
-                    priceAtPurchase: 1000,
-                    stockLotQuantity: 2,
-                    time: Date.now
-                )
-            ],
-            moduleCompletionList: [.module01, .module02]
-        )
-    }
-}
+//extension UserDataEntity {
+//    static func mock() -> UserDataEntity {
+//        return UserDataEntity(
+//            userId: UUID().uuidString,
+//            userName: "Bryon",
+//            userBalance: 2000000,
+//            userRiskProfile: .aggresive,
+//            userInvestmentTransaction: StockTransactionEntity.mock(),
+//            transactionQueue: [
+//                StockTransactionEntity(
+//                    transactionID: UUID().uuidString,
+//                    stockIDName: "BBRI",
+//                    priceAtPurchase: 1000,
+//                    stockLotQuantity: 2,
+//                    time: Date.now
+//                )
+//            ],
+//            moduleCompletionList: [.module01, .module02]
+//        )
+//    }
+//}

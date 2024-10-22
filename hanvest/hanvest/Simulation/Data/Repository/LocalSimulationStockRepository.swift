@@ -1,5 +1,5 @@
 //
-//  LocalSimulationNewsRepository.swift
+//  LocalSimulationStockRepository.swift
 //  hanvest
 //
 //  Created by Hans Arthur Cupiterson on 22/10/24.
@@ -8,13 +8,13 @@
 import Foundation
 import SwiftData
 
-struct LocalSimulationNewsRepository: SimulationNewsRepository {
+struct LocalSimulationStockRepository: SimulationStockRepository {
     let modelContext: ModelContext?
     
-    func fetch() -> [SimulationNewsSchema] {
+    func fetchAll() -> [SimulationStockSchema] {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<SimulationNewsSchema>()
+                let descriptor = FetchDescriptor<SimulationStockSchema>()
                 let result = try context.fetch(descriptor)
                 return result
             }
@@ -22,106 +22,104 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
                 debugPrint("Error Fetch Data:",error)
             }
         }
+        
         return []
     }
     
-    func fetch(id: String) -> SimulationNewsSchema? {
+    func fetch(stockID id: String) -> SimulationStockSchema? {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<SimulationNewsSchema>(
-                    predicate: #Predicate { $0.newsID == id}
+                let descriptor = FetchDescriptor<SimulationStockSchema>(
+                    predicate: #Predicate { $0.stockIDName == id}
                 )
-                let result = try context.fetch(descriptor)
-                return result.first
+                
+                let result = try context.fetch(descriptor).first
+                return result
             }
             catch {
                 debugPrint("Error Fetch Data:",error)
             }
         }
+        
         return nil
     }
     
-    func save(_ news: SimulationNewsSchema) throws {
+    func save(_ stocks: SimulationStockSchema) throws {
         if let context = modelContext {
-            let fetchedNews = fetch(id: news.newsID)
-            if fetchedNews != nil {
+            if fetch(stockID: stocks.stockIDName) != nil {
                 throw SwiftDataError.alreadyExists
             }
             
-            context.insert(news)
+            context.insert(stocks)
             try context.save()
         }
     }
     
     func delete(id: String) throws {
         if let context = modelContext {
-            let fetchedNews = fetch(id: id)
-            if fetchedNews == nil {
+            guard let stock = fetch(stockID: id) else {
                 throw SwiftDataError.notFound
             }
             
-            context.delete(fetchedNews!)
+            context.delete(stock)
             try context.save()
         }
     }
     
     func update(id: String, stockIDName: String) throws {
         if let context = modelContext {
-            let fetchedNews = fetch(id: id)
-            guard let fetchedNews else {
+            guard let stock = fetch(stockID: id) else {
                 throw SwiftDataError.notFound
             }
             
-            fetchedNews.update(stockIDName: stockIDName)
+            stock.update(stockIDName: stockIDName)
             try context.save()
         }
     }
     
-    func update(id: String, newsTitle: String) throws {
+    func update(id: String, stockName: String) throws {
         if let context = modelContext {
-            let fetchedNews = fetch(id: id)
-            guard let fetchedNews else {
+            guard let stock = fetch(stockID: id) else {
                 throw SwiftDataError.notFound
             }
             
-            fetchedNews.update(newsTitle: newsTitle)
+            stock.update(stockName: stockName)
             try context.save()
         }
     }
     
-    func update(id: String, newsReleasedTime: Date) throws {
+    func update(id: String, stockImageName: String) throws {
         if let context = modelContext {
-            let fetchedNews = fetch(id: id)
-            guard let fetchedNews else {
+            guard let stock = fetch(stockID: id) else {
                 throw SwiftDataError.notFound
             }
             
-            fetchedNews.update(newsReleasedTime: newsReleasedTime)
+            stock.update(stockImageName: stockImageName)
             try context.save()
         }
     }
     
-    func update(id: String, newsContent: String) throws {
+    func update(id: String, stockDescription: String) throws {
         if let context = modelContext {
-            let fetchedNews = fetch(id: id)
-            guard let fetchedNews else {
+            guard let stock = fetch(stockID: id) else {
                 throw SwiftDataError.notFound
             }
             
-            fetchedNews.update(newsContent: newsContent)
+            stock.update(stockDescription: stockDescription)
             try context.save()
         }
     }
     
-    func update(id: String, stockFluksPercentage: Int) throws {
+    func update(id: String, stockPriceID: [String]) throws {
         if let context = modelContext {
-            let fetchedNews = fetch(id: id)
-            guard let fetchedNews else {
+            guard let stock = fetch(stockID: id) else {
                 throw SwiftDataError.notFound
             }
             
-            fetchedNews.update(stockFluksPercentage: stockFluksPercentage)
+            stock.update(stockPriceID: stockPriceID)
             try context.save()
         }
     }
+    
+    
 }

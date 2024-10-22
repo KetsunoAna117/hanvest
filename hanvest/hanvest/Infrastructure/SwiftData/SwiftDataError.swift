@@ -11,5 +11,6 @@ enum SwiftDataError: LocalizedError {
     case notFound
     case alreadyExists
     case failed
+    case noData
     case genericError(error: Error)
 }

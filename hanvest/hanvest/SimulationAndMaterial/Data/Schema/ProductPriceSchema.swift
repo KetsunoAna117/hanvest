@@ -9,21 +9,37 @@ import Foundation
 import SwiftData
 
 @Model final class ProductPriceSchema {
-    var id: String?
+    @Attribute(.unique) var priceID: String
     var name: String?
     var price: Int?
     var time: Date?
     
-    init(id: String? = nil, name: String? = nil, price: Int? = nil, time: Date? = nil) {
-        self.id = id
+    init(id: String, name: String? = nil, price: Int? = nil, time: Date? = nil) {
+        self.priceID = id
         self.name = name
         self.price = price
         self.time = time
     }
     
+    func update(priceID: String) {
+        self.priceID = priceID
+    }
+    
+    func update(name: String) {
+        self.name = name
+    }
+    
+    func update(price: Int) {
+        self.price = price
+    }
+    
+    func update(time: Date) {
+        self.time = time
+    }
+    
     func mapToEntity() -> ProductPriceEntity {
         return ProductPriceEntity(
-            id: self.id ?? "",
+            id: self.priceID,
             name: self.name ?? "",
             price: self.price ?? 0,
             time: self.time ?? Date.distantPast

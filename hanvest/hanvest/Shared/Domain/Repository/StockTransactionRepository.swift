@@ -7,9 +7,10 @@
 
 import Foundation
 
-protocol StockInvestmentRepository {
+protocol StockTransactionRepository {
     func fetch() -> [StockTransactionSchema]
     func fetch(id: String) -> StockTransactionSchema?
+    func fetchWith(stockIDName: String) -> [StockTransactionSchema]
     func save(_ transaction: StockTransactionSchema) throws
     func delete(_ transactionID: String) throws
     func update(id: String, price: Int) throws

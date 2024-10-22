@@ -12,7 +12,15 @@ protocol GetAvailableSimulationStocks {
 }
 
 struct GetAvailableSimulationStocksImpl: GetAvailableSimulationStocks {
+    let stockRepo: SimulationStockRepository
+    let productPriceRepo: ProductPriceRepository
+    
     func execute() -> [SimulationStockEntity] {
-        return SimulationStockEntity.getMockData()
+        let fetchedStock = stockRepo.fetchAll()
+        
+        return fetchedStock.map { stock in
+            let fetchedPrice = productPriceRepo.fetchAllWith(stockID: stock.stockIDName)
+            return stock.mapToEntity(productPriceSchema: fetchedPrice)
+        }
     }
 }

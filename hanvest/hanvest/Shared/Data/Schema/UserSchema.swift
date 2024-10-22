@@ -50,10 +50,9 @@ import SwiftData
         self.transactionQueueID = newTransactionQueueID
     }
     
-    func mapToUserDataEntity(
+    func mapToEntity(
         userInvestmentTransaction: [StockTransactionSchema],
-        transactionQueue: [StockTransactionSchema],
-        moduleCompletionList: [CompletionEntityType]
+        transactionQueue: [StockTransactionSchema]
     ) -> UserDataEntity {
         return UserDataEntity(
             userId: self.userId,

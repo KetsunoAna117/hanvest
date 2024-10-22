@@ -12,13 +12,21 @@ protocol GetUserTransaction {
 }
 
 struct GetUserTransactionImpl: GetUserTransaction {
+    let userRepo: UserRepository
+    let transactionRepo: StockTransactionRepository
+    
     func execute(stockIDName: String) -> [StockTransactionEntity] {
-        let user = UserDataEntity.mock()
-        
-        let res = user.userInvestmentTransaction.filter {
-            $0.stockIDName == stockIDName
+        guard let user = userRepo.fetch(),
+              let transactionQueueID = user.transactionQueueID
+        else {
+            return []
         }
         
-        return res
+        return transactionQueueID.compactMap { id in
+            if let data = transactionRepo.fetch(id: id) {
+                return data.mapToEntity()
+            }
+            return nil
+        }
     }
 }
