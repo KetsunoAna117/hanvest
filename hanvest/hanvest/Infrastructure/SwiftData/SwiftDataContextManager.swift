@@ -15,8 +15,13 @@ public class SwiftDataContextManager {
     
     init() {
         do {
+            // Try to reset the swiftdata
+            if let container{
+                try container.erase()
+            }
+            
             container = try ModelContainer(
-                for: UserSchema.self, StockTransactionSchema.self
+                for: setupSchema()
             )
             
             if let container {
@@ -27,8 +32,17 @@ public class SwiftDataContextManager {
             debugPrint("Error initializing database container:", error)
         }
     }
+    
+    private func setupSchema() -> Schema {
+        return Schema([
+            UserSchema.self,
+            StockTransactionSchema.self,
+            SimulationNewsSchema.self
+        ])
+    }
 }
 
+// CRUD Method
 private extension SwiftDataContextManager {
     func saveUserData(userDataSchema: UserSchema) {
         if let context{
@@ -39,6 +53,12 @@ private extension SwiftDataContextManager {
     func saveStockTransactionData(stockTransaction: StockTransactionSchema){
         if let context {
             context.insert(stockTransaction)
+        }
+    }
+    
+    func saveNewsData(news: SimulationNewsSchema) {
+        if let context {
+            context.insert(news)
         }
     }
     
@@ -69,12 +89,28 @@ private extension SwiftDataContextManager {
         }
         return []
     }
+    
+    func fetchNewsSchema() -> [SimulationNewsSchema] {
+        if let context {
+            do {
+                let descriptor = FetchDescriptor<SimulationNewsSchema>()
+                let result = try context.fetch(descriptor)
+                return result
+            }
+            catch {
+                debugPrint("Error Fetch Data:",error)
+            }
+        }
+        return []
+    }
 }
 
+// Prepopulate Data
 private extension SwiftDataContextManager {
     func prepopulateUserData() {
         let userSchemaData = fetchUserSchema()
         let transactionSchemaData = fetchTransactionSchema()
+        let newsSchemaData = fetchNewsSchema()
         
         if userSchemaData == nil {
             let result = getMockUserSchemaData()
@@ -85,6 +121,13 @@ private extension SwiftDataContextManager {
             let result = getMockTransactionSchemaData()
             for data in result {
                 saveStockTransactionData(stockTransaction: data)
+            }
+        }
+        
+        if newsSchemaData.count <= 0 {
+            let result = getMockNewsSchemaData()
+            for data in result {
+                saveNewsData(news: data)
             }
         }
     }
@@ -137,5 +180,11 @@ private extension SwiftDataContextManager {
                 time: Date.now.addingTimeInterval(-10 * 60)
             )
         ]
+    }
+    
+    func getMockNewsSchemaData() -> [SimulationNewsSchema] {
+        return SimulationNewsEntity.mock().map { news in
+            news.mapToSchema()
+        }
     }
 }

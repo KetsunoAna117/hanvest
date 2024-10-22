@@ -60,8 +60,8 @@ import SwiftData
             userName: self.userName ?? "",
             userBalance: self.userBalance ?? 0,
             userRiskProfile: self.userRiskProfile ?? .noData,
-            userInvestmentTransaction: userInvestmentTransaction.map { $0.mapToStockInvestmentTransactionEntity() },
-            transactionQueue: transactionQueue.map { $0.mapToStockInvestmentTransactionEntity() },
+            userInvestmentTransaction: userInvestmentTransaction.map { $0.mapToEntity() },
+            transactionQueue: transactionQueue.map { $0.mapToEntity() },
             moduleCompletionList: self.moduleCompletionIDList ?? []
         )
     }

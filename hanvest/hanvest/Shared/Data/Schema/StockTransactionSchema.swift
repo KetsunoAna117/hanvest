@@ -42,7 +42,7 @@ import SwiftData
         self.time = time
     }
     
-    func mapToStockInvestmentTransactionEntity() -> StockTransactionEntity {
+    func mapToEntity() -> StockTransactionEntity {
         return StockTransactionEntity(
             transactionID: self.transactionID,
             stockIDName: self.stockIDName ?? "",

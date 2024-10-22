@@ -14,7 +14,19 @@ struct SimulationNewsEntity {
     var newsReleasedTime: Date
     var newsContent: String
     var stockFluksPercentage: Int
-    
+}
+
+extension SimulationNewsEntity {
+    func mapToSchema() -> SimulationNewsSchema {
+        return SimulationNewsSchema(
+            newsID: self.newsID,
+            stockIDName: self.stockIDName,
+            newsTitle: self.newsTitle,
+            newsReleasedTime: self.newsReleasedTime,
+            newsContent: self.newsContent,
+            stockFluksPercentage: self.stockFluksPercentage
+        )
+    }
 }
 
 extension SimulationNewsEntity {

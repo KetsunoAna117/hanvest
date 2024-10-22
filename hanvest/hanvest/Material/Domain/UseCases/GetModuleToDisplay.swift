@@ -17,7 +17,7 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
             return []
         }
         
-        let riskProfile = user.userRiskProfile // TODO: Select Module based on user risk profile
+        _ = user.userRiskProfile // TODO: Select Module based on user risk profile
         
         return [
             ModuleNavigatiorEntity(

@@ -83,6 +83,7 @@ class HanvestSimulationViewModel: ObservableObject {
             let lastTime = self.stockList[randomStockIncrease].stockPrice.last?.time ?? Date.now
             
             let newPrice = ProductPriceEntity(
+                id: self.stockList[randomStockIncrease].stockIDName,
                 name: self.stockList[randomStockIncrease].stockIDName,
                 price: currentStockPrice + randomPriceIncrease,
                 time: lastTime.addingTimeInterval(30 * 60)

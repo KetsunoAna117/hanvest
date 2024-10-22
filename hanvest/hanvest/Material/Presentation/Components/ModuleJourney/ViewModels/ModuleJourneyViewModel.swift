@@ -26,7 +26,7 @@ class ModuleJourneyViewModel: ObservableObject {
         // Create a set of completed module IDs for fast lookup
         let completedModuleIDs = Set(moduleCompletionList.map { $0.value.moduleID })
         
-        moduleProgressList = getModuleToDisplay.execute(userRisk: .conservative)
+        moduleProgressList = getModuleToDisplay.execute()
         self.numberOfModules = moduleProgressList.count
         
         // Update the state of modules based on completion list

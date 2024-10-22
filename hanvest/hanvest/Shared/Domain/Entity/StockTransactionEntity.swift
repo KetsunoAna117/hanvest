@@ -30,48 +30,37 @@ extension StockTransactionEntity {
 extension StockTransactionEntity {
     static func mock() -> [Self] {
         return [
-            .init(
-                transactionID: UUID().uuidString,
+            StockTransactionSchema(
+                id: "transaction-01",
                 stockIDName: "BBRI",
                 priceAtPurchase: 5000,
                 stockLotQuantity: 1,
-                time: Date.now
-            ),
-            .init(
-                transactionID: UUID().uuidString,
-                stockIDName: "BBRI",
-                priceAtPurchase: 5200,
-                stockLotQuantity: 1,
-                time: Date.now
-            ),
-            .init(
-                transactionID: UUID().uuidString,
+                time: Date.now.addingTimeInterval(-40 * 60)
+            ).mapToEntity()
+            ,
+            StockTransactionSchema(
+                id: "transaction-02",
                 stockIDName: "BBRI",
                 priceAtPurchase: 5100,
-                stockLotQuantity: 1,
-                time: Date.now
-            ),
-            .init(
-                transactionID: UUID().uuidString,
+                stockLotQuantity: 2,
+                time: Date.now.addingTimeInterval(-30 * 60)
+            ).mapToEntity()
+            ,
+            StockTransactionSchema(
+                id: "transaction-03",
                 stockIDName: "BBCA",
-                priceAtPurchase: 5000,
+                priceAtPurchase: 7000,
                 stockLotQuantity: 1,
-                time: Date.now
-            ),
-            .init(
-                transactionID: UUID().uuidString,
-                stockIDName: "BBCA",
-                priceAtPurchase: 4000,
-                stockLotQuantity: 3,
-                time: Date.now
-            ),
-            .init(
-                transactionID: UUID().uuidString,
+                time: Date.now.addingTimeInterval(-20 * 60)
+            ).mapToEntity()
+            ,
+            StockTransactionSchema(
+                id: "transaction-04",
                 stockIDName: "GOTO",
-                priceAtPurchase: 40,
+                priceAtPurchase: 50,
                 stockLotQuantity: 10,
-                time: Date.now
-            )
+                time: Date.now.addingTimeInterval(-10 * 60)
+            ).mapToEntity()
             
         ]
     }
