@@ -9,10 +9,10 @@ import Foundation
 import SwiftData
 
 struct LocalUserRepository: UserRepository {
-    let modelContext: SwiftDataContextManager
+    let modelContext: ModelContext?
     
-    func get() -> UserSchema? {
-        if let context = modelContext.context {
+    func fetch() -> UserSchema? {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
                 let userSchema = try context.fetch(descriptor)
@@ -26,7 +26,7 @@ struct LocalUserRepository: UserRepository {
     }
     
     func save(_ userSchema: UserSchema) {
-        if let context = modelContext.context {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
                 
@@ -49,7 +49,7 @@ struct LocalUserRepository: UserRepository {
     }
     
     func update(balance: Int) throws {
-        if let context = modelContext.context {
+        if let context = modelContext{
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
                 guard let fetchedUserSchema = try context.fetch(descriptor).first else {
@@ -67,7 +67,7 @@ struct LocalUserRepository: UserRepository {
     }
     
     func update(name: String) throws {
-        if let context = modelContext.context {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
                 guard let fetchedUserSchema = try context.fetch(descriptor).first else {
@@ -85,7 +85,7 @@ struct LocalUserRepository: UserRepository {
     }
     
     func update(userTransaction: [String]) throws {
-        if let context = modelContext.context {
+        if let context = modelContext{
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
                 guard let fetchedUserSchema = try context.fetch(descriptor).first else {
@@ -103,7 +103,7 @@ struct LocalUserRepository: UserRepository {
     }
     
     func update(transactionQueue: [String]) throws {
-        if let context = modelContext.context {
+        if let context = modelContext{
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
                 guard let fetchedUserSchema = try context.fetch(descriptor).first else {

@@ -9,10 +9,10 @@ import Foundation
 import SwiftData
 
 struct LocalStockTransactionRepository: StockInvestmentRepository {
-    let modelContext: SwiftDataContextManager
+    let modelContext: ModelContext?
     
-    func get() -> [StockTransactionSchema] {
-        if let context = modelContext.context {
+    func fetch() -> [StockTransactionSchema] {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<StockTransactionSchema>()
                 return try context.fetch(descriptor)
@@ -24,8 +24,23 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
         return []
     }
     
+    func fetch(id: String) -> StockTransactionSchema? {
+        if let context = modelContext {
+            do {
+                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                    predicate: #Predicate { $0.transactionID == id}
+                )
+                return try context.fetch(descriptor).first
+                
+            }
+            catch {
+                debugPrint("Error Fetch Data:",error)
+            }
+        }
+    }
+    
     func save(_ transaction: StockTransactionSchema) throws {
-        if let context = modelContext.context {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
@@ -43,7 +58,7 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
     }
     
     func delete(_ transactionID: String) {
-        if let context = modelContext.context {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
@@ -63,7 +78,7 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
     }
     
     func update(id: String, price: Int) {
-        if let context = modelContext.context {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
@@ -83,7 +98,7 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
     }
     
     func update(id: String, stockLotQty: Int) {
-        if let context = modelContext.context {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
@@ -103,7 +118,7 @@ struct LocalStockTransactionRepository: StockInvestmentRepository {
     }
     
     func update(id: String, time: Date) {
-        if let context = modelContext.context {
+        if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<StockTransactionSchema>()
                 

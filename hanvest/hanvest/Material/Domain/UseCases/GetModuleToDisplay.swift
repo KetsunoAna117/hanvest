@@ -13,7 +13,7 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
     let repo: UserRepository
     
     func execute() -> [ModuleNavigatiorEntity] {
-        guard let user = repo.get() else {
+        guard let user = repo.fetch() else {
             return []
         }
         

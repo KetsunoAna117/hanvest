@@ -36,14 +36,14 @@ struct HanvestStockOptionList: View {
     }
 }
 
-#Preview {
-    @Previewable @State var selectedStockID: String = "BBRI"
-    
-    HanvestStockOptionList(
-        selectedStockID: $selectedStockID,
-        simulationStockList: SimulationStockEntity.getMockData(),
-        onPressed: { data in
-            print("On Pressed \(data)")
-        }
-    )
-}
+//#Preview {
+//    @Previewable @State var selectedStockID: String = "BBRI"
+//    
+//    HanvestStockOptionList(
+//        selectedStockID: $selectedStockID,
+//        simulationStockList: SimulationStockEntity.getMockData(),
+//        onPressed: { data in
+//            print("On Pressed \(data)")
+//        }
+//    )
+//}

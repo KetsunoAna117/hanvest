@@ -6,7 +6,7 @@
 //
 
 protocol UserRepository {
-    func get() -> UserSchema?
+    func fetch() -> UserSchema?
     func save(_ userSchema: UserSchema) throws -> Void
     func update(balance: Int) throws -> Void
     func update(name: String) throws -> Void

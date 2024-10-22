@@ -70,12 +70,12 @@ struct HanvestNewsButton: View {
     }
 }
 
-#Preview {
-    HanvestNewsButton(
-        news: SimulationNewsEntity.mock().first!,
-        action: {
-            print("News Pressed!")
-        }
-    )
-    .padding(.horizontal, 16)
-}
+//#Preview {
+//    HanvestNewsButton(
+//        news: SimulationNewsEntity.mock().first!,
+//        action: {
+//            print("News Pressed!")
+//        }
+//    )
+//    .padding(.horizontal, 16)
+//}

@@ -8,7 +8,8 @@
 import Foundation
 
 protocol StockInvestmentRepository {
-    func get() -> [StockTransactionSchema]
+    func fetch() -> [StockTransactionSchema]
+    func fetch(id: String) -> StockTransactionSchema?
     func save(_ transaction: StockTransactionSchema) throws
     func delete(_ transactionID: String) throws
     func update(id: String, price: Int) throws

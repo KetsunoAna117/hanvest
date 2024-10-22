@@ -8,9 +8,10 @@
 struct AppModule {
     static func inject(){
         // MARK: Repository
-        let swiftDataContextManager = SwiftDataContextManager.shared
-        let userRepository: UserRepository = LocalUserRepository(modelContext: swiftDataContextManager)
-        let stockInvestmentRepository: StockInvestmentRepository = LocalStockTransactionRepository(modelContext: swiftDataContextManager)
+        let modelContext = SwiftDataContextManager.shared.context
+        let userRepository: UserRepository = LocalUserRepository(modelContext: modelContext)
+        let stockInvestmentRepository: StockInvestmentRepository = LocalStockTransactionRepository(modelContext: modelContext)
+        let simulationNewsRepository: SimulationNewsRepository = LocalSimulationNewsRepository(modelContext: modelContext)
         
         //MARK: USE Case
         // Material

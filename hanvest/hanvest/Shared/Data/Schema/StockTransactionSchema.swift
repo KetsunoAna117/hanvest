@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-@Model final class StockTransactionSchema {
+@Model final class StockTransactionSchema: Equatable, Hashable {
     @Attribute(.unique) var transactionID: String
     var stockIDName: String?
     var priceAtPurchase: Int?
