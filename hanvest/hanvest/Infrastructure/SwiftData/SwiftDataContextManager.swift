@@ -15,11 +15,6 @@ public class SwiftDataContextManager {
     
     init() {
         do {
-            // Try to reset the swiftdata
-            if let container{
-                try container.erase()
-            }
-            
             container = try ModelContainer(
                 for: setupSchema()
             )
@@ -196,7 +191,7 @@ private extension SwiftDataContextManager {
         return  UserSchema(
             id: UUID().uuidString,
             userName: "Bryon",
-            userBalance: 0,
+            userBalance: 100000,
             userRiskProfile: .conservative,
             userInvestmentTransactionID: [
                 "transaction-01",
