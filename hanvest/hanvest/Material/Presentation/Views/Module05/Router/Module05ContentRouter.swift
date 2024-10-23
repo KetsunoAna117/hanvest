@@ -39,12 +39,36 @@ class Module05ContentRouter: Module05ContentRouterProtocol, ObservableObject {
         case .confirmBuy(let appRouter, let viewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestBuyStockScreenView(router: appRouter, simulationViewModel: viewModel)
+                HanvestBuyStockScreenView(
+                    router: appRouter,
+                    simulationViewModel: viewModel,
+                    backAction: {
+                        
+                    },
+                    cancelAction: {
+                        
+                    },
+                    confirmAction: { viewmodel in
+                            
+                    }
+                )
             }
         case .confirmSell(let appRouter, let viewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSellStockScreenView(router: appRouter, simulationViewModel: viewModel)
+                HanvestSellStockScreenView(
+                    router: appRouter,
+                    simulationViewModel: viewModel,
+                    backAction: {
+                        
+                    },
+                    cancelAction: {
+                        
+                    },
+                    confirmAction: { viewmodel in
+                        
+                    }
+                )
             }
         case .transactionStatus(let appRouter, let transaction):
             ZStack {

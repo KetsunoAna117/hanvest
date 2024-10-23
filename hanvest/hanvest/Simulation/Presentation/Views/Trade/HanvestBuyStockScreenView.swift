@@ -13,6 +13,10 @@ struct HanvestBuyStockScreenView: View {
     @ObservedObject var simulationViewModel: HanvestSimulationViewModel
     @StateObject var viewmodel: BuyingStockDataViewModel = .init()
     
+    var backAction: () -> Void
+    var cancelAction: () -> Void
+    var confirmAction: (BuyingStockDataViewModel) -> Void
+    
     var body: some View {
         if let stock = simulationViewModel.selectedStock {
             VStack {
@@ -20,7 +24,7 @@ struct HanvestBuyStockScreenView: View {
                     label: "Buy \(stock.stockIDName)",
                     leadingIcon: Image(systemName: "chevron.left"),
                     leadingAction: {
-                        router.pop()
+                        backAction()
                     }
                 )
                 
@@ -50,19 +54,10 @@ struct HanvestBuyStockScreenView: View {
                             .withBuyConfirmationPopup(
                                 viewmodel: viewmodel,
                                 confirmAction: {
-                                    router.push(
-                                        .transactionStatus(
-                                            transaction: TransactionStatusViewModel(
-                                                lotAmount: viewmodel.stockBuyLot,
-                                                stockPrice: viewmodel.toBuyStockPrice,
-                                                selectedStockIDName: viewmodel.selectedStockIDName,
-                                                transactionType: .buy
-                                            )
-                                        )
-                                    )
+                                    confirmAction(viewmodel)
                                 },
                                 cancelAction: {
-                                    router.dismissPopup()
+                                    cancelAction()
                                 }
                             )
                         )

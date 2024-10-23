@@ -109,7 +109,28 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .simulationBuyingConfirmation(let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestBuyStockScreenView(router: self, simulationViewModel: simulationViewModel)
+                HanvestBuyStockScreenView(
+                    router: self,
+                    simulationViewModel: simulationViewModel,
+                    backAction: {
+                        self.pop()
+                    },
+                    cancelAction: {
+                        self.dismissPopup()
+                    },
+                    confirmAction: { viewmodel in
+                        self.push(
+                            .transactionStatus(
+                                transaction: TransactionStatusViewModel(
+                                    lotAmount: viewmodel.stockBuyLot,
+                                    stockPrice: viewmodel.toBuyStockPrice,
+                                    selectedStockIDName: viewmodel.selectedStockIDName,
+                                    transactionType: .buy
+                                )
+                            )
+                        )
+                    }
+                )
                     .overlay {
                         if let popup = popup {
                             ZStack {
@@ -126,7 +147,28 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .simulationSellingConfirmation(let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSellStockScreenView(router: self, simulationViewModel: simulationViewModel)
+                HanvestSellStockScreenView(
+                    router: self,
+                    simulationViewModel: simulationViewModel,
+                    backAction: {
+                        self.pop()
+                    },
+                    cancelAction: {
+                        self.dismissPopup()
+                    },
+                    confirmAction: { viewmodel in
+                        self.push(
+                            .transactionStatus(
+                                transaction: TransactionStatusViewModel(
+                                    lotAmount: viewmodel.stockSellLot,
+                                    stockPrice: viewmodel.toSellStockPrice,
+                                    selectedStockIDName: viewmodel.selectedStockIDName,
+                                    transactionType: .buy
+                                )
+                            )
+                        )
+                    }
+                )
                     .overlay {
                         if let popup = popup {
                             ZStack {

@@ -13,6 +13,10 @@ struct HanvestSellStockScreenView: View {
     @ObservedObject var simulationViewModel: HanvestSimulationViewModel
     @StateObject var viewmodel: SellingStockDataViewModel = .init()
     
+    var backAction: () -> Void
+    var cancelAction: () -> Void
+    var confirmAction: (SellingStockDataViewModel) -> Void
+    
     var body: some View {
         if let stock = simulationViewModel.selectedStock {
             VStack {
@@ -20,7 +24,7 @@ struct HanvestSellStockScreenView: View {
                     label: "Sell \(stock.stockIDName)",
                     leadingIcon: Image(systemName: "chevron.left"),
                     leadingAction: {
-                        router.pop()
+                        backAction()
                     }
                 )
                 
@@ -49,19 +53,11 @@ struct HanvestSellStockScreenView: View {
                             .withSellConfirmationPopup(
                                 viewmodel: viewmodel,
                                 confirmAction: {
-                                    router.push(
-                                        .transactionStatus(
-                                            transaction: TransactionStatusViewModel(
-                                                lotAmount: viewmodel.stockSellLot,
-                                                stockPrice: viewmodel.toSellStockPrice,
-                                                selectedStockIDName: viewmodel.selectedStockIDName,
-                                                transactionType: .buy
-                                            )
-                                        )
-                                    )
+                                    confirmAction(viewmodel)
                                 },
                                 cancelAction: {
-                                    router.dismissPopup()
+                                    cancelAction()
+//                                    router.dismissPopup()
                                 }
                             )
                         )
