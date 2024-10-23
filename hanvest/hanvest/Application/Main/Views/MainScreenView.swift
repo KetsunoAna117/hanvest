@@ -11,7 +11,7 @@ struct MainScreenView: View {
     let router: any AppRouterProtocol
     
     @State private var selectionTab: HanvestMainViewTabSelection = .material
-    @EnvironmentObject var simulationViewModel: HanvestSimulationViewModel
+    @StateObject var simulationViewModel: HanvestSimulationViewModel = .init()
     
     var body: some View {
         VStack {
@@ -71,6 +71,8 @@ struct MainScreenView: View {
             if let user = getUserData.execute() {
                 print("[!] Current User Progress: \(user.moduleCompletionList)")
             }
+            
+            simulationViewModel.setup()
         }
     }
 }

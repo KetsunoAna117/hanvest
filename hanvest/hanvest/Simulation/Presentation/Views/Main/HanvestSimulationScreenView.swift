@@ -40,13 +40,17 @@ struct HanvestSimulationView: View {
                                 size: .medium,
                                 style: .filledIncorrect(isDisabled: false),
                                 title: "Sell") {
-                                    router.push(.simulationSellingConfirmation)
+                                    router.push(
+                                        .simulationSellingConfirmation(viewModel: viewmodel)
+                                    )
                                 }
                             HanvestButtonDefault(
                                 size: .medium,
                                 style: .filledCorrect(isDisabled: false),
                                 title: "Buy") {
-                                    router.push(.simulationBuyingConfirmation)
+                                    router.push(
+                                        .simulationBuyingConfirmation(viewModel: viewmodel)
+                                    )
                                 }
                         }
                     }

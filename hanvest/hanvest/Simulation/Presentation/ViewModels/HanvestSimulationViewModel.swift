@@ -40,14 +40,12 @@ class HanvestSimulationViewModel: ObservableObject {
         stockList = []
         displayActiveStockInitialPrice = 0
         displayActiveStockCurrentPrice = 0
-        
-        setup()
+        testPriceUpdate()
     }
     
     func setup(){
         self.stockList = getStockList.execute()
         self.selectedStockID = stockList.first?.stockIDName ?? ""
-//        testPriceUpdate()
     }
     
     private func updateSelectedStock() {
