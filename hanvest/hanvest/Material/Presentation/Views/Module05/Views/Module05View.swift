@@ -8,12 +8,26 @@
 import SwiftUI
 
 struct Module05View: View {
+    let router: any AppRouterProtocol
+    @StateObject var viewmodel: Module05SimulationViewModel = .init()
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Hello from Module 05!")
+        }
     }
 }
 
 #Preview {
-    Module05View()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .materialModule05
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+        }
+    }
 }

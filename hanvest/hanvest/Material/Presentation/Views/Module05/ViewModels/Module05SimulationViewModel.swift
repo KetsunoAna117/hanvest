@@ -7,31 +7,15 @@
 
 import Foundation
 
-class Module05SimulationViewModel: HanvestSimulatable {
-    var stockList: [SimulationStockEntity]
+class Module05SimulationViewModel: HanvestSimulationViewModel {
+    @Inject var getModule05StockData: GetModule05StockData
     
-    var selectedStockID: String
-    
-    var selectedStock: SimulationStockEntity?
-    
-    var displayActiveStockInitialPrice: Int
-    
-    var displayActiveStockCurrentPrice: Int
-    
-    init(){
-        stockList = []
-        selectedStockID = ""
-        displayActiveStockInitialPrice = 0
-        displayActiveStockCurrentPrice = 0
+    override func setup(){
+        self.stockList = getModule05StockData.execute()
     }
     
-    func setup() {
-        
-    }
-    
-    func updateSelectedStock() {
-        
-    }
-    
+}
+
+extension Module05SimulationViewModel {
     
 }

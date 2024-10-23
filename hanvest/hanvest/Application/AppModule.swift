@@ -22,6 +22,8 @@ struct AppModule {
         // Material
         @Provider var getModuleToDisplay: GetModuleToDisplay = GetModuleToDisplayImpl(repo: userRepository)
         @Provider var validateIfUserHasCompletedTheModule: ValidateIfUserHasCompletedTheModule = ValidateIfUserHasCompletedTheModuleImpl(repo: userRepository)
+        @Provider var getModule05StockData: GetModule05StockData = GetModule05StockDataImpl()
+            
         
         // Simulation
         @Provider var getAvailableStocks: GetAvailableSimulationStocks = GetAvailableSimulationStocksImpl(
