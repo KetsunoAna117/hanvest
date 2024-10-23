@@ -10,15 +10,6 @@ import SwiftUI
 struct Module03View: View {
     let router: any AppRouterProtocol
     
-    // Constants
-    let progressBarMinValue: Int = 0
-    let progressBarMaxValue: Int = 100
-    let lastPage = Module03MaterialInformationContent.page06.rawValue
-    
-    @State private var currentTab: Int = 0
-    @State private var progressBarCurrValue: Int = 4
-    @State private var pageState: Module03PageState = .pageContinue
-    
     // View Model
     @StateObject private var viewModel = Module03ViewModel()
     
@@ -29,16 +20,16 @@ struct Module03View: View {
             ZStack {
                 VStack(spacing: 49) {
                     ProgressBarWithXMarkView(
-                        progressBarMinValue: progressBarMinValue,
-                        progressBarMaxValue: progressBarMaxValue,
+                        progressBarMinValue: viewModel.progressBarMinValue,
+                        progressBarMaxValue: viewModel.progressBarMaxValue,
                         action: {
                             router.popToRoot()
                         },
-                        progressBarCurrValue: $progressBarCurrValue
+                        progressBarCurrValue: $viewModel.progressBarCurrValue
                     )
                     
                     VStack(spacing: 48) {
-                        TabView(selection: $currentTab) {
+                        TabView(selection: $viewModel.currentTab) {
                             
                             HanvestMultipleChoice(
                                 question: Module03MultipleChoice.page01.question,
@@ -88,11 +79,14 @@ struct Module03View: View {
                         
                         ZStack {
                             HanvestButtonDefault(
-                                style: .filled(isDisabled: checkIsDisabled()),
-                                title: pageState.buttonStringValue
+                                style: .filled(isDisabled: viewModel.checkIsDisabled()),
+                                title: viewModel.pageState.buttonStringValue
                             ) {
-                                goToNextPage()
-                                changePageState()
+                                viewModel.goToNextPage(
+                                    router: self.router,
+                                    specificModule: .module03
+                                )
+                                viewModel.changePageState()
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -107,34 +101,6 @@ struct Module03View: View {
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-    
-    private func goToNextPage() {
-        if currentTab < lastPage {
-            if !checkIsDisabled() {
-                currentTab += 1
-                updateProgressBarValue()
-            }
-        } else {
-            router.push(.moduleCompletion(completionItem: .module03))
-        }
-    }
-    
-    private func changePageState() {
-        switch currentTab {
-            case Module03ProductOfInvestmentContent.page02.rawValue...Module03ProductOfInvestmentContent.page03.rawValue:
-                pageState = .pageNextMonth
-            default:
-                pageState = .pageContinue
-        }
-    }
-    
-    private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / lastPage)
-    }
-    
-    private func checkIsDisabled() -> Bool {
-        return (viewModel.selectedProductIndex == -1) && (currentTab == Module03MultipleChoice.page01.rawValue)
     }
     
 }
