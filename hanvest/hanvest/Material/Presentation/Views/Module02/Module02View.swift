@@ -10,15 +10,6 @@ import SwiftUI
 struct Module02View: View {
     let router: any AppRouterProtocol
     
-    // Constants
-    let progressBarMinValue: Int = 0
-    let progressBarMaxValue: Int = 100
-    let lastPage = Module02HeaderWithDetailText.page10.rawValue
-    
-    @State private var currentTab: Int = 0
-    @State private var progressBarCurrValue: Int = 4
-    @State private var pageState: Module02PageState = .pageContinue
-    
     // View Models
     @StateObject private var viewModel = Module02ViewModel()
     
@@ -29,16 +20,16 @@ struct Module02View: View {
             ZStack {
                 VStack(spacing: 49) {
                     ProgressBarWithXMarkView(
-                        progressBarMinValue: progressBarMinValue,
-                        progressBarMaxValue: progressBarMaxValue,
+                        progressBarMinValue: viewModel.progressBarMinValue,
+                        progressBarMaxValue: viewModel.progressBarMaxValue,
                         action: {
                             router.popToRoot()
                         },
-                        progressBarCurrValue: $progressBarCurrValue
+                        progressBarCurrValue: $viewModel.progressBarCurrValue
                     )
                     
                     VStack(spacing: 48) {
-                        TabView(selection: $currentTab) {
+                        TabView(selection: $viewModel.currentTab) {
                             
                             ForEach(Array(Module02TextImage.allCases.enumerated()), id: \.offset) { index, page in
                                 
@@ -84,7 +75,7 @@ struct Module02View: View {
                             
                             ForEach(Array(Module02HeaderWithDetailText.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                if checkPageToSkip(
+                                if viewModel.checkPageToSkip(
                                     page: page,
                                     userSelectedAnswer: viewModel.checkDebitOrPayLater()
                                 ) {
@@ -95,7 +86,7 @@ struct Module02View: View {
                                         detailText: page.detailText(userSelectedAnswer: viewModel.checkIphoneOrIphoneProMax())
                                     )
                                     .tag(
-                                        adjustPageStateRawValue(
+                                        viewModel.adjustPageStateRawValue(
                                             rawValue: page.rawValue
                                         )
                                     )
@@ -114,11 +105,14 @@ struct Module02View: View {
                         
                         ZStack {
                             HanvestButtonDefault(
-                                style: .filled(isDisabled: checkIsDisabled()),
-                                title: pageState.buttonStringValue
+                                style: .filled(isDisabled: viewModel.checkIsDisabled()),
+                                title: viewModel.pageState.buttonStringValue
                             ) {
-                                goToNextPage()
-                                changePageState()
+                                viewModel.goToNextPage(
+                                    router: self.router,
+                                    specificModule: .module02
+                                )
+                                viewModel.changePageState()
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -133,62 +127,6 @@ struct Module02View: View {
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-    
-    private func goToNextPage() {
-        if currentTab < lastPage {
-            if !checkIsDisabled() {
-                currentTab += 1
-                updateProgressBarValue()
-            }
-        } else {
-            router.push(.moduleCompletion(completionItem: .module02))
-        }
-    }
-    
-    private func changePageState() {
-        switch currentTab {
-            case Module02TextImage.page06.rawValue:
-                pageState = .pageCheckout
-            case Module02MultipleChoice.page07.rawValue:
-                pageState = .pagePay
-            default:
-                pageState = .pageContinue
-        }
-    }
-    
-    private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / lastPage)
-    }
-    
-    private func checkIsDisabled() -> Bool {
-        guard currentTab < viewModel.userSelectedAnswers.count else {
-            return false
-        }
-        
-        let isPage04 = (currentTab == Module02TextImageColorPicker.page04.rawValue)
-        let isChoicePage = Module02MultipleChoice.allCases.contains(where: { $0.rawValue == currentTab })
-        let isAnswerEmpty = viewModel.userSelectedAnswers[currentTab].isEmpty
-        
-        return (isPage04 || isChoicePage) && isAnswerEmpty
-    }
-    
-    private func checkPageToSkip(page: Module02HeaderWithDetailText, userSelectedAnswer: Bool) -> Bool {
-        return (
-            (
-                userSelectedAnswer && (page == .page08Alt2 || page == .page09Alt2)
-            ) || (
-                !userSelectedAnswer && (page == .page08 || page == .page09)
-            )
-        )
-    }
-    
-    private func adjustPageStateRawValue(rawValue: Int) -> Int {
-        if rawValue > lastPage {
-            return (rawValue / lastPage)
-        } else {
-            return rawValue
-        }
     }
     
 }
