@@ -20,7 +20,15 @@ class Module05SimulationViewModel: HanvestSimulationViewModel {
         moduleRouter.push(
             .buyStage(
                 router: router,
-                viewModel: viewmodel
+                viewModel: viewmodel,
+                buyAction: {
+                    moduleRouter.push(
+                        .confirmBuy(
+                            router: router,
+                            viewModel: viewmodel
+                        )
+                    )
+                }
             )
         )
     }

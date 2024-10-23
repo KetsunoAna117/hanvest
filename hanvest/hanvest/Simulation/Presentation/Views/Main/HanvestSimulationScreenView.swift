@@ -11,6 +11,9 @@ struct HanvestSimulationView: View {
     let router: any AppRouterProtocol
     @ObservedObject var viewmodel: HanvestSimulationViewModel
     
+    let buyAction: (() -> ())?
+    let sellAction: (() -> ())?
+    
     var body: some View {
         ZStack {
             VStack {
@@ -38,19 +41,19 @@ struct HanvestSimulationView: View {
                         HStack(spacing: 12) {
                             HanvestButtonDefault(
                                 size: .medium,
-                                style: .filledIncorrect(isDisabled: false),
+                                style: .filledIncorrect(isDisabled: sellAction == nil ? true : false),
                                 title: "Sell") {
-                                    router.push(
-                                        .simulationSellingConfirmation(viewModel: viewmodel)
-                                    )
+                                    if let sellAction = sellAction {
+                                        sellAction()
+                                    }
                                 }
                             HanvestButtonDefault(
                                 size: .medium,
-                                style: .filledCorrect(isDisabled: false),
+                                style: .filledCorrect(isDisabled: buyAction == nil ? true : false),
                                 title: "Buy") {
-                                    router.push(
-                                        .simulationBuyingConfirmation(viewModel: viewmodel)
-                                    )
+                                    if let buyAction = buyAction {
+                                        buyAction()
+                                    }
                                 }
                         }
                     }

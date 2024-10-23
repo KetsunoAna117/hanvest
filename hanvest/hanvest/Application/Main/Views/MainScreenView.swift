@@ -49,7 +49,17 @@ struct MainScreenView: View {
                         Color.background.ignoresSafeArea()
                         HanvestSimulationView(
                             router: router,
-                            viewmodel: simulationViewModel
+                            viewmodel: simulationViewModel,
+                            buyAction: ({
+                                router.push(
+                                    .simulationBuyingConfirmation(viewModel: simulationViewModel)
+                                )
+                            }),
+                            sellAction: ({
+                                router.push(
+                                    .simulationSellingConfirmation(viewModel: simulationViewModel)
+                                )
+                            })
                         )
                     }
                 }

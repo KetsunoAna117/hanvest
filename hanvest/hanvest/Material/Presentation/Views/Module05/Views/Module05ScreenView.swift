@@ -15,6 +15,7 @@ struct Module05ScreenView: View {
     
     var body: some View {
         VStack {
+            // Progress Bar
             ProgressBarWithXMarkView(
                 progressBarMinValue: viewmodel.MIN_PROGRESS_VALUE,
                 progressBarMaxValue: viewmodel.MAX_PROGRESS_VALUE,
@@ -25,21 +26,22 @@ struct Module05ScreenView: View {
             )
             .padding(.horizontal, 20)
             
+            // User Header and Balance Information
             HanvestHeaderView(
                 bookIconTappedAction: {
-                    // User can't access this now
+                    // User can't access this in module, hence this will do nothing
                 },
                 bellIconTappedAction: {
-                    // User can't access this now
+                    // User can't access this in module, hence this will do nothing
                 },
                 profileIconTappedAction: {
-                    // User can't access this now
+                    // User can't access this in module, hence this will do nothing
                 }
             )
             .padding(.top, 12)
             
+            // Simulation Content
             VStack {
-                // Simulation Content
                 if let activeContent = moduleRouter.activeContent {
                     moduleRouter.build(activeContent)
                 }

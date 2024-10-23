@@ -22,11 +22,12 @@ struct StockInvestmentData: View {
                         Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userStockInvestment))
                             .font(.nunito(.subhead, .bold))
                     }
+                    .padding(.leading, 6)
                     
                     Rectangle()
                         .foregroundStyle(.tertiary)
                         .frame(maxWidth: 1, maxHeight: 36)
-                        .padding(.horizontal, 10)
+                        .padding(.horizontal, 4)
                     
                     VStack(alignment: .trailing) {
                         Text("Total Equity in \(selectedStock.stockIDName)")
@@ -34,10 +35,10 @@ struct StockInvestmentData: View {
                         Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userTotalEquity))
                             .font(.nunito(.subhead, .bold))
                     }
+                    .padding(.trailing, 6)
                     
                     
                 }
-                .padding(.horizontal, 10)
                 .padding(.vertical, 12)
                 
                 VStack {

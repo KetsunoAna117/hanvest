@@ -26,15 +26,15 @@ class Module05ContentRouter: Module05ContentRouterProtocol, ObservableObject {
     @ViewBuilder
     func build(_ content: Module05ContentView) -> some View {
         switch content {
-        case .buyStage(let appRouter, let viewModel):
+        case .buyStage(let appRouter, let viewModel, let buyAction):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSimulationView(router: appRouter, viewmodel: viewModel)
+                HanvestSimulationView(router: appRouter, viewmodel: viewModel, buyAction: buyAction, sellAction: nil)
             }
-        case .sellStage(let appRouter, let viewModel):
+        case .sellStage(let appRouter, let viewModel, let sellAction):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSimulationView(router: appRouter, viewmodel: viewModel)
+                HanvestSimulationView(router: appRouter, viewmodel: viewModel, buyAction: nil, sellAction: sellAction)
             }
         case .confirmBuy(let appRouter, let viewModel):
             ZStack {
