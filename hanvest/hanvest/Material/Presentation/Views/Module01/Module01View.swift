@@ -10,6 +10,7 @@ import SwiftUI
 struct Module01View: View {
     let router: any AppRouterProtocol
     
+    // View Models
     @StateObject var viewModel = Module01ViewModel()
     
     var body: some View {
@@ -86,8 +87,6 @@ struct Module01View: View {
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
-
     
 }
 
