@@ -102,15 +102,14 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .materialModule05:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module05View(router: self)
+                Module05ScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
             
         case .simulationBuyingConfirmation(let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestBuyStockScreenView(router: self)
-                    .environmentObject(simulationViewModel)
+                HanvestBuyStockScreenView(router: self, simulationViewModel: simulationViewModel)
                     .overlay {
                         if let popup = popup {
                             ZStack {
@@ -127,8 +126,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .simulationSellingConfirmation(let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSellStockScreenView(router: self)
-                    .environmentObject(simulationViewModel)
+                HanvestSellStockScreenView(router: self, simulationViewModel: simulationViewModel)
                     .overlay {
                         if let popup = popup {
                             ZStack {

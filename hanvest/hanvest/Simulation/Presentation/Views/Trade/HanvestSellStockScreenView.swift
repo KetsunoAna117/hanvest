@@ -10,7 +10,7 @@ import SwiftUI
 struct HanvestSellStockScreenView: View {
     let router: any AppRouterProtocol
     
-    @EnvironmentObject var simulationViewModel: HanvestSimulationViewModel
+    @ObservedObject var simulationViewModel: HanvestSimulationViewModel
     @StateObject var viewmodel: SellingStockDataViewModel = .init()
     
     var body: some View {

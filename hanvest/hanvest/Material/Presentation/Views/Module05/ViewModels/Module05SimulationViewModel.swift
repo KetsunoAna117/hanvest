@@ -10,8 +10,19 @@ import Foundation
 class Module05SimulationViewModel: HanvestSimulationViewModel {
     @Inject var getModule05StockData: GetModule05StockData
     
-    override func setup(){
+    // CONSTANT
+    let MAX_PROGRESS_VALUE = 6
+    let MIN_PROGRESS_VALUE = 0
+    
+    func setup(router: any AppRouterProtocol, viewmodel: HanvestSimulationViewModel, moduleRouter: Module05ContentRouterProtocol) {
         self.stockList = getModule05StockData.execute()
+        self.selectedStockID = stockList.first?.stockIDName ?? ""
+        moduleRouter.push(
+            .buyStage(
+                router: router,
+                viewModel: viewmodel
+            )
+        )
     }
     
 }
