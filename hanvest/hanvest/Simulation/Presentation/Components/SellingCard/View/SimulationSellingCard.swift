@@ -56,8 +56,7 @@ struct SimulationSellingCard: View {
                         
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.toSellStockPrice, raise: priceRaise)
-                    
+                    Text("\(viewModel.toSellStockPrice)")
                 }
                 
                 HStack{

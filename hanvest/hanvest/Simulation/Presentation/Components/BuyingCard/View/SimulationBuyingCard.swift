@@ -58,11 +58,8 @@ struct SimulationBuyingCard: View {
                         
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.toBuyStockPrice, raise: priceRaise)
-                    
+                    Text("\(viewModel.toBuyStockPrice)")
                 }
-                
-                
                 
                 HStack{
                     Text("Lot")
@@ -85,8 +82,8 @@ struct SimulationBuyingCard: View {
             .onAppear(){
                 viewmodel.setup(
                     selectedStockIDName: "BBCA",
-                    initialStockPrice: 4000,
-                    currentStockPrice: 5000
+                    initialStockPrice: 40,
+                    currentStockPrice: 50
                 )
             }
     }
