@@ -77,12 +77,12 @@ struct Module02View: View {
                                 
                                 HanvestMaterialnformationView(
                                     title: page.title(
-                                        chosenPhone: viewModel.checkIphoneOrIphoneProMax(),
-                                        chosenMethod: viewModel.checkDebitOrPayLater()
+                                        chosenPhone: viewModel.userSelectedAnswers[Module02MultipleChoice.page03.rawValue],
+                                        chosenMethod: viewModel.userSelectedAnswers[Module02MultipleChoice.page07.rawValue]
                                     ),
                                     detailText: page.detailText(
-                                        chosenPhone: viewModel.checkIphoneOrIphoneProMax(),
-                                        chosenMethod: viewModel.checkDebitOrPayLater()
+                                        chosenPhone: viewModel.userSelectedAnswers[Module02MultipleChoice.page03.rawValue],
+                                        chosenMethod: viewModel.userSelectedAnswers[Module02MultipleChoice.page07.rawValue]
                                     )
                                 )
                                 .tag(page.rawValue)

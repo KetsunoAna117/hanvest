@@ -73,29 +73,4 @@ class Module02ViewModel: ObservableObject {
         return (isPage04 || isChoicePage) && isAnswerEmpty
     }
     
-    func checkDebitOrPayLater() -> String {
-        guard let firstOption = Module02MultipleChoice.page07.options.first,
-              let lastOption = Module02MultipleChoice.page07.options.last else {
-            return ""
-        }
-        
-        if userSelectedAnswers.contains(where: { $0 == firstOption }) {
-            return firstOption
-        } else {
-            return lastOption
-        }
-    }
-    
-    func checkIphoneOrIphoneProMax() -> String {
-        guard let firstOption = Module02MultipleChoice.page03.options.first,
-              let lastOption = Module02MultipleChoice.page03.options.last else {
-            return ""
-        }
-        
-        if userSelectedAnswers.contains(where: { $0 == firstOption }) {
-            return firstOption
-        } else {
-            return lastOption
-        }
-    }
 }
