@@ -43,10 +43,7 @@ struct AppModule {
             userRepo: userRepository,
             transactionRepo: stockTransactionRepository
         )
-        @Provider var getUserTransaction: GetUserTransaction = GetUserTransactionImpl(
-            userRepo: userRepository,
-            transactionRepo: stockTransactionRepository
-        )
+        @Provider var filterPurchasedUserLot: FilterTransactionByStockIDName = FilterTransactionByStockIDNameImpl()
         
         // Simulation and Material
         @Provider var saveUserModuleProgress: SaveUserModuleProgress = SaveUserModuleProgressImpl(

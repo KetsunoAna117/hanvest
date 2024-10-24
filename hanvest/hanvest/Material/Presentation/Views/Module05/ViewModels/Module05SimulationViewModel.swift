@@ -16,24 +16,29 @@ class Module05SimulationViewModel: HanvestSimulationViewModel {
     
     func setup(
         router: any AppRouterProtocol,
+        userData: UserDataEntity?,
         simulationViewmodel: HanvestSimulationViewModel,
         buyingViewModel: BuyingStockDataViewModel,
         moduleRouter: Module05ContentRouterProtocol
     ) {
         self.stockList = getModule05StockData.execute()
         self.selectedStockID = stockList.first?.stockIDName ?? ""
+        
         moduleRouter.push(
             .buyStage(
                 router: router,
                 viewModel: simulationViewmodel,
                 buyAction: {
-                    moduleRouter.push(
-                        .confirmBuy(
-                            router: router,
-                            viewModel: simulationViewmodel,
-                            buyingViewModel: buyingViewModel
+                    if let userData = userData {
+                        moduleRouter.push(
+                            .confirmBuy(
+                                router: router,
+                                userData: userData,
+                                viewModel: simulationViewmodel,
+                                buyingViewModel: buyingViewModel
+                            )
                         )
-                    )
+                    }
                 }
             )
         )

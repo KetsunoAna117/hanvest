@@ -7,9 +7,16 @@
 
 class Module05ProfileViewModel: HanvestProfileHeaderViewModel {
     override func setup(){
-        self.userBalance = 1000000
-        self.ownedLot = [
-            "BBCA" : 0
-        ]
+        let fetchedUser = getUserData.execute()
+        
+        self.user = UserDataEntity(
+            userId: fetchedUser?.userId ?? "",
+            userName: fetchedUser?.userName ?? "",
+            userBalance: 1000000,
+            userRiskProfile: fetchedUser?.userRiskProfile ?? .conservative,
+            userInvestmentTransaction: [],
+            transactionQueue: [],
+            moduleCompletionList: []
+        )
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 
 class Module05ContentRouter: Module05ContentRouterProtocol, ObservableObject {
     @Published var activeContent: [Module05ContentView] = []
+    @Published var popup: Popup?
     
     @Published var currentProgress: Int = 0
     
@@ -35,16 +36,19 @@ class Module05ContentRouter: Module05ContentRouterProtocol, ObservableObject {
                 Color.background.ignoresSafeArea()
                 HanvestSimulationView(router: appRouter, viewmodel: viewModel, buyAction: buyAction, sellAction: nil)
             }
+            
         case .sellStage(let appRouter, let viewModel, let sellAction):
             ZStack {
                 Color.background.ignoresSafeArea()
                 HanvestSimulationView(router: appRouter, viewmodel: viewModel, buyAction: nil, sellAction: sellAction)
             }
-        case .confirmBuy(let appRouter, let simulationViewmodel, let buyingViewModel):
+            
+        case .confirmBuy(let appRouter, let userData, let simulationViewmodel, let buyingViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 HanvestBuyStockScreenView(
                     router: appRouter,
+                    user: userData,
                     simulationViewModel: simulationViewmodel,
                     buyingViewmodel: buyingViewModel,
                     backAction: {
@@ -54,6 +58,7 @@ class Module05ContentRouter: Module05ContentRouterProtocol, ObservableObject {
                         appRouter.dismissPopup()
                     },
                     confirmAction: { viewmodel in
+                        print("[!] Confirm Action Pressed!")
                         self.push(
                             .transactionStatus(
                                 router: appRouter,
@@ -67,12 +72,35 @@ class Module05ContentRouter: Module05ContentRouterProtocol, ObservableObject {
                         )
                     }
                 )
+                .overlay {
+                    if let appRouter = appRouter as? AppRouter {
+                        ZStack {
+                            if let popup = appRouter.popup {
+                                appRouter.build(popup)
+                            }
+                        }
+                        // Apply transition and animation
+                        .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                        .animation(.easeInOut(duration: 0.3), value: self.popup)
+                        .onAppear(){
+                            print("[!] Try to open overlay")
+                        }
+                        .onChange(of: appRouter.popup, {
+                            print("[!] Pop Up didSet!")
+                        })
+                    }
+                    else {
+                        Text("[Error] Display Popup")
+                    }
+                }
             }
-        case .confirmSell(let appRouter, let simulationViewModel, let sellingViewmodel):
+            
+        case .confirmSell(let appRouter, let userData, let simulationViewModel, let sellingViewmodel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 HanvestSellStockScreenView(
                     router: appRouter,
+                    user: userData,
                     simulationViewModel: simulationViewModel,
                     sellingViewmodel: sellingViewmodel,
                     backAction: {
@@ -96,6 +124,19 @@ class Module05ContentRouter: Module05ContentRouterProtocol, ObservableObject {
                     }
                 )
             }
+            .overlay {
+                if let appRouter = appRouter as? AppRouter {
+                    ZStack {
+                        if let popup = appRouter.popup {
+                            appRouter.build(popup)
+                        }
+                    }
+                    // Apply transition and animation
+                    .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                    .animation(.easeInOut(duration: 0.3), value: self.popup)
+                }
+            }
+            
         case .transactionStatus(let appRouter, let transaction):
             ZStack {
                 Color.background.ignoresSafeArea()

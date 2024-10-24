@@ -13,7 +13,8 @@ struct Module05ScreenView: View {
     @StateObject var viewmodel: Module05SimulationViewModel = .init()
     @StateObject var moduleRouter: Module05ContentRouter = .init()
     @StateObject var userProfileHeaderViewModel: HanvestProfileHeaderViewModel = Module05ProfileViewModel()
-    @StateObject var buyingViewModel: BuyingStockDataViewModel = Module05BuyingStockViewModel()
+    @StateObject var buyingViewModel: BuyingStockDataViewModel = .init()
+    @StateObject var sellingViewModel: SellingStockDataViewModel = .init()
     
     var body: some View {
         VStack {
@@ -56,8 +57,10 @@ struct Module05ScreenView: View {
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .onAppear(){
+            self.userProfileHeaderViewModel.setup()
             self.viewmodel.setup(
                 router: router,
+                userData: userProfileHeaderViewModel.user,
                 simulationViewmodel: viewmodel,
                 buyingViewModel: buyingViewModel,
                 moduleRouter: moduleRouter

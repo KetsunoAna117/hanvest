@@ -10,12 +10,10 @@ import Foundation
 class HanvestProfileHeaderViewModel: ObservableObject {
     @Inject var getUserData: GetUserData
     
-    @Published var userBalance: Int
-    @Published var ownedLot: [String : Int]
+    @Published var user: UserDataEntity?
     
     init(){
-        self.userBalance = 0
-        self.ownedLot = [:]
+        
     }
     
     func setup(){
@@ -24,17 +22,8 @@ class HanvestProfileHeaderViewModel: ObservableObject {
             return
         }
         
-        self.userBalance = user.userBalance
+        self.user = user
         
-        // Map each transaction into ownedLot variable
-        user.userInvestmentTransaction.forEach { transaction in
-            ownedLot[transaction.stockIDName] = (ownedLot[transaction.stockIDName] ?? 0) + transaction.stockLotQuantity
-        }
-        
-    }
-    
-    func displayBalancePrefixAndSuffix() -> String {
-        return HanvestPriceFormatter.formatIntToIDR(userBalance)
     }
     
 }

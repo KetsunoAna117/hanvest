@@ -10,6 +10,7 @@ import SwiftUI
 struct HanvestSellStockScreenView: View {
     let router: any AppRouterProtocol
     
+    var user: UserDataEntity?
     @ObservedObject var simulationViewModel: HanvestSimulationViewModel
     @ObservedObject var sellingViewmodel: SellingStockDataViewModel
     
@@ -67,6 +68,7 @@ struct HanvestSellStockScreenView: View {
             }
             .onAppear(){
                 sellingViewmodel.setup(
+                    user: user,
                     selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0

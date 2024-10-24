@@ -22,7 +22,9 @@ struct HanvestHeaderView: View {
                     VStack(alignment: .leading) {
                         Text("Virtual Balance")
                             .font(.nunito(.caption2))
-                        Text("\(viewmodel.displayBalancePrefixAndSuffix())")
+                        Text(
+                            HanvestPriceFormatter.formatIntToIDR(viewmodel.user?.userBalance ?? 0)
+                        )
                             .font(.nunito(.title2))
                     }
                 }

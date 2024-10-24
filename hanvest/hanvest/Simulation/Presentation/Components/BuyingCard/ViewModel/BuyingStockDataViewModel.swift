@@ -8,9 +8,6 @@
 import SwiftUI
 
 class BuyingStockDataViewModel: ObservableObject{
-    // Dependency Injection
-    @Inject var getUserData: GetUserData
-    
     var selectedStockIDName: String
     var stockBuyFee: Int
     
@@ -46,12 +43,13 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     
     func setup(
+        user: UserDataEntity?,
         selectedStockIDName: String,
         stockBuyLot: Int = 0,
         initialStockPrice: Int,
         currentStockPrice: Int
     ){
-        if let user = getUserData.execute() {
+        if let user = user {
             self.tradingBalance = user.userBalance
         }
         

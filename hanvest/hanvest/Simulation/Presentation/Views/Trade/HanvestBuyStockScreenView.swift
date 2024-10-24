@@ -10,6 +10,7 @@ import SwiftUI
 struct HanvestBuyStockScreenView: View {
     let router: any AppRouterProtocol
     
+    var user: UserDataEntity?
     @ObservedObject var simulationViewModel: HanvestSimulationViewModel
     @ObservedObject var buyingViewmodel: BuyingStockDataViewModel
     
@@ -61,13 +62,13 @@ struct HanvestBuyStockScreenView: View {
                                 }
                             )
                         )
-                        print("[!] User Buy Button Event Pressed!")
                     }
                 )
                 .padding(.bottom, 48)
             }
             .onAppear(){
                 buyingViewmodel.setup(
+                    user: user,
                     selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0

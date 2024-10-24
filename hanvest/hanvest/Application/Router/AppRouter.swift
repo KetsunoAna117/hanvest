@@ -103,14 +103,27 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             ZStack {
                 Color.background.ignoresSafeArea()
                 Module05ScreenView(router: self)
+                    .overlay {
+                        if let popup = popup {
+                            ZStack {
+                                self.build(popup)
+                            }
+                            // Apply transition and animation
+                            .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                            .animation(.easeInOut(duration: 0.3), value: self.popup)
+                        }
+                    }
             }
             .navigationBarBackButtonHidden()
             
         case .simulationBuyingConfirmation(let simulationViewModel, let buyingViewModel):
+            @Inject var getUserData: GetUserData
+            
             ZStack {
                 Color.background.ignoresSafeArea()
                 HanvestBuyStockScreenView(
                     router: self,
+                    user: getUserData.execute(),
                     simulationViewModel: simulationViewModel,
                     buyingViewmodel: buyingViewModel,
                     backAction: {
@@ -146,10 +159,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             .navigationBarBackButtonHidden()
             
         case .simulationSellingConfirmation(let simulationViewModel, let sellingViewModel):
+            @Inject var getUserData: GetUserData
+            
             ZStack {
                 Color.background.ignoresSafeArea()
                 HanvestSellStockScreenView(
                     router: self,
+                    user: getUserData.execute(),
                     simulationViewModel: simulationViewModel,
                     sellingViewmodel: sellingViewModel,
                     backAction: {
