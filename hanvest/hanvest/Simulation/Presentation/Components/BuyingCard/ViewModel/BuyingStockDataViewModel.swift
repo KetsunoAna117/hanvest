@@ -61,6 +61,7 @@ class BuyingStockDataViewModel: ObservableObject{
         
         self.initialStockPrice = initialStockPrice
         self.currentStockPrice = currentStockPrice
+        
         validateStockBuyAmount()
     }
     
