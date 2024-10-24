@@ -50,6 +50,7 @@ struct HanvestMultipleChoice: View {
                     HanvestButtonMultipleChoiceBehavior(
                         isChecked: determineButtonStyle(option: option),
                         selectedButtonID: $selectedButtonID,
+                        id: "Item: \(index)",
                         title: option,
                         action: {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -97,7 +98,7 @@ struct HanvestMultipleChoice: View {
 }
 
 #Preview {
-    @Previewable let question = "What is your favorite programming language?"
+    @Previewable let question = Module03MultipleChoice.page01.question
     @Previewable let options = ["Swift", "Java", "Python"]
     
     HanvestMultipleChoice(
