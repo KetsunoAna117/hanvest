@@ -14,18 +14,24 @@ class Module05SimulationViewModel: HanvestSimulationViewModel {
     let MAX_PROGRESS_VALUE = 6
     let MIN_PROGRESS_VALUE = 0
     
-    func setup(router: any AppRouterProtocol, viewmodel: HanvestSimulationViewModel, moduleRouter: Module05ContentRouterProtocol) {
+    func setup(
+        router: any AppRouterProtocol,
+        simulationViewmodel: HanvestSimulationViewModel,
+        buyingViewModel: BuyingStockDataViewModel,
+        moduleRouter: Module05ContentRouterProtocol
+    ) {
         self.stockList = getModule05StockData.execute()
         self.selectedStockID = stockList.first?.stockIDName ?? ""
         moduleRouter.push(
             .buyStage(
                 router: router,
-                viewModel: viewmodel,
+                viewModel: simulationViewmodel,
                 buyAction: {
                     moduleRouter.push(
                         .confirmBuy(
                             router: router,
-                            viewModel: viewmodel
+                            viewModel: simulationViewmodel,
+                            buyingViewModel: buyingViewModel
                         )
                     )
                 }

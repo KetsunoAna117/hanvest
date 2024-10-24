@@ -106,12 +106,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .simulationBuyingConfirmation(let simulationViewModel):
+        case .simulationBuyingConfirmation(let simulationViewModel, let buyingViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 HanvestBuyStockScreenView(
                     router: self,
                     simulationViewModel: simulationViewModel,
+                    buyingViewmodel: buyingViewModel,
                     backAction: {
                         self.pop()
                     },
@@ -144,12 +145,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .simulationSellingConfirmation(let simulationViewModel):
+        case .simulationSellingConfirmation(let simulationViewModel, let sellingViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 HanvestSellStockScreenView(
                     router: self,
                     simulationViewModel: simulationViewModel,
+                    sellingViewmodel: sellingViewModel,
                     backAction: {
                         self.pop()
                     },
@@ -163,7 +165,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                                     lotAmount: viewmodel.stockSellLot,
                                     stockPrice: viewmodel.toSellStockPrice,
                                     selectedStockIDName: viewmodel.selectedStockIDName,
-                                    transactionType: .buy
+                                    transactionType: .sell
                                 )
                             )
                         )

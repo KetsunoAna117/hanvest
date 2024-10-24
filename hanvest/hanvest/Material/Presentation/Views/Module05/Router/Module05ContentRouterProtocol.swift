@@ -6,8 +6,9 @@
 //
 
 protocol Module05ContentRouterProtocol {
-    var activeContent: Module05ContentView? { get set }
+    var activeContent: [Module05ContentView] { get set }
     
     func push(_ content: Module05ContentView)
     func pop()
+    func popAll()
 }

@@ -11,7 +11,7 @@ struct HanvestSellStockScreenView: View {
     let router: any AppRouterProtocol
     
     @ObservedObject var simulationViewModel: HanvestSimulationViewModel
-    @StateObject var viewmodel: SellingStockDataViewModel = .init()
+    @ObservedObject var sellingViewmodel: SellingStockDataViewModel
     
     var backAction: () -> Void
     var cancelAction: () -> Void
@@ -36,7 +36,7 @@ struct HanvestSellStockScreenView: View {
                         currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
                     )
                     
-                    SimulationSellingCard(viewModel: viewmodel)
+                    SimulationSellingCard(viewModel: sellingViewmodel)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 24)
@@ -45,19 +45,18 @@ struct HanvestSellStockScreenView: View {
                 
                 HanvestButtonDefault(
                     style: .filledCorrect(
-                        isDisabled: viewmodel.determineIsDisabledButtonState()
+                        isDisabled: sellingViewmodel.determineIsDisabledButtonState()
                     ),
                     title: "Sell",
                     action: {
                         router.presentOverlay(
                             .withSellConfirmationPopup(
-                                viewmodel: viewmodel,
+                                viewmodel: sellingViewmodel,
                                 confirmAction: {
-                                    confirmAction(viewmodel)
+                                    confirmAction(sellingViewmodel)
                                 },
                                 cancelAction: {
                                     cancelAction()
-//                                    router.dismissPopup()
                                 }
                             )
                         )
@@ -67,7 +66,7 @@ struct HanvestSellStockScreenView: View {
                 .padding(.bottom, 48)
             }
             .onAppear(){
-                viewmodel.setup(
+                sellingViewmodel.setup(
                     selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0

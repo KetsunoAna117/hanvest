@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HanvestHeaderView: View {
-    @StateObject private var viewmodel = HanvestProfileHeaderViewModel()
+    @ObservedObject var viewmodel: HanvestProfileHeaderViewModel
     
     var bookIconTappedAction: () -> ()
     var bellIconTappedAction: () -> ()
@@ -77,11 +77,20 @@ struct HanvestHeaderLogo: View {
 }
 
 #Preview {
-    HanvestHeaderView(bookIconTappedAction: {
-        print("Book Icon Tapped")
-    }, bellIconTappedAction: {
-        print("Bell Icon Tapped")
-    }, profileIconTappedAction: {
-        print("Profile Icon Tapped")
-    })
+    @Previewable @StateObject var viewmodel = HanvestProfileHeaderViewModel()
+    
+    HanvestHeaderView(
+        viewmodel: viewmodel,
+        bookIconTappedAction: {
+            print("Book Icon Tapped")
+        },
+        bellIconTappedAction: {
+            print("Bell Icon Tapped")
+        },
+        profileIconTappedAction: {
+            print("Profile Icon Tapped")
+        })
+    .onAppear(){
+        viewmodel.setup()
+    }
 }

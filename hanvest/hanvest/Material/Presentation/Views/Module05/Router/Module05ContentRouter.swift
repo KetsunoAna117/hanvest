@@ -9,18 +9,22 @@ import Foundation
 import SwiftUI
 
 class Module05ContentRouter: Module05ContentRouterProtocol, ObservableObject {
-    @Published var activeContent: Module05ContentView?
+    @Published var activeContent: [Module05ContentView] = []
     
     @Published var currentProgress: Int = 0
     
     func push(_ content: Module05ContentView) {
-        self.activeContent = content
+        self.activeContent.append(content)
         currentProgress += 1
     }
     
     func pop(){
-        self.activeContent = nil
+        self.activeContent.removeLast()
         currentProgress -= 1
+    }
+    
+    func popAll(){
+        self.activeContent.removeAll()
     }
     
     @ViewBuilder
@@ -36,37 +40,59 @@ class Module05ContentRouter: Module05ContentRouterProtocol, ObservableObject {
                 Color.background.ignoresSafeArea()
                 HanvestSimulationView(router: appRouter, viewmodel: viewModel, buyAction: nil, sellAction: sellAction)
             }
-        case .confirmBuy(let appRouter, let viewModel):
+        case .confirmBuy(let appRouter, let simulationViewmodel, let buyingViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 HanvestBuyStockScreenView(
                     router: appRouter,
-                    simulationViewModel: viewModel,
+                    simulationViewModel: simulationViewmodel,
+                    buyingViewmodel: buyingViewModel,
                     backAction: {
-                        
+                        self.pop()
                     },
                     cancelAction: {
-                        
+                        appRouter.dismissPopup()
                     },
                     confirmAction: { viewmodel in
-                            
+                        self.push(
+                            .transactionStatus(
+                                router: appRouter,
+                                transaction: TransactionStatusViewModel(
+                                    lotAmount: viewmodel.stockBuyLot,
+                                    stockPrice: viewmodel.toBuyStockPrice,
+                                    selectedStockIDName: viewmodel.selectedStockIDName,
+                                    transactionType: .buy
+                                )
+                            )
+                        )
                     }
                 )
             }
-        case .confirmSell(let appRouter, let viewModel):
+        case .confirmSell(let appRouter, let simulationViewModel, let sellingViewmodel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 HanvestSellStockScreenView(
                     router: appRouter,
-                    simulationViewModel: viewModel,
+                    simulationViewModel: simulationViewModel,
+                    sellingViewmodel: sellingViewmodel,
                     backAction: {
-                        
+                        self.pop()
                     },
                     cancelAction: {
-                        
+                        appRouter.dismissPopup()
                     },
                     confirmAction: { viewmodel in
-                        
+                        self.push(
+                            .transactionStatus(
+                                router: appRouter,
+                                transaction: TransactionStatusViewModel(
+                                    lotAmount: viewmodel.stockSellLot,
+                                    stockPrice: viewmodel.toSellStockPrice,
+                                    selectedStockIDName: viewmodel.selectedStockIDName,
+                                    transactionType: .sell
+                                )
+                            )
+                        )
                     }
                 )
             }

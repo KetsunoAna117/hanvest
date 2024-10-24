@@ -12,10 +12,14 @@ struct MainScreenView: View {
     
     @State private var selectionTab: HanvestMainViewTabSelection = .material
     @StateObject var simulationViewModel: HanvestSimulationViewModel = LocalSimulationViewModel()
+    @StateObject var userProfileHeaderViewModel: HanvestProfileHeaderViewModel = .init()
+    @StateObject var buyingViewModel: BuyingStockDataViewModel = .init()
+    @StateObject var sellingViewModel: SellingStockDataViewModel = .init()
     
     var body: some View {
         VStack {
             HanvestHeaderView(
+                viewmodel: userProfileHeaderViewModel,
                 bookIconTappedAction: {
                     print("Book Icon Tapped")
                     router.push(.glossary)
@@ -52,12 +56,18 @@ struct MainScreenView: View {
                             viewmodel: simulationViewModel,
                             buyAction: ({
                                 router.push(
-                                    .simulationBuyingConfirmation(viewModel: simulationViewModel)
+                                    .simulationBuyingConfirmation(
+                                        simulationViewmodel: simulationViewModel,
+                                        buyingViewmodel: buyingViewModel
+                                    )
                                 )
                             }),
                             sellAction: ({
                                 router.push(
-                                    .simulationSellingConfirmation(viewModel: simulationViewModel)
+                                    .simulationSellingConfirmation(
+                                        simulationViewmodel: simulationViewModel,
+                                        sellingViewModel: sellingViewModel
+                                    )
                                 )
                             })
                         )

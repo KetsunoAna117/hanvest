@@ -12,6 +12,8 @@ struct Module05ScreenView: View {
     
     @StateObject var viewmodel: Module05SimulationViewModel = .init()
     @StateObject var moduleRouter: Module05ContentRouter = .init()
+    @StateObject var userProfileHeaderViewModel: HanvestProfileHeaderViewModel = Module05ProfileViewModel()
+    @StateObject var buyingViewModel: BuyingStockDataViewModel = Module05BuyingStockViewModel()
     
     var body: some View {
         VStack {
@@ -28,6 +30,7 @@ struct Module05ScreenView: View {
             
             // User Header and Balance Information
             HanvestHeaderView(
+                viewmodel: userProfileHeaderViewModel,
                 bookIconTappedAction: {
                     // User can't access this in module, hence this will do nothing
                 },
@@ -42,7 +45,7 @@ struct Module05ScreenView: View {
             
             // Simulation Content
             VStack {
-                if let activeContent = moduleRouter.activeContent {
+                if let activeContent = moduleRouter.activeContent.last {
                     moduleRouter.build(activeContent)
                 }
                 else {
@@ -55,7 +58,8 @@ struct Module05ScreenView: View {
         .onAppear(){
             self.viewmodel.setup(
                 router: router,
-                viewmodel: viewmodel,
+                simulationViewmodel: viewmodel,
+                buyingViewModel: buyingViewModel,
                 moduleRouter: moduleRouter
             )
         }

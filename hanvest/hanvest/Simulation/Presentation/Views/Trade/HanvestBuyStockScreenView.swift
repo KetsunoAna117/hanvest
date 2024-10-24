@@ -11,7 +11,7 @@ struct HanvestBuyStockScreenView: View {
     let router: any AppRouterProtocol
     
     @ObservedObject var simulationViewModel: HanvestSimulationViewModel
-    @StateObject var viewmodel: BuyingStockDataViewModel = .init()
+    @ObservedObject var buyingViewmodel: BuyingStockDataViewModel
     
     var backAction: () -> Void
     var cancelAction: () -> Void
@@ -37,7 +37,7 @@ struct HanvestBuyStockScreenView: View {
                             $simulationViewModel.displayActiveStockCurrentPrice
                     )
                     
-                    SimulationBuyingCard(viewModel: viewmodel)
+                    SimulationBuyingCard(viewModel: buyingViewmodel)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 24)
@@ -46,15 +46,15 @@ struct HanvestBuyStockScreenView: View {
                 
                 HanvestButtonDefault(
                     style: .filledCorrect(
-                        isDisabled: viewmodel.determineIsDisabledButtonState()
+                        isDisabled: buyingViewmodel.determineIsDisabledButtonState()
                     ),
                     title: "Buy",
                     action: {
                         router.presentOverlay(
                             .withBuyConfirmationPopup(
-                                viewmodel: viewmodel,
+                                viewmodel: buyingViewmodel,
                                 confirmAction: {
-                                    confirmAction(viewmodel)
+                                    confirmAction(buyingViewmodel)
                                 },
                                 cancelAction: {
                                     cancelAction()
@@ -67,7 +67,7 @@ struct HanvestBuyStockScreenView: View {
                 .padding(.bottom, 48)
             }
             .onAppear(){
-                viewmodel.setup(
+                buyingViewmodel.setup(
                     selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0

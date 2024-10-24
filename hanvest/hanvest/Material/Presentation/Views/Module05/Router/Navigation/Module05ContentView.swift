@@ -8,8 +8,8 @@
 enum Module05ContentView: Identifiable, Hashable, Equatable {
     case buyStage(router: any AppRouterProtocol, viewModel: HanvestSimulationViewModel, buyAction: () -> ())
     case sellStage(router: any AppRouterProtocol, viewModel: HanvestSimulationViewModel, sellAction: () -> ())
-    case confirmBuy(router: any AppRouterProtocol, viewModel: HanvestSimulationViewModel)
-    case confirmSell(router: any AppRouterProtocol, viewModel: HanvestSimulationViewModel)
+    case confirmBuy(router: any AppRouterProtocol, viewModel: HanvestSimulationViewModel, buyingViewModel: BuyingStockDataViewModel)
+    case confirmSell(router: any AppRouterProtocol, viewModel: HanvestSimulationViewModel, sellingViewModel: SellingStockDataViewModel)
     case transactionStatus(router: any AppRouterProtocol, transaction: TransactionStatusViewModel)
     
     var id: Self { return self }
