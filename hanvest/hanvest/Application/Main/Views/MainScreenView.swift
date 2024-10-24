@@ -11,7 +11,7 @@ struct MainScreenView: View {
     let router: any AppRouterProtocol
     
     @State private var selectionTab: HanvestMainViewTabSelection = .material
-    @StateObject var simulationViewModel: HanvestSimulationViewModel = .init()
+    @StateObject var simulationViewModel: HanvestSimulationViewModel = LocalSimulationViewModel()
     
     var body: some View {
         VStack {
