@@ -11,14 +11,24 @@ class HanvestProfileHeaderViewModel: ObservableObject {
     @Inject var getUserData: GetUserData
     
     @Published var userBalance: Int
+    @Published var ownedLot: [String : Int]
     
     init(){
         self.userBalance = 0
+        self.ownedLot = [:]
     }
     
     func setup(){
-        if let user = getUserData.execute() {
-            userBalance = user.userBalance
+        guard let user = getUserData.execute() else {
+            print("[ERROR] User data not found")
+            return
+        }
+        
+        self.userBalance = user.userBalance
+        
+        // Map each transaction into ownedLot variable
+        user.userInvestmentTransaction.forEach { transaction in
+            ownedLot[transaction.stockIDName] = (ownedLot[transaction.stockIDName] ?? 0) + transaction.stockLotQuantity
         }
         
     }

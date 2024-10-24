@@ -8,5 +8,8 @@
 class Module05ProfileViewModel: HanvestProfileHeaderViewModel {
     override func setup(){
         self.userBalance = 1000000
+        self.ownedLot = [
+            "BBCA" : 0
+        ]
     }
 }
