@@ -46,17 +46,18 @@ struct HanvestMultipleChoice: View {
             .multilineTextAlignment(.center)
             
             ForEach(Array(options.enumerated()), id: \.element) { index, option in
-                HanvestButtonRadioBehavior(
-                    style: determineButtonStyle(option: option),
-                    selectedButtonID: $selectedButtonID,
-                    title: option,
-                    image: determineButtonImage(option: option),
-                    action: {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            radioButtonAction(option: option)
+                VStack(spacing: 0) {
+                    HanvestButtonMultipleChoiceBehavior(
+                        isChecked: determineButtonStyle(option: option),
+                        selectedButtonID: $selectedButtonID,
+                        title: option,
+                        action: {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                radioButtonAction(option: option)
+                            }
                         }
-                    }
-                )
+                    )
+                }
                 .font(.nunito(.body))
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
@@ -79,33 +80,18 @@ struct HanvestMultipleChoice: View {
         return (question.contains(Module03MultipleChoice.page01.question))
     }
     
-    private func checkAnswer(option: String) -> (isCorrect: Bool, isIncorrect: Bool) {
-        let isCorrect = (option == correctAnswer)
-        let isIncorrect = (option == wrongAnswer)
-        return (isCorrect, isIncorrect)
-    }
-    
-    private func determineButtonStyle(option: String) -> HanvestButtonStyle {
-        let result = checkAnswer(option: option)
-        
-        if result.isCorrect {
-            return .filledCorrect(isDisabled: false)
-        } else if result.isIncorrect {
-            return .filledIncorrect(isDisabled: false)
-        } else {
-            return .bordered(isDisabled: false)
-        }
-    }
-    
-    private func determineButtonImage(option: String) -> Image? {
-        let result = checkAnswer(option: option)
-        
-        if result.isCorrect {
-            return Image(systemName: "checkmark")
-        } else if result.isIncorrect {
-            return Image(systemName: "xmark")
-        } else {
-            return nil
+    private func determineButtonStyle(option: String) -> HanvestButtonMultipleChoiceIsChecked {
+        switch option {
+            case correctAnswer:
+                return .isChecked(checkedCondition: true)
+            case wrongAnswer:
+                return .isChecked(checkedCondition: false)
+            default:
+                if correctAnswer != nil {
+                    return .isNotChecked(checkedCondition: false)
+                } else {
+                    return .isNotChecked(checkedCondition: true)
+                }
         }
     }
 }
